@@ -1,0 +1,208 @@
+{
+  "specializations": [
+    {
+      "id": "plumber",
+      "name": "Instalatér",
+      "icon": "🚿"
+    },
+    {
+      "id": "electrician",
+      "name": "Elektrikář",
+      "icon": "⚡"
+    },
+    {
+      "id": "carpenter",
+      "name": "Truhlář",
+      "icon": "🪚"
+    },
+    {
+      "id": "locksmith",
+      "name": "Zámečník",
+      "icon": "🔐"
+    },
+    {
+      "id": "heating",
+      "name": "Topenář",
+      "icon": "🌡️"
+    },
+    {
+      "id": "painter",
+      "name": "Malíř",
+      "icon": "🎨"
+    },
+    {
+      "id": "handyman",
+      "name": "Údržbář",
+      "icon": "🔧"
+    }
+  ],
+  "pricingPlans": [
+    {
+      "id": "basic",
+      "name": "Základní",
+      "price": 0,
+      "priceText": "ZDARMA",
+      "features": [
+        "Profil řemeslníka",
+        "5 poptávek měsíčně",
+        "Základní zobrazení"
+      ],
+      "notIncluded": [
+        "Odznak \"Ověřeno\"",
+        "Prioritní zobrazení"
+      ]
+    },
+    {
+      "id": "premium",
+      "name": "Premium",
+      "price": 299,
+      "priceText": "299 Kč/měs.",
+      "recommended": true,
+      "features": [
+        "Vše ze Základního",
+        "Neomezené poptávky",
+        "Odznak \"Ověřeno\"",
+        "Prioritní zobrazení"
+      ],
+      "notIncluded": [
+        "Dedikovaný účet"
+      ]
+    },
+    {
+      "id": "enterprise",
+      "name": "Enterprise",
+      "price": 999,
+      "priceText": "999 Kč/měs.",
+      "features": [
+        "Vše z Premium",
+        "Marketing podpora",
+        "API přístup",
+        "Dedikovaný účet",
+        "Statistiky a reporty"
+      ],
+      "notIncluded": []
+    }
+  ],
+  "providers": [
+    {
+      "id": "p1",
+      "name": "Jan Novák",
+      "specialization": "plumber",
+      "location": "Praha 4",
+      "radius": 15,
+      "rating": 4.9,
+      "reviews": 127,
+      "verified": true,
+      "phone": "+420 777 123 456",
+      "email": "jan.novak@email.cz",
+      "description": "15 let zkušeností s vodoinstalací a topenářstvím. Rychlé a spolehlivé služby.",
+      "hourlyRate": 450,
+      "calloutFee": 300
+    },
+    {
+      "id": "p2",
+      "name": "Petr Svoboda",
+      "specialization": "electrician",
+      "location": "Praha 10",
+      "radius": 20,
+      "rating": 4.8,
+      "reviews": 89,
+      "verified": true,
+      "phone": "+420 602 234 567",
+      "email": "petr.svoboda@email.cz",
+      "description": "Certifikovaný elektrikář s oprávněním pro všechny typy elektroinstalací.",
+      "hourlyRate": 500,
+      "calloutFee": 400
+    },
+    {
+      "id": "p3",
+      "name": "Martin Dvořák",
+      "specialization": "carpenter",
+      "location": "Praha 6",
+      "radius": 25,
+      "rating": 4.7,
+      "reviews": 64,
+      "verified": false,
+      "phone": "+420 608 345 678",
+      "email": "martin.dvorak@email.cz",
+      "description": "Zakázková výroba nábytku, opravy dveří a oken, montáže.",
+      "hourlyRate": 400,
+      "calloutFee": 250
+    },
+    {
+      "id": "p4",
+      "name": "Tomáš Horák",
+      "specialization": "locksmith",
+      "location": "Praha 2",
+      "radius": 30,
+      "rating": 4.9,
+      "reviews": 203,
+      "verified": true,
+      "phone": "+420 777 456 789",
+      "email": "tomas.horak@email.cz",
+      "description": "Nouzové otevírání, výměna zámků, bezpečnostní dveře. Dostupný 24/7.",
+      "hourlyRate": 550,
+      "calloutFee": 500
+    },
+    {
+      "id": "p5",
+      "name": "Jiří Procházka",
+      "specialization": "heating",
+      "location": "Praha 5",
+      "radius": 20,
+      "rating": 4.6,
+      "reviews": 78,
+      "verified": true,
+      "phone": "+420 603 567 890",
+      "email": "jiri.prochazka@email.cz",
+      "description": "Montáž a servis kotlů, radiátorů a podlahového topení.",
+      "hourlyRate": 480,
+      "calloutFee": 350
+    },
+    {
+      "id": "p6",
+      "name": "Pavel Černý",
+      "specialization": "painter",
+      "location": "Praha 3",
+      "radius": 15,
+      "rating": 4.8,
+      "reviews": 156,
+      "verified": true,
+      "phone": "+420 604 678 901",
+      "email": "pavel.cerny@email.cz",
+      "description": "Malířské a natěračské práce, tapetování, dekorativní techniky.",
+      "hourlyRate": 350,
+      "calloutFee": 200
+    },
+    {
+      "id": "p7",
+      "name": "Lukáš Veselý",
+      "specialization": "handyman",
+      "location": "Praha 9",
+      "radius": 25,
+      "rating": 4.5,
+      "reviews": 92,
+      "verified": false,
+      "phone": "+420 605 789 012",
+      "email": "lukas.vesely@email.cz",
+      "description": "Drobné opravy a údržba v domácnosti. Montáže nábytku, police, obrazy.",
+      "hourlyRate": 300,
+      "calloutFee": 150
+    },
+    {
+      "id": "p8",
+      "name": "David Kučera",
+      "specialization": "plumber",
+      "location": "Praha 8",
+      "radius": 20,
+      "rating": 4.7,
+      "reviews": 113,
+      "verified": true,
+      "phone": "+420 606 890 123",
+      "email": "david.kucera@email.cz",
+      "description": "Specialista na koupelny a kuchyně. Kompletní rekonstrukce.",
+      "hourlyRate": 480,
+      "calloutFee": 300
+    }
+  ]
+}

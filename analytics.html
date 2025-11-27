@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="FIXO - Výsledky AI analýzy vaší závady">
+    <title>Výsledky analýzy - FIXO</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔧</text></svg>">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">🔧</div>
+                <div>
+                    <div class="logo-text">FIXO</div>
+                    <div class="logo-tagline">AI asistent pro domácí opravy</div>
+                </div>
+            </a>
+
+            <nav class="nav">
+                <a href="index.html" class="nav-link">
+                    <span class="icon">🏠</span>
+                    <span>Domů</span>
+                </a>
+                <a href="repair.html" class="nav-link">
+                    <span class="icon">📚</span>
+                    <span>Návody</span>
+                </a>
+                <a href="partners.html" class="nav-link">
+                    <span class="icon">🛒</span>
+                    <span>E-shopy</span>
+                </a>
+                <a href="providers.html" class="nav-link">
+                    <span class="icon">👷</span>
+                    <span>Řemeslníci</span>
+                </a>
+                <a href="about.html" class="nav-link">
+                    <span class="icon">ℹ️</span>
+                    <span>O aplikaci</span>
+                </a>
+                <a href="contacts.html" class="nav-link">
+                    <span class="icon">📞</span>
+                    <span>Kontakt</span>
+                </a>
+            </nav>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Sidebar s náhledem -->
+            <aside class="sidebar">
+                <div class="sidebar-section">
+                    <h3 class="sidebar-title">Analyzovaná fotografie</h3>
+                    <img id="analyzedImage" src="" alt="Analyzovaná fotografie" style="width: 100%; border-radius: 8px; margin-bottom: 16px;">
+                    <button class="btn btn-secondary btn-block" onclick="window.location.href='index.html'">
+                        <span>📷</span> Nová analýza
+                    </button>
+                </div>
+
+                <div class="sidebar-section">
+                    <h3 class="sidebar-title">Rychlé akce</h3>
+                    <ul class="sidebar-menu">
+                        <li class="sidebar-item">
+                            <a href="#problem" class="sidebar-link">
+                                <span class="icon">🔍</span>
+                                <span>Identifikace</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="#steps" class="sidebar-link">
+                                <span class="icon">📋</span>
+                                <span>Postup opravy</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="#tools" class="sidebar-link">
+                                <span class="icon">🛠️</span>
+                                <span>Nástroje</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="#costs" class="sidebar-link">
+                                <span class="icon">💰</span>
+                                <span>Náklady</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="#providers" class="sidebar-link">
+                                <span class="icon">👷</span>
+                                <span>Řemeslníci</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="sidebar-section">
+                    <h3 class="sidebar-title">Potřebujete pomoc?</h3>
+                    <a href="providers.html" class="btn btn-success btn-block">
+                        <span>👷</span> Najít řemeslníka
+                    </a>
+                </div>
+            </aside>
+
+            <!-- Obsahová oblast -->
+            <div class="content-area">
+                <!-- Loading state -->
+                <div id="loadingState" class="card loading">
+                    <div class="spinner"></div>
+                    <p>Načítám výsledky analýzy...</p>
+                </div>
+
+                <!-- Výsledky analýzy -->
+                <div id="resultsContainer" class="hidden">
+                    <!-- Hlavní výsledek -->
+                    <div class="analysis-result mb-3" id="problem">
+                        <div class="analysis-header">
+                            <h2 id="problemTitle">🔍 Identifikovaný problém</h2>
+                            <div class="badge" id="confidenceBadge">
+                                <span>✓</span>
+                                <span id="confidenceText">85% jistota</span>
+                            </div>
+                        </div>
+                        <div class="analysis-body">
+                            <div class="analysis-section">
+                                <h3>
+                                    <span class="icon">📝</span>
+                                    Popis problému
+                                </h3>
+                                <p id="problemDescription">Načítám...</p>
+                            </div>
+
+                            <div class="analysis-section">
+                                <h3>
+                                    <span class="icon">🎯</span>
+                                    Kategorie
+                                </h3>
+                                <span class="badge badge-primary" id="problemCategory">Koupelna</span>
+                                <span class="badge badge-success" id="problemDifficulty">Snadné</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Varování -->
+                    <div id="warningBox" class="warning-box mb-3 hidden">
+                        <span class="icon">⚠️</span>
+                        <div>
+                            <h4>Bezpečnostní upozornění</h4>
+                            <p id="warningText"></p>
+                        </div>
+                    </div>
+
+                    <!-- Postup opravy -->
+                    <div class="card mb-3" id="steps">
+                        <div class="card-header">
+                            <h2 class="card-title">
+                                <span class="icon">📋</span>
+                                Postup opravy krok za krokem
+                            </h2>
+                            <span class="badge badge-primary" id="totalTime">~30 min</span>
+                        </div>
+                        <ol class="repair-steps" id="repairSteps">
+                            <!-- Kroky budou vloženy JavaScriptem -->
+                        </ol>
+                    </div>
+
+                    <!-- Nástroje a materiál -->
+                    <div class="grid grid-2 mb-3">
+                        <div class="card" id="tools">
+                            <div class="card-header">
+                                <h2 class="card-title">
+                                    <span class="icon">🛠️</span>
+                                    Potřebné nástroje
+                                </h2>
+                            </div>
+                            <div class="tools-list" id="toolsList">
+                                <!-- Nástroje budou vloženy JavaScriptem -->
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header">
+                                <h2 class="card-title">
+                                    <span class="icon">🧰</span>
+                                    Materiál
+                                </h2>
+                            </div>
+                            <div class="tools-list" id="materialsList">
+                                <!-- Materiál bude vložen JavaScriptem -->
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Náklady -->
+                    <div class="card mb-3" id="costs">
+                        <div class="card-header">
+                            <h2 class="card-title">
+                                <span class="icon">💰</span>
+                                Odhad nákladů
+                            </h2>
+                        </div>
+                        <div class="cost-comparison">
+                            <div class="cost-card diy">
+                                <h4>🔧 Opravíte sami (DIY)</h4>
+                                <div class="price" id="diyCost">150 - 300 Kč</div>
+                                <div class="savings" id="savings">Ušetříte: 1 500 - 2 700 Kč</div>
+                            </div>
+                            <div class="cost-card pro">
+                                <h4>👷 Profesionální oprava</h4>
+                                <div class="price" id="proCost">1 500 - 3 000 Kč</div>
+                                <p style="font-size: 12px; color: #666; margin-top: 8px;">Včetně práce a dopravy</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Kde koupit -->
+                    <div class="card mb-3">
+                        <div class="card-header">
+                            <h2 class="card-title">
+                                <span class="icon">🛒</span>
+                                Kde koupit materiál
+                            </h2>
+                        </div>
+                        <div class="grid grid-4">
+                            <a href="https://www.hornbach.cz" target="_blank" rel="noopener" class="partner-card">
+                                <div style="font-size: 32px; margin-bottom: 8px;">🏪</div>
+                                <h3>Hornbach</h3>
+                                <p>Hobby market</p>
+                            </a>
+                            <a href="https://www.obi.cz" target="_blank" rel="noopener" class="partner-card">
+                                <div style="font-size: 32px; margin-bottom: 8px;">🏬</div>
+                                <h3>OBI</h3>
+                                <p>Stavební market</p>
+                            </a>
+                            <a href="https://www.bauhaus.cz" target="_blank" rel="noopener" class="partner-card">
+                                <div style="font-size: 32px; margin-bottom: 8px;">🏗️</div>
+                                <h3>Bauhaus</h3>
+                                <p>Specialista</p>
+                            </a>
+                            <a href="https://www.alza.cz" target="_blank" rel="noopener" class="partner-card">
+                                <div style="font-size: 32px; margin-bottom: 8px;">📦</div>
+                                <h3>Alza</h3>
+                                <p>E-shop</p>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Řemeslníci v okolí -->
+                    <div class="card" id="providers">
+                        <div class="card-header">
+                            <h2 class="card-title">
+                                <span class="icon">👷</span>
+                                Řemeslníci ve vašem okolí
+                            </h2>
+                            <a href="providers.html" class="btn btn-outline">Zobrazit všechny</a>
+                        </div>
+                        <div class="grid grid-2" id="providersList">
+                            <!-- Řemeslníci budou vloženi JavaScriptem -->
+                        </div>
+                    </div>
+
+                    <!-- Disclaimer -->
+                    <div class="info-box mt-3">
+                        <span class="icon">ℹ️</span>
+                        <p>
+                            <strong>Upozornění:</strong> AI analýza je orientační a slouží jako vodítko.
+                            U složitějších oprav, zejména elektroinstalace a plynových zařízení,
+                            vždy konzultujte s odborníkem. FIXO nenese odpovědnost za škody
+                            způsobené nesprávnou opravou.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Prázdný stav -->
+                <div id="emptyState" class="card text-center hidden">
+                    <div style="padding: 60px;">
+                        <div style="font-size: 64px; margin-bottom: 16px;">📷</div>
+                        <h2>Žádná analýza k zobrazení</h2>
+                        <p style="color: #666; margin-bottom: 24px;">Nejprve nahrajte fotografii závady na hlavní stránce.</p>
+                        <a href="index.html" class="btn btn-primary btn-lg">
+                            <span>🏠</span> Přejít na hlavní stránku
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div>© 2024 FIXO - AI Asistent pro domácí opravy</div>
+            <div class="footer-links">
+                <a href="privacy.html">Ochrana soukromí</a>
+                <a href="terms.html">Podmínky použití</a>
+                <a href="about.html">O aplikaci</a>
+                <a href="contacts.html">Kontakt</a>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="js/app.js"></script>
+    <script>
+        // Inicializace stránky analýzy
+        document.addEventListener('DOMContentLoaded', function() {
+            loadAnalysisResults();
+        });
+    </script>
+</body>
+</html>

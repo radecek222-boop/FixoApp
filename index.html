@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="FIXO - AI asistent pro diagnostiku a opravu domácích závad. Vyfoťte problém, získejte návod na opravu.">
+    <meta name="keywords" content="opravy, domácnost, DIY, řemeslník, AI diagnostika">
+    <meta name="author" content="FIXO">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="FIXO - AI Asistent pro domácí opravy">
+    <meta property="og:description" content="Vyfoťte problém → AI diagnostika → Opravte sami nebo najděte řemeslníka">
+    <meta property="og:type" content="website">
+
+    <!-- PWA -->
+    <meta name="theme-color" content="#2563eb">
+    <link rel="manifest" href="manifest.json">
+
+    <title>FIXO - AI Asistent pro domácí opravy</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔧</text></svg>">
+</head>
+<body>
+    <div class="app-container fullscreen-layout">
+        <!-- Header -->
+        <header class="header">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">🔧</div>
+                <div>
+                    <div class="logo-text">FIXO</div>
+                    <div class="logo-tagline">AI asistent pro domácí opravy</div>
+                </div>
+            </a>
+
+            <nav class="nav">
+                <a href="index.html" class="nav-link active">
+                    <span class="icon">🏠</span>
+                    <span>Domů</span>
+                </a>
+                <a href="repair.html" class="nav-link">
+                    <span class="icon">📚</span>
+                    <span>Návody</span>
+                </a>
+                <a href="partners.html" class="nav-link">
+                    <span class="icon">🛒</span>
+                    <span>E-shopy</span>
+                </a>
+                <a href="providers.html" class="nav-link">
+                    <span class="icon">👷</span>
+                    <span>Řemeslníci</span>
+                </a>
+                <a href="about.html" class="nav-link">
+                    <span class="icon">ℹ️</span>
+                    <span>O aplikaci</span>
+                </a>
+                <a href="contacts.html" class="nav-link">
+                    <span class="icon">📞</span>
+                    <span>Kontakt</span>
+                </a>
+            </nav>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="content-area">
+                <!-- Hero sekce -->
+                <section class="hero">
+                    <h1>🔧 Vyfoťte problém, opravte ho sami!</h1>
+                    <p>Umělá inteligence analyzuje fotografii a navrhne řešení. Ušetřete tisíce korun za řemeslníka.</p>
+                </section>
+
+                <!-- Hlavní sekce -->
+                <section class="main-section">
+                    <!-- Upload karta -->
+                    <div class="card upload-card">
+                        <div class="card-header">
+                            <h2 class="card-title">
+                                <span class="icon">📸</span>
+                                Nahrát fotografii závady
+                            </h2>
+                        </div>
+                        <div class="card-content">
+                            <div class="upload-zone" id="uploadZone">
+                                <div class="icon">📷</div>
+                                <h3>Klikněte nebo přetáhněte fotografii</h3>
+                                <p>Podporované formáty: JPG, PNG, WEBP (max 10 MB)</p>
+                                <input type="file" id="fileInput" accept="image/*" capture="environment">
+                                <button class="btn btn-primary btn-lg" onclick="document.getElementById('fileInput').click()">
+                                    <span>📸</span> Vybrat fotografii
+                                </button>
+                            </div>
+
+                            <!-- Náhled obrázku -->
+                            <div id="previewContainer" class="hidden">
+                                <img id="imagePreview" class="image-preview show" alt="Náhled fotografie">
+                                <div class="flex gap-2 mt-2">
+                                    <button class="btn btn-primary btn-lg btn-block" id="analyzeBtn">
+                                        <span>🔍</span> Analyzovat problém
+                                    </button>
+                                    <button class="btn btn-secondary" id="clearBtn">
+                                        <span>✖️</span> Zrušit
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Loading stav -->
+                            <div id="loadingState" class="loading hidden">
+                                <div class="spinner"></div>
+                                <p>AI analyzuje váš problém...</p>
+                            </div>
+
+                            <!-- Info box -->
+                            <div class="info-box mt-3">
+                                <span class="icon">💡</span>
+                                <p><strong>Tip:</strong> Pro nejlepší výsledky foťte zblízka, s dobrým osvětlením. Fotografie se nikam neukládají - zpracovávají se pouze v paměti.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Kategorie karta -->
+                    <div class="card categories-card">
+                        <div class="card-header">
+                            <h2 class="card-title">
+                                <span class="icon">📂</span>
+                                Procházet podle kategorie
+                            </h2>
+                        </div>
+                        <div class="card-content">
+                            <div class="grid grid-3">
+                                <a href="repair.html?category=bathroom" class="category-card">
+                                    <span class="icon">🚿</span>
+                                    <h3>Koupelna</h3>
+                                    <p>Kohoutek, WC, sprcha</p>
+                                </a>
+                                <a href="repair.html?category=house" class="category-card">
+                                    <span class="icon">🏠</span>
+                                    <h3>Dům</h3>
+                                    <p>Dveře, okna, podlahy</p>
+                                </a>
+                                <a href="repair.html?category=electrical" class="category-card">
+                                    <span class="icon">⚡</span>
+                                    <h3>Elektřina</h3>
+                                    <p>Zásuvky, vypínače</p>
+                                </a>
+                                <a href="repair.html?category=heating" class="category-card">
+                                    <span class="icon">🌡️</span>
+                                    <h3>Topení</h3>
+                                    <p>Radiátor, termostat</p>
+                                </a>
+                                <a href="repair.html?category=kitchen" class="category-card">
+                                    <span class="icon">🍳</span>
+                                    <h3>Kuchyň</h3>
+                                    <p>Dřez, spotřebiče</p>
+                                </a>
+                                <a href="repair.html?category=garden" class="category-card">
+                                    <span class="icon">🌱</span>
+                                    <h3>Zahrada</h3>
+                                    <p>Sekačka, závlaha</p>
+                                </a>
+                            </div>
+
+                            <!-- Statistiky -->
+                            <div class="stats-grid mt-3">
+                                <div class="stat-card">
+                                    <div class="icon">📚</div>
+                                    <div class="value">500+</div>
+                                    <div class="label">Návodů</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="icon">👷</div>
+                                    <div class="value">150+</div>
+                                    <div class="label">Řemeslníků</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="icon">⭐</div>
+                                    <div class="value">4.8</div>
+                                    <div class="label">Hodnocení</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="icon">💰</div>
+                                    <div class="value">2-5k</div>
+                                    <div class="label">Úspora Kč</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div>© 2024 FIXO - AI Asistent pro domácí opravy</div>
+            <div class="footer-links">
+                <a href="privacy.html">Ochrana soukromí</a>
+                <a href="terms.html">Podmínky použití</a>
+                <a href="about.html">O aplikaci</a>
+                <a href="contacts.html">Kontakt</a>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Consent Banner -->
+    <div class="consent-banner" id="consentBanner">
+        <p>
+            🍪 Tato aplikace používá cookies pro zajištění lepšího uživatelského zážitku.
+            Používáním aplikace souhlasíte s našimi <a href="terms.html">podmínkami použití</a>
+            a <a href="privacy.html">zásadami ochrany soukromí</a>.
+        </p>
+        <div class="consent-buttons">
+            <button class="btn btn-secondary" onclick="declineCookies()">Odmítnout</button>
+            <button class="btn btn-primary" onclick="acceptCookies()">Souhlasím</button>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="js/app.js"></script>
+</body>
+</html>

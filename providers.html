@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="FIXO - Najděte ověřené řemeslníky ve vašem okolí">
+    <title>Řemeslníci - FIXO</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔧</text></svg>">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">🔧</div>
+                <div>
+                    <div class="logo-text">FIXO</div>
+                    <div class="logo-tagline">AI asistent pro domácí opravy</div>
+                </div>
+            </a>
+
+            <nav class="nav">
+                <a href="index.html" class="nav-link">
+                    <span class="icon">🏠</span>
+                    <span>Domů</span>
+                </a>
+                <a href="repair.html" class="nav-link">
+                    <span class="icon">📚</span>
+                    <span>Návody</span>
+                </a>
+                <a href="partners.html" class="nav-link">
+                    <span class="icon">🛒</span>
+                    <span>E-shopy</span>
+                </a>
+                <a href="providers.html" class="nav-link active">
+                    <span class="icon">👷</span>
+                    <span>Řemeslníci</span>
+                </a>
+                <a href="about.html" class="nav-link">
+                    <span class="icon">ℹ️</span>
+                    <span>O aplikaci</span>
+                </a>
+                <a href="contacts.html" class="nav-link">
+                    <span class="icon">📞</span>
+                    <span>Kontakt</span>
+                </a>
+            </nav>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Sidebar s filtry -->
+            <aside class="sidebar">
+                <div class="sidebar-section">
+                    <h3 class="sidebar-title">Vyhledávání</h3>
+                    <div class="search-box">
+                        <span class="icon">🔍</span>
+                        <input type="text" id="searchProvider" placeholder="Hledat řemeslníka...">
+                    </div>
+                </div>
+
+                <div class="sidebar-section">
+                    <h3 class="sidebar-title">Vaše lokalita</h3>
+                    <div class="form-group">
+                        <input type="text" class="form-input" id="locationInput" placeholder="PSČ nebo město">
+                    </div>
+                    <button class="btn btn-secondary btn-block" onclick="detectLocation()">
+                        <span>📍</span> Zjistit polohu
+                    </button>
+                </div>
+
+                <div class="sidebar-section">
+                    <h3 class="sidebar-title">Specializace</h3>
+                    <ul class="sidebar-menu">
+                        <li class="sidebar-item">
+                            <a href="#" class="sidebar-link active" data-spec="all">
+                                <span class="icon">👷</span>
+                                <span>Všechny obory</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="#" class="sidebar-link" data-spec="plumber">
+                                <span class="icon">🚿</span>
+                                <span>Instalatér</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="#" class="sidebar-link" data-spec="electrician">
+                                <span class="icon">⚡</span>
+                                <span>Elektrikář</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="#" class="sidebar-link" data-spec="carpenter">
+                                <span class="icon">🪚</span>
+                                <span>Truhlář</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="#" class="sidebar-link" data-spec="locksmith">
+                                <span class="icon">🔐</span>
+                                <span>Zámečník</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="#" class="sidebar-link" data-spec="heating">
+                                <span class="icon">🌡️</span>
+                                <span>Topenář</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="#" class="sidebar-link" data-spec="painter">
+                                <span class="icon">🎨</span>
+                                <span>Malíř</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="#" class="sidebar-link" data-spec="handyman">
+                                <span class="icon">🔧</span>
+                                <span>Údržbář</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="sidebar-section">
+                    <h3 class="sidebar-title">Jste řemeslník?</h3>
+                    <button class="btn btn-success btn-block" onclick="openRegisterModal()">
+                        <span>📝</span> Registrovat se
+                    </button>
+                    <p style="font-size: 12px; color: #666; margin-top: 8px; text-align: center;">
+                        Získejte nové zakázky od zákazníků ve vašem okolí
+                    </p>
+                </div>
+            </aside>
+
+            <!-- Obsahová oblast -->
+            <div class="content-area">
+                <!-- Hlavička -->
+                <div class="flex-between mb-3">
+                    <h1 style="font-size: 1.5rem;">
+                        <span>👷</span> Ověření řemeslníci
+                        <span style="color: #666; font-weight: normal;" id="providerCount">(150+ řemeslníků)</span>
+                    </h1>
+                    <div class="flex gap-2">
+                        <select class="form-select" id="sortProviders" style="width: auto;">
+                            <option value="rating">Podle hodnocení</option>
+                            <option value="distance">Podle vzdálenosti</option>
+                            <option value="price">Podle ceny</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Ceníky plánů -->
+                <div class="card mb-3">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <span class="icon">💼</span>
+                            Plány pro řemeslníky
+                        </h2>
+                    </div>
+                    <div class="grid grid-3">
+                        <div class="partner-card" style="border: 2px solid #e5e7eb;">
+                            <div style="font-size: 32px; margin-bottom: 8px;">📋</div>
+                            <h3>Základní</h3>
+                            <div style="font-size: 2rem; font-weight: 700; color: #10b981; margin: 12px 0;">ZDARMA</div>
+                            <ul style="text-align: left; font-size: 14px; color: #666; list-style: none; padding: 0;">
+                                <li>✓ Profil řemeslníka</li>
+                                <li>✓ 5 poptávek měsíčně</li>
+                                <li>✓ Základní zobrazení</li>
+                                <li style="color: #ccc;">✗ Odznak "Ověřeno"</li>
+                                <li style="color: #ccc;">✗ Prioritní zobrazení</li>
+                            </ul>
+                        </div>
+                        <div class="partner-card" style="border: 2px solid #2563eb;">
+                            <span class="badge badge-primary" style="margin-bottom: 8px;">Doporučeno</span>
+                            <div style="font-size: 32px; margin-bottom: 8px;">⭐</div>
+                            <h3>Premium</h3>
+                            <div style="font-size: 2rem; font-weight: 700; color: #2563eb; margin: 12px 0;">299 Kč/měs.</div>
+                            <ul style="text-align: left; font-size: 14px; color: #666; list-style: none; padding: 0;">
+                                <li>✓ Vše ze Základního</li>
+                                <li>✓ Neomezené poptávky</li>
+                                <li>✓ Odznak "Ověřeno"</li>
+                                <li>✓ Prioritní zobrazení</li>
+                                <li style="color: #ccc;">✗ Dedikovaný účet</li>
+                            </ul>
+                        </div>
+                        <div class="partner-card" style="border: 2px solid #f59e0b;">
+                            <div style="font-size: 32px; margin-bottom: 8px;">🏆</div>
+                            <h3>Enterprise</h3>
+                            <div style="font-size: 2rem; font-weight: 700; color: #f59e0b; margin: 12px 0;">999 Kč/měs.</div>
+                            <ul style="text-align: left; font-size: 14px; color: #666; list-style: none; padding: 0;">
+                                <li>✓ Vše z Premium</li>
+                                <li>✓ Marketing podpora</li>
+                                <li>✓ API přístup</li>
+                                <li>✓ Dedikovaný účet</li>
+                                <li>✓ Statistiky a reporty</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Seznam řemeslníků -->
+                <div class="grid grid-2" id="providersGrid">
+                    <!-- Řemeslníci budou načteni JavaScriptem -->
+                </div>
+
+                <!-- Loading -->
+                <div id="loadingState" class="loading hidden">
+                    <div class="spinner"></div>
+                    <p>Načítám řemeslníky...</p>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div>© 2024 FIXO - AI Asistent pro domácí opravy</div>
+            <div class="footer-links">
+                <a href="privacy.html">Ochrana soukromí</a>
+                <a href="terms.html">Podmínky použití</a>
+                <a href="about.html">O aplikaci</a>
+                <a href="contacts.html">Kontakt</a>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Modal pro registraci řemeslníka -->
+    <div class="modal-overlay" id="registerModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>📝 Registrace řemeslníka</h3>
+                <button class="modal-close" onclick="closeRegisterModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="registerForm">
+                    <div class="grid grid-2">
+                        <div class="form-group">
+                            <label class="form-label">Jméno a příjmení *</label>
+                            <input type="text" class="form-input" required placeholder="Jan Novák">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Telefon *</label>
+                            <input type="tel" class="form-input" required placeholder="+420 123 456 789">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">E-mail *</label>
+                        <input type="email" class="form-input" required placeholder="jan@example.cz">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Specializace *</label>
+                        <select class="form-select" required>
+                            <option value="">Vyberte specializaci</option>
+                            <option value="plumber">Instalatér</option>
+                            <option value="electrician">Elektrikář</option>
+                            <option value="carpenter">Truhlář</option>
+                            <option value="locksmith">Zámečník</option>
+                            <option value="heating">Topenář</option>
+                            <option value="painter">Malíř</option>
+                            <option value="handyman">Údržbář</option>
+                        </select>
+                    </div>
+                    <div class="grid grid-2">
+                        <div class="form-group">
+                            <label class="form-label">Město *</label>
+                            <input type="text" class="form-input" required placeholder="Praha">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">PSČ *</label>
+                            <input type="text" class="form-input" required placeholder="110 00">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">O vás (volitelné)</label>
+                        <textarea class="form-textarea" placeholder="Krátký popis vaší činnosti, zkušeností..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-checkbox">
+                            <input type="checkbox" required>
+                            <span>Souhlasím s <a href="terms.html" target="_blank">obchodními podmínkami</a> a <a href="privacy.html" target="_blank">zpracováním osobních údajů</a> *</span>
+                        </label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeRegisterModal()">Zrušit</button>
+                <button class="btn btn-primary" onclick="submitRegistration()">
+                    <span>✓</span> Odeslat registraci
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal pro detail řemeslníka -->
+    <div class="modal-overlay" id="providerDetailModal">
+        <div class="modal" style="max-width: 600px;">
+            <div class="modal-header">
+                <h3 id="providerDetailTitle">Detail řemeslníka</h3>
+                <button class="modal-close" onclick="closeProviderDetail()">&times;</button>
+            </div>
+            <div class="modal-body" id="providerDetailBody">
+                <!-- Obsah bude vložen JavaScriptem -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeProviderDetail()">Zavřít</button>
+                <a href="tel:" class="btn btn-success" id="callProviderBtn">
+                    <span>📞</span> Zavolat
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="js/app.js"></script>
+    <script>
+        // Inicializace stránky řemeslníků
+        document.addEventListener('DOMContentLoaded', function() {
+            initProvidersPage();
+        });
+    </script>
+</body>
+</html>

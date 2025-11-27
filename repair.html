@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="FIXO - Databáze návodů na opravu domácích závad">
+    <title>Návody na opravu - FIXO</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔧</text></svg>">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <a href="index.html" class="logo">
+                <div class="logo-icon">🔧</div>
+                <div>
+                    <div class="logo-text">FIXO</div>
+                    <div class="logo-tagline">AI asistent pro domácí opravy</div>
+                </div>
+            </a>
+
+            <nav class="nav">
+                <a href="index.html" class="nav-link">
+                    <span class="icon">🏠</span>
+                    <span>Domů</span>
+                </a>
+                <a href="repair.html" class="nav-link active">
+                    <span class="icon">📚</span>
+                    <span>Návody</span>
+                </a>
+                <a href="partners.html" class="nav-link">
+                    <span class="icon">🛒</span>
+                    <span>E-shopy</span>
+                </a>
+                <a href="providers.html" class="nav-link">
+                    <span class="icon">👷</span>
+                    <span>Řemeslníci</span>
+                </a>
+                <a href="about.html" class="nav-link">
+                    <span class="icon">ℹ️</span>
+                    <span>O aplikaci</span>
+                </a>
+                <a href="contacts.html" class="nav-link">
+                    <span class="icon">📞</span>
+                    <span>Kontakt</span>
+                </a>
+            </nav>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Sidebar s kategoriemi -->
+            <aside class="sidebar">
+                <div class="sidebar-section">
+                    <h3 class="sidebar-title">Vyhledávání</h3>
+                    <div class="search-box">
+                        <span class="icon">🔍</span>
+                        <input type="text" id="searchInput" placeholder="Hledat návod...">
+                    </div>
+                </div>
+
+                <div class="sidebar-section">
+                    <h3 class="sidebar-title">Kategorie</h3>
+                    <ul class="sidebar-menu">
+                        <li class="sidebar-item">
+                            <a href="#" class="sidebar-link active" data-category="all">
+                                <span class="icon">📋</span>
+                                <span>Všechny návody</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="#" class="sidebar-link" data-category="bathroom">
+                                <span class="icon">🚿</span>
+                                <span>Koupelna</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="#" class="sidebar-link" data-category="house">
+                                <span class="icon">🏠</span>
+                                <span>Dům</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="#" class="sidebar-link" data-category="electrical">
+                                <span class="icon">⚡</span>
+                                <span>Elektřina</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="#" class="sidebar-link" data-category="heating">
+                                <span class="icon">🌡️</span>
+                                <span>Topení</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="#" class="sidebar-link" data-category="kitchen">
+                                <span class="icon">🍳</span>
+                                <span>Kuchyň</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="#" class="sidebar-link" data-category="garden">
+                                <span class="icon">🌱</span>
+                                <span>Zahrada</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="sidebar-section">
+                    <h3 class="sidebar-title">Filtr obtížnosti</h3>
+                    <ul class="sidebar-menu">
+                        <li class="sidebar-item">
+                            <a href="#" class="sidebar-link" data-difficulty="all">
+                                <span class="icon">📊</span>
+                                <span>Všechny úrovně</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="#" class="sidebar-link" data-difficulty="easy">
+                                <span class="icon">🟢</span>
+                                <span>Snadné</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="#" class="sidebar-link" data-difficulty="medium">
+                                <span class="icon">🟡</span>
+                                <span>Střední</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item">
+                            <a href="#" class="sidebar-link" data-difficulty="hard">
+                                <span class="icon">🔴</span>
+                                <span>Náročné</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="sidebar-section">
+                    <h3 class="sidebar-title">Potřebujete pomoc?</h3>
+                    <a href="index.html" class="btn btn-primary btn-block mb-2">
+                        <span>📷</span> AI Analýza
+                    </a>
+                    <a href="providers.html" class="btn btn-success btn-block">
+                        <span>👷</span> Najít řemeslníka
+                    </a>
+                </div>
+            </aside>
+
+            <!-- Obsahová oblast -->
+            <div class="content-area">
+                <!-- Hlavička s počtem -->
+                <div class="flex-between mb-3">
+                    <h1 style="font-size: 1.5rem;">
+                        <span id="categoryIcon">📚</span>
+                        <span id="categoryTitle">Všechny návody</span>
+                        <span style="color: #666; font-weight: normal;" id="repairCount">(500+ návodů)</span>
+                    </h1>
+                </div>
+
+                <!-- Grid s návody -->
+                <div class="grid grid-3" id="repairsGrid">
+                    <!-- Návody budou načteny JavaScriptem -->
+                </div>
+
+                <!-- Loading -->
+                <div id="loadingState" class="loading hidden">
+                    <div class="spinner"></div>
+                    <p>Načítám návody...</p>
+                </div>
+
+                <!-- Prázdný stav -->
+                <div id="emptyState" class="card text-center hidden">
+                    <div style="padding: 40px;">
+                        <div style="font-size: 48px; margin-bottom: 16px;">🔍</div>
+                        <h3>Žádné návody nenalezeny</h3>
+                        <p style="color: #666;">Zkuste změnit vyhledávání nebo kategorii.</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div>© 2024 FIXO - AI Asistent pro domácí opravy</div>
+            <div class="footer-links">
+                <a href="privacy.html">Ochrana soukromí</a>
+                <a href="terms.html">Podmínky použití</a>
+                <a href="about.html">O aplikaci</a>
+                <a href="contacts.html">Kontakt</a>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Modal pro detail opravy -->
+    <div class="modal-overlay" id="repairModal">
+        <div class="modal" style="max-width: 800px;">
+            <div class="modal-header">
+                <h3 id="modalTitle">Detail opravy</h3>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Obsah bude vložen JavaScriptem -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal()">Zavřít</button>
+                <a href="providers.html" class="btn btn-success">
+                    <span>👷</span> Najít řemeslníka
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <script src="js/app.js"></script>
+    <script>
+        // Inicializace stránky návodů
+        document.addEventListener('DOMContentLoaded', function() {
+            initRepairPage();
+        });
+    </script>
+</body>
+</html>

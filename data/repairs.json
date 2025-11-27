@@ -1,0 +1,262 @@
+{
+  "categories": [
+    {
+      "id": "bathroom",
+      "name": "Koupelna",
+      "icon": "🚿",
+      "description": "Kohoutek, WC, sprcha, vana"
+    },
+    {
+      "id": "house",
+      "name": "Dům",
+      "icon": "🏠",
+      "description": "Dveře, okna, zámky, podlahy"
+    },
+    {
+      "id": "electrical",
+      "name": "Elektřina",
+      "icon": "⚡",
+      "description": "Zásuvky, vypínače, žárovky"
+    },
+    {
+      "id": "heating",
+      "name": "Topení",
+      "icon": "🌡️",
+      "description": "Radiátor, termostat, kotel"
+    },
+    {
+      "id": "kitchen",
+      "name": "Kuchyň",
+      "icon": "🍳",
+      "description": "Dřez, sporák, myčka"
+    },
+    {
+      "id": "garden",
+      "name": "Zahrada",
+      "icon": "🌱",
+      "description": "Sekačka, plot, závlaha"
+    }
+  ],
+  "repairs": [
+    {
+      "id": "faucet-drip",
+      "category": "bathroom",
+      "title": "Kapající kohoutek",
+      "description": "Výměna těsnění a oprava kapání",
+      "icon": "🚿",
+      "difficulty": "easy",
+      "time": "20 min",
+      "diyCost": "50-150 Kč",
+      "proCost": "800-1500 Kč"
+    },
+    {
+      "id": "toilet-flush",
+      "category": "bathroom",
+      "title": "Netěsnící WC",
+      "description": "Oprava splachovacího mechanismu",
+      "icon": "🚽",
+      "difficulty": "medium",
+      "time": "30 min",
+      "diyCost": "100-400 Kč",
+      "proCost": "1000-2000 Kč"
+    },
+    {
+      "id": "drain-clog",
+      "category": "bathroom",
+      "title": "Ucpaný odpad",
+      "description": "Čištění ucpaného odpadu v umyvadle",
+      "icon": "🚰",
+      "difficulty": "easy",
+      "time": "25 min",
+      "diyCost": "50-200 Kč",
+      "proCost": "800-1500 Kč"
+    },
+    {
+      "id": "shower-head",
+      "category": "bathroom",
+      "title": "Zanešená sprchová hlavice",
+      "description": "Odstranění vodního kamene ze sprchy",
+      "icon": "🚿",
+      "difficulty": "easy",
+      "time": "30 min",
+      "diyCost": "50-100 Kč",
+      "proCost": "500-800 Kč"
+    },
+    {
+      "id": "door-squeak",
+      "category": "house",
+      "title": "Vrzající dveře",
+      "description": "Mazání pantů a seřízení dveří",
+      "icon": "🚪",
+      "difficulty": "easy",
+      "time": "10 min",
+      "diyCost": "80-150 Kč",
+      "proCost": "500-800 Kč"
+    },
+    {
+      "id": "window-seal",
+      "category": "house",
+      "title": "Netěsnící okno",
+      "description": "Výměna těsnění a seřízení oken",
+      "icon": "🪟",
+      "difficulty": "medium",
+      "time": "40 min",
+      "diyCost": "100-300 Kč",
+      "proCost": "1500-3000 Kč"
+    },
+    {
+      "id": "door-lock",
+      "category": "house",
+      "title": "Zaseknutý zámek",
+      "description": "Mazání a oprava dveřního zámku",
+      "icon": "🔐",
+      "difficulty": "easy",
+      "time": "15 min",
+      "diyCost": "100-200 Kč",
+      "proCost": "800-1500 Kč"
+    },
+    {
+      "id": "floor-squeak",
+      "category": "house",
+      "title": "Vrzající podlaha",
+      "description": "Oprava vrzající plovoucí podlahy",
+      "icon": "🏠",
+      "difficulty": "medium",
+      "time": "45 min",
+      "diyCost": "200-500 Kč",
+      "proCost": "1500-3000 Kč"
+    },
+    {
+      "id": "outlet-fix",
+      "category": "electrical",
+      "title": "Nefunkční zásuvka",
+      "description": "Kontrola a oprava elektrické zásuvky",
+      "icon": "🔌",
+      "difficulty": "medium",
+      "time": "20 min",
+      "diyCost": "0-200 Kč",
+      "proCost": "1000-2000 Kč"
+    },
+    {
+      "id": "light-switch",
+      "category": "electrical",
+      "title": "Výměna vypínače",
+      "description": "Instalace nového světelného vypínače",
+      "icon": "💡",
+      "difficulty": "medium",
+      "time": "20 min",
+      "diyCost": "50-200 Kč",
+      "proCost": "800-1500 Kč"
+    },
+    {
+      "id": "lamp-install",
+      "category": "electrical",
+      "title": "Montáž lustru",
+      "description": "Instalace stropního svítidla",
+      "icon": "💡",
+      "difficulty": "medium",
+      "time": "30 min",
+      "diyCost": "0-100 Kč",
+      "proCost": "800-1500 Kč"
+    },
+    {
+      "id": "radiator-bleed",
+      "category": "heating",
+      "title": "Odvzdušnění radiátoru",
+      "description": "Odstranění vzduchu z topného systému",
+      "icon": "🌡️",
+      "difficulty": "easy",
+      "time": "15 min",
+      "diyCost": "0 Kč",
+      "proCost": "500-800 Kč"
+    },
+    {
+      "id": "thermostat-set",
+      "category": "heating",
+      "title": "Nastavení termostatu",
+      "description": "Programování pokojového termostatu",
+      "icon": "🌡️",
+      "difficulty": "easy",
+      "time": "20 min",
+      "diyCost": "0 Kč",
+      "proCost": "500-1000 Kč"
+    },
+    {
+      "id": "radiator-paint",
+      "category": "heating",
+      "title": "Nátěr radiátoru",
+      "description": "Obnova nátěru litinového radiátoru",
+      "icon": "🎨",
+      "difficulty": "medium",
+      "time": "2 hod",
+      "diyCost": "200-500 Kč",
+      "proCost": "1500-3000 Kč"
+    },
+    {
+      "id": "sink-leak",
+      "category": "kitchen",
+      "title": "Kapající sifon",
+      "description": "Oprava netěsnosti pod dřezem",
+      "icon": "🍳",
+      "difficulty": "easy",
+      "time": "20 min",
+      "diyCost": "50-150 Kč",
+      "proCost": "800-1200 Kč"
+    },
+    {
+      "id": "dishwasher-filter",
+      "category": "kitchen",
+      "title": "Čištění filtru myčky",
+      "description": "Údržba filtru myčky nádobí",
+      "icon": "🍽️",
+      "difficulty": "easy",
+      "time": "15 min",
+      "diyCost": "0 Kč",
+      "proCost": "500-800 Kč"
+    },
+    {
+      "id": "oven-clean",
+      "category": "kitchen",
+      "title": "Čištění trouby",
+      "description": "Hloubkové čištění elektrické trouby",
+      "icon": "🍳",
+      "difficulty": "easy",
+      "time": "1 hod",
+      "diyCost": "100-200 Kč",
+      "proCost": "800-1500 Kč"
+    },
+    {
+      "id": "mower-service",
+      "category": "garden",
+      "title": "Údržba sekačky",
+      "description": "Základní servis zahradní sekačky",
+      "icon": "🌱",
+      "difficulty": "medium",
+      "time": "45 min",
+      "diyCost": "200-500 Kč",
+      "proCost": "800-1500 Kč"
+    },
+    {
+      "id": "fence-repair",
+      "category": "garden",
+      "title": "Oprava plotu",
+      "description": "Výměna poškozených latí plotu",
+      "icon": "🏡",
+      "difficulty": "medium",
+      "time": "2 hod",
+      "diyCost": "300-800 Kč",
+      "proCost": "2000-4000 Kč"
+    },
+    {
+      "id": "irrigation-fix",
+      "category": "garden",
+      "title": "Oprava závlahy",
+      "description": "Oprava netěsnosti zahradního zavlažování",
+      "icon": "💧",
+      "difficulty": "easy",
+      "time": "30 min",
+      "diyCost": "100-300 Kč",
+      "proCost": "800-1500 Kč"
+    }
+  ]
+}
