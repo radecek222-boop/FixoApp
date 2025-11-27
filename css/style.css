@@ -701,6 +701,37 @@ body {
     font-size: 12px;
 }
 
+/* Tool links - klikatelné nástroje a materiály */
+a.tool-link {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+}
+
+a.tool-link:hover {
+    background: var(--primary);
+    color: var(--white);
+    border-color: var(--primary);
+    transform: translateY(-1px);
+}
+
+a.tool-link:hover .icon {
+    color: var(--white);
+}
+
+a.tool-link .link-arrow {
+    font-size: 10px;
+    opacity: 0;
+    margin-left: 2px;
+    transition: opacity 0.2s ease;
+}
+
+a.tool-link:hover .link-arrow {
+    opacity: 1;
+}
+
 /* Partner karty - KOMPAKTNÍ */
 .partner-card {
     background: var(--white);

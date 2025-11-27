@@ -15,6 +15,58 @@ const CONFIG = {
     analysisDelay: 2000 // Simulovaná doba analýzy
 };
 
+// Affiliate odkazy pro nástroje a materiály
+const AFFILIATE_LINKS = {
+    // Nástroje
+    'Křížový šroubovák': 'https://www.alza.cz/search.htm?exps=sroubovak%20krizovy',
+    'Plochý šroubovák': 'https://www.alza.cz/search.htm?exps=sroubovak%20plochy',
+    'Šroubovák': 'https://www.alza.cz/search.htm?exps=sada%20sroubovaku',
+    'Nastavitelný klíč': 'https://www.hornbach.cz/shop/Ruční-nářadí/Klíče/S3080/',
+    'Hadřík': 'https://www.hornbach.cz/shop/Čištění/Hadry-a-utěrky/S2789/',
+    'Zkoušečka napětí': 'https://www.alza.cz/search.htm?exps=zkousecka%20napeti',
+    'Zkoušečka': 'https://www.alza.cz/search.htm?exps=zkousecka%20napeti',
+    'Zvon na odpady': 'https://www.hornbach.cz/shop/Sanitární-technika/Vybavení-koupelny/Koupelnové-doplňky/Příslušenství-k-umyvadlu/Zvony/S2457/',
+    'Gumové rukavice': 'https://www.hornbach.cz/shop/Pracovní-oděvy-a-ochranné-pomůcky/Pracovní-rukavice/S2655/',
+    'Imbusový klíč': 'https://www.alza.cz/search.htm?exps=imbusovy%20klic%20sada',
+    'Imbusový klíč (4mm)': 'https://www.alza.cz/search.htm?exps=imbusovy%20klic%204mm',
+    'Nůž': 'https://www.hornbach.cz/shop/Ruční-nářadí/Nože/S3077/',
+    'Odvzdušňovací klíč': 'https://www.hornbach.cz/shop/Topení/Radiátory/Příslušenství-k-radiátorům/S1999/',
+    'Kbelík': 'https://www.hornbach.cz/shop/Stavební-materiál/Kbelíky-a-míchací-nádoby/S2919/',
+    'Klíče': 'https://www.hornbach.cz/shop/Ruční-nářadí/Klíče/S3080/',
+    'WD-40': 'https://www.alza.cz/search.htm?exps=wd-40',
+    'WD-40 nebo mazivo': 'https://www.alza.cz/search.htm?exps=wd-40',
+    'Pilník': 'https://www.hornbach.cz/shop/Ruční-nářadí/Pilníky/S3076/',
+
+    // Materiály
+    'Čistič odpadů (Krtek, apod.)': 'https://www.alza.cz/search.htm?exps=krtek%20cistic%20odpadu',
+    'Čistič odpadů': 'https://www.alza.cz/search.htm?exps=cistic%20odpadu',
+    'Čistič karburátoru': 'https://www.hornbach.cz/shop/Autopotřeby/Péče-o-auto/Čističe-a-odmašťovače/S3252/',
+    'Nové těsnění': 'https://www.hornbach.cz/shop/Sanitární-technika/Vodovodní-baterie/Příslušenství-k-bateriím/Těsnění/S2442/',
+    'Nový O-kroužek': 'https://www.hornbach.cz/shop/Sanitární-technika/Vodovodní-baterie/Příslušenství-k-bateriím/O-kroužky/S2443/',
+    'Nová zásuvka': 'https://www.hornbach.cz/shop/Elektroinstalace/Zásuvky/S1877/',
+    'Nový vypínač': 'https://www.hornbach.cz/shop/Elektroinstalace/Vypínače/S1876/',
+    'Mazivo': 'https://www.alza.cz/search.htm?exps=mazivo%20univerzalni',
+    'Olej na panty': 'https://www.hornbach.cz/shop/Ruční-nářadí/Maziva-a-oleje/S3094/'
+};
+
+/**
+ * Získání affiliate odkazu pro nástroj/materiál
+ */
+function getAffiliateLink(item) {
+    // Přímý match
+    if (AFFILIATE_LINKS[item]) {
+        return AFFILIATE_LINKS[item];
+    }
+    // Částečný match
+    for (const key in AFFILIATE_LINKS) {
+        if (item.toLowerCase().includes(key.toLowerCase()) || key.toLowerCase().includes(item.toLowerCase())) {
+            return AFFILIATE_LINKS[key];
+        }
+    }
+    // Fallback - hledání na Alza
+    return `https://www.alza.cz/search.htm?exps=${encodeURIComponent(item)}`;
+}
+
 // ========================================
 // Utility funkce
 // ========================================
@@ -464,25 +516,27 @@ function loadAnalysisResults() {
         `).join('');
     }
 
-    // Nástroje
+    // Nástroje - klikatelné s affiliate odkazy
     const toolsList = document.getElementById('toolsList');
     if (toolsList) {
         toolsList.innerHTML = result.tools.map(tool => `
-            <div class="tool-item">
+            <a href="${getAffiliateLink(tool)}" target="_blank" rel="noopener" class="tool-item tool-link">
                 <span class="icon">🔧</span>
                 <span>${tool}</span>
-            </div>
+                <span class="link-arrow">→</span>
+            </a>
         `).join('');
     }
 
-    // Materiál
+    // Materiál - klikatelné s affiliate odkazy
     const materialsList = document.getElementById('materialsList');
     if (materialsList) {
         materialsList.innerHTML = result.materials.map(material => `
-            <div class="tool-item">
+            <a href="${getAffiliateLink(material)}" target="_blank" rel="noopener" class="tool-item tool-link">
                 <span class="icon">📦</span>
                 <span>${material}</span>
-            </div>
+                <span class="link-arrow">→</span>
+            </a>
         `).join('');
     }
 
