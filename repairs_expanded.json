@@ -1,0 +1,1459 @@
+{
+  "repairs": {
+    "kohoutek": {
+      "name": "Kohoutek",
+      "category": "voda",
+      "icon": "🚰",
+      "issues": [
+        {
+          "id": "leak",
+          "name": "Kapající kohoutek",
+          "description": "Netěsnící těsnění nebo O-kroužek",
+          "riskScore": 2,
+          "difficulty": "Nízká",
+          "timeEstimate": "15 min",
+          "tools": ["Klíč", "Šroubovák", "Nové těsnění"],
+          "steps": [
+            { "step": 1, "action": "Zavřete hlavní přívod vody", "time": "1 min", "icon": "🚰", "hint": "Ventil je obvykle pod dřezem nebo u vodoměru. Otočte ve směru hodinových ručiček." },
+            { "step": 2, "action": "Otevřete kohoutek pro uvolnění tlaku", "time": "30 s", "icon": "💧", "hint": "Nechte vytéct zbytkovou vodu z potrubí." },
+            { "step": 3, "action": "Odšroubujte hlavici kohoutku", "time": "2 min", "icon": "🔧", "hint": "Použijte klíč s hadříkem, abyste nepoškrábali povrch." },
+            { "step": 4, "action": "Vyjměte staré těsnění nebo O-kroužek", "time": "2 min", "icon": "⚙️", "hint": "Poznamenejte si velikost pro nákup správného náhradního dílu." },
+            { "step": 5, "action": "Vyčistěte sedlo ventilu", "time": "2 min", "icon": "🧹", "hint": "Odstraňte vodní kámen a nečistoty hadříkem." },
+            { "step": 6, "action": "Nasaďte nové těsnění", "time": "2 min", "icon": "🔩", "hint": "Ujistěte se, že těsnění správně sedí v drážce." },
+            { "step": 7, "action": "Sestavte kohoutek zpět", "time": "3 min", "icon": "🔧" },
+            { "step": 8, "action": "Pusťte vodu a zkontrolujte těsnost", "time": "2 min", "icon": "✅", "hint": "Sledujte několik minut, zda nekapá." }
+          ],
+          "safetyWarnings": ["Vždy nejdříve zavřete hlavní přívod vody", "Mějte připravený kbelík", "Nepoužívejte nadměrnou sílu při utahování"]
+        },
+        {
+          "id": "low-pressure",
+          "name": "Slabý tlak vody",
+          "description": "Zanesený perlátor nebo usazeniny v kohoutku",
+          "riskScore": 1,
+          "difficulty": "Velmi nízká",
+          "timeEstimate": "10 min",
+          "tools": ["Kleště", "Ocet", "Kartáček"],
+          "steps": [
+            { "step": 1, "action": "Odšroubujte perlátor z kohoutku", "time": "1 min", "icon": "🔧", "hint": "Perlátor je síťka na konci kohoutku. Většinou jde odšroubovat rukou." },
+            { "step": 2, "action": "Rozeberte perlátor na jednotlivé díly", "time": "1 min", "icon": "⚙️", "hint": "Zapamatujte si pořadí dílů pro správnou montáž." },
+            { "step": 3, "action": "Namočte díly do octa na 30 minut", "time": "30 min", "icon": "🧴", "hint": "Ocet rozpustí vodní kámen." },
+            { "step": 4, "action": "Vyčistěte síťku kartáčkem", "time": "3 min", "icon": "🧹", "hint": "Odstraňte všechny usazeniny z otvorů." },
+            { "step": 5, "action": "Propláchněte čistou vodou", "time": "1 min", "icon": "💧" },
+            { "step": 6, "action": "Sestavte a našroubujte perlátor zpět", "time": "2 min", "icon": "✅" }
+          ],
+          "safetyWarnings": ["Ocet může dráždit oči", "Nepoužívejte agresivní chemikálie"]
+        },
+        {
+          "id": "handle-loose",
+          "name": "Uvolněná páka kohoutku",
+          "description": "Páka se viklá nebo špatně ovládá průtok",
+          "riskScore": 1,
+          "difficulty": "Nízká",
+          "timeEstimate": "10 min",
+          "tools": ["Imbusový klíč", "Šroubovák"],
+          "steps": [
+            { "step": 1, "action": "Najděte zajišťovací šroub páky", "time": "1 min", "icon": "🔍", "hint": "Šroub je obvykle pod krytkou nebo na spodní straně páky." },
+            { "step": 2, "action": "Odstraňte dekorativní krytku", "time": "1 min", "icon": "🔧", "hint": "Krytka se většinou dá vypáčit plochým šroubovákem." },
+            { "step": 3, "action": "Dotáhněte zajišťovací šroub", "time": "2 min", "icon": "🔩", "hint": "Použijte imbusový klíč správné velikosti." },
+            { "step": 4, "action": "Vraťte krytku na místo", "time": "1 min", "icon": "✅" },
+            { "step": 5, "action": "Otestujte páku", "time": "1 min", "icon": "💧", "hint": "Páka by měla jít plynule a držet pozici." }
+          ],
+          "safetyWarnings": ["Nepřetahujte šroub, může prasknout"]
+        }
+      ]
+    },
+    "wc": {
+      "name": "Toaleta",
+      "category": "voda",
+      "icon": "🚽",
+      "issues": [
+        {
+          "id": "running",
+          "name": "Protékající WC",
+          "description": "Vadný plovák nebo těsnění",
+          "riskScore": 2,
+          "difficulty": "Střední",
+          "timeEstimate": "20 min",
+          "tools": ["Klíč", "Nový plovák nebo těsnění"],
+          "steps": [
+            { "step": 1, "action": "Zavřete přívod vody k WC", "time": "1 min", "icon": "🚰", "hint": "Ventil (roháček) je obvykle vlevo dole za mísou." },
+            { "step": 2, "action": "Vyprázdněte nádržku splachováním", "time": "1 min", "icon": "🚽" },
+            { "step": 3, "action": "Sejměte víko nádržky", "time": "30 s", "icon": "📦", "hint": "Položte víko na měkkou podložku, je křehké." },
+            { "step": 4, "action": "Zkontrolujte plovák a ventil", "time": "5 min", "icon": "🔍", "hint": "Plovák by měl volně stoupat a klesat." },
+            { "step": 5, "action": "Vyměňte vadné díly", "time": "10 min", "icon": "🔧" },
+            { "step": 6, "action": "Pusťte vodu a otestujte", "time": "3 min", "icon": "✅", "hint": "Voda by měla přestat téct po naplnění nádržky." }
+          ],
+          "safetyWarnings": ["Použijte gumové rukavice", "Dbejte na hygienu"]
+        },
+        {
+          "id": "tank-leak",
+          "name": "Průsak u WC nádržky",
+          "description": "Voda uniká mezi nádržkou a mísou",
+          "riskScore": 3,
+          "difficulty": "Střední",
+          "timeEstimate": "30 min",
+          "tools": ["Klíč", "Nové těsnění nádržky", "Hadřík"],
+          "steps": [
+            { "step": 1, "action": "Zavřete přívod vody (roháček)", "time": "1 min", "icon": "🚰" },
+            { "step": 2, "action": "Vypusťte nádržku splachováním", "time": "1 min", "icon": "🚽" },
+            { "step": 3, "action": "Vysušte zbylou vodu hadříkem", "time": "2 min", "icon": "🧹" },
+            { "step": 4, "action": "Odpojte přívodní hadici", "time": "2 min", "icon": "🔧", "hint": "Mějte připravenou nádobu na zachycení vody." },
+            { "step": 5, "action": "Odšroubujte matice spojující nádržku s mísou", "time": "5 min", "icon": "🔩", "hint": "Matice jsou na spodku nádržky, obvykle 2 kusy." },
+            { "step": 6, "action": "Opatrně sejměte nádržku", "time": "2 min", "icon": "📦", "hint": "Nádržka je těžká, buďte opatrní." },
+            { "step": 7, "action": "Vyměňte těsnění mezi nádržkou a mísou", "time": "3 min", "icon": "⚙️" },
+            { "step": 8, "action": "Nasaďte nádržku zpět a utáhněte matice", "time": "5 min", "icon": "🔧", "hint": "Utahujte rovnoměrně střídavě obě matice." },
+            { "step": 9, "action": "Připojte hadici a pusťte vodu", "time": "2 min", "icon": "💧" },
+            { "step": 10, "action": "Zkontrolujte těsnost", "time": "5 min", "icon": "✅", "hint": "Sledujte spoje několik minut." }
+          ],
+          "safetyWarnings": ["Nádržka je těžká - zvedejte opatrně", "Pracujte s plastovými díly jemně", "Použijte rukavice"]
+        },
+        {
+          "id": "weak-flush",
+          "name": "Slabý splach",
+          "description": "WC špatně splachuje",
+          "riskScore": 1,
+          "difficulty": "Nízká",
+          "timeEstimate": "15 min",
+          "tools": ["Kartáč", "Ocet"],
+          "steps": [
+            { "step": 1, "action": "Zkontrolujte hladinu vody v nádržce", "time": "2 min", "icon": "🔍", "hint": "Hladina by měla být 2-3 cm pod přepadem." },
+            { "step": 2, "action": "Upravte plovák pro vyšší hladinu", "time": "3 min", "icon": "🔧", "hint": "Otočte stavěcím šroubem nebo ohněte táhlo." },
+            { "step": 3, "action": "Vyčistěte otvory pod okrajem mísy", "time": "5 min", "icon": "🧹", "hint": "Použijte kartáček a ocet pro odstranění usazenin." },
+            { "step": 4, "action": "Zkontrolujte klapku splachování", "time": "3 min", "icon": "⚙️", "hint": "Klapka musí rychle otevřít a zavřít." },
+            { "step": 5, "action": "Otestujte splach", "time": "2 min", "icon": "✅" }
+          ],
+          "safetyWarnings": ["Použijte rukavice", "Větrejte při použití octa"]
+        }
+      ]
+    },
+    "zasuvka": {
+      "name": "Elektrická zásuvka",
+      "category": "elektrina",
+      "icon": "🔌",
+      "issues": [
+        {
+          "id": "not-working",
+          "name": "Nefunkční zásuvka",
+          "description": "Přerušený obvod nebo poškozený kontakt",
+          "riskScore": 8,
+          "difficulty": "Vysoká",
+          "timeEstimate": "30 min",
+          "tools": ["Tester napětí", "Šroubovák", "Nová zásuvka"],
+          "steps": [
+            { "step": 1, "action": "⚠️ VYPNĚTE JISTIČ!", "time": "1 min", "icon": "⚡", "hint": "Najděte správný jistič v rozvaděči a vypněte ho." },
+            { "step": 2, "action": "Ověřte testerem, že není napětí", "time": "2 min", "icon": "🔌", "hint": "Zkontrolujte všechny otvory zásuvky." },
+            { "step": 3, "action": "Demontujte kryt zásuvky", "time": "2 min", "icon": "🔧" },
+            { "step": 4, "action": "Zkontrolujte zapojení vodičů", "time": "5 min", "icon": "🔍", "hint": "Hledejte uvolněné, spálené nebo poškozené vodiče." },
+            { "step": 5, "action": "Dotáhněte uvolněné spoje nebo vyměňte zásuvku", "time": "15 min", "icon": "⚙️" },
+            { "step": 6, "action": "Nasaďte kryt a zapněte jistič", "time": "2 min", "icon": "✅" },
+            { "step": 7, "action": "Otestujte zásuvku", "time": "2 min", "icon": "🔌" }
+          ],
+          "safetyWarnings": ["⚠️ POZOR! Práce s elektřinou může být životu nebezpečná!", "Pokud si nejste jisti, volejte elektrikáře!", "Vždy vypněte jistič před prací", "Použijte tester napětí"]
+        },
+        {
+          "id": "replacement",
+          "name": "Výměna zásuvky",
+          "description": "Kompletní výměna poškozené nebo zastaralé zásuvky",
+          "riskScore": 8,
+          "difficulty": "Vysoká",
+          "timeEstimate": "25 min",
+          "tools": ["Tester napětí", "Šroubovák plochý", "Šroubovák křížový", "Nová zásuvka", "Izolační páska"],
+          "steps": [
+            { "step": 1, "action": "Vypněte hlavní jistič okruhu", "time": "1 min", "icon": "⚡", "hint": "Identifikujte správný jistič v rozvaděči." },
+            { "step": 2, "action": "Ověřte beznapěťový stav zkoušečkou", "time": "2 min", "icon": "🔌", "hint": "Zkontrolujte fázi, nulu i zemnění." },
+            { "step": 3, "action": "Odšroubujte kryt staré zásuvky", "time": "2 min", "icon": "🔧" },
+            { "step": 4, "action": "Vyfotografujte zapojení vodičů", "time": "1 min", "icon": "📷", "hint": "Pro jistotu dokumentujte původní zapojení." },
+            { "step": 5, "action": "Odpojte vodiče ze staré zásuvky", "time": "3 min", "icon": "⚙️", "hint": "Uvolněte šrouby svorek." },
+            { "step": 6, "action": "Připojte vodiče k nové zásuvce", "time": "5 min", "icon": "🔩", "hint": "Hnědá = fáze (L), modrá = nula (N), zelenožlutá = zem (PE)." },
+            { "step": 7, "action": "Zajistěte vodiče v svorkách", "time": "3 min", "icon": "🔧", "hint": "Vodiče musí být pevně uchyceny." },
+            { "step": 8, "action": "Usaďte zásuvku do krabice", "time": "2 min", "icon": "📦" },
+            { "step": 9, "action": "Přišroubujte kryt", "time": "2 min", "icon": "🔩" },
+            { "step": 10, "action": "Zapněte jistič a otestujte", "time": "2 min", "icon": "✅" }
+          ],
+          "safetyWarnings": ["⚠️ PRÁCE POD NAPĚTÍM JE ZAKÁZÁNA!", "Vždy pracujte suchýma rukama", "Používejte izolované nástroje", "Při nejistotě volejte elektrikáře"]
+        },
+        {
+          "id": "sparking",
+          "name": "Jiskřící zásuvka",
+          "description": "Zásuvka jiskří při zapojení spotřebiče",
+          "riskScore": 9,
+          "difficulty": "Vysoká",
+          "timeEstimate": "30 min",
+          "tools": ["Tester napětí", "Šroubovák", "Nová zásuvka"],
+          "steps": [
+            { "step": 1, "action": "OKAMŽITĚ přestaňte zásuvku používat!", "time": "0 min", "icon": "⚠️" },
+            { "step": 2, "action": "Vypněte jistič okruhu", "time": "1 min", "icon": "⚡" },
+            { "step": 3, "action": "Ověřte beznapěťový stav", "time": "2 min", "icon": "🔌" },
+            { "step": 4, "action": "Demontujte zásuvku", "time": "3 min", "icon": "🔧" },
+            { "step": 5, "action": "Zkontrolujte stav kontaktů a vodičů", "time": "5 min", "icon": "🔍", "hint": "Hledejte opálené, zčernalé nebo roztavené části." },
+            { "step": 6, "action": "Vyměňte zásuvku za novou", "time": "15 min", "icon": "⚙️" },
+            { "step": 7, "action": "Otestujte s malým spotřebičem", "time": "3 min", "icon": "✅" }
+          ],
+          "safetyWarnings": ["⚠️ JISKŘENÍ JE NEBEZPEČNÉ - POŽÁRNÍ RIZIKO!", "Při opakovaném problému volejte elektrikáře", "Nepoužívejte poškozené zásuvky"]
+        }
+      ]
+    },
+    "vypinac": {
+      "name": "Vypínač světla",
+      "category": "elektrina",
+      "icon": "💡",
+      "issues": [
+        {
+          "id": "not-working",
+          "name": "Nefunkční vypínač",
+          "description": "Vypínač nereaguje nebo světlo nebliká",
+          "riskScore": 7,
+          "difficulty": "Střední",
+          "timeEstimate": "20 min",
+          "tools": ["Tester napětí", "Šroubovák plochý", "Šroubovák křížový", "Nový vypínač"],
+          "steps": [
+            { "step": 1, "action": "Vypněte jistič okruhu", "time": "1 min", "icon": "⚡" },
+            { "step": 2, "action": "Ověřte beznapěťový stav", "time": "2 min", "icon": "🔌" },
+            { "step": 3, "action": "Odšroubujte kryt vypínače", "time": "2 min", "icon": "🔧" },
+            { "step": 4, "action": "Zkontrolujte zapojení vodičů", "time": "3 min", "icon": "🔍", "hint": "Vodiče musí být pevně v svorkách." },
+            { "step": 5, "action": "Dotáhněte uvolněné spoje", "time": "3 min", "icon": "🔩" },
+            { "step": 6, "action": "Pokud problém přetrvává, vyměňte vypínač", "time": "8 min", "icon": "⚙️" },
+            { "step": 7, "action": "Nasaďte kryt a zapněte jistič", "time": "2 min", "icon": "✅" }
+          ],
+          "safetyWarnings": ["Vždy vypněte jistič před prací", "Použijte izolované nástroje", "Ověřte beznapěťový stav"]
+        },
+        {
+          "id": "replacement",
+          "name": "Výměna vypínače",
+          "description": "Kompletní výměna starého nebo poškozeného vypínače",
+          "riskScore": 7,
+          "difficulty": "Střední",
+          "timeEstimate": "20 min",
+          "tools": ["Tester napětí", "Šroubovák", "Nový vypínač"],
+          "steps": [
+            { "step": 1, "action": "Vypněte jistič okruhu", "time": "1 min", "icon": "⚡" },
+            { "step": 2, "action": "Použijte zkoušečku pro ověření", "time": "2 min", "icon": "🔌" },
+            { "step": 3, "action": "Sejměte kryt vypínače", "time": "2 min", "icon": "🔧" },
+            { "step": 4, "action": "Vyfotografujte zapojení", "time": "1 min", "icon": "📷" },
+            { "step": 5, "action": "Odpojte vodiče ze starého vypínače", "time": "3 min", "icon": "⚙️" },
+            { "step": 6, "action": "Připojte vodiče k novému vypínači", "time": "5 min", "icon": "🔩", "hint": "Dodržte původní zapojení podle schématu." },
+            { "step": 7, "action": "Usaďte vypínač do krabice", "time": "2 min", "icon": "📦" },
+            { "step": 8, "action": "Přišroubujte kryt", "time": "2 min", "icon": "🔧" },
+            { "step": 9, "action": "Zapněte jistič a otestujte", "time": "2 min", "icon": "✅" }
+          ],
+          "safetyWarnings": ["Práce s elektřinou vyžaduje opatrnost", "Při nejistotě volejte odborníka"]
+        },
+        {
+          "id": "flickering",
+          "name": "Vypínač způsobuje blikání",
+          "description": "Světlo bliká při zapnutí nebo provozu",
+          "riskScore": 6,
+          "difficulty": "Střední",
+          "timeEstimate": "25 min",
+          "tools": ["Tester napětí", "Šroubovák", "Kontaktní sprej"],
+          "steps": [
+            { "step": 1, "action": "Zkontrolujte, zda není problém v žárovce", "time": "2 min", "icon": "💡", "hint": "Vyměňte žárovku za jinou pro test." },
+            { "step": 2, "action": "Vypněte jistič", "time": "1 min", "icon": "⚡" },
+            { "step": 3, "action": "Ověřte beznapěťový stav", "time": "2 min", "icon": "🔌" },
+            { "step": 4, "action": "Demontujte kryt vypínače", "time": "2 min", "icon": "🔧" },
+            { "step": 5, "action": "Zkontrolujte a dotáhněte spoje", "time": "5 min", "icon": "🔍" },
+            { "step": 6, "action": "Nastříkejte kontaktní sprej na mechanismus", "time": "2 min", "icon": "🧴" },
+            { "step": 7, "action": "Několikrát vypínač zapněte/vypněte", "time": "1 min", "icon": "🔄" },
+            { "step": 8, "action": "Sestavte a otestujte", "time": "3 min", "icon": "✅" }
+          ],
+          "safetyWarnings": ["Blikající světlo může indikovat vážný problém", "Při přetrvávajícím problému volejte elektrikáře"]
+        }
+      ]
+    },
+    "stropni_svetlo": {
+      "name": "Stropní svítidlo",
+      "category": "elektrina",
+      "icon": "💡",
+      "issues": [
+        {
+          "id": "loose",
+          "name": "Uvolněné stropní svítidlo",
+          "description": "Svítidlo se viklá nebo visí šikmo",
+          "riskScore": 6,
+          "difficulty": "Střední",
+          "timeEstimate": "25 min",
+          "tools": ["Šroubovák", "Vrtačka", "Hmoždinky", "Šrouby", "Žebřík"],
+          "steps": [
+            { "step": 1, "action": "Vypněte jistič osvětlení", "time": "1 min", "icon": "⚡" },
+            { "step": 2, "action": "Ověřte beznapěťový stav", "time": "2 min", "icon": "🔌" },
+            { "step": 3, "action": "Použijte ochranné brýle proti prachu", "time": "30 s", "icon": "🥽" },
+            { "step": 4, "action": "Postavte stabilní žebřík", "time": "1 min", "icon": "🪜" },
+            { "step": 5, "action": "Sejměte kryt svítidla", "time": "2 min", "icon": "🔧" },
+            { "step": 6, "action": "Zkontrolujte pevnost hmoždinek", "time": "3 min", "icon": "🔍", "hint": "Hmoždinky se mohou uvolnit ve starším zdivu." },
+            { "step": 7, "action": "Pokud jsou hmoždinky volné, vyvrtejte nové otvory", "time": "5 min", "icon": "🔩" },
+            { "step": 8, "action": "Vložte nové hmoždinky", "time": "2 min", "icon": "⚙️" },
+            { "step": 9, "action": "Přišroubujte držák svítidla", "time": "3 min", "icon": "🔧" },
+            { "step": 10, "action": "Nasaďte kryt a zapněte jistič", "time": "2 min", "icon": "✅" }
+          ],
+          "safetyWarnings": ["Vždy vypněte jistič", "Používejte stabilní žebřík", "Ochranné brýle proti pádu prachu", "Při práci ve výšce mějte někoho nablízku"]
+        },
+        {
+          "id": "replacement",
+          "name": "Výměna světelného tělesa",
+          "description": "Kompletní výměna stropního svítidla",
+          "riskScore": 7,
+          "difficulty": "Střední",
+          "timeEstimate": "35 min",
+          "tools": ["Tester napětí", "Šroubovák", "Svorkovnice", "Nové svítidlo", "Žebřík"],
+          "steps": [
+            { "step": 1, "action": "Vypněte jistič osvětlení", "time": "1 min", "icon": "⚡" },
+            { "step": 2, "action": "Počkejte, až se kondenzátory vybijí (u LED)", "time": "2 min", "icon": "⏰", "hint": "LED svítidla mohou držet napětí i po vypnutí." },
+            { "step": 3, "action": "Ověřte beznapěťový stav", "time": "2 min", "icon": "🔌" },
+            { "step": 4, "action": "Postavte stabilní žebřík", "time": "1 min", "icon": "🪜" },
+            { "step": 5, "action": "Sejměte staré svítidlo", "time": "5 min", "icon": "🔧" },
+            { "step": 6, "action": "Odpojte vodiče ze svorkovnice", "time": "3 min", "icon": "⚙️" },
+            { "step": 7, "action": "Připojte vodiče k novému svítidlu", "time": "5 min", "icon": "🔩", "hint": "Hnědá na L, modrá na N, zelenožlutá na PE." },
+            { "step": 8, "action": "Upevněte nové svítidlo ke stropu", "time": "5 min", "icon": "📦" },
+            { "step": 9, "action": "Vložte žárovku (pokud není integrovaná)", "time": "1 min", "icon": "💡" },
+            { "step": 10, "action": "Nasaďte kryt svítidla", "time": "2 min", "icon": "🔧" },
+            { "step": 11, "action": "Zapněte jistič a otestujte", "time": "2 min", "icon": "✅" }
+          ],
+          "safetyWarnings": ["Nikdy nepracujte pod napětím", "LED svítidla - počkejte na vybití kondenzátorů", "Stabilní žebřík je nutnost"]
+        }
+      ]
+    },
+    "led_driver": {
+      "name": "LED driver",
+      "category": "elektrina",
+      "icon": "💡",
+      "issues": [
+        {
+          "id": "replacement",
+          "name": "Výměna LED driveru",
+          "description": "LED svítidlo nebliká nebo vůbec nesvítí - vadný driver",
+          "riskScore": 7,
+          "difficulty": "Střední",
+          "timeEstimate": "30 min",
+          "tools": ["Tester napětí", "Šroubovák", "Nový LED driver", "Žebřík"],
+          "steps": [
+            { "step": 1, "action": "Odpojte napájení jističem", "time": "1 min", "icon": "⚡" },
+            { "step": 2, "action": "Otestujte beznapěťový stav", "time": "2 min", "icon": "🔌" },
+            { "step": 3, "action": "Zabránte kontaktu s kovovými částmi", "time": "1 min", "icon": "⚠️", "hint": "I vypnutý driver může držet zbytkový náboj." },
+            { "step": 4, "action": "Sejměte kryt svítidla", "time": "3 min", "icon": "🔧" },
+            { "step": 5, "action": "Najděte LED driver (malá krabička s vodiči)", "time": "2 min", "icon": "🔍" },
+            { "step": 6, "action": "Zaznamenejte parametry driveru", "time": "2 min", "icon": "📝", "hint": "Výstupní napětí (V) a proud (mA) musí odpovídat." },
+            { "step": 7, "action": "Odpojte vodiče ze starého driveru", "time": "3 min", "icon": "⚙️" },
+            { "step": 8, "action": "Připojte nový driver", "time": "5 min", "icon": "🔩", "hint": "Vstup: 230V (L, N), Výstup: DC k LED pásku/panelu." },
+            { "step": 9, "action": "Zajistěte driver na místo", "time": "2 min", "icon": "📦" },
+            { "step": 10, "action": "Sestavte svítidlo a otestujte", "time": "3 min", "icon": "✅" }
+          ],
+          "safetyWarnings": ["LED drivery mohou držet napětí i po vypnutí", "Kupte driver se stejnými parametry", "Při nejistotě volejte elektrikáře"]
+        },
+        {
+          "id": "flickering",
+          "name": "LED svítidlo bliká",
+          "description": "Blikání způsobené vadným nebo přetíženým driverem",
+          "riskScore": 5,
+          "difficulty": "Střední",
+          "timeEstimate": "25 min",
+          "tools": ["Tester napětí", "Šroubovák", "Multimetr (volitelný)"],
+          "steps": [
+            { "step": 1, "action": "Zkontrolujte, zda není problém v jiné části obvodu", "time": "3 min", "icon": "🔍" },
+            { "step": 2, "action": "Vypněte jistič", "time": "1 min", "icon": "⚡" },
+            { "step": 3, "action": "Ověřte beznapěťový stav", "time": "2 min", "icon": "🔌" },
+            { "step": 4, "action": "Zkontrolujte spoje na driveru", "time": "5 min", "icon": "🔧" },
+            { "step": 5, "action": "Zkontrolujte, zda driver není přehřátý", "time": "2 min", "icon": "🌡️", "hint": "Nedostatečné chlazení způsobuje problémy." },
+            { "step": 6, "action": "Ověřte, že LED zátěž odpovídá driveru", "time": "3 min", "icon": "📊" },
+            { "step": 7, "action": "Pokud problém přetrvává, vyměňte driver", "time": "15 min", "icon": "⚙️" }
+          ],
+          "safetyWarnings": ["Blikání může značit přetížení", "Přehřátý driver je požární riziko"]
+        }
+      ]
+    },
+    "svetlo": {
+      "name": "Osvětlení",
+      "category": "elektrina",
+      "icon": "💡",
+      "issues": [
+        {
+          "id": "flickering",
+          "name": "Blikající světlo",
+          "description": "Špatný kontakt nebo vadná žárovka",
+          "riskScore": 5,
+          "difficulty": "Střední",
+          "timeEstimate": "15 min",
+          "tools": ["Nová žárovka", "Šroubovák", "Tester"],
+          "steps": [
+            { "step": 1, "action": "Vypněte vypínač a jistič", "time": "1 min", "icon": "⚡" },
+            { "step": 2, "action": "Nechte žárovku vychladnout", "time": "2 min", "icon": "⏰" },
+            { "step": 3, "action": "Vyměňte žárovku za novou", "time": "2 min", "icon": "💡" },
+            { "step": 4, "action": "Pokud bliká dál, zkontrolujte vypínač", "time": "5 min", "icon": "🔍" },
+            { "step": 5, "action": "Utáhněte uvolněné kontakty", "time": "5 min", "icon": "🔧" },
+            { "step": 6, "action": "Zapněte a otestujte", "time": "1 min", "icon": "✅" }
+          ],
+          "safetyWarnings": ["Vždy vypněte proud před prací", "Nechte žárovku vychladnout"]
+        },
+        {
+          "id": "bulb-replacement",
+          "name": "Výměna žárovky",
+          "description": "Žárovka přestala svítit",
+          "riskScore": 2,
+          "difficulty": "Velmi nízká",
+          "timeEstimate": "5 min",
+          "tools": ["Nová žárovka", "Žebřík (pokud je třeba)"],
+          "steps": [
+            { "step": 1, "action": "Vypněte vypínač", "time": "10 s", "icon": "⚡" },
+            { "step": 2, "action": "Počkejte, až žárovka vychladne", "time": "2 min", "icon": "⏰" },
+            { "step": 3, "action": "Vyšroubujte/vyjměte starou žárovku", "time": "30 s", "icon": "💡", "hint": "Otáčejte proti směru hodinových ručiček." },
+            { "step": 4, "action": "Zkontrolujte patici", "time": "30 s", "icon": "🔍", "hint": "Měla by být čistá bez oxidace." },
+            { "step": 5, "action": "Zašroubujte novou žárovku", "time": "30 s", "icon": "💡", "hint": "Nepřetahujte, stačí lehce dotáhnout." },
+            { "step": 6, "action": "Zapněte a zkontrolujte", "time": "10 s", "icon": "✅" }
+          ],
+          "safetyWarnings": ["Nikdy nevyměňujte žárovku pod napětím", "Horká žárovka může způsobit popáleniny"]
+        }
+      ]
+    },
+    "radiator": {
+      "name": "Radiátor",
+      "category": "topeni",
+      "icon": "🌡️",
+      "issues": [
+        {
+          "id": "cold",
+          "name": "Studený radiátor",
+          "description": "Vzduch v topném systému",
+          "riskScore": 2,
+          "difficulty": "Nízká",
+          "timeEstimate": "10 min",
+          "tools": ["Odvzdušňovací klíč", "Nádoba na vodu", "Hadřík"],
+          "steps": [
+            { "step": 1, "action": "Vypněte topení a nechte vychladnout", "time": "15 min", "icon": "🌡️", "hint": "Horká voda může vystříknout!" },
+            { "step": 2, "action": "Najděte odvzdušňovací ventil", "time": "1 min", "icon": "🔍", "hint": "Malý ventil v horní části radiátoru." },
+            { "step": 3, "action": "Pod ventil umístěte nádobu", "time": "30 s", "icon": "🪣" },
+            { "step": 4, "action": "Pomalu otevřete ventil klíčem", "time": "2 min", "icon": "🔧", "hint": "Uslyšíte syčení unikajícího vzduchu." },
+            { "step": 5, "action": "Až poteče voda, ventil zavřete", "time": "2 min", "icon": "✅" },
+            { "step": 6, "action": "Zkontrolujte tlak v systému", "time": "2 min", "icon": "📊", "hint": "Manometr na kotli by měl ukazovat 1-1.5 bar." }
+          ],
+          "safetyWarnings": ["Pozor na horkou vodu", "Mějte připravený hadřík", "Nedotahujte ventil příliš silně"]
+        },
+        {
+          "id": "leak",
+          "name": "Kapající radiátor",
+          "description": "Únik vody z ventilu nebo spoje",
+          "riskScore": 4,
+          "difficulty": "Střední",
+          "timeEstimate": "20 min",
+          "tools": ["Klíč", "Těsnící páska (teflonová)", "Hadřík", "Nádoba"],
+          "steps": [
+            { "step": 1, "action": "Lokalizujte místo úniku", "time": "2 min", "icon": "🔍" },
+            { "step": 2, "action": "Podložte nádobu pod únik", "time": "1 min", "icon": "🪣" },
+            { "step": 3, "action": "Uzavřete přívod k radiátoru (pokud je možné)", "time": "2 min", "icon": "🚰" },
+            { "step": 4, "action": "Dotáhněte uvolněný spoj", "time": "5 min", "icon": "🔧" },
+            { "step": 5, "action": "Pokud kape z ventilu, vyměňte těsnění", "time": "10 min", "icon": "⚙️" },
+            { "step": 6, "action": "Otevřete přívod a zkontrolujte", "time": "5 min", "icon": "✅" }
+          ],
+          "safetyWarnings": ["Voda může být horká", "Při větším úniku vypněte kotel"]
+        },
+        {
+          "id": "noisy",
+          "name": "Hlučný radiátor",
+          "description": "Klepání, bublání nebo hvízdání z radiátoru",
+          "riskScore": 1,
+          "difficulty": "Nízká",
+          "timeEstimate": "15 min",
+          "tools": ["Odvzdušňovací klíč", "Vodováha"],
+          "steps": [
+            { "step": 1, "action": "Určete typ zvuku", "time": "2 min", "icon": "👂", "hint": "Bublání = vzduch, klepání = expanze, hvízdání = ventil." },
+            { "step": 2, "action": "Odvzdušněte radiátor", "time": "5 min", "icon": "🔧" },
+            { "step": 3, "action": "Zkontrolujte sklon radiátoru vodováhou", "time": "2 min", "icon": "📐", "hint": "Radiátor by měl být mírně nakloněn k odvzdušňovacímu ventilu." },
+            { "step": 4, "action": "Upravte nožičky radiátoru", "time": "5 min", "icon": "⚙️" },
+            { "step": 5, "action": "Zkontrolujte ventily - pootevřte/zavřete", "time": "3 min", "icon": "🔩" }
+          ],
+          "safetyWarnings": ["Hluk může indikovat problém v celém systému"]
+        }
+      ]
+    },
+    "sprcha": {
+      "name": "Sprchová hlavice",
+      "category": "koupelna",
+      "icon": "🚿",
+      "issues": [
+        {
+          "id": "low-pressure",
+          "name": "Slabý proud vody",
+          "description": "Zanesená sprchová hlavice vodním kamenem",
+          "riskScore": 1,
+          "difficulty": "Nízká",
+          "timeEstimate": "30 min",
+          "tools": ["Ocet", "Igelitový sáček", "Gumička", "Kartáček"],
+          "steps": [
+            { "step": 1, "action": "Naplňte sáček octem", "time": "1 min", "icon": "🧴" },
+            { "step": 2, "action": "Navlékněte sáček na hlavici a upevněte gumičkou", "time": "2 min", "icon": "🎒" },
+            { "step": 3, "action": "Nechte působit 2-4 hodiny", "time": "2-4 hod", "icon": "⏰" },
+            { "step": 4, "action": "Sundejte sáček a dočistěte kartáčkem", "time": "5 min", "icon": "🧹" },
+            { "step": 5, "action": "Propláchněte vodou", "time": "2 min", "icon": "✅" }
+          ],
+          "safetyWarnings": ["Ocet může dráždit oči - buďte opatrní"]
+        },
+        {
+          "id": "replacement",
+          "name": "Výměna sprchové hlavice",
+          "description": "Poškozená nebo zastaralá hlavice",
+          "riskScore": 1,
+          "difficulty": "Velmi nízká",
+          "timeEstimate": "10 min",
+          "tools": ["Kleště nebo klíč", "Teflonová páska", "Hadřík"],
+          "steps": [
+            { "step": 1, "action": "Utáhněte ventil, aby netekla voda", "time": "30 s", "icon": "🚰" },
+            { "step": 2, "action": "Odšroubujte starou hlavici", "time": "2 min", "icon": "🔧", "hint": "Použijte hadřík pro ochranu chromu." },
+            { "step": 3, "action": "Očistěte závit hadice", "time": "1 min", "icon": "🧹" },
+            { "step": 4, "action": "Namotejte teflonovou pásku na závit", "time": "1 min", "icon": "🔩", "hint": "3-4 otočky ve směru závitu." },
+            { "step": 5, "action": "Našroubujte novou hlavici", "time": "2 min", "icon": "🚿" },
+            { "step": 6, "action": "Ověřte těsnost spoje", "time": "2 min", "icon": "✅" }
+          ],
+          "safetyWarnings": ["Nepoužívejte nadměrnou sílu při utahování"]
+        },
+        {
+          "id": "hose-leak",
+          "name": "Netěsná sprchová hadice",
+          "description": "Voda uniká ze spoje hadice",
+          "riskScore": 2,
+          "difficulty": "Nízká",
+          "timeEstimate": "15 min",
+          "tools": ["Kleště", "Teflonová páska", "Nová hadice (volitelně)"],
+          "steps": [
+            { "step": 1, "action": "Zavřete vodu", "time": "30 s", "icon": "🚰" },
+            { "step": 2, "action": "Odšroubujte hadici z baterie i hlavice", "time": "3 min", "icon": "🔧" },
+            { "step": 3, "action": "Zkontrolujte těsnění v koncovkách", "time": "2 min", "icon": "🔍" },
+            { "step": 4, "action": "Vyměňte těsnění nebo celou hadici", "time": "5 min", "icon": "⚙️" },
+            { "step": 5, "action": "Namotejte teflonovou pásku na závity", "time": "2 min", "icon": "🔩" },
+            { "step": 6, "action": "Přišroubujte hadici zpět", "time": "2 min", "icon": "🚿" },
+            { "step": 7, "action": "Otestujte těsnost", "time": "2 min", "icon": "✅" }
+          ],
+          "safetyWarnings": ["Mějte připravený hadřík na odkapávající vodu"]
+        }
+      ]
+    },
+    "pracka": {
+      "name": "Pračka",
+      "category": "spotrebice",
+      "icon": "🧺",
+      "issues": [
+        {
+          "id": "not-draining",
+          "name": "Pračka nevypouští vodu",
+          "description": "Ucpaný filtr nebo hadice",
+          "riskScore": 3,
+          "difficulty": "Střední",
+          "timeEstimate": "25 min",
+          "tools": ["Hadřík", "Nádoba", "Kartáč"],
+          "steps": [
+            { "step": 1, "action": "Vypněte pračku a odpojte ze zásuvky", "time": "1 min", "icon": "🔌" },
+            { "step": 2, "action": "Najděte servisní dvířka (dole vpředu)", "time": "1 min", "icon": "🔍" },
+            { "step": 3, "action": "Podložte nádobu a pomalu otevřete filtr", "time": "3 min", "icon": "🪣", "hint": "Vytéká voda - buďte připraveni!" },
+            { "step": 4, "action": "Vyčistěte filtr od nečistot", "time": "10 min", "icon": "🧹" },
+            { "step": 5, "action": "Zkontrolujte oběžné kolo čerpadla", "time": "2 min", "icon": "⚙️", "hint": "Mělo by se volně otáčet." },
+            { "step": 6, "action": "Vraťte filtr zpět a otestujte", "time": "5 min", "icon": "✅" }
+          ],
+          "safetyWarnings": ["Pozor na vytékající vodu", "Vždy odpojte ze zásuvky"]
+        },
+        {
+          "id": "hose-replacement",
+          "name": "Výměna přívodní hadice",
+          "description": "Poškozená nebo netěsná přívodní hadice",
+          "riskScore": 3,
+          "difficulty": "Nízká",
+          "timeEstimate": "20 min",
+          "tools": ["Kleště", "Nová přívodní hadice", "Hadřík", "Nádoba"],
+          "steps": [
+            { "step": 1, "action": "Uzavřete přívod vody", "time": "1 min", "icon": "🚰" },
+            { "step": 2, "action": "Odpojte pračku od elektřiny", "time": "30 s", "icon": "🔌" },
+            { "step": 3, "action": "Odtáhněte pračku od zdi", "time": "2 min", "icon": "📦" },
+            { "step": 4, "action": "Podložte nádobu pod hadici", "time": "30 s", "icon": "🪣" },
+            { "step": 5, "action": "Odšroubujte starou hadici z ventilu", "time": "3 min", "icon": "🔧" },
+            { "step": 6, "action": "Odšroubujte hadici z pračky", "time": "2 min", "icon": "⚙️" },
+            { "step": 7, "action": "Zkontrolujte těsnění v nové hadici", "time": "1 min", "icon": "🔍" },
+            { "step": 8, "action": "Připojte novou hadici k pračce", "time": "2 min", "icon": "🔩" },
+            { "step": 9, "action": "Připojte hadici k vodovodnímu ventilu", "time": "2 min", "icon": "🚰" },
+            { "step": 10, "action": "Otevřete vodu a zkontrolujte těsnost", "time": "3 min", "icon": "✅" }
+          ],
+          "safetyWarnings": ["Vždy uzavřete vodu před odpojením", "Odpojte pračku od elektřiny", "Zkontrolujte těsnost po připojení"]
+        },
+        {
+          "id": "vibrating",
+          "name": "Pračka nadměrně vibruje",
+          "description": "Pračka skáče nebo se pohybuje při ždímání",
+          "riskScore": 2,
+          "difficulty": "Nízká",
+          "timeEstimate": "15 min",
+          "tools": ["Vodováha", "Klíč"],
+          "steps": [
+            { "step": 1, "action": "Zkontrolujte rozložení prádla v bubnu", "time": "2 min", "icon": "👕", "hint": "Nerovnoměrně rozložené prádlo způsobuje vibrace." },
+            { "step": 2, "action": "Zkontrolujte, zda byly odstraněny transportní šrouby", "time": "2 min", "icon": "🔍", "hint": "Šrouby jsou na zadní straně pračky." },
+            { "step": 3, "action": "Položte vodováhu na horní část pračky", "time": "1 min", "icon": "📐" },
+            { "step": 4, "action": "Upravte výšku nožiček", "time": "5 min", "icon": "🔧", "hint": "Otáčejte nožičkami pro vyrovnání." },
+            { "step": 5, "action": "Zajistěte kontra-matice nožiček", "time": "2 min", "icon": "🔩" },
+            { "step": 6, "action": "Zkuste ždímací cyklus", "time": "5 min", "icon": "✅" }
+          ],
+          "safetyWarnings": ["Nadměrné vibrace mohou poškodit podlahu", "Pravidelně kontrolujte vyrovnání"]
+        }
+      ]
+    },
+    "sifon": {
+      "name": "Sifon/Odpad",
+      "category": "koupelna",
+      "icon": "🔄",
+      "issues": [
+        {
+          "id": "clogged",
+          "name": "Ucpaný odpad",
+          "description": "Pomalý odtok vody z umyvadla nebo vany",
+          "riskScore": 2,
+          "difficulty": "Nízká",
+          "timeEstimate": "20 min",
+          "tools": ["Zvon (pumpa)", "Gumové rukavice", "Kbelík", "Čistič odpadů"],
+          "steps": [
+            { "step": 1, "action": "Zkuste nejdřív zvon (pumpu)", "time": "3 min", "icon": "🪠", "hint": "Naplňte umyvadlo vodou asi 5 cm. Přitiskněte zvon k odpadu a rychle pumpujte." },
+            { "step": 2, "action": "Položte kbelík pod sifon", "time": "1 min", "icon": "🪣" },
+            { "step": 3, "action": "Odšroubujte sifon", "time": "3 min", "icon": "🔧", "hint": "Většina sifonů má plastové matice, které povolíte rukou." },
+            { "step": 4, "action": "Vyčistěte sifon od nečistot", "time": "10 min", "icon": "🧹", "hint": "Odstraňte vlasy, mýdlo a usazeniny." },
+            { "step": 5, "action": "Propláchněte sifon horkou vodou", "time": "2 min", "icon": "💧" },
+            { "step": 6, "action": "Vraťte sifon zpět a utáhněte", "time": "3 min", "icon": "🔩" },
+            { "step": 7, "action": "Otestujte odtok", "time": "2 min", "icon": "✅" }
+          ],
+          "safetyWarnings": ["Použijte gumové rukavice", "Větrejte při použití chemických čističů", "Nikdy nemíchejte různé čističe!"]
+        },
+        {
+          "id": "smell",
+          "name": "Zápach z odpadu",
+          "description": "Nepříjemný zápach z umyvadla nebo dřezu",
+          "riskScore": 1,
+          "difficulty": "Velmi nízká",
+          "timeEstimate": "10 min",
+          "tools": ["Soda bikarbona", "Ocet", "Horká voda"],
+          "steps": [
+            { "step": 1, "action": "Nasypte půl hrnku sody do odpadu", "time": "1 min", "icon": "🧴" },
+            { "step": 2, "action": "Nalijte půl hrnku octa", "time": "1 min", "icon": "🧪", "hint": "Směs začne pěnit - to je normální." },
+            { "step": 3, "action": "Nechte působit 15 minut", "time": "15 min", "icon": "⏰" },
+            { "step": 4, "action": "Propláchněte hrncem vroucí vody", "time": "2 min", "icon": "💧" },
+            { "step": 5, "action": "Opakujte 1x týdně jako prevenci", "time": "0 min", "icon": "✅" }
+          ],
+          "safetyWarnings": ["Pozor na horkou vodu", "Větrejte při reakci sody s octem"]
+        }
+      ]
+    },
+    "dvere": {
+      "name": "Dveře",
+      "category": "dvere_okna",
+      "icon": "🚪",
+      "issues": [
+        {
+          "id": "squeaky",
+          "name": "Vrzající dveře",
+          "description": "Panty vydávají nepříjemný zvuk",
+          "riskScore": 1,
+          "difficulty": "Velmi nízká",
+          "timeEstimate": "5 min",
+          "tools": ["WD-40 nebo olej", "Hadřík"],
+          "steps": [
+            { "step": 1, "action": "Otevřete dveře dokořán", "time": "10 s", "icon": "🚪" },
+            { "step": 2, "action": "Nastříkejte WD-40 na horní pant", "time": "30 s", "icon": "🧴", "hint": "Zaměřte se na čep pantu." },
+            { "step": 3, "action": "Nastříkejte na prostřední pant", "time": "30 s", "icon": "🧴" },
+            { "step": 4, "action": "Nastříkejte na spodní pant", "time": "30 s", "icon": "🧴" },
+            { "step": 5, "action": "Několikrát otevřete a zavřete dveře", "time": "1 min", "icon": "🔄", "hint": "Tím se mazivo dostane do pantů." },
+            { "step": 6, "action": "Otřete přebytečný olej hadříkem", "time": "1 min", "icon": "🧹" },
+            { "step": 7, "action": "Otestujte - vrzání by mělo zmizet", "time": "30 s", "icon": "✅" }
+          ],
+          "safetyWarnings": ["WD-40 je hořlavé", "Větrejte místnost"]
+        },
+        {
+          "id": "not-closing",
+          "name": "Dveře se špatně zavírají",
+          "description": "Dveře nejdou zavřít nebo se samy otevírají",
+          "riskScore": 1,
+          "difficulty": "Nízká",
+          "timeEstimate": "20 min",
+          "tools": ["Šroubovák", "Vodováha", "Dláto", "Kladivo"],
+          "steps": [
+            { "step": 1, "action": "Zkontrolujte, zda dveře někde nedrhnou", "time": "2 min", "icon": "🔍", "hint": "Zavírejte pomalu a sledujte, kde se zasekávají." },
+            { "step": 2, "action": "Zkontrolujte panty - nejsou uvolněné?", "time": "2 min", "icon": "🔧" },
+            { "step": 3, "action": "Dotáhněte šrouby pantů", "time": "3 min", "icon": "🔩", "hint": "Pokud šrouby nedrží, použijte delší šrouby nebo zápalky do otvoru." },
+            { "step": 4, "action": "Zkontrolujte západku a protikus", "time": "2 min", "icon": "🔍" },
+            { "step": 5, "action": "Upravte polohu protikusu", "time": "5 min", "icon": "⚙️", "hint": "Povolte šrouby, posuňte protikus a znovu utáhněte." },
+            { "step": 6, "action": "Pokud dveře drhnou nahoře/dole, upravte panty", "time": "5 min", "icon": "🔧" },
+            { "step": 7, "action": "Otestujte zavírání", "time": "1 min", "icon": "✅" }
+          ],
+          "safetyWarnings": ["Při práci s dlátem buďte opatrní"]
+        },
+        {
+          "id": "handle-loose",
+          "name": "Uvolněná klika",
+          "description": "Klika se viklá nebo propadá",
+          "riskScore": 1,
+          "difficulty": "Nízká",
+          "timeEstimate": "10 min",
+          "tools": ["Šroubovák", "Imbusový klíč"],
+          "steps": [
+            { "step": 1, "action": "Najděte zajišťovací šroub na klice", "time": "1 min", "icon": "🔍", "hint": "Obvykle je na spodní straně kliky nebo pod krytkou." },
+            { "step": 2, "action": "Odstraňte dekorativní krytku (pokud je)", "time": "1 min", "icon": "🔧" },
+            { "step": 3, "action": "Dotáhněte zajišťovací šroub", "time": "2 min", "icon": "🔩" },
+            { "step": 4, "action": "Zkontrolujte šrouby rozety", "time": "2 min", "icon": "🔍" },
+            { "step": 5, "action": "Dotáhněte šrouby rozety", "time": "2 min", "icon": "🔧" },
+            { "step": 6, "action": "Vraťte krytku a otestujte", "time": "2 min", "icon": "✅" }
+          ],
+          "safetyWarnings": ["Nepřetahujte šrouby"]
+        }
+      ]
+    },
+    "okno": {
+      "name": "Okno",
+      "category": "dvere_okna",
+      "icon": "🪟",
+      "issues": [
+        {
+          "id": "hard-to-open",
+          "name": "Okno nejde otevřít/zavřít",
+          "description": "Kování je ztuhlé nebo špatně seřízené",
+          "riskScore": 2,
+          "difficulty": "Střední",
+          "timeEstimate": "20 min",
+          "tools": ["WD-40", "Imbusový klíč", "Hadřík"],
+          "steps": [
+            { "step": 1, "action": "Nastříkejte WD-40 na všechny pohyblivé části kování", "time": "3 min", "icon": "🧴" },
+            { "step": 2, "action": "Několikrát otevřete a zavřete okno", "time": "2 min", "icon": "🔄" },
+            { "step": 3, "action": "Najděte seřizovací šrouby na kování", "time": "2 min", "icon": "🔍", "hint": "Jsou obvykle na hraně křídla u pantů." },
+            { "step": 4, "action": "Imbusovým klíčem seřiďte přítlak", "time": "5 min", "icon": "🔧", "hint": "Po směru = větší přítlak, proti směru = menší." },
+            { "step": 5, "action": "Seřiďte výšku křídla (šroub na spodním pantu)", "time": "5 min", "icon": "⚙️" },
+            { "step": 6, "action": "Otestujte otevírání a zavírání", "time": "2 min", "icon": "✅" }
+          ],
+          "safetyWarnings": ["Při práci u otevřeného okna buďte opatrní", "Nepřetahujte seřizovací šrouby"]
+        },
+        {
+          "id": "drafty",
+          "name": "Okno táhne",
+          "description": "Netěsnost - fouká kolem okna",
+          "riskScore": 1,
+          "difficulty": "Nízká",
+          "timeEstimate": "30 min",
+          "tools": ["Nové těsnění", "Nůž", "Imbusový klíč"],
+          "steps": [
+            { "step": 1, "action": "Zkontrolujte stav těsnění", "time": "3 min", "icon": "🔍", "hint": "Staré těsnění je ztvrdlé nebo popraskané." },
+            { "step": 2, "action": "Vytáhněte staré těsnění", "time": "5 min", "icon": "🔧" },
+            { "step": 3, "action": "Očistěte drážku od zbytků", "time": "5 min", "icon": "🧹" },
+            { "step": 4, "action": "Změřte délku potřebného těsnění", "time": "2 min", "icon": "📏" },
+            { "step": 5, "action": "Zatlačte nové těsnění do drážky", "time": "10 min", "icon": "⚙️", "hint": "Začněte v rohu a postupujte dokola." },
+            { "step": 6, "action": "Seřiďte přítlak kování", "time": "5 min", "icon": "🔧" },
+            { "step": 7, "action": "Otestujte těsnost zavřeného okna", "time": "2 min", "icon": "✅", "hint": "Zkuste prostrčit papír - neměl by projít." }
+          ],
+          "safetyWarnings": ["Kupte správný profil těsnění"]
+        },
+        {
+          "id": "broken-handle",
+          "name": "Nefunkční klika okna",
+          "description": "Klika se protáčí nebo nejde otočit",
+          "riskScore": 2,
+          "difficulty": "Nízká",
+          "timeEstimate": "15 min",
+          "tools": ["Šroubovák", "Nová klika"],
+          "steps": [
+            { "step": 1, "action": "Otočte krytku pod klikou o 90°", "time": "30 s", "icon": "🔄" },
+            { "step": 2, "action": "Odšroubujte dva šrouby", "time": "2 min", "icon": "🔧" },
+            { "step": 3, "action": "Vytáhněte starou kliku", "time": "1 min", "icon": "⚙️" },
+            { "step": 4, "action": "Vložte novou kliku", "time": "1 min", "icon": "🔩", "hint": "Čtyřhran musí správně zapadnout." },
+            { "step": 5, "action": "Přišroubujte kliku", "time": "2 min", "icon": "🔧" },
+            { "step": 6, "action": "Vraťte krytku a otestujte", "time": "2 min", "icon": "✅" }
+          ],
+          "safetyWarnings": ["Kupte kliku se správnou délkou čtyřhranu (7mm je standard)"]
+        }
+      ]
+    },
+    "mycka": {
+      "name": "Myčka nádobí",
+      "category": "spotrebice",
+      "icon": "🍽️",
+      "issues": [
+        {
+          "id": "not-cleaning",
+          "name": "Myčka špatně myje",
+          "description": "Nádobí zůstává špinavé",
+          "riskScore": 1,
+          "difficulty": "Nízká",
+          "timeEstimate": "20 min",
+          "tools": ["Párátko", "Ocet", "Hadřík"],
+          "steps": [
+            { "step": 1, "action": "Zkontrolujte a vyčistěte filtr", "time": "5 min", "icon": "🔍", "hint": "Filtr je na dně myčky - vytáhněte a propláchněte." },
+            { "step": 2, "action": "Vyčistěte ostřikovací ramena", "time": "5 min", "icon": "🧹", "hint": "Propíchněte ucpané trysky párátkem." },
+            { "step": 3, "action": "Zkontrolujte dávkovač leštidla", "time": "2 min", "icon": "🧴" },
+            { "step": 4, "action": "Otřete těsnění dvířek", "time": "3 min", "icon": "🧽" },
+            { "step": 5, "action": "Spusťte prázdný cyklus s octem", "time": "1 hod", "icon": "🔄", "hint": "Hrnek octa postavte do horního koše." },
+            { "step": 6, "action": "Zkontrolujte správné ukládání nádobí", "time": "2 min", "icon": "✅", "hint": "Nádobí nesmí blokovat ramena." }
+          ],
+          "safetyWarnings": ["Nikdy nepoužívejte běžný jar do myčky"]
+        },
+        {
+          "id": "not-draining",
+          "name": "Myčka nevypouští vodu",
+          "description": "Voda zůstává na dně myčky",
+          "riskScore": 2,
+          "difficulty": "Střední",
+          "timeEstimate": "30 min",
+          "tools": ["Hadřík", "Nádoba", "Šroubovák"],
+          "steps": [
+            { "step": 1, "action": "Vypněte myčku a odpojte ze zásuvky", "time": "1 min", "icon": "🔌" },
+            { "step": 2, "action": "Vyberte vodu hadříkem do nádoby", "time": "5 min", "icon": "🪣" },
+            { "step": 3, "action": "Vyjměte a vyčistěte filtr", "time": "5 min", "icon": "🔧" },
+            { "step": 4, "action": "Zkontrolujte odtokovou hadici", "time": "5 min", "icon": "🔍", "hint": "Hadice nesmí být přehnutá nebo ucpaná." },
+            { "step": 5, "action": "Zkontrolujte napojení na sifon", "time": "5 min", "icon": "⚙️" },
+            { "step": 6, "action": "Vyčistěte čerpadlo (pokud je přístupné)", "time": "5 min", "icon": "🧹" },
+            { "step": 7, "action": "Vraťte vše zpět a otestujte", "time": "5 min", "icon": "✅" }
+          ],
+          "safetyWarnings": ["Vždy odpojte ze zásuvky", "Pozor na ostré hrany filtru"]
+        },
+        {
+          "id": "leaking",
+          "name": "Myčka teče",
+          "description": "Voda uniká z myčky",
+          "riskScore": 4,
+          "difficulty": "Střední",
+          "timeEstimate": "25 min",
+          "tools": ["Hadřík", "Nové těsnění dvířek"],
+          "steps": [
+            { "step": 1, "action": "Lokalizujte místo úniku", "time": "3 min", "icon": "🔍" },
+            { "step": 2, "action": "Zkontrolujte těsnění dvířek", "time": "3 min", "icon": "🔍", "hint": "Těsnění by mělo být pružné a nepoškozené." },
+            { "step": 3, "action": "Očistěte těsnění a drážku", "time": "5 min", "icon": "🧹" },
+            { "step": 4, "action": "Zkontrolujte, zda nádobí neblokuje dvířka", "time": "2 min", "icon": "🍽️" },
+            { "step": 5, "action": "Pokud těsnění netěsní, vyměňte ho", "time": "10 min", "icon": "⚙️" },
+            { "step": 6, "action": "Zkontrolujte přívod a odtok vody", "time": "5 min", "icon": "🔧" },
+            { "step": 7, "action": "Spusťte testovací cyklus", "time": "30 min", "icon": "✅" }
+          ],
+          "safetyWarnings": ["Únik vody může poškodit podlahu", "Při větším úniku vypněte přívod vody"]
+        }
+      ]
+    },
+    "lednice": {
+      "name": "Lednice",
+      "category": "spotrebice",
+      "icon": "🧊",
+      "issues": [
+        {
+          "id": "not-cooling",
+          "name": "Lednice nechladí",
+          "description": "Potraviny se kazí, lednice je teplá",
+          "riskScore": 3,
+          "difficulty": "Střední",
+          "timeEstimate": "30 min",
+          "tools": ["Vysavač", "Kartáč", "Teploměr"],
+          "steps": [
+            { "step": 1, "action": "Zkontrolujte nastavení termostatu", "time": "1 min", "icon": "🌡️", "hint": "Doporučená teplota je 4°C." },
+            { "step": 2, "action": "Zkontrolujte, zda proudí vzduch uvnitř", "time": "2 min", "icon": "🔍", "hint": "Potraviny nesmí blokovat ventilátor." },
+            { "step": 3, "action": "Vytáhněte lednici a vyčistěte kondenzátor", "time": "15 min", "icon": "🧹", "hint": "Kondenzátor je vzadu nebo dole - vysajte prach." },
+            { "step": 4, "action": "Zkontrolujte těsnění dvířek", "time": "3 min", "icon": "🔍", "hint": "Test papírem - neměl by jít vytáhnout." },
+            { "step": 5, "action": "Zkontrolujte, zda kompresor běží", "time": "2 min", "icon": "👂", "hint": "Měli byste slyšet tichý hukot." },
+            { "step": 6, "action": "Počkejte 24 hodin a změřte teplotu", "time": "24 hod", "icon": "✅" }
+          ],
+          "safetyWarnings": ["Odpojte lednici před čištěním kondenzátoru", "Při problému s kompresorem volejte servis"]
+        },
+        {
+          "id": "noisy",
+          "name": "Hlučná lednice",
+          "description": "Lednice vydává neobvyklé zvuky",
+          "riskScore": 2,
+          "difficulty": "Nízká",
+          "timeEstimate": "20 min",
+          "tools": ["Vodováha", "Klíč"],
+          "steps": [
+            { "step": 1, "action": "Určete typ zvuku", "time": "2 min", "icon": "👂", "hint": "Hučení = kompresor, klepání = ventilátor, bublání = normální." },
+            { "step": 2, "action": "Zkontrolujte vyrovnání lednice", "time": "2 min", "icon": "📐" },
+            { "step": 3, "action": "Upravte nožičky pro vyrovnání", "time": "5 min", "icon": "🔧" },
+            { "step": 4, "action": "Zkontrolujte, zda se lednice nedotýká stěny", "time": "2 min", "icon": "🔍", "hint": "Nechte 5cm mezeru od zdi." },
+            { "step": 5, "action": "Zkontrolujte ventilátor (pokud je přístupný)", "time": "5 min", "icon": "⚙️" },
+            { "step": 6, "action": "Poslouchejte po úpravách", "time": "5 min", "icon": "✅" }
+          ],
+          "safetyWarnings": ["Některé zvuky jsou normální (bublání chladiva)"]
+        },
+        {
+          "id": "ice-buildup",
+          "name": "Namrzá mrazák",
+          "description": "Nadměrná tvorba ledu v mrazáku",
+          "riskScore": 2,
+          "difficulty": "Nízká",
+          "timeEstimate": "4 hod",
+          "tools": ["Hadříky", "Mísy na vodu", "Fén (volitelně)"],
+          "steps": [
+            { "step": 1, "action": "Vyjměte všechny potraviny", "time": "10 min", "icon": "🍖", "hint": "Uložte do chladící tašky s ledovými polštářky." },
+            { "step": 2, "action": "Vypněte lednici", "time": "1 min", "icon": "🔌" },
+            { "step": 3, "action": "Nechte dveře otevřené", "time": "30 s", "icon": "🚪" },
+            { "step": 4, "action": "Podložte hadříky pro zachycení vody", "time": "2 min", "icon": "🧹" },
+            { "step": 5, "action": "Nechte led roztát (nebo opatrně fénem)", "time": "2-4 hod", "icon": "⏰", "hint": "NIKDY neodstraňujte led ostrými předměty!" },
+            { "step": 6, "action": "Vytřete veškerou vodu", "time": "10 min", "icon": "🧽" },
+            { "step": 7, "action": "Zkontrolujte těsnění dvířek", "time": "3 min", "icon": "🔍" },
+            { "step": 8, "action": "Zapněte a vraťte potraviny", "time": "15 min", "icon": "✅" }
+          ],
+          "safetyWarnings": ["Nikdy nepoužívejte ostré předměty na led", "Fén držte v bezpečné vzdálenosti"]
+        }
+      ]
+    },
+    "bojler": {
+      "name": "Bojler",
+      "category": "voda",
+      "icon": "🔥",
+      "issues": [
+        {
+          "id": "no-hot-water",
+          "name": "Neteče teplá voda",
+          "description": "Bojler neohřívá vodu",
+          "riskScore": 4,
+          "difficulty": "Střední",
+          "timeEstimate": "30 min",
+          "tools": ["Šroubovák", "Multimetr (volitelně)"],
+          "steps": [
+            { "step": 1, "action": "Zkontrolujte, zda je bojler zapnutý", "time": "1 min", "icon": "🔌", "hint": "Kontrolka by měla svítit." },
+            { "step": 2, "action": "Zkontrolujte termostat", "time": "2 min", "icon": "🌡️", "hint": "Doporučená teplota je 55-60°C." },
+            { "step": 3, "action": "Zkontrolujte jistič", "time": "2 min", "icon": "⚡" },
+            { "step": 4, "action": "Zkontrolujte, zda nevypadla pojistka bojleru", "time": "5 min", "icon": "🔍", "hint": "Některé bojlery mají vlastní tepelnou pojistku." },
+            { "step": 5, "action": "Resetujte tepelnou pojistku (pokud vypadla)", "time": "5 min", "icon": "🔄", "hint": "Obvykle malé tlačítko na termostatu." },
+            { "step": 6, "action": "Počkejte 1-2 hodiny na ohřev", "time": "1-2 hod", "icon": "⏰" },
+            { "step": 7, "action": "Pokud nefunguje, volejte odborníka", "time": "0 min", "icon": "📞" }
+          ],
+          "safetyWarnings": ["Bojler kombinuje vodu a elektřinu - buďte opatrní!", "Při podezření na únik volejte servis", "Nikdy nerozebírejte bojler pod napětím"]
+        },
+        {
+          "id": "leaking",
+          "name": "Bojler teče",
+          "description": "Únik vody z bojleru",
+          "riskScore": 6,
+          "difficulty": "Vysoká",
+          "timeEstimate": "20 min",
+          "tools": ["Klíč", "Hadřík", "Nádoba"],
+          "steps": [
+            { "step": 1, "action": "OKAMŽITĚ vypněte bojler z elektřiny!", "time": "30 s", "icon": "⚡" },
+            { "step": 2, "action": "Uzavřete přívod studené vody do bojleru", "time": "1 min", "icon": "🚰" },
+            { "step": 3, "action": "Lokalizujte místo úniku", "time": "3 min", "icon": "🔍" },
+            { "step": 4, "action": "Podložte nádobu pod únik", "time": "1 min", "icon": "🪣" },
+            { "step": 5, "action": "Pokud teče z pojistného ventilu - může být přetlak", "time": "5 min", "icon": "⚙️", "hint": "Občasné odkapávání je normální." },
+            { "step": 6, "action": "Pokud teče ze spodku nádrže - volejte servis", "time": "0 min", "icon": "📞", "hint": "Prorezlá nádrž = výměna bojleru." },
+            { "step": 7, "action": "Dotáhněte spoje, pokud teče z nich", "time": "10 min", "icon": "🔧" }
+          ],
+          "safetyWarnings": ["⚠️ Kombinace vody a elektřiny je nebezpečná!", "Vždy nejdřív odpojte elektřinu", "Při úniku ze spodku nádrže volejte odborníka"]
+        },
+        {
+          "id": "pressure-valve",
+          "name": "Pojistný ventil odkapává",
+          "description": "Voda pravidelně kape z pojistného ventilu",
+          "riskScore": 3,
+          "difficulty": "Střední",
+          "timeEstimate": "15 min",
+          "tools": ["Klíč", "Nový pojistný ventil"],
+          "steps": [
+            { "step": 1, "action": "Zkontrolujte frekvenci kapání", "time": "5 min", "icon": "🔍", "hint": "Občasné kapání při ohřevu je normální." },
+            { "step": 2, "action": "Zkontrolujte nastavení teploty", "time": "2 min", "icon": "🌡️", "hint": "Příliš vysoká teplota = vyšší tlak." },
+            { "step": 3, "action": "Snižte teplotu na 55-60°C", "time": "1 min", "icon": "⚙️" },
+            { "step": 4, "action": "Zkontrolujte expanzní nádobu (pokud je)", "time": "5 min", "icon": "🔍" },
+            { "step": 5, "action": "Pokud stále kape, vyměňte ventil", "time": "20 min", "icon": "🔧", "hint": "Volejte odborníka - výměna vyžaduje vypuštění bojleru." }
+          ],
+          "safetyWarnings": ["Pojistný ventil je bezpečnostní prvek - nikdy ho nezaslepujte!", "Při trvalém úniku volejte servis"]
+        }
+      ]
+    },
+    "podlaha": {
+      "name": "Podlaha",
+      "category": "steny_podlahy",
+      "icon": "🏠",
+      "issues": [
+        {
+          "id": "squeaky",
+          "name": "Vrzající podlaha",
+          "description": "Podlaha vydává zvuky při chůzi",
+          "riskScore": 1,
+          "difficulty": "Střední",
+          "timeEstimate": "30 min",
+          "tools": ["Šrouby", "Vrtačka", "Mastek nebo WD-40"],
+          "steps": [
+            { "step": 1, "action": "Lokalizujte vrzající místo", "time": "3 min", "icon": "👂", "hint": "Pomalu procházejte a označte místa." },
+            { "step": 2, "action": "Určete typ podlahy", "time": "2 min", "icon": "🔍", "hint": "Dřevo, laminát, nebo plovoucí?" },
+            { "step": 3, "action": "Pro plovoucí podlahu: nasypte mastek do spár", "time": "10 min", "icon": "🧴" },
+            { "step": 4, "action": "Pro dřevěnou: přišroubujte k podkladu", "time": "15 min", "icon": "🔩", "hint": "Použijte šrouby s malou hlavou." },
+            { "step": 5, "action": "Zakryjte hlavy šroubů tmelem", "time": "5 min", "icon": "🎨" },
+            { "step": 6, "action": "Otestujte chůzí", "time": "3 min", "icon": "✅" }
+          ],
+          "safetyWarnings": ["Pozor na skryté rozvody pod podlahou"]
+        },
+        {
+          "id": "scratch",
+          "name": "Poškrábaná podlaha",
+          "description": "Viditelné škrábance na podlaze",
+          "riskScore": 1,
+          "difficulty": "Nízká",
+          "timeEstimate": "20 min",
+          "tools": ["Opravná sada na podlahy", "Hadřík", "Vosk nebo olej"],
+          "steps": [
+            { "step": 1, "action": "Očistěte poškozené místo", "time": "2 min", "icon": "🧹" },
+            { "step": 2, "action": "Pro mělké škrábance: použijte vlašský ořech", "time": "5 min", "icon": "🥜", "hint": "Třete jádrem ořechu po škrábanci." },
+            { "step": 3, "action": "Pro hlubší škrábance: použijte opravný vosk", "time": "10 min", "icon": "🖍️", "hint": "Vyberte barvu odpovídající podlaze." },
+            { "step": 4, "action": "Zahřejte vosk a vyplňte škrábanec", "time": "5 min", "icon": "🔥" },
+            { "step": 5, "action": "Odstraňte přebytečný vosk", "time": "3 min", "icon": "🧽" },
+            { "step": 6, "action": "Přeleštěte hadříkem", "time": "2 min", "icon": "✅" }
+          ],
+          "safetyWarnings": ["Testujte barvu vosku na skrytém místě"]
+        },
+        {
+          "id": "gap",
+          "name": "Mezery mezi lamelami",
+          "description": "Podlaha má viditelné spáry",
+          "riskScore": 1,
+          "difficulty": "Střední",
+          "timeEstimate": "45 min",
+          "tools": ["Tmel na dřevo", "Stěrka", "Brusný papír"],
+          "steps": [
+            { "step": 1, "action": "Vyčistěte mezery od nečistot", "time": "10 min", "icon": "🧹" },
+            { "step": 2, "action": "Pro malé mezery: použijte tmel na dřevo", "time": "15 min", "icon": "🧴" },
+            { "step": 3, "action": "Aplikujte tmel stěrkou", "time": "10 min", "icon": "🔧" },
+            { "step": 4, "action": "Nechte zaschnout", "time": "2-4 hod", "icon": "⏰" },
+            { "step": 5, "action": "Přebruste jemným brusným papírem", "time": "5 min", "icon": "📄" },
+            { "step": 6, "action": "Případně přelakujte", "time": "30 min", "icon": "✅" }
+          ],
+          "safetyWarnings": ["Větrejte při práci s tmelem", "Velké mezery mohou značit problém s vlhkostí"]
+        }
+      ]
+    },
+    "zidle": {
+      "name": "Židle",
+      "category": "nabytek",
+      "icon": "🪑",
+      "issues": [
+        {
+          "id": "wobbly",
+          "name": "Viklající se židle",
+          "description": "Židle není stabilní",
+          "riskScore": 2,
+          "difficulty": "Nízká",
+          "timeEstimate": "20 min",
+          "tools": ["Šroubovák", "Lepidlo na dřevo", "Svěrky"],
+          "steps": [
+            { "step": 1, "action": "Otočte židli nohama vzhůru", "time": "30 s", "icon": "🔄" },
+            { "step": 2, "action": "Zkontrolujte a dotáhněte všechny šrouby", "time": "5 min", "icon": "🔩" },
+            { "step": 3, "action": "Identifikujte uvolněné spoje", "time": "3 min", "icon": "🔍" },
+            { "step": 4, "action": "Rozeberte uvolněný spoj", "time": "3 min", "icon": "🔧" },
+            { "step": 5, "action": "Naneste lepidlo na dřevo", "time": "2 min", "icon": "🧴" },
+            { "step": 6, "action": "Složte zpět a sevřete svěrkami", "time": "3 min", "icon": "🔧" },
+            { "step": 7, "action": "Nechte schnout 24 hodin", "time": "24 hod", "icon": "⏰" }
+          ],
+          "safetyWarnings": ["Nepoužívejte židli, dokud lepidlo nezaschne"]
+        },
+        {
+          "id": "broken-leg",
+          "name": "Prasklá noha židle",
+          "description": "Noha židle je prasklá nebo zlomená",
+          "riskScore": 3,
+          "difficulty": "Střední",
+          "timeEstimate": "30 min",
+          "tools": ["Lepidlo na dřevo", "Svěrky", "Hmoždíky (volitelně)"],
+          "steps": [
+            { "step": 1, "action": "Očistěte prasklé místo od starého lepidla", "time": "5 min", "icon": "🧹" },
+            { "step": 2, "action": "Naneste lepidlo na obě strany praskliny", "time": "3 min", "icon": "🧴" },
+            { "step": 3, "action": "Přitlačte části k sobě", "time": "2 min", "icon": "🔧" },
+            { "step": 4, "action": "Upevněte svěrkami", "time": "3 min", "icon": "⚙️" },
+            { "step": 5, "action": "Pro větší pevnost vyvrtejte a vložte hmoždík", "time": "10 min", "icon": "🔩" },
+            { "step": 6, "action": "Otřete přebytečné lepidlo", "time": "2 min", "icon": "🧽" },
+            { "step": 7, "action": "Nechte schnout minimálně 24 hodin", "time": "24 hod", "icon": "✅" }
+          ],
+          "safetyWarnings": ["Lepidlo potřebuje čas k vytvrzení", "Při vrtání dejte pozor na skryté hřebíky"]
+        }
+      ]
+    },
+    "skrin": {
+      "name": "Skříň",
+      "category": "nabytek",
+      "icon": "🗄️",
+      "issues": [
+        {
+          "id": "door-misaligned",
+          "name": "Křivé dveře skříně",
+          "description": "Dveře skříně nejsou zarovnané",
+          "riskScore": 1,
+          "difficulty": "Nízká",
+          "timeEstimate": "15 min",
+          "tools": ["Křížový šroubovák"],
+          "steps": [
+            { "step": 1, "action": "Otevřete dveře skříně", "time": "10 s", "icon": "🚪" },
+            { "step": 2, "action": "Najděte seřizovací šrouby na pantech", "time": "2 min", "icon": "🔍", "hint": "Obvykle 3 šrouby - hloubka, výška, bok." },
+            { "step": 3, "action": "Pro posun doleva/doprava: prostřední šroub", "time": "3 min", "icon": "🔧" },
+            { "step": 4, "action": "Pro posun nahoru/dolů: šroub na základně pantu", "time": "3 min", "icon": "⚙️" },
+            { "step": 5, "action": "Pro přítlak: zadní šroub", "time": "3 min", "icon": "🔩" },
+            { "step": 6, "action": "Opakujte u všech pantů", "time": "5 min", "icon": "🔄" },
+            { "step": 7, "action": "Zkontrolujte zarovnání a zavření", "time": "2 min", "icon": "✅" }
+          ],
+          "safetyWarnings": ["Seřizujte po malých krocích"]
+        },
+        {
+          "id": "drawer-stuck",
+          "name": "Zaseknutá zásuvka",
+          "description": "Zásuvka nejde otevřít nebo zavřít",
+          "riskScore": 1,
+          "difficulty": "Nízká",
+          "timeEstimate": "15 min",
+          "tools": ["Svíčka nebo vosk", "Hadřík"],
+          "steps": [
+            { "step": 1, "action": "Zkuste zásuvku jemně povytáhnout", "time": "1 min", "icon": "🔧" },
+            { "step": 2, "action": "Vytáhněte zásuvku úplně", "time": "2 min", "icon": "📦", "hint": "Někdy je třeba zásuvku nadzvednout." },
+            { "step": 3, "action": "Zkontrolujte kolejnice", "time": "2 min", "icon": "🔍" },
+            { "step": 4, "action": "Vyčistěte kolejnice od nečistot", "time": "3 min", "icon": "🧹" },
+            { "step": 5, "action": "Namažte kolejnice svíčkou nebo voskem", "time": "3 min", "icon": "🕯️" },
+            { "step": 6, "action": "Zkontrolujte kolečka (pokud jsou)", "time": "2 min", "icon": "⚙️" },
+            { "step": 7, "action": "Vraťte zásuvku a otestujte", "time": "2 min", "icon": "✅" }
+          ],
+          "safetyWarnings": ["Nepřetěžujte zásuvky"]
+        },
+        {
+          "id": "shelf-sagging",
+          "name": "Prohnutá police",
+          "description": "Police se prohýbá pod vahou",
+          "riskScore": 2,
+          "difficulty": "Střední",
+          "timeEstimate": "30 min",
+          "tools": ["Podpěry polic", "Vrtačka", "Šrouby"],
+          "steps": [
+            { "step": 1, "action": "Vyjměte obsah police", "time": "5 min", "icon": "📦" },
+            { "step": 2, "action": "Vyjměte polici", "time": "2 min", "icon": "🔧" },
+            { "step": 3, "action": "Zkontrolujte, zda není poškozená", "time": "2 min", "icon": "🔍" },
+            { "step": 4, "action": "Přidejte podpěru uprostřed", "time": "15 min", "icon": "⚙️" },
+            { "step": 5, "action": "Případně vyměňte za silnější polici", "time": "5 min", "icon": "🔄" },
+            { "step": 6, "action": "Vraťte polici a rozložte váhu rovnoměrně", "time": "5 min", "icon": "✅" }
+          ],
+          "safetyWarnings": ["Nepřetěžujte police", "Těžké předměty ukládejte dolů"]
+        }
+      ]
+    },
+    "sporak": {
+      "name": "Sporák",
+      "category": "kuchyn",
+      "icon": "🍳",
+      "issues": [
+        {
+          "id": "burner-not-igniting",
+          "name": "Hořák nezapaluje (plyn)",
+          "description": "Plynový hořák nejde zapálit",
+          "riskScore": 5,
+          "difficulty": "Nízká",
+          "timeEstimate": "15 min",
+          "tools": ["Jehla nebo špendlík", "Kartáček", "Hadřík"],
+          "steps": [
+            { "step": 1, "action": "Zkontrolujte, zda je plyn otevřený", "time": "1 min", "icon": "🔥" },
+            { "step": 2, "action": "Sundejte mřížku a hořák", "time": "2 min", "icon": "🔧" },
+            { "step": 3, "action": "Vyčistěte otvory hořáku jehlou", "time": "5 min", "icon": "📍", "hint": "Ucpané otvory brání průtoku plynu." },
+            { "step": 4, "action": "Vyčistěte elektrodu zapalovače", "time": "3 min", "icon": "⚡", "hint": "Bílá keramická tyčinka vedle hořáku." },
+            { "step": 5, "action": "Vysušte hořák (pokud byl mokrý)", "time": "2 min", "icon": "🌡️" },
+            { "step": 6, "action": "Vraťte hořák a otestujte", "time": "2 min", "icon": "✅" }
+          ],
+          "safetyWarnings": ["⚠️ Při zápachu plynu okamžitě větrejte!", "Nepoužívejte otevřený oheň při čištění", "Pokud cítíte plyn, zavřete hlavní ventil"]
+        },
+        {
+          "id": "electric-plate-not-heating",
+          "name": "Elektrická plotna nehřeje",
+          "description": "Plotna nereaguje nebo nehřeje",
+          "riskScore": 6,
+          "difficulty": "Střední",
+          "timeEstimate": "20 min",
+          "tools": ["Šroubovák", "Multimetr (volitelně)"],
+          "steps": [
+            { "step": 1, "action": "Zkontrolujte jistič", "time": "2 min", "icon": "⚡" },
+            { "step": 2, "action": "Odpojte sporák ze zásuvky", "time": "1 min", "icon": "🔌" },
+            { "step": 3, "action": "Zkontrolujte ovládací prvky", "time": "3 min", "icon": "🔍" },
+            { "step": 4, "action": "Zkontrolujte, zda plotna není poškozená", "time": "5 min", "icon": "🔧", "hint": "Hledejte praskliny nebo známky přepálení." },
+            { "step": 5, "action": "Zkontrolujte konektory pod plotnou", "time": "5 min", "icon": "⚙️", "hint": "Mohou být uvolněné nebo opálené." },
+            { "step": 6, "action": "Pokud problém přetrvává, volejte servis", "time": "0 min", "icon": "📞" }
+          ],
+          "safetyWarnings": ["Vždy odpojte ze zásuvky před kontrolou", "Plotna může být horká i po vypnutí", "Opravy elektřiny nechte na odborníka"]
+        }
+      ]
+    },
+    "digestor": {
+      "name": "Digestoř",
+      "category": "kuchyn",
+      "icon": "🌬️",
+      "issues": [
+        {
+          "id": "not-working",
+          "name": "Digestoř netáhne",
+          "description": "Slabý nebo žádný odtah",
+          "riskScore": 2,
+          "difficulty": "Nízká",
+          "timeEstimate": "30 min",
+          "tools": ["Šroubovák", "Teplá voda", "Odmašťovač"],
+          "steps": [
+            { "step": 1, "action": "Zkontrolujte nastavení rychlosti", "time": "1 min", "icon": "🔍" },
+            { "step": 2, "action": "Vyjměte a zkontrolujte filtry", "time": "3 min", "icon": "🔧" },
+            { "step": 3, "action": "Umyjte kovové filtry v horké vodě s odmašťovačem", "time": "15 min", "icon": "🧽" },
+            { "step": 4, "action": "Vyměňte uhlíkový filtr (pokud je)", "time": "5 min", "icon": "⚙️", "hint": "Uhlíkové filtry nelze mýt - jen vyměnit." },
+            { "step": 5, "action": "Zkontrolujte odtahové potrubí", "time": "5 min", "icon": "🔍", "hint": "Může být ucpané nebo přehnuté." },
+            { "step": 6, "action": "Vraťte filtry a otestujte", "time": "3 min", "icon": "✅" }
+          ],
+          "safetyWarnings": ["Vypněte digestoř před čištěním", "Kovové filtry jsou ostré"]
+        },
+        {
+          "id": "noisy",
+          "name": "Hlučná digestoř",
+          "description": "Digestoř vydává neobvyklé zvuky",
+          "riskScore": 2,
+          "difficulty": "Nízká",
+          "timeEstimate": "20 min",
+          "tools": ["Šroubovák", "WD-40"],
+          "steps": [
+            { "step": 1, "action": "Vypněte digestoř", "time": "10 s", "icon": "🔌" },
+            { "step": 2, "action": "Zkontrolujte, zda filtry správně sedí", "time": "2 min", "icon": "🔍" },
+            { "step": 3, "action": "Zkontrolujte, zda se nic nedotýká ventilátoru", "time": "3 min", "icon": "🔧" },
+            { "step": 4, "action": "Dotáhněte uvolněné šrouby", "time": "5 min", "icon": "🔩" },
+            { "step": 5, "action": "Zkontrolujte odtahové potrubí", "time": "5 min", "icon": "⚙️", "hint": "Volné potrubí může vibrovat." },
+            { "step": 6, "action": "Nastříkejte WD-40 na ložisko (pokud je přístupné)", "time": "3 min", "icon": "🧴" },
+            { "step": 7, "action": "Otestujte", "time": "2 min", "icon": "✅" }
+          ],
+          "safetyWarnings": ["Nikdy nesahejte na běžící ventilátor"]
+        },
+        {
+          "id": "light-not-working",
+          "name": "Nefunkční osvětlení digestoře",
+          "description": "Světlo v digestoři nesvítí",
+          "riskScore": 2,
+          "difficulty": "Velmi nízká",
+          "timeEstimate": "10 min",
+          "tools": ["Nová žárovka", "Šroubovák"],
+          "steps": [
+            { "step": 1, "action": "Vypněte digestoř", "time": "10 s", "icon": "🔌" },
+            { "step": 2, "action": "Nechte žárovku vychladnout", "time": "2 min", "icon": "⏰" },
+            { "step": 3, "action": "Sejměte kryt žárovky (pokud je)", "time": "1 min", "icon": "🔧" },
+            { "step": 4, "action": "Vyšroubujte starou žárovku", "time": "30 s", "icon": "💡" },
+            { "step": 5, "action": "Vložte novou žárovku stejného typu", "time": "30 s", "icon": "💡", "hint": "Zkontrolujte wattáž a typ patice." },
+            { "step": 6, "action": "Vraťte kryt a otestujte", "time": "1 min", "icon": "✅" }
+          ],
+          "safetyWarnings": ["Používejte správný typ žárovky", "Nepřekračujte maximální wattáž"]
+        }
+      ]
+    },
+    "trouba": {
+      "name": "Trouba",
+      "category": "kuchyn",
+      "icon": "🔥",
+      "issues": [
+        {
+          "id": "not-heating",
+          "name": "Trouba nehřeje",
+          "description": "Trouba se nezahřívá nebo zahřívá pomalu",
+          "riskScore": 4,
+          "difficulty": "Střední",
+          "timeEstimate": "20 min",
+          "tools": ["Teploměr do trouby"],
+          "steps": [
+            { "step": 1, "action": "Zkontrolujte nastavení teploty a programu", "time": "1 min", "icon": "🌡️" },
+            { "step": 2, "action": "Zkontrolujte jistič", "time": "2 min", "icon": "⚡" },
+            { "step": 3, "action": "Ověřte, že se trouba zapíná (kontrolka)", "time": "1 min", "icon": "💡" },
+            { "step": 4, "action": "Zkontrolujte těsnění dvířek", "time": "3 min", "icon": "🔍", "hint": "Poškozené těsnění způsobuje únik tepla." },
+            { "step": 5, "action": "Použijte teploměr pro kontrolu skutečné teploty", "time": "15 min", "icon": "🌡️" },
+            { "step": 6, "action": "Pokud teplota neodpovídá, může být vadný termostat", "time": "0 min", "icon": "📞", "hint": "Výměna termostatu vyžaduje servis." }
+          ],
+          "safetyWarnings": ["Trouba může být horká - buďte opatrní", "Opravy elektrických částí nechte na servis"]
+        },
+        {
+          "id": "door-not-closing",
+          "name": "Dvířka trouby se nezavírají",
+          "description": "Dvířka nejdou správně zavřít",
+          "riskScore": 3,
+          "difficulty": "Střední",
+          "timeEstimate": "25 min",
+          "tools": ["Šroubovák", "Nové panty (volitelně)"],
+          "steps": [
+            { "step": 1, "action": "Zkontrolujte, zda něco neblokuje zavření", "time": "2 min", "icon": "🔍" },
+            { "step": 2, "action": "Zkontrolujte těsnění - není poškozené?", "time": "3 min", "icon": "🔍" },
+            { "step": 3, "action": "Zkontrolujte panty dvířek", "time": "3 min", "icon": "🔧" },
+            { "step": 4, "action": "Dotáhněte šrouby pantů", "time": "5 min", "icon": "🔩" },
+            { "step": 5, "action": "Zkontrolujte mechanismus západky", "time": "5 min", "icon": "⚙️" },
+            { "step": 6, "action": "Případně vyměňte poškozené panty", "time": "15 min", "icon": "🔧" },
+            { "step": 7, "action": "Otestujte zavírání", "time": "2 min", "icon": "✅" }
+          ],
+          "safetyWarnings": ["Otevřená trouba při provozu je nebezpečná", "Nechte troubu vychladnout před prací"]
+        }
+      ]
+    },
+    "vana": {
+      "name": "Vana",
+      "category": "koupelna",
+      "icon": "🛁",
+      "issues": [
+        {
+          "id": "slow-drain",
+          "name": "Pomalý odtok",
+          "description": "Voda z vany odtéká pomalu",
+          "riskScore": 2,
+          "difficulty": "Nízká",
+          "timeEstimate": "25 min",
+          "tools": ["Zvon (pumpa)", "Gumové rukavice", "Soda", "Ocet"],
+          "steps": [
+            { "step": 1, "action": "Odstraňte vlasy z povrchu odtoku", "time": "2 min", "icon": "🧹" },
+            { "step": 2, "action": "Zkuste zvon (pumpu)", "time": "5 min", "icon": "🪠", "hint": "Ucpěte přepad a pumpujte." },
+            { "step": 3, "action": "Nasypte sodu do odpadu", "time": "1 min", "icon": "🧴" },
+            { "step": 4, "action": "Nalijte ocet", "time": "1 min", "icon": "🧪" },
+            { "step": 5, "action": "Nechte působit 30 minut", "time": "30 min", "icon": "⏰" },
+            { "step": 6, "action": "Propláchněte vroucí vodou", "time": "2 min", "icon": "💧" },
+            { "step": 7, "action": "Pokud nepomáhá, použijte sanitární spirálu", "time": "15 min", "icon": "🔧" }
+          ],
+          "safetyWarnings": ["Používejte rukavice", "Nikdy nemíchejte různé čističe"]
+        },
+        {
+          "id": "caulk-mold",
+          "name": "Plíseň na silikonu",
+          "description": "Černá plíseň na spárách kolem vany",
+          "riskScore": 3,
+          "difficulty": "Střední",
+          "timeEstimate": "2 hod",
+          "tools": ["Odstraňovač silikonu", "Nový silikon", "Aplikační pistole", "Maskovací páska", "Čistič plísně"],
+          "steps": [
+            { "step": 1, "action": "Nastříkejte čistič plísně a nechte působit", "time": "15 min", "icon": "🧴" },
+            { "step": 2, "action": "Větrejte místnost", "time": "0 min", "icon": "🪟" },
+            { "step": 3, "action": "Odstraňte starý silikon", "time": "20 min", "icon": "🔧", "hint": "Použijte odstraňovač silikonu nebo ostrý nůž." },
+            { "step": 4, "action": "Očistěte a vysušte povrch", "time": "10 min", "icon": "🧹" },
+            { "step": 5, "action": "Nalepte maskovací pásku po obou stranách spáry", "time": "10 min", "icon": "📏" },
+            { "step": 6, "action": "Naneste nový sanitární silikon", "time": "15 min", "icon": "🧴" },
+            { "step": 7, "action": "Uhlaďte prstem namočeným v mýdle", "time": "5 min", "icon": "👆" },
+            { "step": 8, "action": "Odstraňte pásku a nechte schnout 24 hod", "time": "24 hod", "icon": "✅" }
+          ],
+          "safetyWarnings": ["Větrejte při práci s čističem plísně", "Používejte rukavice", "Silikon potřebuje 24h k vytvrzení"]
+        }
+      ]
+    },
+    "zamek": {
+      "name": "Zámek",
+      "category": "dvere_okna",
+      "icon": "🔐",
+      "issues": [
+        {
+          "id": "hard-to-turn",
+          "name": "Zámek jde ztuha",
+          "description": "Klíč se těžko otáčí v zámku",
+          "riskScore": 2,
+          "difficulty": "Velmi nízká",
+          "timeEstimate": "10 min",
+          "tools": ["Grafitový sprej", "WD-40 (jen krátkodobě)"],
+          "steps": [
+            { "step": 1, "action": "Nastříkejte grafitový sprej do zámku", "time": "1 min", "icon": "🧴", "hint": "Grafit je lepší než WD-40 pro zámky." },
+            { "step": 2, "action": "Vložte klíč a několikrát otočte", "time": "2 min", "icon": "🔑" },
+            { "step": 3, "action": "Vytáhněte klíč a otřete přebytečný grafit", "time": "1 min", "icon": "🧹" },
+            { "step": 4, "action": "Opakujte postup", "time": "3 min", "icon": "🔄" },
+            { "step": 5, "action": "Otestujte zamykání a odemykání", "time": "2 min", "icon": "✅" }
+          ],
+          "safetyWarnings": ["WD-40 časem přitahuje prach - preferujte grafit", "Pokud problém přetrvává, může být zámek opotřebovaný"]
+        },
+        {
+          "id": "key-broken",
+          "name": "Zlomený klíč v zámku",
+          "description": "Část klíče zůstala v zámku",
+          "riskScore": 3,
+          "difficulty": "Střední",
+          "timeEstimate": "20 min",
+          "tools": ["Pinzeta", "Pilník nebo malý nůž", "Grafitový sprej"],
+          "steps": [
+            { "step": 1, "action": "Nastříkejte mazivo do zámku", "time": "1 min", "icon": "🧴" },
+            { "step": 2, "action": "Zkuste pinzetou uchopit vyčnívající část", "time": "5 min", "icon": "🔧" },
+            { "step": 3, "action": "Alternativa: vložte tenký pilník podél klíče", "time": "5 min", "icon": "⚙️", "hint": "Zuby pilníku zachytí zuby klíče." },
+            { "step": 4, "action": "Opatrně vytáhněte", "time": "3 min", "icon": "🔍" },
+            { "step": 5, "action": "Pokud se nedaří, volejte zámečníka", "time": "0 min", "icon": "📞" },
+            { "step": 6, "action": "Po vyjmutí nechte vyrobit nový klíč", "time": "0 min", "icon": "🔑" }
+          ],
+          "safetyWarnings": ["Netlačte klíč hlouběji do zámku", "Při nezdaru raději volejte odborníka"]
+        }
+      ]
+    },
+    "zaluzie": {
+      "name": "Žaluzie/Rolety",
+      "category": "dvere_okna",
+      "icon": "🪟",
+      "issues": [
+        {
+          "id": "stuck",
+          "name": "Zaseknuté žaluzie",
+          "description": "Žaluzie nejdou vytáhnout nebo stáhnout",
+          "riskScore": 1,
+          "difficulty": "Nízká",
+          "timeEstimate": "20 min",
+          "tools": ["Šroubovák", "WD-40"],
+          "steps": [
+            { "step": 1, "action": "Zkontrolujte ovládací šňůru/tyč", "time": "2 min", "icon": "🔍" },
+            { "step": 2, "action": "Zkontrolujte, zda lamely nejsou zapletené", "time": "3 min", "icon": "🔧" },
+            { "step": 3, "action": "Nastříkejte WD-40 na mechanismus", "time": "2 min", "icon": "🧴" },
+            { "step": 4, "action": "Pomalu pohybujte ovládáním", "time": "3 min", "icon": "🔄" },
+            { "step": 5, "action": "Zkontrolujte uchycení v liště", "time": "5 min", "icon": "⚙️" },
+            { "step": 6, "action": "Otestujte plný rozsah pohybu", "time": "3 min", "icon": "✅" }
+          ],
+          "safetyWarnings": ["Nepoužívejte nadměrnou sílu"]
+        },
+        {
+          "id": "cord-broken",
+          "name": "Přetržená šňůra",
+          "description": "Ovládací šňůra je přetržená",
+          "riskScore": 1,
+          "difficulty": "Střední",
+          "timeEstimate": "30 min",
+          "tools": ["Nová šňůra", "Šroubovák", "Zapalovač"],
+          "steps": [
+            { "step": 1, "action": "Sejměte žaluzie z uchycení", "time": "3 min", "icon": "🔧" },
+            { "step": 2, "action": "Otevřete horní kryt mechanismu", "time": "5 min", "icon": "⚙️" },
+            { "step": 3, "action": "Navažte novou šňůru ke staré", "time": "5 min", "icon": "🧵" },
+            { "step": 4, "action": "Protáhněte šňůru systémem", "time": "10 min", "icon": "🔄" },
+            { "step": 5, "action": "Upravte délku a zapravte konce", "time": "5 min", "icon": "🔥", "hint": "Syntetickou šňůru zatavte zapalovačem." },
+            { "step": 6, "action": "Složte zpět a otestujte", "time": "5 min", "icon": "✅" }
+          ],
+          "safetyWarnings": ["Opatrně se zapalovačem"]
+        }
+      ]
+    },
+    "sekacka": {
+      "name": "Sekačka na trávu",
+      "category": "zahrada",
+      "icon": "🌱",
+      "issues": [
+        {
+          "id": "wont-start",
+          "name": "Sekačka nestartuje",
+          "description": "Motor nenaskočí",
+          "riskScore": 3,
+          "difficulty": "Střední",
+          "timeEstimate": "30 min",
+          "tools": ["Šroubovák", "Klíč na svíčky", "Nová svíčka", "Čerstvý benzín"],
+          "steps": [
+            { "step": 1, "action": "Zkontrolujte hladinu paliva", "time": "1 min", "icon": "⛽" },
+            { "step": 2, "action": "Zkontrolujte, zda je palivo čerstvé", "time": "2 min", "icon": "🔍", "hint": "Starý benzín může být problém." },
+            { "step": 3, "action": "Zkontrolujte vzduchový filtr", "time": "3 min", "icon": "🌬️" },
+            { "step": 4, "action": "Vyčistěte nebo vyměňte vzduchový filtr", "time": "5 min", "icon": "🧹" },
+            { "step": 5, "action": "Vyšroubujte a zkontrolujte svíčku", "time": "5 min", "icon": "🔧", "hint": "Měla by být suchá a čistá." },
+            { "step": 6, "action": "Vyčistěte nebo vyměňte svíčku", "time": "5 min", "icon": "⚙️" },
+            { "step": 7, "action": "Zkontrolujte palivový filtr", "time": "5 min", "icon": "🔍" },
+            { "step": 8, "action": "Zkuste nastartovat", "time": "2 min", "icon": "✅" }
+          ],
+          "safetyWarnings": ["Pracujte venku - benzínové výpary!", "Před prací na noži odpojte svíčku", "Nemanipulujte s benzínem u ohně"]
+        },
+        {
+          "id": "blade-dull",
+          "name": "Tupý nůž sekačky",
+          "description": "Sekačka špatně seká, trhá trávu",
+          "riskScore": 4,
+          "difficulty": "Střední",
+          "timeEstimate": "45 min",
+          "tools": ["Klíč", "Pilník nebo bruska", "Rukavice", "Svěrák"],
+          "steps": [
+            { "step": 1, "action": "ODPOJTE SVÍČKU!", "time": "1 min", "icon": "⚡", "hint": "Kritické pro bezpečnost!" },
+            { "step": 2, "action": "Nakloňte sekačku (karburátor nahoru)", "time": "2 min", "icon": "🔄" },
+            { "step": 3, "action": "Označte si stranu nože pro správnou montáž", "time": "1 min", "icon": "📝" },
+            { "step": 4, "action": "Odšroubujte nůž (držte dřevěným blokem)", "time": "5 min", "icon": "🔧" },
+            { "step": 5, "action": "Upněte nůž do svěráku", "time": "2 min", "icon": "⚙️" },
+            { "step": 6, "action": "Nabruste pilníkem pod původním úhlem", "time": "15 min", "icon": "🔪", "hint": "Bruste od středu ven, zachovejte úhel ~30°." },
+            { "step": 7, "action": "Zkontrolujte vyvážení nože", "time": "3 min", "icon": "⚖️", "hint": "Zavěste na hřebík - musí být vodorovně." },
+            { "step": 8, "action": "Namontujte nůž zpět", "time": "5 min", "icon": "🔩" },
+            { "step": 9, "action": "Připojte svíčku a otestujte", "time": "5 min", "icon": "✅" }
+          ],
+          "safetyWarnings": ["⚠️ VŽDY odpojte svíčku!", "Používejte silné rukavice", "Nevyvážený nůž způsobuje vibrace"]
+        }
+      ]
+    }
+  },
+  "categories": [
+    { "id": "all", "name": "Vše", "icon": "📋" },
+    { "id": "voda", "name": "Voda", "icon": "🚰" },
+    { "id": "elektrina", "name": "Elektřina", "icon": "⚡" },
+    { "id": "topeni", "name": "Topení", "icon": "🌡️" },
+    { "id": "dvere_okna", "name": "Dveře & Okna", "icon": "🚪" },
+    { "id": "nabytek", "name": "Nábytek", "icon": "🪑" },
+    { "id": "spotrebice", "name": "Spotřebiče", "icon": "🔌" },
+    { "id": "kuchyn", "name": "Kuchyň", "icon": "🍳" },
+    { "id": "koupelna", "name": "Koupelna", "icon": "🚿" },
+    { "id": "steny_podlahy", "name": "Stěny & Podlahy", "icon": "🏠" },
+    { "id": "zahrada", "name": "Zahrada", "icon": "🌱" }
+  ]
+}
