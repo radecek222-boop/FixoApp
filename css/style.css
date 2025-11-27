@@ -1359,3 +1359,226 @@ tr:hover {
 .gap-1 { gap: 8px; }
 .gap-2 { gap: 16px; }
 .gap-3 { gap: 24px; }
+
+/* ========================================
+   Kompaktní layout pro hlavní stránku
+   Vše viditelné bez scrollování
+   ======================================== */
+
+/* Hero - kompaktní verze */
+.hero-compact {
+    background: linear-gradient(135deg, var(--primary) 0%, #1e40af 100%);
+    color: var(--white);
+    padding: 16px 24px;
+    text-align: center;
+}
+
+.hero-compact h1 {
+    font-size: 1.4rem;
+    margin-bottom: 4px;
+}
+
+.hero-compact p {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+/* Hlavní sekce - kompaktní */
+.main-section-compact {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    padding: 16px;
+    flex: 1;
+    min-height: 0;
+}
+
+/* Karta - kompaktní */
+.card-compact {
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-header-compact {
+    margin-bottom: 12px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--gray-200);
+}
+
+.card-header-compact h2 {
+    font-size: 1rem;
+    color: var(--gray-800);
+}
+
+/* Upload zona - kompaktní */
+.upload-zone-compact {
+    border: 2px dashed var(--gray-300);
+    border-radius: 10px;
+    padding: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: var(--gray-50);
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.upload-zone-compact:hover,
+.upload-zone-compact.dragover {
+    border-color: var(--primary);
+    background: rgba(37, 99, 235, 0.05);
+}
+
+.upload-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
+}
+
+.upload-icon {
+    font-size: 40px;
+}
+
+.upload-text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.upload-text strong {
+    font-size: 0.95rem;
+    color: var(--gray-700);
+}
+
+.upload-text small {
+    font-size: 0.75rem;
+    color: var(--gray-500);
+}
+
+.upload-zone-compact input[type="file"] {
+    display: none;
+}
+
+/* Kategorie grid - kompaktní */
+.categories-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    flex: 1;
+}
+
+.category-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px;
+    background: var(--gray-50);
+    border-radius: 8px;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+}
+
+.category-item:hover {
+    background: var(--white);
+    border-color: var(--primary);
+    box-shadow: var(--shadow);
+}
+
+.category-item span {
+    font-size: 1.5rem;
+}
+
+.category-item div {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+}
+
+.category-item strong {
+    font-size: 0.85rem;
+    color: var(--gray-800);
+}
+
+.category-item small {
+    font-size: 0.7rem;
+    color: var(--gray-500);
+}
+
+/* Statistiky v řádku */
+.stats-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0 0 0;
+    margin-top: 10px;
+    border-top: 1px solid var(--gray-200);
+}
+
+.stat-item {
+    text-align: center;
+    font-size: 0.75rem;
+    color: var(--gray-600);
+}
+
+.stat-item strong {
+    color: var(--primary);
+    font-size: 0.9rem;
+}
+
+/* Responzivní úpravy pro menší obrazovky */
+@media (max-height: 700px) {
+    .hero-compact {
+        padding: 10px 20px;
+    }
+
+    .hero-compact h1 {
+        font-size: 1.2rem;
+    }
+
+    .hero-compact p {
+        font-size: 0.8rem;
+    }
+
+    .main-section-compact {
+        padding: 10px;
+        gap: 10px;
+    }
+
+    .card-compact {
+        padding: 12px;
+    }
+
+    .upload-zone-compact {
+        padding: 15px;
+    }
+
+    .upload-icon {
+        font-size: 32px;
+    }
+
+    .category-item {
+        padding: 8px 10px;
+    }
+
+    .category-item span {
+        font-size: 1.2rem;
+    }
+}
+
+@media (max-width: 900px) {
+    .main-section-compact {
+        grid-template-columns: 1fr;
+    }
+
+    .categories-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

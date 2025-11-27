@@ -63,126 +63,87 @@
 
         <!-- Main Content -->
         <main class="main-content">
-            <div class="content-area">
-                <!-- Hero sekce -->
-                <section class="hero">
+            <div class="content-area" style="padding: 0; display: flex; flex-direction: column; height: 100%;">
+                <!-- Hero sekce - kompaktní -->
+                <section class="hero-compact">
                     <h1>🔧 Vyfoťte problém, opravte ho sami!</h1>
-                    <p>Umělá inteligence analyzuje fotografii a navrhne řešení. Ušetřete tisíce korun za řemeslníka.</p>
+                    <p>AI analyzuje fotografii a navrhne řešení. Ušetřete tisíce korun.</p>
                 </section>
 
-                <!-- Hlavní sekce -->
-                <section class="main-section">
+                <!-- Hlavní sekce - bez scrollování -->
+                <section class="main-section-compact">
                     <!-- Upload karta -->
-                    <div class="card upload-card">
-                        <div class="card-header">
-                            <h2 class="card-title">
-                                <span class="icon">📸</span>
-                                Nahrát fotografii závady
-                            </h2>
+                    <div class="card-compact">
+                        <div class="card-header-compact">
+                            <h2>📸 Nahrát fotografii závady</h2>
                         </div>
-                        <div class="card-content">
-                            <div class="upload-zone" id="uploadZone">
-                                <div class="icon">📷</div>
-                                <h3>Klikněte nebo přetáhněte fotografii</h3>
-                                <p>Podporované formáty: JPG, PNG, WEBP (max 10 MB)</p>
+                        <div class="upload-zone-compact" id="uploadZone">
+                            <div class="upload-content">
+                                <span class="upload-icon">📷</span>
+                                <div class="upload-text">
+                                    <strong>Klikněte nebo přetáhněte fotografii</strong>
+                                    <small>JPG, PNG, WEBP (max 10 MB) - fotky se neukládají</small>
+                                </div>
                                 <input type="file" id="fileInput" accept="image/*" capture="environment">
-                                <button class="btn btn-primary btn-lg" onclick="document.getElementById('fileInput').click()">
-                                    <span>📸</span> Vybrat fotografii
+                                <button class="btn btn-primary" onclick="document.getElementById('fileInput').click()">
+                                    📸 Vybrat fotografii
                                 </button>
                             </div>
+                        </div>
 
-                            <!-- Náhled obrázku -->
-                            <div id="previewContainer" class="hidden">
-                                <img id="imagePreview" class="image-preview show" alt="Náhled fotografie">
-                                <div class="flex gap-2 mt-2">
-                                    <button class="btn btn-primary btn-lg btn-block" id="analyzeBtn">
-                                        <span>🔍</span> Analyzovat problém
-                                    </button>
-                                    <button class="btn btn-secondary" id="clearBtn">
-                                        <span>✖️</span> Zrušit
-                                    </button>
-                                </div>
+                        <!-- Náhled obrázku -->
+                        <div id="previewContainer" class="hidden">
+                            <img id="imagePreview" class="image-preview show" alt="Náhled" style="max-height: 150px;">
+                            <div class="flex gap-2 mt-1">
+                                <button class="btn btn-primary btn-block" id="analyzeBtn">🔍 Analyzovat</button>
+                                <button class="btn btn-secondary" id="clearBtn">✖️</button>
                             </div>
+                        </div>
 
-                            <!-- Loading stav -->
-                            <div id="loadingState" class="loading hidden">
-                                <div class="spinner"></div>
-                                <p>AI analyzuje váš problém...</p>
-                            </div>
-
-                            <!-- Info box -->
-                            <div class="info-box mt-3">
-                                <span class="icon">💡</span>
-                                <p><strong>Tip:</strong> Pro nejlepší výsledky foťte zblízka, s dobrým osvětlením. Fotografie se nikam neukládají - zpracovávají se pouze v paměti.</p>
-                            </div>
+                        <!-- Loading stav -->
+                        <div id="loadingState" class="loading hidden">
+                            <div class="spinner"></div>
+                            <p>AI analyzuje...</p>
                         </div>
                     </div>
 
                     <!-- Kategorie karta -->
-                    <div class="card categories-card">
-                        <div class="card-header">
-                            <h2 class="card-title">
-                                <span class="icon">📂</span>
-                                Procházet podle kategorie
-                            </h2>
+                    <div class="card-compact">
+                        <div class="card-header-compact">
+                            <h2>📂 Procházet podle kategorie</h2>
                         </div>
-                        <div class="card-content">
-                            <div class="grid grid-3">
-                                <a href="repair.html?category=bathroom" class="category-card">
-                                    <span class="icon">🚿</span>
-                                    <h3>Koupelna</h3>
-                                    <p>Kohoutek, WC, sprcha</p>
-                                </a>
-                                <a href="repair.html?category=house" class="category-card">
-                                    <span class="icon">🏠</span>
-                                    <h3>Dům</h3>
-                                    <p>Dveře, okna, podlahy</p>
-                                </a>
-                                <a href="repair.html?category=electrical" class="category-card">
-                                    <span class="icon">⚡</span>
-                                    <h3>Elektřina</h3>
-                                    <p>Zásuvky, vypínače</p>
-                                </a>
-                                <a href="repair.html?category=heating" class="category-card">
-                                    <span class="icon">🌡️</span>
-                                    <h3>Topení</h3>
-                                    <p>Radiátor, termostat</p>
-                                </a>
-                                <a href="repair.html?category=kitchen" class="category-card">
-                                    <span class="icon">🍳</span>
-                                    <h3>Kuchyň</h3>
-                                    <p>Dřez, spotřebiče</p>
-                                </a>
-                                <a href="repair.html?category=garden" class="category-card">
-                                    <span class="icon">🌱</span>
-                                    <h3>Zahrada</h3>
-                                    <p>Sekačka, závlaha</p>
-                                </a>
-                            </div>
-
-                            <!-- Statistiky -->
-                            <div class="stats-grid mt-3">
-                                <div class="stat-card">
-                                    <div class="icon">📚</div>
-                                    <div class="value">500+</div>
-                                    <div class="label">Návodů</div>
-                                </div>
-                                <div class="stat-card">
-                                    <div class="icon">👷</div>
-                                    <div class="value">150+</div>
-                                    <div class="label">Řemeslníků</div>
-                                </div>
-                                <div class="stat-card">
-                                    <div class="icon">⭐</div>
-                                    <div class="value">4.8</div>
-                                    <div class="label">Hodnocení</div>
-                                </div>
-                                <div class="stat-card">
-                                    <div class="icon">💰</div>
-                                    <div class="value">2-5k</div>
-                                    <div class="label">Úspora Kč</div>
-                                </div>
-                            </div>
+                        <div class="categories-grid">
+                            <a href="repair.html?category=bathroom" class="category-item">
+                                <span>🚿</span>
+                                <div><strong>Koupelna</strong><small>WC, sprcha</small></div>
+                            </a>
+                            <a href="repair.html?category=house" class="category-item">
+                                <span>🏠</span>
+                                <div><strong>Dům</strong><small>Dveře, okna</small></div>
+                            </a>
+                            <a href="repair.html?category=electrical" class="category-item">
+                                <span>⚡</span>
+                                <div><strong>Elektřina</strong><small>Zásuvky</small></div>
+                            </a>
+                            <a href="repair.html?category=heating" class="category-item">
+                                <span>🌡️</span>
+                                <div><strong>Topení</strong><small>Radiátory</small></div>
+                            </a>
+                            <a href="repair.html?category=kitchen" class="category-item">
+                                <span>🍳</span>
+                                <div><strong>Kuchyň</strong><small>Spotřebiče</small></div>
+                            </a>
+                            <a href="repair.html?category=garden" class="category-item">
+                                <span>🌱</span>
+                                <div><strong>Zahrada</strong><small>Sekačky</small></div>
+                            </a>
+                        </div>
+                        <!-- Statistiky v řádku -->
+                        <div class="stats-row">
+                            <div class="stat-item"><strong>500+</strong> návodů</div>
+                            <div class="stat-item"><strong>150+</strong> řemeslníků</div>
+                            <div class="stat-item"><strong>4.8</strong> hodnocení</div>
+                            <div class="stat-item"><strong>2-5k</strong> Kč úspora</div>
                         </div>
                     </div>
                 </section>
