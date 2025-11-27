@@ -15,38 +15,46 @@ const CONFIG = {
     analysisDelay: 2000 // Simulovaná doba analýzy
 };
 
-// Affiliate odkazy pro nástroje a materiály
+// Affiliate odkazy pro nástroje a materiály (pouze Alza.cz)
 const AFFILIATE_LINKS = {
     // Nástroje
     'Křížový šroubovák': 'https://www.alza.cz/search.htm?exps=sroubovak%20krizovy',
     'Plochý šroubovák': 'https://www.alza.cz/search.htm?exps=sroubovak%20plochy',
     'Šroubovák': 'https://www.alza.cz/search.htm?exps=sada%20sroubovaku',
-    'Nastavitelný klíč': 'https://www.hornbach.cz/shop/Ruční-nářadí/Klíče/S3080/',
-    'Hadřík': 'https://www.hornbach.cz/shop/Čištění/Hadry-a-utěrky/S2789/',
+    'Nastavitelný klíč': 'https://www.alza.cz/search.htm?exps=nastavitelny%20klic',
+    'Hadřík': 'https://www.alza.cz/search.htm?exps=hadrik%20mikrovlakno',
     'Zkoušečka napětí': 'https://www.alza.cz/search.htm?exps=zkousecka%20napeti',
     'Zkoušečka': 'https://www.alza.cz/search.htm?exps=zkousecka%20napeti',
-    'Zvon na odpady': 'https://www.hornbach.cz/shop/Sanitární-technika/Vybavení-koupelny/Koupelnové-doplňky/Příslušenství-k-umyvadlu/Zvony/S2457/',
-    'Gumové rukavice': 'https://www.hornbach.cz/shop/Pracovní-oděvy-a-ochranné-pomůcky/Pracovní-rukavice/S2655/',
+    'Zvon na odpady': 'https://www.alza.cz/search.htm?exps=zvon%20na%20odpady',
+    'Gumové rukavice': 'https://www.alza.cz/search.htm?exps=gumove%20rukavice',
     'Imbusový klíč': 'https://www.alza.cz/search.htm?exps=imbusovy%20klic%20sada',
     'Imbusový klíč (4mm)': 'https://www.alza.cz/search.htm?exps=imbusovy%20klic%204mm',
-    'Nůž': 'https://www.hornbach.cz/shop/Ruční-nářadí/Nože/S3077/',
-    'Odvzdušňovací klíč': 'https://www.hornbach.cz/shop/Topení/Radiátory/Příslušenství-k-radiátorům/S1999/',
-    'Kbelík': 'https://www.hornbach.cz/shop/Stavební-materiál/Kbelíky-a-míchací-nádoby/S2919/',
-    'Klíče': 'https://www.hornbach.cz/shop/Ruční-nářadí/Klíče/S3080/',
+    'Nůž': 'https://www.alza.cz/search.htm?exps=nuz%20remeselny',
+    'Odvzdušňovací klíč': 'https://www.alza.cz/search.htm?exps=odvzdusnovaci%20klic%20radiator',
+    'Kbelík': 'https://www.alza.cz/search.htm?exps=kbelik',
+    'Klíče': 'https://www.alza.cz/search.htm?exps=sada%20klicu',
     'WD-40': 'https://www.alza.cz/search.htm?exps=wd-40',
     'WD-40 nebo mazivo': 'https://www.alza.cz/search.htm?exps=wd-40',
-    'Pilník': 'https://www.hornbach.cz/shop/Ruční-nářadí/Pilníky/S3076/',
+    'Pilník': 'https://www.alza.cz/search.htm?exps=pilnik',
+    'Kleště': 'https://www.alza.cz/search.htm?exps=kleste',
+    'Momentový klíč': 'https://www.alza.cz/search.htm?exps=momentovy%20klic',
+    'Vrtačka': 'https://www.alza.cz/search.htm?exps=vrtacka%20akumulatorova',
+    'Kladivo': 'https://www.alza.cz/search.htm?exps=kladivo',
+    'Metr': 'https://www.alza.cz/search.htm?exps=svinovaci%20metr',
+    'Vodováha': 'https://www.alza.cz/search.htm?exps=vodovaha',
 
     // Materiály
     'Čistič odpadů (Krtek, apod.)': 'https://www.alza.cz/search.htm?exps=krtek%20cistic%20odpadu',
     'Čistič odpadů': 'https://www.alza.cz/search.htm?exps=cistic%20odpadu',
-    'Čistič karburátoru': 'https://www.hornbach.cz/shop/Autopotřeby/Péče-o-auto/Čističe-a-odmašťovače/S3252/',
-    'Nové těsnění': 'https://www.hornbach.cz/shop/Sanitární-technika/Vodovodní-baterie/Příslušenství-k-bateriím/Těsnění/S2442/',
-    'Nový O-kroužek': 'https://www.hornbach.cz/shop/Sanitární-technika/Vodovodní-baterie/Příslušenství-k-bateriím/O-kroužky/S2443/',
-    'Nová zásuvka': 'https://www.hornbach.cz/shop/Elektroinstalace/Zásuvky/S1877/',
-    'Nový vypínač': 'https://www.hornbach.cz/shop/Elektroinstalace/Vypínače/S1876/',
+    'Čistič karburátoru': 'https://www.alza.cz/search.htm?exps=cistic%20karburatoru',
+    'Nové těsnění': 'https://www.alza.cz/search.htm?exps=tesneni%20vodovodní%20baterie',
+    'Nový O-kroužek': 'https://www.alza.cz/search.htm?exps=o-krouzek%20tesneni',
+    'Nová zásuvka': 'https://www.alza.cz/search.htm?exps=elektricka%20zasuvka',
+    'Nový vypínač': 'https://www.alza.cz/search.htm?exps=elektricky%20vypinac',
     'Mazivo': 'https://www.alza.cz/search.htm?exps=mazivo%20univerzalni',
-    'Olej na panty': 'https://www.hornbach.cz/shop/Ruční-nářadí/Maziva-a-oleje/S3094/'
+    'Olej na panty': 'https://www.alza.cz/search.htm?exps=olej%20na%20panty',
+    'Silikón': 'https://www.alza.cz/search.htm?exps=silikon%20sanitarni',
+    'Teflonová páska': 'https://www.alza.cz/search.htm?exps=teflonova%20paska'
 };
 
 /**
@@ -741,7 +749,7 @@ function showRepairDetail(id) {
                 <div>
                     <h3><span class="icon">🛠️</span> Nástroje</h3>
                     <div class="tools-list">
-                        ${repair.tools.map(t => `<div class="tool-item"><span class="icon">🔧</span>${t}</div>`).join('')}
+                        ${repair.tools.map(t => `<a href="${getAffiliateLink(t)}" target="_blank" rel="noopener" class="tool-item tool-link"><span class="icon">🔧</span><span>${t}</span><span class="link-arrow">→</span></a>`).join('')}
                     </div>
                 </div>
                 <div>
