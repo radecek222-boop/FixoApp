@@ -400,6 +400,24 @@ body {
     color: var(--text-dark-tertiary);
 }
 
+/* Dark card variant - white text on dark background */
+.card-dark {
+    background: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+}
+
+.card-dark h1, .card-dark h2, .card-dark h3, .card-dark h4, .card-dark h5, .card-dark h6 {
+    color: white !important;
+}
+
+.card-dark p, .card-dark li {
+    color: rgba(255, 255, 255, 0.7) !important;
+}
+
+.card-dark small, .card-dark .text-muted {
+    color: rgba(255, 255, 255, 0.5) !important;
+}
+
 .card-header {
     display: flex;
     align-items: center;
