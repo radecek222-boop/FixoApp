@@ -19,35 +19,27 @@
                     <div class="logo-tagline">AI asistent pro domácí opravy</div>
                 </div>
             </a>
-
-            <nav class="nav">
+                        <nav class="nav">
                 <a href="index.html" class="nav-link">
-                    <span class="icon">🏠</span>
                     <span>Domů</span>
                 </a>
                 <a href="repair.html" class="nav-link">
-                    <span class="icon">📚</span>
                     <span>Návody</span>
                 </a>
                 <a href="partners.html" class="nav-link">
-                    <span class="icon">🛒</span>
                     <span>E-shopy</span>
                 </a>
                 <a href="providers.html" class="nav-link">
-                    <span class="icon">👷</span>
                     <span>Řemeslníci</span>
                 </a>
                 <a href="about.html" class="nav-link">
-                    <span class="icon">ℹ️</span>
                     <span>O aplikaci</span>
                 </a>
                 <a href="contacts.html" class="nav-link">
-                    <span class="icon">📞</span>
                     <span>Kontakt</span>
                 </a>
             </nav>
         </header>
-
         <!-- Main Content -->
         <main class="main-content">
             <!-- Sidebar s náhledem -->
@@ -59,7 +51,6 @@
                         <span>📷</span> Nová analýza
                     </button>
                 </div>
-
                 <div class="sidebar-section">
                     <h3 class="sidebar-title">Rychlé akce</h3>
                     <ul class="sidebar-menu">
@@ -71,7 +62,6 @@
                         </li>
                         <li class="sidebar-item">
                             <a href="#steps" class="sidebar-link">
-                                <span class="icon">📋</span>
                                 <span>Postup opravy</span>
                             </a>
                         </li>
@@ -95,7 +85,6 @@
                         </li>
                     </ul>
                 </div>
-
                 <div class="sidebar-section">
                     <h3 class="sidebar-title">Potřebujete pomoc?</h3>
                     <a href="providers.html" class="btn btn-success btn-block">
@@ -103,7 +92,6 @@
                     </a>
                 </div>
             </aside>
-
             <!-- Obsahová oblast -->
             <div class="content-area">
                 <!-- Loading state -->
@@ -111,7 +99,6 @@
                     <div class="spinner"></div>
                     <p>Načítám výsledky analýzy...</p>
                 </div>
-
                 <!-- Výsledky analýzy -->
                 <div id="resultsContainer" class="hidden">
                     <!-- Hlavní výsledek -->
@@ -131,7 +118,6 @@
                                 </h3>
                                 <p id="problemDescription">Načítám...</p>
                             </div>
-
                             <div class="analysis-section">
                                 <h3>
                                     <span class="icon">🎯</span>
@@ -142,7 +128,6 @@
                             </div>
                         </div>
                     </div>
-
                     <!-- Varování -->
                     <div id="warningBox" class="warning-box mb-3 hidden">
                         <span class="icon">⚠️</span>
@@ -151,12 +136,10 @@
                             <p id="warningText"></p>
                         </div>
                     </div>
-
                     <!-- Postup opravy -->
                     <div class="card mb-3" id="steps">
                         <div class="card-header">
                             <h2 class="card-title">
-                                <span class="icon">📋</span>
                                 Postup opravy krok za krokem
                             </h2>
                             <span class="badge badge-primary" id="totalTime">~30 min</span>
@@ -165,7 +148,6 @@
                             <!-- Kroky budou vloženy JavaScriptem -->
                         </ol>
                     </div>
-
                     <!-- Nástroje a materiál -->
                     <div class="grid grid-2 mb-3">
                         <div class="card" id="tools">
@@ -179,7 +161,6 @@
                                 <!-- Nástroje budou vloženy JavaScriptem -->
                             </div>
                         </div>
-
                         <div class="card">
                             <div class="card-header">
                                 <h2 class="card-title">
@@ -192,7 +173,6 @@
                             </div>
                         </div>
                     </div>
-
                     <!-- Náklady -->
                     <div class="card mb-3" id="costs">
                         <div class="card-header">
@@ -214,7 +194,6 @@
                             </div>
                         </div>
                     </div>
-
                     <!-- Kde koupit -->
                     <div class="card mb-2">
                         <div class="card-header">
@@ -246,7 +225,6 @@
                             </a>
                         </div>
                     </div>
-
                     <!-- Řemeslníci v okolí -->
                     <div class="card" id="providers">
                         <div class="card-header">
@@ -260,7 +238,6 @@
                             <!-- Řemeslníci budou vloženi JavaScriptem -->
                         </div>
                     </div>
-
                     <!-- Disclaimer -->
                     <div class="info-box mt-3">
                         <span class="icon">ℹ️</span>
@@ -272,7 +249,6 @@
                         </p>
                     </div>
                 </div>
-
                 <!-- Prázdný stav -->
                 <div id="emptyState" class="card text-center hidden">
                     <div style="padding: 30px;">
@@ -286,7 +262,6 @@
                 </div>
             </div>
         </main>
-
         <!-- Footer -->
         <footer class="footer">
             <div>© 2024 FIXO - AI Asistent pro domácí opravy</div>
@@ -298,10 +273,8 @@
             </div>
         </footer>
     </div>
-
     <!-- Toast Container -->
     <div class="toast-container" id="toastContainer"></div>
-
     <script src="js/app.js"></script>
     <script>
         // Inicializace stránky analýzy

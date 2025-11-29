@@ -19,35 +19,27 @@
                     <div class="logo-tagline">AI asistent pro domácí opravy</div>
                 </div>
             </a>
-
-            <nav class="nav">
+                        <nav class="nav">
                 <a href="index.html" class="nav-link">
-                    <span class="icon">Domů</span>
                     <span>Domů</span>
                 </a>
                 <a href="repair.html" class="nav-link">
-                    <span class="icon">Návody</span>
                     <span>Návody</span>
                 </a>
                 <a href="partners.html" class="nav-link">
-                    <span class="icon">E-shopy</span>
                     <span>E-shopy</span>
                 </a>
                 <a href="providers.html" class="nav-link active">
-                    <span class="icon">Řemeslníci</span>
                     <span>Řemeslníci</span>
                 </a>
                 <a href="about.html" class="nav-link">
-                    <span class="icon">i</span>
                     <span>O aplikaci</span>
                 </a>
                 <a href="contacts.html" class="nav-link">
-                    <span class="icon"></span>
                     <span>Kontakt</span>
                 </a>
             </nav>
         </header>
-
         <!-- Main Content -->
         <main class="main-content">
             <!-- Sidebar s filtry -->
@@ -55,11 +47,10 @@
                 <div class="sidebar-section">
                     <h3 class="sidebar-title">Vyhledávání</h3>
                     <div class="search-box">
-                        <span class="icon">Analyzovat</span>
+                        <span class="icon">🔍</span>
                         <input type="text" id="searchProvider" placeholder="Hledat řemeslníka...">
                     </div>
                 </div>
-
                 <div class="sidebar-section">
                     <h3 class="sidebar-title">Vaše lokalita</h3>
                     <div class="form-group">
@@ -69,7 +60,6 @@
                         <span>📍</span> Zjistit polohu
                     </button>
                 </div>
-
                 <div class="sidebar-section">
                     <h3 class="sidebar-title">Specializace</h3>
                     <ul class="sidebar-menu">
@@ -81,13 +71,11 @@
                         </li>
                         <li class="sidebar-item">
                             <a href="#" class="sidebar-link" data-spec="plumber">
-                                <span class="icon"></span>
                                 <span>Instalatér</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
                             <a href="#" class="sidebar-link" data-spec="electrician">
-                                <span class="icon"></span>
                                 <span>Elektrikář</span>
                             </a>
                         </li>
@@ -105,13 +93,11 @@
                         </li>
                         <li class="sidebar-item">
                             <a href="#" class="sidebar-link" data-spec="heating">
-                                <span class="icon"></span>
                                 <span>Topenář</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
                             <a href="#" class="sidebar-link" data-spec="painter">
-                                <span class="icon">🎨</span>
                                 <span>Malíř</span>
                             </a>
                         </li>
@@ -123,7 +109,6 @@
                         </li>
                     </ul>
                 </div>
-
                 <div class="sidebar-section">
                     <h3 class="sidebar-title">Jste řemeslník?</h3>
                     <button class="btn btn-success btn-block" onclick="openRegisterModal()">
@@ -134,7 +119,6 @@
                     </p>
                 </div>
             </aside>
-
             <!-- Obsahová oblast -->
             <div class="content-area">
                 <!-- Hlavička -->
@@ -151,7 +135,6 @@
                         </select>
                     </div>
                 </div>
-
                 <!-- Ceníky plánů -->
                 <div class="card mb-2">
                     <div class="card-header">
@@ -162,7 +145,7 @@
                     </div>
                     <div class="grid grid-3">
                         <div class="partner-card" style="border: 2px solid #e5e7eb;">
-                            <div style="font-size: 22px; margin-bottom: 4px;">📋</div>
+                            <div style="font-size: 22px; margin-bottom: 4px;"></div>
                             <h3 style="font-size: 0.85rem;">Základní</h3>
                             <div style="font-size: 1.2rem; font-weight: 700; color: #10b981; margin: 6px 0;">ZDARMA</div>
                             <ul style="text-align: left; font-size: 0.7rem; color: #666; list-style: none; padding: 0;">
@@ -194,12 +177,10 @@
                         </div>
                     </div>
                 </div>
-
                 <!-- Seznam řemeslníků -->
                 <div class="grid grid-2" id="providersGrid">
                     <!-- Řemeslníci budou načteni JavaScriptem -->
                 </div>
-
                 <!-- Loading -->
                 <div id="loadingState" class="loading hidden">
                     <div class="spinner"></div>
@@ -207,7 +188,6 @@
                 </div>
             </div>
         </main>
-
         <!-- Footer -->
         <footer class="footer">
             <div>© 2024 FIXO - AI Asistent pro domácí opravy</div>
@@ -219,7 +199,6 @@
             </div>
         </footer>
     </div>
-
     <!-- Modal pro registraci řemeslníka -->
     <div class="modal-overlay" id="registerModal">
         <div class="modal">
@@ -286,7 +265,6 @@
             </div>
         </div>
     </div>
-
     <!-- Modal pro detail řemeslníka -->
     <div class="modal-overlay" id="providerDetailModal">
         <div class="modal" style="max-width: 450px;">
@@ -305,10 +283,8 @@
             </div>
         </div>
     </div>
-
     <!-- Toast Container -->
     <div class="toast-container" id="toastContainer"></div>
-
     <script src="js/app.js"></script>
     <script>
         // Inicializace stránky řemeslníků
