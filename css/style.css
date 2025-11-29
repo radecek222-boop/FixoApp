@@ -11,21 +11,21 @@
 }
 
 :root {
-    /* Tmavé téma - černá/bílá/šedá */
-    --bg-primary: #000000;
-    --bg-secondary: #0a0a0a;
-    --bg-tertiary: #141414;
-    --bg-card: #1a1a1a;
-    --bg-hover: #222222;
+    /* Tmavé téma - tmavě šedá paleta pro lepší kontrast */
+    --bg-primary: #1a1a1a;
+    --bg-secondary: #222222;
+    --bg-tertiary: #2a2a2a;
+    --bg-card: #252525;
+    --bg-hover: #303030;
 
     /* Text */
     --text-primary: #ffffff;
-    --text-secondary: #b3b3b3;
-    --text-tertiary: #666666;
+    --text-secondary: #cccccc;
+    --text-tertiary: #999999;
 
     /* Borders & Dividers */
-    --border-color: #2a2a2a;
-    --border-hover: #404040;
+    --border-color: #3a3a3a;
+    --border-hover: #4a4a4a;
 
     /* Akcenty - pouze šedá škála */
     --accent: #ffffff;
@@ -868,6 +868,8 @@ a.tool-link:hover .link-arrow {
     border-radius: 6px;
     transition: all 0.2s ease;
     font-family: inherit;
+    background: var(--bg-tertiary);
+    color: var(--text-primary);
 }
 
 .form-input:focus,
