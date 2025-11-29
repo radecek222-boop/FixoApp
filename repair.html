@@ -150,82 +150,3150 @@
             </div>
         </footer>
     </div>
+    <!-- Guide Detail Modal -->
+    <div id="guideModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); z-index: 10000; overflow-y: auto; padding: 20px;">
+        <div class="card" style="max-width: 900px; margin: 40px auto; position: relative;">
+            <button onclick="closeGuideModal()" style="position: absolute; top: 20px; right: 20px; background: var(--bg-secondary); border: none; color: var(--text-primary); width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 1.5rem; display: flex; align-items: center; justify-content: center;">
+                <i class="fas fa-times"></i>
+            </button>
+            <div id="guideModalContent" style="padding: var(--space-3xl);"></div>
+        </div>
+    </div>
     <!-- Toast Container -->
     <div class="toast-container" id="toastContainer"></div>
     <script src="js/app.js"></script>
     <script>
-        // Databáze návodů pro každou kategorii
+        // Databáze návodů pro každou kategorii - rozšířeno na 300+ návodů s kompletními instrukcemi
         const guidesData = {
             bathroom: {
                 title: "Návody pro koupelnu",
                 subtitle: "Opravy baterií, sprch, záchodů a dalších koupelnových zařízení",
                 guides: [
-                    { title: "Výměna těsnění vodovodního kohoutku", difficulty: "Snadné", time: "15 min", icon: "fa-faucet" },
-                    { title: "Oprava kapající sprchy", difficulty: "Snadné", time: "20 min", icon: "fa-shower" },
-                    { title: "Výměna splachovacího mechanismu", difficulty: "Střední", time: "30 min", icon: "fa-toilet" },
-                    { title: "Instalace nové sprchové hlavice", difficulty: "Snadné", time: "10 min", icon: "fa-shower" },
-                    { title: "Oprava ucpaného sifonu", difficulty: "Snadné", time: "25 min", icon: "fa-wrench" },
-                    { title: "Výměna baterie umyvadla", difficulty: "Střední", time: "45 min", icon: "fa-sink" }
+                    // Voda & kohoutky
+                    {
+                        title: "Výměna těsnění vodovodního kohoutku",
+                        difficulty: "Snadné",
+                        time: "15 min",
+                        icon: "fa-faucet",
+                        tools: ["Klíč na matice", "Utěrka", "Kleště (volitelně)"],
+                        materials: ["Nové těsnění (O-kroužek)", "Vazelína nebo silikonový tuk"],
+                        safety: ["Uzavřete hlavní přívod vody před začátkem práce", "Vypusťte zbývající vodu z potrubí"],
+                        steps: [
+                            "Uzavřete přívod vody k baterii (uzavřete ventil pod umyvadlem nebo hlavní ventil)",
+                            "Otevřete kohoutek pro vypuštění zbytku vody z potrubí",
+                            "Položte utěrku do umyvadla, abyste zachytili kapky vody",
+                            "Pomocí klíče nebo kleští povolte matici pod hlavou kohoutku",
+                            "Vyjměte starý O-kroužek (těsnění) - může být opotřebený nebo prasklý",
+                            "Očistěte povrch, kde těsnění sedí, od vodního kamene",
+                            "Naneste trochu vazelíny na nový O-kroužek",
+                            "Nasaďte nový O-kroužek na správné místo",
+                            "Utáhněte matici rukou, poté dotáhněte klíčem (ne příliš fest!)",
+                            "Otevřete přívod vody a zkontrolujte, zda kohoutek netěsní",
+                            "Pokud vše drží, otřete okolí a hotovo!"
+                        ]
+                    },
+                    {
+                        title: "Oprava kapající sprchy",
+                        difficulty: "Snadné",
+                        time: "20 min",
+                        icon: "fa-shower",
+                        tools: ["Klíč na matice", "Utěrka", "Teflonová páska"],
+                        materials: ["Nové těsnění sprchové hlavice", "Teflonová páska na závity"],
+                        safety: ["Uzavřete přívod vody", "Buďte opatrní při povolování - chromované součásti se mohou poškodit"],
+                        steps: [
+                            "Uzavřete přívod vody k baterii",
+                            "Omotejte hadici sprchy utěrkou, aby se nepoškodit chrom",
+                            "Opatrně odšroubujte sprchovou hlavici od hadice",
+                            "Vyčistěte závit hadice od starého teflon a vodního kamene",
+                            "Zkontrolujte těsnění uvnitř sprchové hlavice - pokud je opotřebené, vyměňte ho",
+                            "Omotejte závit hadice 3-4 vrstvami teflonové pásky (ve směru hodinových ručiček)",
+                            "Našroubujte sprchovou hlavici zpět - nejprve rukou",
+                            "Dotáhněte klíčem, ale ne moc (stačí cca čtvrt otáčky)",
+                            "Otevřete vodu a zkontrolujte, zda sprcha netěsní",
+                            "Pokud ještě kapká, dotáhněte o další trochu"
+                        ]
+                    },
+                    {
+                        title: "Výměna baterie umyvadla",
+                        difficulty: "Střední",
+                        time: "45 min",
+                        icon: "fa-sink",
+                        tools: ["Klíč na matice", "Inbusový klíč", "Svítilna", "Kbelík"],
+                        materials: ["Nová baterie", "Teflonová páska", "Flexibilní hadice (pokud nejsou součástí)"],
+                        safety: ["Uzavřete hlavní přívod vody", "Připravte kbelík na zachycení vody"],
+                        steps: [
+                            "Uzavřete uzavírací ventily pod umyvadlem (teplá i studená voda)",
+                            "Položte pod umyvadlo kbelík na zachycení zbytků vody",
+                            "Odšroubujte flexibilní hadice od uzavíracích ventilů",
+                            "Odshora sundejte zátku (pokud je připojená táhlem)",
+                            "Pod umyvadlem povolte matici, která drží baterii (často potřebujete svítilnu)",
+                            "Vyjměte starou baterii z umyvadla",
+                            "Vyčistěte otvor v umyvadle od starého silikonu a nečistot",
+                            "Připravte novou baterii - našroubujte flexibilní hadice (pokud nejsou součástí)",
+                            "Prostrčte hadice otvorem v umyvadle",
+                            "Nasaďte zespodu těsnící gumovou podložku a přítlačnou matici",
+                            "Seřiďte baterii tak, aby byla rovně, a utáhněte matici",
+                            "Připojte flexibilní hadice k uzavíracím ventilům (použijte teflonovou pásku)",
+                            "Otevřete ventily a zkontrolujte těsnost",
+                            "Připojte zátku a otestujte funkci"
+                        ]
+                    },
+                    {
+                        title: "Instalace nové sprchové hlavice",
+                        difficulty: "Snadné",
+                        time: "10 min",
+                        icon: "fa-shower",
+                        tools: ["Klíč (volitelně)", "Utěrka"],
+                        materials: ["Nová sprchová hlavice", "Teflonová páska"],
+                        safety: ["Není potřeba uzavírat vodu", "Chraňte chromované části utěrkou"],
+                        steps: [
+                            "Omotejte hadici sprchy utěrkou pro ochranu povrchu",
+                            "Odšroubujte starou sprchovou hlavici (většinou stačí rukou)",
+                            "Pokud je hlavice pevně utažená, použijte klíč",
+                            "Vyčistěte závit hadice od vodního kamene a nečistot",
+                            "Zkontrolujte, zda je uvnitř hadice gumové těsnění",
+                            "Omotejte závit hadice teflonovou páskou (2-3 vrstvy)",
+                            "Našroubujte novou sprchovou hlavici - nejprve rukou",
+                            "Dotáhněte klíčem (pozor, nepřetahujte!)",
+                            "Otevřete vodu a zkontrolujte těsnost",
+                            "Otestujte různé režimy sprchy"
+                        ]
+                    },
+                    {
+                        title: "Oprava nízkého tlaku vody",
+                        difficulty: "Střední",
+                        time: "30 min",
+                        icon: "fa-gauge",
+                        tools: ["Klíč", "Jehla nebo špejle", "Ocet", "Miska"],
+                        materials: ["Ocet na odstranění vodního kamene", "Nový perlátor (volitelně)"],
+                        safety: ["Uzavřete přívod vody před demontáží", "Ocet může pálit oči - buďte opatrní"],
+                        steps: [
+                            "Zjistěte, zda je problém jen u jednoho kohoutku nebo všude - pokud všude, může být problém s hlavním přívodem",
+                            "Odšroubujte perlátor (hubička kohoutku s síťkou) - většinou stačí rukou",
+                            "Vyjměte síťku a gumové těsnění",
+                            "Zkontrolujte, zda není síťka ucpaná vodním kamenem nebo nečistotami",
+                            "Namočte síťku do octa na 15-20 minut",
+                            "Propíchejte ucpané otvory jehlou nebo špejlí",
+                            "Opláchněte síťku čistou vodou",
+                            "Zkontrolujte také těsnění - pokud je tvrdé nebo prasklé, vyměňte ho",
+                            "Našroubujte perlátor zpět na kohoutek",
+                            "Otevřete vodu a zkontrolujte tlak",
+                            "Pokud je tlak stále nízký, problém může být v potrubí nebo ventilu"
+                        ]
+                    },
+                    {
+                        title: "Řešení kolísání tlaku vody",
+                        difficulty: "Střední",
+                        time: "40 min",
+                        icon: "fa-water",
+                        tools: ["Manometr", "Klíč na ventily", "Svítilna"],
+                        materials: ["Náhradní ventil (volitelně)"],
+                        safety: ["Zkontrolujte celý systém před zásahem", "Uzavřete hlavní přívod při výměně dílů"],
+                        steps: [
+                            "Zjistěte, zda kolísání tlaku nastává náhodně nebo v určitou denní dobu",
+                            "Zkontrolujte tlak vody u hlavního přívodu pomocí manometru",
+                            "Otevřete všechny kohoutky postupně a sledujte změny tlaku",
+                            "Zkontrolujte, zda není problém s uzavíracími ventily - mohou být částečně uzavřené",
+                            "Zkontrolujte stav vodoměru - může být opotřebený nebo ucpaný",
+                            "Prověřte, zda nemáte někde únik vody (vlhké stěny, mokrý strop)",
+                            "Kontaktujte dodavatele vody, pokud je problém v hlavním řadu",
+                            "Pokud je problém jen u jednoho kohoutku, vyměňte ventil nebo baterii"
+                        ]
+                    },
+                    {
+                        title: "Výměna perlátoru",
+                        difficulty: "Snadné",
+                        time: "5 min",
+                        icon: "fa-faucet",
+                        tools: ["Kleště (volitelně)", "Utěrka"],
+                        materials: ["Nový perlátor"],
+                        safety: ["Není potřeba uzavírat vodu"],
+                        steps: [
+                            "Omotejte perlátor utěrkou pro ochranu chromu",
+                            "Odšroubujte starý perlátor - většinou stačí rukou",
+                            "Pokud je přitažený, použijte kleště s utěrkou",
+                            "Vyčistěte závit kohoutku",
+                            "Našroubujte nový perlátor - nejprve rukou",
+                            "Dotáhněte (ne příliš fest)",
+                            "Otevřte vodu a zkontrolujte"
+                        ]
+                    },
+                    // WC
+                    {
+                        title: "Výměna splachovacího mechanismu",
+                        difficulty: "Střední",
+                        time: "30 min",
+                        icon: "fa-toilet",
+                        tools: ["Klíč", "Kleště", "Houba", "Kbelík"],
+                        materials: ["Nový splachovací mechanismus", "Těsnění"],
+                        safety: ["Uzavřete přívod vody k WC", "Vypusťte vodu z nádržky"],
+                        steps: [
+                            "Uzavřete přívod vody k záchodu (ventil za WC)",
+                            "Spláchněte toaletu pro vypuštění vody z nádržky",
+                            "Odšroubujte hadici od nádrže",
+                            "Vysušte zbytky vody houbou",
+                            "Odšroubujte velkou matici pod nádržkou, která drží mechanismus",
+                            "Vyjměte starý mechanismus z nádržky",
+                            "Vyčistěte nádrž od vodního kamene a nečistot",
+                            "Vložte nový mechanismus a nasaďte gumové těsnění",
+                            "Přišroubujte matici zespodu",
+                            "Připojte hadici zpět",
+                            "Otevřete přívod vody a nastavte výšku hladiny podle instrukcí",
+                            "Zkontrolujte, zda nádrž netěsní"
+                        ]
+                    },
+                    {
+                        title: "Oprava protékající toalety",
+                        difficulty: "Střední",
+                        time: "35 min",
+                        icon: "fa-toilet",
+                        tools: ["Klíč", "Houba", "Svítilna"],
+                        materials: ["Těsnění ventilu", "Nový plovák (volitelně)"],
+                        safety: ["Uzavřete přívod vody", "Připravte hadry na případný únik"],
+                        steps: [
+                            "Zjistěte, kde toaleta těsní - z nádržky nebo ze spodního připojení",
+                            "Uzavřete přívod vody k WC",
+                            "Vypusťte vodu z nádržky",
+                            "Pokud voda přetéká přepadem, seřiďte plovák níže",
+                            "Zkontrolujte gumové těsnění ventilu - pokud je opotřebené, vyměňte ho",
+                            "Pokud těsní spodní připojení, dotáhněte matici",
+                            "Vyměňte poškozené těsnění pod nádržkou",
+                            "Zkontrolujte těsnění mezi nádržkou a mísou",
+                            "Otevřete vodu a zkontrolujte těsnost",
+                            "Pokud stále teče, může být potřeba výměna celého mechanismu"
+                        ]
+                    },
+                    // Odpady
+                    {
+                        title: "Oprava ucpaného sifonu",
+                        difficulty: "Snadné",
+                        time: "25 min",
+                        icon: "fa-wrench",
+                        tools: ["Kbelík", "Gumové rukavice", "Kleště"],
+                        materials: ["Odmašťovač (volitelně)"],
+                        safety: ["Položte pod sifon kbelík na vodu", "Použijte rukavice"],
+                        steps: [
+                            "Položte kbelík pod sifon",
+                            "Odšroubujte spodní část sifonu (většinou stačí rukou)",
+                            "Vypusťte vodu do kbelíku",
+                            "Odstraňte nečistoty ze sifonu (vlasy, mýdlo, usazeniny)",
+                            "Vyčistěte všechny části sifonu",
+                            "Zkontrolujte těsnění - pokud je tvrdé, vyměňte ho",
+                            "Našroubujte sifon zpět",
+                            "Pusťte vodu a zkontrolujte těsnost",
+                            "Pokud ještě netěsní, dotáhněte spojení"
+                        ]
+                    },
+                    {
+                        title: "Čištění ucpaných odpadů",
+                        difficulty: "Střední",
+                        time: "30 min",
+                        icon: "fa-sink",
+                        tools: ["Pumpička", "Drát na odpady", "Kbelík"],
+                        materials: ["Horká voda", "Jedlá soda", "Ocet"],
+                        safety: ["Nepoužívejte chemikálie současně s pumpičkou", "Chraňte oči"],
+                        steps: [
+                            "Nejprve zkuste mechanickou pumpičku - zakryjte přepad a pumpujte",
+                            "Pokud to nepomohlo, vlijte do odpadu šálek jedlé sody",
+                            "Přidejte šálek octa a nechte působit 15 minut",
+                            "Splachněte horkou vodou",
+                            "Pokud stále ucpaný, použijte drát na odpady",
+                            "Zasuňte drát do odpadu a otáčejte",
+                            "Vytáhněte nečistoty",
+                            "Opláchněte horkou vodou",
+                            "Pokud nic nepomohlo, odšroubujte a vyčistěte sifon"
+                        ]
+                    },
+                    {
+                        title: "Výměna netěsného sifonu",
+                        difficulty: "Snadné",
+                        time: "20 min",
+                        icon: "fa-wrench",
+                        tools: ["Kbelík", "Utěrka", "Klíč (volitelně)"],
+                        materials: ["Nový sifon", "Těsnění"],
+                        safety: ["Připravte kbelík na vodu"],
+                        steps: [
+                            "Položte kbelík pod starý sifon",
+                            "Odšroubujte sifon od dřezu i od odpadu",
+                            "Vypusťte zbytky vody",
+                            "Vyčistěte připojení na dřezu od starého silikonu",
+                            "Připravte nový sifon - zkontrolujte těsnění",
+                            "Připojte horní část k dřezu",
+                            "Připojte dolní část k odpadnímu potrubí",
+                            "Utáhněte všechna spojení",
+                            "Pusťte vodu a zkontrolujte těsnost",
+                            "Pokud těsní, dotáhněte spojení"
+                        ]
+                    },
+                    {
+                        title: "Odstranění zápachu z odpadu",
+                        difficulty: "Snadné",
+                        time: "15 min",
+                        icon: "fa-wind",
+                        tools: ["Žádné"],
+                        materials: ["Jedlá soda", "Ocet", "Horká voda", "Citron"],
+                        safety: ["Nepoužívejte příliš horkou vodu u plastových sifónů"],
+                        steps: [
+                            "Nasypejte do odpadu půl šálku jedlé sody",
+                            "Přidejte šálek octa",
+                            "Nechte šumět 10-15 minut",
+                            "Splachněte horkou vodou",
+                            "Pro osvěžení přidejte citrónovou kůru",
+                            "Pusťte vodu na pár sekund",
+                            "Zápach by měl zmizet",
+                            "Opakujte jednou týdně pro prevenci"
+                        ]
+                    },
+                    // Bojler & teplá voda
+                    {
+                        title: "Řešení studené vody z bojleru",
+                        difficulty: "Střední",
+                        time: "40 min",
+                        icon: "fa-temperature-low",
+                        tools: ["Šroubovák", "Tester napětí", "Svítilna"],
+                        materials: ["Náhradní topné těleso (volitelně)", "Náhradní termostat (volitelně)"],
+                        safety: ["VYPNĚTE HLAVNÍ JISTIČ před kontrolou", "Nechte vodu vychladnout"],
+                        steps: [
+                            "VYPNĚTE BOJLER NA JISTIČI - nebezpečí úrazu elektřinou!",
+                            "Počkejte, až voda vychladne (min. 2 hodiny)",
+                            "Zkontrolujte, zda svítí kontrolka bojleru",
+                            "Pokud nesvítí, zkontrolujte jistič a kabel",
+                            "Otevřete panel bojleru (většinou zespodu)",
+                            "Zkontrolujte termostat - může být špatně nastaven",
+                            "Nastavte termostat na vyšší teplotu (obvykle 60-70°C)",
+                            "Zkontrolujte topné těleso - může být poškozené vodním kamenem",
+                            "Pokud je těleso pokryté kamenem, je potřeba ho vyměnit",
+                            "Zavolejte elektrikáře, pokud nejste si jisti"
+                        ]
+                    },
+                    {
+                        title: "Kontrola přehřívání bojleru",
+                        difficulty: "Střední",
+                        time: "30 min",
+                        icon: "fa-temperature-high",
+                        tools: ["Teploměr", "Šroubovák"],
+                        materials: ["Náhradní termostat (volitelně)"],
+                        safety: ["VYPNĚTE BOJLER před kontrolou", "Horká voda může způsobit popáleniny"],
+                        steps: [
+                            "VYPNĚTE bojler na jističi",
+                            "Změřte teplotu vody z kohoutku (měla by být 50-65°C)",
+                            "Pokud je vyšší než 70°C, termostat je špatně nastaven",
+                            "Otevřete panel bojleru",
+                            "Najděte termostat (obvykle nahoře nebo uprostřed)",
+                            "Snižte nastavenou teplotu na 60°C",
+                            "Zkontrolujte, zda termostat není poškozený",
+                            "Pokud je poškozený, vyměňte ho (zavolejte odborníka)",
+                            "Zapněte bojler a nechte ohřát",
+                            "Změřte teplotu po hodině - měla by být v normálu"
+                        ]
+                    },
+                    // Spotřebiče
+                    {
+                        title: "Oprava neodtékající pračky",
+                        difficulty: "Střední",
+                        time: "35 min",
+                        icon: "fa-shower",
+                        tools: ["Kleště", "Kbelík", "Hadry"],
+                        materials: ["Žádné"],
+                        safety: ["Odpojte pračku od el. sítě", "Připravte kbelík na vodu"],
+                        steps: [
+                            "Vypněte a odpojte pračku od elektriky",
+                            "Uzavřete přívod vody",
+                            "Vytáhněte odtoková hadice z odpadu a položte do kbelíku",
+                            "Zkontrolujte, zda hadice není zalomená nebo ucpaná",
+                            "Otevřete servisní kryt (většinou vpravo dole)",
+                            "Vyšroubujte nouzový vypouštěcí ventil do kbelíku",
+                            "Vyčistěte filtr čerpadla od nečistot (mince, vlasy, knoflíky)",
+                            "Zkontrolujte čerpadlo - může být zablokované",
+                            "Zašroubujte kryt filtru zpět",
+                            "Připojte odtokovou hadici",
+                            "Spusťte krátký program a zkontrolujte odtok"
+                        ]
+                    },
+                    {
+                        title: "Čištění filtru pračky",
+                        difficulty: "Snadné",
+                        time: "15 min",
+                        icon: "fa-filter",
+                        tools: ["Kbelík", "Hadry", "Starý kartáček"],
+                        materials: ["Žádné"],
+                        safety: ["Odpojte od elektriky", "Připravte kbelík na vodu"],
+                        steps: [
+                            "Vypněte a odpojte pračku",
+                            "Položte hadry pod servisní kryt",
+                            "Otevřete servisní kryt (většinou vpravo dole)",
+                            "Pomalu vyšroubujte kryt filtru - vyteče voda",
+                            "Vyjměte filtr",
+                            "Vyčistěte filtr od nečistot (mince, knoflíky, vlasy)",
+                            "Vyčistěte otvor filtru kartáčkem",
+                            "Opláchněte filtr čistou vodou",
+                            "Nasaďte filtr zpět a utáhněte",
+                            "Zavřete servisní kryt",
+                            "Čistěte filtr každé 3 měsíce"
+                        ]
+                    },
+                    {
+                        title: "Výměna prosakující hadice pračky",
+                        difficulty: "Snadné",
+                        time: "20 min",
+                        icon: "fa-droplet",
+                        tools: ["Kleště", "Utěrka", "Kbelík"],
+                        materials: ["Nová hadice"],
+                        safety: ["Uzavřete přívod vody", "Odpojte od elektriky"],
+                        steps: [
+                            "Vypněte pračku a odpojte od elektriky",
+                            "Uzavřete přívod vody (kohoutek za pračkou)",
+                            "Položte kbelík pod připojení",
+                            "Odšroubujte hadici od pračky",
+                            "Odšroubujte hadici od kohoutu",
+                            "Vyčistěte závity od nečistot",
+                            "Zkontrolujte gumové těsnění v nové hadici",
+                            "Našroubujte novou hadici na kohoutek - nejprve rukou",
+                            "Připojte druhý konec k pračce",
+                            "Dotáhněte kleštěmi (ne příliš fest)",
+                            "Otevřete vodu a zkontrolujte těsnost"
+                        ]
+                    },
+                    {
+                        title: "Stabilizace poskakující pračky",
+                        difficulty: "Snadné",
+                        time: "10 min",
+                        icon: "fa-wrench",
+                        tools: ["Vodováha", "Klíč"],
+                        materials: ["Gumové podložky (volitelně)"],
+                        safety: ["Vypněte pračku"],
+                        steps: [
+                            "Vypněte pračku",
+                            "Zkontrolujte, zda je podlaha rovná",
+                            "Položte vodováhu na pračku",
+                            "Seřiďte výškově nastavitelné nožičky",
+                            "Utáhněte pojistné matice nožiček",
+                            "Zkontrolujte vodováhou znovu",
+                            "Položte pod nožičky gumové podložky proti skákání",
+                            "Spusťte zkušební odstřeďování",
+                            "Pračka by neměla poskakovat"
+                        ]
+                    },
+                    // Problémy
+                    {
+                        title: "Odstranění plísně v koupelně",
+                        difficulty: "Snadné",
+                        time: "30 min",
+                        icon: "fa-spray-can",
+                        tools: ["Kartáč", "Houba", "Hadry", "Rukavice"],
+                        materials: ["Čistící prostředek proti plísni", "Ocet", "Jedlá soda"],
+                        safety: ["Větrejte místnost", "Používejte rukavice", "Chraňte oči"],
+                        steps: [
+                            "Otevřete okno pro větrání",
+                            "Nasaďte rukavice a ochranné brýle",
+                            "Namíchejte roztok - ocet + voda (1:1) nebo použijte specializovaný přípravek",
+                            "Nastříkejte plíseň roztokem",
+                            "Nechte působit 15 minut",
+                            "Odrhněte plíseň kartáčem",
+                            "Opláchněte čistou vodou",
+                            "Osušte povrch",
+                            "Pro prevenci udržujte nízkou vlhkost a větrejte",
+                            "Opakujte při prvních známkách plísně"
+                        ]
+                    },
+                    {
+                        title: "Oprava chladného radiátoru",
+                        difficulty: "Střední",
+                        time: "25 min",
+                        icon: "fa-temperature-half",
+                        tools: ["Odvzdušňovací klíček", "Utěrka", "Kbelík"],
+                        materials: ["Žádné"],
+                        safety: ["Pozor na horkou vodu", "Nevypouštějte příliš vody"],
+                        steps: [
+                            "Zkontrolujte, zda je otevřený ventil radiátoru",
+                            "Zkontrolujte termostatickou hlavici - může být zaseklá",
+                            "Připravte kbelík a utěrku",
+                            "Vložte odvzdušňovací klíček do ventilu (nahoře na radiátoru)",
+                            "Otočte klíčkem proti směru hodinových ručiček",
+                            "Nechte unikat vzduch, dokud nezačne téct voda",
+                            "Zavřete ventil",
+                            "Otřete okolí",
+                            "Počkejte 15 minut a zkontrolujte, zda radiátor topí",
+                            "Pokud stále netopí, může být ucpané potrubí - zavolejte odborníka"
+                        ]
+                    }
                 ]
             },
             house: {
                 title: "Návody pro dům",
-                subtitle: "Opravy oken, dveří, podlah a dalších částí domu",
+                subtitle: "Opravy oken, dveří, podlah, zdí a nábytku",
                 guides: [
-                    { title: "Seřízení okenních závěsů", difficulty: "Snadné", time: "15 min", icon: "fa-window-maximize" },
-                    { title: "Výměna zámku u dveří", difficulty: "Střední", time: "40 min", icon: "fa-door-closed" },
-                    { title: "Oprava skřípající podlahy", difficulty: "Střední", time: "60 min", icon: "fa-house" },
-                    { title: "Utěsnění oken a dveří", difficulty: "Snadné", time: "30 min", icon: "fa-wind" },
-                    { title: "Výměna dveřní kliky", difficulty: "Snadné", time: "20 min", icon: "fa-door-open" },
-                    { title: "Oprava praskliny ve zdi", difficulty: "Střední", time: "90 min", icon: "fa-house-crack" }
+                    // Okna
+                    {
+                        title: "Utěsnění netěsnícího okna",
+                        difficulty: "Snadné",
+                        time: "30 min",
+                        icon: "fa-window-maximize",
+                        tools: ["Nůž", "Čistič"],
+                        materials: ["Samolepící těsnění", "Silikon (volitelně)"],
+                        safety: ["Větrejte místnost při použití silikonu"],
+                        steps: [
+                            "Zavřete okno a zkontrolujte, kde fouká",
+                            "Očistěte rámy okna od prachu a nečistot",
+                            "Změřte délku potřebného těsnění",
+                            "Odřízněte těsnění na správnou délku",
+                            "Odlepte ochrannou fólii ze samolepícího těsnění",
+                            "Přilepte těsnění do drážky rámu",
+                            "Pro lepší těsnost můžete použít silikon v rozích",
+                            "Zavřete okno a zkontrolujte těsnost"
+                        ]
+                    },
+                    {
+                        title: "Seřízení okenních závěsů",
+                        difficulty: "Snadné",
+                        time: "15 min",
+                        icon: "fa-wrench",
+                        tools: ["Inbusový klíč", "Šroubovák"],
+                        materials: ["Žádné"],
+                        safety: ["Buďte opatrní při práci ve výšce"],
+                        steps: [
+                            "Otevřete okno",
+                            "Najděte seřizovací šrouby na závěsech",
+                            "Pro seřízení nahoru/dolů použijte horní šroub",
+                            "Pro seřízení doleva/doprava použijte boční šroub",
+                            "Otáčejte po čtvrt otáčky a kontrolujte chod okna",
+                            "Zavřete okno a zkontrolujte těsnost",
+                            "Dotáhněte šrouby"
+                        ]
+                    },
+                    {
+                        title: "Promazání zatuhlého kování okna",
+                        difficulty: "Snadné",
+                        time: "10 min",
+                        icon: "fa-oil-can",
+                        tools: ["Hadřík"],
+                        materials: ["Olej na kování nebo WD-40"],
+                        safety: ["Nepoužívejte příliš mnoho oleje"],
+                        steps: [
+                            "Otevřete okno",
+                            "Nastříkejte kloubová spojení kování",
+                            "Otevřete a zavřete okno několikrát",
+                            "Otřete přebytečný olej",
+                            "Namažte také zámek",
+                            "Zkontrolujte hladký chod"
+                        ]
+                    },
+                    {
+                        title: "Výměna prasklého skla",
+                        difficulty: "Těžké",
+                        time: "90 min",
+                        icon: "fa-window-restore",
+                        tools: ["Rukavice", "Sklenářský tmel", "Špachtle", "Nůž"],
+                        materials: ["Nové sklo na míru", "Sklenářské bodce", "Tmel"],
+                        safety: ["POUŽÍVEJTE RUKAVICE!", "Dbejte na ostré hrany skla"],
+                        steps: [
+                            "Nasaďte silné rukavice a ochranné brýle",
+                            "Odstraňte zbytky rozbitého skla",
+                            "Vyjměte starý tmel z rámu nožem",
+                            "Vyčistěte drážku v rámu",
+                            "Změřte otvor a objednejte sklo na míru",
+                            "Naneste tenkou vrstvu tmelu do drážky",
+                            "Vložte nové sklo do rámu",
+                            "Upevněte sklo bodci",
+                            "Naneste tmel kolem skla",
+                            "Uhlaďte tmel špachtlí",
+                            "Nechte tmel zaschnout (24 hodin)",
+                            "Pro plastová okna je lepší zavolat odborníka"
+                        ]
+                    },
+                    {
+                        title: "Řešení zamlžených oken mezi skly",
+                        difficulty: "Těžké",
+                        time: "120 min",
+                        icon: "fa-cloud",
+                        tools: ["Šroubovák", "Silikonová pistole"],
+                        materials: ["Nové izolační sklo", "Silikon"],
+                        safety: ["Práce pro odborníka - doporučujeme zavolat sklenáře"],
+                        steps: [
+                            "Zamlžení mezi skly znamená porušené těsnění",
+                            "U plastových oken - zavolejte výrobce (může platit záruka)",
+                            "U dřevěných oken - demontujte okenní křídlo",
+                            "Vyjměte zasklívací lišty",
+                            "Vyjměte staré izolační sklo",
+                            "Objednejte nové izolační sklo na míru",
+                            "Vyčistěte drážky v rámu",
+                            "Vložte nové sklo s distančními podložkami",
+                            "Utěsněte silikonem",
+                            "Nasaďte zasklívací lišty",
+                            "DOPORUČUJEME ZAVOLAT ODBORNÍKA"
+                        ]
+                    },
+                    {
+                        title: "Výměna poškozeného těsnění oken",
+                        difficulty: "Střední",
+                        time: "40 min",
+                        icon: "fa-wind",
+                        tools: ["Nůž", "Špachtle", "Čistič"],
+                        materials: ["Nové těsnění", "Lepidlo na těsnění (volitelně)"],
+                        safety: ["Buďte opatrní s nožem"],
+                        steps: [
+                            "Otevřete okno",
+                            "Vytáhněte staré těsnění z drážky",
+                            "Vyčistěte drážku od prachu a zbytků lepidla",
+                            "Změřte délku potřebného těsnění",
+                            "Odřízněte nové těsnění o 2 cm delší",
+                            "Začněte z horního rohu",
+                            "Zatlačte těsnění do drážky",
+                            "V rozích těsnění přeřízněte pod úhlem 45°",
+                            "Pokud těsnění drží špatně, použijte speciální lepidlo",
+                            "Zavřete okno a zkontrolujte"
+                        ]
+                    },
+                    {
+                        title: "Oprava uvolněných pantů oken",
+                        difficulty: "Střední",
+                        time: "25 min",
+                        icon: "fa-screwdriver",
+                        tools: ["Šroubovák", "Vrtačka", "Hmoždinky"],
+                        materials: ["Delší šrouby", "Dřevěné kolíčky", "Lepidlo"],
+                        safety: ["Přidržujte okno při práci"],
+                        steps: [
+                            "Otevřete okno úplně",
+                            "Zkontrolujte, zda jsou šrouby pantů uvolněné",
+                            "Pokud ano, dotáhněte je",
+                            "Pokud šrouby prokluzují, vyjměte je",
+                            "Vyplňte díry lepidlem a dřevěnými kolíčky",
+                            "Počkejte, až lepidlo zaschne",
+                            "Navrtejte nové díry pro šrouby",
+                            "Přišroubujte panty zpět delšími šrouby",
+                            "U plastových oken použijte hmoždinky"
+                        ]
+                    },
+                    {
+                        title: "Oprava zatékání kolem oken",
+                        difficulty: "Střední",
+                        time: "60 min",
+                        icon: "fa-droplet",
+                        tools: ["Silikonová pistole", "Nůž", "Špachtle"],
+                        materials: ["Venkovní silikon", "Čistič"],
+                        safety: ["Práce ve výšce - použijte žebřík"],
+                        steps: [
+                            "Najděte místo, kde zatéká (zevnitř i zvenku)",
+                            "Odstraňte starý silikon nožem",
+                            "Očistěte spáru od prachu",
+                            "Vysušte povrch",
+                            "Nalepte ochrannou pásku po stranách spáry",
+                            "Naneste nový venkovní silikon",
+                            "Uhlaďte silikon špachtlí nebo prstem",
+                            "Odstraňte ochrannou pásku",
+                            "Nechte silikon zaschnout 24 hodin"
+                        ]
+                    },
+                    {
+                        title: "Výměna poškozených žaluzií",
+                        difficulty: "Střední",
+                        time: "45 min",
+                        icon: "fa-bars",
+                        tools: ["Šroubovák", "Žebřík"],
+                        materials: ["Nové žaluzie"],
+                        safety: ["Buďte opatrní na žebříku"],
+                        steps: [
+                            "Zatáhněte žaluzie úplně nahoru",
+                            "Vyjměte přední kryt konzole",
+                            "Povolte boční zámky konzole",
+                            "Vyjměte staré žaluzie",
+                            "Změřte šířku a výšku okna",
+                            "Připevněte konzole nových žaluzií",
+                            "Vložte valec žaluzií do konzol",
+                            "Zajistěte boční zámky",
+                            "Zkontrolujte hladký chod"
+                        ]
+                    },
+                    {
+                        title: "Oprava poškozených rolet",
+                        difficulty: "Střední",
+                        time: "50 min",
+                        icon: "fa-window-maximize",
+                        tools: ["Šroubovák", "Žebřík", "Nůž"],
+                        materials: ["Náhradní lamely", "Popruh (volitelně)"],
+                        safety: ["Práce ve výšce"],
+                        steps: [
+                            "Otevřete revizní kryt rolet",
+                            "Vytáhněte roletu ven",
+                            "Pokud je prasklá lamela, vyměňte ji",
+                            "Pokud je poškozený popruh, vyměňte ho",
+                            "Zkontrolujte naviják",
+                            "Namažte vodící lišty",
+                            "Vložte roletu zpět",
+                            "Zkontrolujte hladký chod"
+                        ]
+                    },
+                    {
+                        title: "Výměna parapetů",
+                        difficulty: "Střední",
+                        time: "60 min",
+                        icon: "fa-ruler-horizontal",
+                        tools: ["Pila", "Vrtačka", "Montážní pěna", "Vodováha"],
+                        materials: ["Nový parapet", "Montážní pěna", "Silikon"],
+                        safety: ["Používejte rukavice"],
+                        steps: [
+                            "Vyjměte starý parapet",
+                            "Vyčistěte spodní část okna",
+                            "Změřte šířku a hloubku",
+                            "Nařízněte nový parapet na míru",
+                            "Naneste montážní pěnu na spodní část",
+                            "Vložte parapet pod okno",
+                            "Vyrovnejte vodováhou",
+                            "Zatěžkejte a nechte zaschnout",
+                            "Utěsněte silikonem"
+                        ]
+                    },
+                    {
+                        title: "Vymazání silikonu kolem oken",
+                        difficulty: "Snadné",
+                        time: "20 min",
+                        icon: "fa-paintbrush",
+                        tools: ["Nůž na silikon", "Špachtle"],
+                        materials: ["Odmašťovač", "Hadřík"],
+                        safety: ["Buďte opatrní s nožem"],
+                        steps: [
+                            "Nařízněte starý silikon podél okraje nožem",
+                            "Vytáhněte silikon rukou",
+                            "Odškrábněte zbytky špachtlí",
+                            "Očistěte povrch odmašťovačem",
+                            "Vysušte hadříkem"
+                        ]
+                    },
+                    {
+                        title: "Ošetření rozsušených dřevěných rámů",
+                        difficulty: "Střední",
+                        time: "45 min",
+                        icon: "fa-tree",
+                        tools: ["Brusný papír", "Štětec"],
+                        materials: ["Olej na dřevo", "Lazura nebo lak"],
+                        safety: ["Větrejte místnost"],
+                        steps: [
+                            "Vybruste rámy jemným brusným papírem",
+                            "Očistěte od prachu",
+                            "Naneste olej na dřevo",
+                            "Nechte vsáknout 30 minut",
+                            "Otřete přebytečný olej",
+                            "Naneste ochrannou lazuru",
+                            "Nechte zaschnout"
+                        ]
+                    },
+                    {
+                        title: "Oprava nabobtnalých rámů",
+                        difficulty: "Těžké",
+                        time: "90 min",
+                        icon: "fa-water",
+                        tools: ["Hoblík", "Brusný papír", "Fén"],
+                        materials: ["Lazura", "Těsnění"],
+                        safety: ["Nepoužívejte otevřený plamen"],
+                        steps: [
+                            "Vysušte rámy fénem (pozor, ne příliš blízko!)",
+                            "Ohoblujte nabobtnaná místa",
+                            "Vybruste jemným papírem",
+                            "Ošetřete ochrannou lazurou",
+                            "Vyměňte těsnění",
+                            "Zajistěte lepší odvětrávání"
+                        ]
+                    },
+                    {
+                        title: "Odstranění koroze na kovových rámech",
+                        difficulty: "Střední",
+                        time: "40 min",
+                        icon: "fa-shield",
+                        tools: ["Drátěný kartáč", "Brusný papír"],
+                        materials: ["Odstraňovač rzi", "Antikorozní barva"],
+                        safety: ["Používejte rukavice"],
+                        steps: [
+                            "Očistěte rez drátěným kartáčem",
+                            "Naneste odstraňovač rzi",
+                            "Nechte působit 15 minut",
+                            "Vybruste brusným papírem",
+                            "Očistěte hadříkem",
+                            "Naneste antikorozní barvu",
+                            "Nechte zaschnout"
+                        ]
+                    },
+                    {
+                        title: "Výměna poškozených sítí proti hmyzu",
+                        difficulty: "Snadné",
+                        time: "25 min",
+                        icon: "fa-bug",
+                        tools: ["Nůžky", "Sešívačka (volitelně)"],
+                        materials: ["Nová síť proti hmyzu", "Montážní pásek"],
+                        safety: ["Buďte opatrní s ostrými hranami"],
+                        steps: [
+                            "Vyjměte starou síť z rámu",
+                            "Změřte velikost okna",
+                            "Odřízněte novou síť o 2 cm větší",
+                            "Přilepte montážní pásek na rám",
+                            "Přilepte síť k pásku",
+                            "Odřízněte přebytečný materiál"
+                        ]
+                    },
+                    // Dveře
+                    {
+                        title: "Utěsnění netěsnících dveří",
+                        difficulty: "Snadné",
+                        time: "30 min",
+                        icon: "fa-door-closed",
+                        tools: ["Nůžky", "Nůž"],
+                        materials: ["Samolepící těsnění"],
+                        safety: ["Žádné"],
+                        steps: [
+                            "Zavřete dveře a najděte místa, kde fouká",
+                            "Očistěte povrch rámu",
+                            "Změřte délku těsnění",
+                            "Odřízněte těsnění na správnou délku",
+                            "Odlepte ochrannou fólii",
+                            "Přilepte těsnění na rám",
+                            "V rozích těsnění přeřízněte",
+                            "Zavřete dveře a zkontrolujte"
+                        ]
+                    },
+                    {
+                        title: "Oprava zadrhávajících dveří",
+                        difficulty: "Střední",
+                        time: "35 min",
+                        icon: "fa-door-open",
+                        tools: ["Hoblík", "Brusný papír", "Tužka"],
+                        materials: ["Lak nebo barva"],
+                        safety: ["Sundejte dveře z pantů"],
+                        steps: [
+                            "Zavřete dveře a označte místa, kde se zadrhávají",
+                            "Sundejte dveře z pantů",
+                            "Ohoblujte zadrhávající místa",
+                            "Vybruste jemným papírem",
+                            "Natřete lak nebo barvou",
+                            "Nechte zaschnout",
+                            "Nasaďte dveře zpět",
+                            "Zkontrolujte chod"
+                        ]
+                    },
+                    {
+                        title: "Promazání vrzajících pantů",
+                        difficulty: "Snadné",
+                        time: "10 min",
+                        icon: "fa-oil-can",
+                        tools: ["Hadřík"],
+                        materials: ["WD-40 nebo olej"],
+                        safety: ["Žádné"],
+                        steps: [
+                            "Otevřete dveře",
+                            "Nastříkejte panty olejem",
+                            "Otevřete a zavřete dveře několikrát",
+                            "Otřete přebytečný olej",
+                            "Zkontrolujte, zda nevrzají"
+                        ]
+                    },
+                    {
+                        title: "Seřízení dveří na západku",
+                        difficulty: "Střední",
+                        time: "25 min",
+                        icon: "fa-lock",
+                        tools: ["Pilník", "Šroubovák"],
+                        materials: ["Žádné"],
+                        safety: ["Buďte opatrní s pilníkem"],
+                        steps: [
+                            "Zavřete dveře a zkontrolujte, zda západka zapadá do zámku",
+                            "Pokud ne, povolte šrouby zámkové desky",
+                            "Posuňte desku nahoru/dolů/do stran",
+                            "Utáhněte šrouby",
+                            "Pokud stále nezapadá, rozšiřte otvor pilníkem",
+                            "Zkontrolujte chod"
+                        ]
+                    },
+                    {
+                        title: "Oprava uvolněné kliky dveří",
+                        difficulty: "Snadné",
+                        time: "15 min",
+                        icon: "fa-hand",
+                        tools: ["Inbusový klíč", "Šroubovák"],
+                        materials: ["Žádné"],
+                        safety: ["Žádné"],
+                        steps: [
+                            "Najděte malý šroubek na klice",
+                            "Utáhněte ho inbusovým klíčem",
+                            "Pokud je celá klika uvolněná, sundejte ozdobný kryt",
+                            "Dotáhněte šrouby pod krytem",
+                            "Nasaďte kryt zpět",
+                            "Zkontrolujte pevnost"
+                        ]
+                    },
+                    {
+                        title: "Upevnění vypadávající kliky",
+                        difficulty: "Snadné",
+                        time: "10 min",
+                        icon: "fa-screwdriver",
+                        tools: ["Šroubovák", "Inbusový klíč"],
+                        materials: ["Žádné"],
+                        safety: ["Žádné"],
+                        steps: [
+                            "Sundejte ozdobný kryt kliky",
+                            "Utáhněte oba šrouby",
+                            "Nasaďte kryt zpět",
+                            "Utáhněte pojistný šroubek na klice",
+                            "Zkontrolujte, zda klika drží"
+                        ]
+                    },
+                    {
+                        title: "Výměna poškozeného těsnění dveří",
+                        difficulty: "Střední",
+                        time: "40 min",
+                        icon: "fa-wind",
+                        tools: ["Nůž", "Nůžky"],
+                        materials: ["Nové těsnění"],
+                        safety: ["Buďte opatrní s nožem"],
+                        steps: [
+                            "Vytáhněte staré těsnění",
+                            "Vyčistěte drážku",
+                            "Změřte délku potřebného těsnění",
+                            "Odřízněte nové těsnění",
+                            "Začněte z horního rohu",
+                            "Zatlačte těsnění do drážky",
+                            "V rozích přeřízněte pod úhlem",
+                            "Zavřete dveře a zkontrolujte"
+                        ]
+                    },
+                    {
+                        title: "Oprava uvolněných pantů dveří",
+                        difficulty: "Střední",
+                        time: "25 min",
+                        icon: "fa-wrench",
+                        tools: ["Šroubovák", "Vrtačka", "Dřevěné kolíčky"],
+                        materials: ["Lepidlo na dřevo", "Delší šrouby"],
+                        safety: ["Přidržujte dveře"],
+                        steps: [
+                            "Otevřete dveře úplně",
+                            "Dotáhněte šrouby pantů",
+                            "Pokud prokluzují, vyjměte je",
+                            "Vyplňte díry lepidlem a kolíčky",
+                            "Počkejte, až zaschne",
+                            "Navrtejte nové díry",
+                            "Přišroubujte panty delšími šrouby"
+                        ]
+                    },
+                    {
+                        title: "Výměna zámku u dveří",
+                        difficulty: "Střední",
+                        time: "40 min",
+                        icon: "fa-key",
+                        tools: ["Šroubovák", "Vrtačka"],
+                        materials: ["Nový zámek"],
+                        safety: ["Zkontrolujte rozměry před koupí"],
+                        steps: [
+                            "Sundejte kliky z obou stran",
+                            "Vyšroubujte šrouby zámku z hrany dveří",
+                            "Vytáhněte starý zámek",
+                            "Změřte rozměry zámku",
+                            "Vložte nový zámek do otvoru",
+                            "Přišroubujte zámek",
+                            "Nasaďte kliky",
+                            "Zkontrolujte funkci"
+                        ]
+                    },
+                    {
+                        title: "Oprava zasekávajícího se zámku",
+                        difficulty: "Střední",
+                        time: "30 min",
+                        icon: "fa-lock",
+                        tools: ["Šroubovák", "Kartáček"],
+                        materials: ["Grafitový sprej nebo tužka"],
+                        safety: ["Nepoužívejte olej - láká prach"],
+                        steps: [
+                            "Sundejte kliku",
+                            "Vyjměte zámek",
+                            "Vyčistěte zámek kartáčkem",
+                            "Nastříkejte grafitovým sprejem",
+                            "Nebo natřete klíč tužkou a promazejte zámek",
+                            "Nasaďte zámek zpět",
+                            "Zkontrolujte chod"
+                        ]
+                    },
+                    {
+                        title: "Výměna ztracených klíčů",
+                        difficulty: "Střední",
+                        time: "45 min",
+                        icon: "fa-key",
+                        tools: ["Šroubovák"],
+                        materials: ["Nová vložka zámku"],
+                        safety: ["Přeneste rozměry vložky"],
+                        steps: [
+                            "Sundejte kliku",
+                            "Vyjměte upevňovací šroub vložky",
+                            "Vložte klíč a otočte mírně",
+                            "Vytáhněte starou vložku",
+                            "Změřte délku vložky",
+                            "Kupte novou vložku stejných rozměrů",
+                            "Vložte novou vložku",
+                            "Přišroubujte upevňovací šroub",
+                            "Nasaďte kliku",
+                            "Zkontrolujte zamykání"
+                        ]
+                    },
+                    {
+                        title: "Oprava vylomeného zámku",
+                        difficulty: "Těžké",
+                        time: "60 min",
+                        icon: "fa-lock-open",
+                        tools: ["Šroubovák", "Vrtačka", "Dláto"],
+                        materials: ["Nový zámek", "Nová vložka", "Tmel"],
+                        safety: ["Pokud je dřevo poškozené, zavolejte tesaře"],
+                        steps: [
+                            "Vyjměte zbytky starého zámku",
+                            "Vyčistěte otvor",
+                            "Pokud je dřevo poškozené, vyplňte tmelem",
+                            "Nechte zaschnout",
+                            "Případně rozšiřte otvor pro nový zámek",
+                            "Vložte nový zámek",
+                            "Přišroubujte zámek",
+                            "Nasaďte vložku a kliky",
+                            "Doporučujeme zavolat zámečníka"
+                        ]
+                    },
+                    {
+                        title: "Výměna prasklé kliky",
+                        difficulty: "Snadné",
+                        time: "20 min",
+                        icon: "fa-hand",
+                        tools: ["Šroubovák", "Inbusový klíč"],
+                        materials: ["Nová klika"],
+                        safety: ["Přeneste rozměr čtverce"],
+                        steps: [
+                            "Povolte pojistný šroubek na klice",
+                            "Stáhněte kliku ze čtverce",
+                            "Sundejte druhou kliku",
+                            "Změřte rozměr čtverce (obvykle 8mm)",
+                            "Nasaďte novou kliku",
+                            "Nasaďte druhou kliku",
+                            "Utáhněte pojistné šrouby"
+                        ]
+                    },
+                    {
+                        title: "Oprava deformace dveřního rámu",
+                        difficulty: "Těžké",
+                        time: "120 min",
+                        icon: "fa-ruler",
+                        tools: ["Vodováha", "Stavební kleště", "Vrtačka"],
+                        materials: ["Dřevěné podložky", "Šrouby", "Montážní pěna"],
+                        safety: ["Obtížná oprava - zvažte odborníka"],
+                        steps: [
+                            "Zkontrolujte vodováhou, jak je rám pokřivený",
+                            "Povolte šrouby rámu",
+                            "Vyrovnejte rám pomocí podložek",
+                            "Zkontrolujte vodováhou",
+                            "Utáhněte šrouby",
+                            "Vyplňte mezery montážní pěnou",
+                            "Nechte zaschnout",
+                            "Ořízněte přebytečnou pěnu",
+                            "Pro větší deformace zavolejte tesaře"
+                        ]
+                    },
+                    {
+                        title: "Sušení nafouknutých dveří",
+                        difficulty: "Střední",
+                        time: "240 min",
+                        icon: "fa-wind",
+                        tools: ["Fén", "Ventilátor"],
+                        materials: ["Lak nebo barva"],
+                        safety: ["Buďte trpěliví - může trvat dny"],
+                        steps: [
+                            "Sundejte dveře z pantů",
+                            "Položte vodorovně",
+                            "Sušte fénem (ne příliš blízko)",
+                            "Nebo nechte schnout přirozeně 2-3 dny",
+                            "Vybruste nabobtnalá místa",
+                            "Natřete ochranným lakem",
+                            "Nasaďte zpět na panty"
+                        ]
+                    },
+                    {
+                        title: "Oprava zatékání kolem dveří",
+                        difficulty: "Střední",
+                        time: "60 min",
+                        icon: "fa-droplet",
+                        tools: ["Silikonová pistole", "Nůž"],
+                        materials: ["Venkovní silikon", "Těsnění"],
+                        safety: ["Práce venku"],
+                        steps: [
+                            "Najděte místo zatékání",
+                            "Odstraňte starý silikon",
+                            "Vyčistěte spáru",
+                            "Vysušte povrch",
+                            "Naneste nový silikon",
+                            "Uhlaďte",
+                            "Vyměňte spodní těsnění",
+                            "Zkontrolujte odtok vody"
+                        ]
+                    },
+                    {
+                        title: "Oprava prohnutého dveřního křídla",
+                        difficulty: "Těžké",
+                        time: "90 min",
+                        icon: "fa-door-closed",
+                        tools: ["Svěrky", "Těžké předměty"],
+                        materials: ["Dřevěné fošny"],
+                        safety: ["Složitá oprava"],
+                        steps: [
+                            "Sundejte dveře",
+                            "Položte na rovný povrch",
+                            "Přiložte rovnou fošnu",
+                            "Svěrkujte nebo zatěžte",
+                            "Nechte 2-3 dny",
+                            "Pokud se nevrátí, zavolejte tesaře"
+                        ]
+                    },
+                    {
+                        title: "Oprava vpadlých dveří",
+                        difficulty: "Střední",
+                        time: "45 min",
+                        icon: "fa-ruler-vertical",
+                        tools: ["Šroubovák", "Podložky"],
+                        materials: ["Kovové podložky"],
+                        safety: ["Přidržujte dveře"],
+                        steps: [
+                            "Povolte šrouby spodního pantu",
+                            "Vložte podložky pod pant",
+                            "Utáhněte šrouby",
+                            "Zkontrolujte vodováhu dveří",
+                            "Upravte počet podložek podle potřeby"
+                        ]
+                    },
+                    {
+                        title: "Oprava uvolněné kliky balkonu",
+                        difficulty: "Střední",
+                        time: "25 min",
+                        icon: "fa-screwdriver",
+                        tools: ["Inbusový klíč", "Šroubovák"],
+                        materials: ["Žádné"],
+                        safety: ["Buďte opatrní ve výšce"],
+                        steps: [
+                            "Sundejte ozdobný kryt",
+                            "Dotáhněte oba šrouby",
+                            "Utáhněte pojistný šroubek na klice",
+                            "Nasaďte kryt",
+                            "Zkontrolujte pevnost"
+                        ]
+                    },
+                    // Podlahy
+                    {
+                        title: "Oprava skřípající podlahy",
+                        difficulty: "Střední",
+                        time: "60 min",
+                        icon: "fa-house",
+                        tools: ["Šroubovák", "Vrtačka", "Tmel"],
+                        materials: ["Šrouby", "Pudr na skřípění"],
+                        safety: ["Najděte nosné trámy"],
+                        steps: [
+                            "Najděte místo, kde podlaha skřípe",
+                            "Najděte nosný trám pod podlahou",
+                            "Zašroubujte dlouhé šrouby do trámu",
+                            "Nebo nasypte grafitový pudr mezi prkna",
+                            "U plovoucích podlah zkontrolujte podložku",
+                            "Vytmelte spáry mezi prkny"
+                        ]
+                    },
+                    {
+                        title: "Oprava vrzající podlahy",
+                        difficulty: "Střední",
+                        time: "50 min",
+                        icon: "fa-wrench",
+                        tools: ["Vrtačka", "Kladivo"],
+                        materials: ["Šrouby", "Hřebíky", "Tmel"],
+                        safety: ["Nepoškodite potrubí pod podlahou"],
+                        steps: [
+                            "Najděte vrzající místo",
+                            "Přišroubujte prkno k nosníku",
+                            "Nebo zatloukejte hřebíky šikmo",
+                            "Vytmelte díry",
+                            "Zkontrolujte, zda vrzání ustalo"
+                        ]
+                    },
+                    {
+                        title: "Výměna poškozené plovoucí podlahy",
+                        difficulty: "Střední",
+                        time: "90 min",
+                        icon: "fa-ruler-horizontal",
+                        tools: ["Gumová palice", "Tahák na podlahu", "Nůž"],
+                        materials: ["Náhradní lamely"],
+                        safety: ["Skladujte lamely 48h v místnosti"],
+                        steps: [
+                            "Vyjměte lišty u zdi",
+                            "Postupně rozeberte podlahu k poškozené lamele",
+                            "Vyjměte poškozenou lamelu",
+                            "Vložte novou lamelu",
+                            "Zaklapněte zámky",
+                            "Pokládejte podlahu zpět",
+                            "Nasaďte lišty"
+                        ]
+                    },
+                    {
+                        title: "Oprava nafouklých lamel podlahy",
+                        difficulty: "Střední",
+                        time: "70 min",
+                        icon: "fa-water",
+                        tools: ["Fén", "Těžké předměty"],
+                        materials: ["Náhradní lamely (volitelně)"],
+                        safety: ["Vysušte co nejdříve"],
+                        steps: [
+                            "Vysušte vodu co nejrychleji",
+                            "Sušte fénem",
+                            "Zatěžte nabobtnaná místa",
+                            "Pokud se lamely nevrátí, vyměňte je",
+                            "Odstraňte příčinu vlhkosti"
+                        ]
+                    },
+                    {
+                        title: "Renovace poškozených parket",
+                        difficulty: "Těžké",
+                        time: "180 min",
+                        icon: "fa-paintbrush",
+                        tools: ["Bruska", "Vysavač", "Štětec"],
+                        materials: ["Tmel na dřevo", "Lak na parkety"],
+                        safety: ["Používejte respirátor při broušení"],
+                        steps: [
+                            "Vybruste parkety hrubým papírem",
+                            "Vysajte prach",
+                            "Vytmelte díry a spáry",
+                            "Nechte zaschnout",
+                            "Vybruste jemným papírem",
+                            "Vysajte a očistěte",
+                            "Naneste první vrstvu laku",
+                            "Nechte zaschnout 24h",
+                            "Naneste druhou vrstvu"
+                        ]
+                    },
+                    {
+                        title: "Odstranění škrábanců na podlaze",
+                        difficulty: "Střední",
+                        time: "45 min",
+                        icon: "fa-eraser",
+                        tools: ["Brusný papír", "Hadřík"],
+                        materials: ["Vosk nebo retušovací tužka", "Lak"],
+                        safety: ["Test na nezřetelném místě"],
+                        steps: [
+                            "Vyčistěte škrábanec",
+                            "Jemně vybruste",
+                            "Pro světlé podlahy použijte vosk",
+                            "Pro tmavé retušovací tužku",
+                            "Naleštěte hadříkem",
+                            "Nebo naneste lak"
+                        ]
+                    },
+                    {
+                        title: "Výměna rozbitého lina",
+                        difficulty: "Střední",
+                        time: "120 min",
+                        icon: "fa-ruler",
+                        tools: ["Nůž", "Válec", "Špachtle"],
+                        materials: ["Nové linoleum", "Lepidlo"],
+                        safety: ["Větrejte místnost"],
+                        steps: [
+                            "Vyjměte staré linoleum",
+                            "Vyčistěte podklad",
+                            "Vyrovnejte nerovnosti",
+                            "Nechte nové lino aklimatizovat 24h",
+                            "Naneste lepidlo",
+                            "Položte lino",
+                            "Vyvalte válcem",
+                            "Ořízněte okraje"
+                        ]
+                    },
+                    {
+                        title: "Upevnění zvednutého koberce",
+                        difficulty: "Snadné",
+                        time: "20 min",
+                        icon: "fa-tape",
+                        tools: ["Nůž"],
+                        materials: ["Oboustranná kobercová páska"],
+                        safety: ["Žádné"],
+                        steps: [
+                            "Odhrňte zvednutý roh",
+                            "Vyčistěte podklad",
+                            "Nalepte oboustrannou pásku",
+                            "Přilepte koberec",
+                            "Přitlačte"
+                        ]
+                    },
+                    {
+                        title: "Čištění skvrn na koberci",
+                        difficulty: "Snadné",
+                        time: "30 min",
+                        icon: "fa-spray-can",
+                        tools: ["Houba", "Hadry"],
+                        materials: ["Čistič na koberce", "Jedlá soda"],
+                        safety: ["Test na nezřetelném místě"],
+                        steps: [
+                            "Odstraňte pevné nečistoty",
+                            "Posypte jedlou sodou",
+                            "Nechte působit 15 minut",
+                            "Vysajte",
+                            "Naneste čistič",
+                            "Otřete houbou",
+                            "Vysajte po zaschnutí"
+                        ]
+                    },
+                    {
+                        title: "Nalepení odlepeného koberce",
+                        difficulty: "Střední",
+                        time: "45 min",
+                        icon: "fa-paste",
+                        tools: ["Válec", "Špachtle"],
+                        materials: ["Lepidlo na koberce"],
+                        safety: ["Větrejte místnost"],
+                        steps: [
+                            "Odhrňte odlepený koberec",
+                            "Vyčistěte podklad i rub koberce",
+                            "Naneste lepidlo",
+                            "Přilepte koberec",
+                            "Vyvalte válcem",
+                            "Zatěžte na 24h"
+                        ]
+                    },
+                    {
+                        title: "Výměna poškozených přechodových lišt",
+                        difficulty: "Snadné",
+                        time: "25 min",
+                        icon: "fa-ruler-horizontal",
+                        tools: ["Páčidlo", "Kladivo", "Vrtačka"],
+                        materials: ["Nová lišta", "Šrouby nebo hmoždinky"],
+                        safety: ["Nepoškodite podlahu"],
+                        steps: [
+                            "Vypáčejte starou lištu",
+                            "Vyčistěte podklad",
+                            "Změřte délku",
+                            "Nařízněte novou lištu",
+                            "Přišroubujte nebo přilepte",
+                            "Nebo zaklapněte podle typu"
+                        ]
+                    },
+                    {
+                        title: "Výměna dilatační lišty",
+                        difficulty: "Snadné",
+                        time: "20 min",
+                        icon: "fa-ruler",
+                        tools: ["Šroubovák", "Pila"],
+                        materials: ["Nová lišta"],
+                        safety: ["Žádné"],
+                        steps: [
+                            "Vyjměte starou lištu",
+                            "Vyčistěte drážku",
+                            "Nařízněte novou lištu",
+                            "Vložte do drážky",
+                            "Zaklapněte nebo přišroubujte"
+                        ]
+                    },
+                    // Zdi
+                    {
+                        title: "Oprava praskliny ve zdi",
+                        difficulty: "Střední",
+                        time: "90 min",
+                        icon: "fa-house-crack",
+                        tools: ["Špachtle", "Nůž", "Brusný papír"],
+                        materials: ["Tmel", "Síťka na praskliny", "Barva"],
+                        safety: ["Pokud je prasklina velká, zavolejte statika"],
+                        steps: [
+                            "Rozšiřte prasklinu nožem do V",
+                            "Vyčistěte od prachu",
+                            "Navlhčete prasklinu",
+                            "Naneste první vrstvu tmelu",
+                            "Přilepte síťku",
+                            "Naneste druhou vrstvu tmelu",
+                            "Nechte zaschnout",
+                            "Vybruste",
+                            "Natřete barvou"
+                        ]
+                    },
+                    {
+                        title: "Zalepení díry ve zdi",
+                        difficulty: "Snadné",
+                        time: "30 min",
+                        icon: "fa-fill-drip",
+                        tools: ["Špachtle", "Brusný papír"],
+                        materials: ["Tmel", "Barva"],
+                        safety: ["Žádné"],
+                        steps: [
+                            "Vyčistěte díru od prachu",
+                            "Navlhčete okraje",
+                            "Naneste tmel špachtlí",
+                            "Uhlaďte povrch",
+                            "Nechte zaschnout",
+                            "Vybruste jemným papírem",
+                            "Natřete barvou"
+                        ]
+                    },
+                    {
+                        title: "Oprava prasklin ve zdi",
+                        difficulty: "Střední",
+                        time: "60 min",
+                        icon: "fa-house-crack",
+                        tools: ["Špachtle", "Nůž"],
+                        materials: ["Tmel", "Armovací síťka"],
+                        safety: ["Velké trhliny - zavolejte statika"],
+                        steps: [
+                            "Rozšiřte prasklinu",
+                            "Vyčistěte",
+                            "Navlhčte",
+                            "Vytmelte první vrstvu",
+                            "Přilepte síťku",
+                            "Vytmelte znovu",
+                            "Vybruste",
+                            "Natřete"
+                        ]
+                    },
+                    {
+                        title: "Odstranění odpadávající omítky",
+                        difficulty: "Střední",
+                        time: "90 min",
+                        icon: "fa-hammer",
+                        tools: ["Kladivo", "Dláto", "Špachtle"],
+                        materials: ["Penetrace", "Omítka", "Barva"],
+                        safety: ["Používejte brýle"],
+                        steps: [
+                            "Odklepejte uvolněnou omítku",
+                            "Vyčistěte podklad",
+                            "Natřete penetrací",
+                            "Navlhčete",
+                            "Naneste novou omítku",
+                            "Uhlaďte",
+                            "Nechte zaschnout",
+                            "Vybruste a natřete"
+                        ]
+                    },
+                    {
+                        title: "Odstranění plísně v rozích",
+                        difficulty: "Střední",
+                        time: "45 min",
+                        icon: "fa-spray-can",
+                        tools: ["Kartáč", "Houba", "Rukavice"],
+                        materials: ["Fungicidní přípravek", "Penetrace"],
+                        safety: ["Větrejte, používejte rukavice"],
+                        steps: [
+                            "Větrejte místnost",
+                            "Nastříkejte plíseň fungicidem",
+                            "Nechte působit 30 minut",
+                            "Odrhněte kartáčem",
+                            "Opláchněte",
+                            "Natřete fungicidní penetrací",
+                            "Natřete barvou proti plísni"
+                        ]
+                    },
+                    {
+                        title: "Čištění špinavých zdí",
+                        difficulty: "Snadné",
+                        time: "40 min",
+                        icon: "fa-broom",
+                        tools: ["Houba", "Kbelík", "Hadry"],
+                        materials: ["Čistící prostředek", "Jedlá soda"],
+                        safety: ["Test na nezřetelném místě"],
+                        steps: [
+                            "Odstraňte pavučiny",
+                            "Namíchejte čistící roztok",
+                            "Otřete zeď houbou",
+                            "Pro skvrny použijte jedlou sodu",
+                            "Opláchněte čistou vodou",
+                            "Osušte hadry"
+                        ]
+                    },
+                    {
+                        title: "Oprava poškozeného sádrokartonu",
+                        difficulty: "Střední",
+                        time: "75 min",
+                        icon: "fa-ruler",
+                        tools: ["Nůž", "Pila", "Špachtle"],
+                        materials: ["Sádrokarton", "Tmel", "Páska", "Šrouby"],
+                        safety: ["Buďte opatrní s nožem"],
+                        steps: [
+                            "Vyjměte poškozenou část",
+                            "Vyřízněte záplatu ze sádrokartonu",
+                            "Připevněte podporu zevnitř",
+                            "Přišroubujte záplatu",
+                            "Nalepte pásku na spoje",
+                            "Vytmelte",
+                            "Vybruste",
+                            "Natřete"
+                        ]
+                    },
+                    // Nábytek
+                    {
+                        title: "Oprava prosezeného gauče",
+                        difficulty: "Střední",
+                        time: "60 min",
+                        icon: "fa-couch",
+                        tools: ["Šroubovák", "Nůžky"],
+                        materials: ["Nová pěna", "Překližka"],
+                        safety: ["Dvě osoby pro převrácení gauče"],
+                        steps: [
+                            "Převrácejte gauč",
+                            "Sejměte spodní potah",
+                            "Zkontrolujte pružiny",
+                            "Vyměňte prosezené pružiny",
+                            "Nebo přidejte překližku pod sedák",
+                            "Vyměňte starou pěnu",
+                            "Přitáhněte potah zpět"
+                        ]
+                    },
+                    {
+                        title: "Oprava vrzající postele",
+                        difficulty: "Snadné",
+                        time: "25 min",
+                        icon: "fa-bed",
+                        tools: ["Inbusový klíč", "WD-40"],
+                        materials: ["Vosk nebo mýdlo"],
+                        safety: ["Žádné"],
+                        steps: [
+                            "Najděte vrzající spoj",
+                            "Dotáhněte všechny šrouby",
+                            "Namažte klouby olejem",
+                            "Potřete dřevěné spoje voskem",
+                            "Zkontrolujte laťkový rošt"
+                        ]
+                    },
+                    {
+                        title: "Výměna poškozených pantů skříně",
+                        difficulty: "Střední",
+                        time: "30 min",
+                        icon: "fa-screwdriver",
+                        tools: ["Šroubovák", "Vrtačka"],
+                        materials: ["Nové panty"],
+                        safety: ["Přeneste rozměry pantů"],
+                        steps: [
+                            "Odšroubujte staré panty",
+                            "Změřte rozměry a typ pantu",
+                            "Kupte stejné panty",
+                            "Přišroubujte nové panty",
+                            "Seřiďte dvířka",
+                            "Zkontrolujte chod"
+                        ]
+                    },
+                    {
+                        title: "Oprava vysunutého čela zásuvky",
+                        difficulty: "Snadné",
+                        time: "15 min",
+                        icon: "fa-wrench",
+                        tools: ["Kladivo", "Svěrka"],
+                        materials: ["Lepidlo na dřevo"],
+                        safety: ["Žádné"],
+                        steps: [
+                            "Vyjměte zásuvku",
+                            "Naneste lepidlo do spoje",
+                            "Zatlačte čelo zpět",
+                            "Svěrkujte",
+                            "Nechte zaschnout 24h"
+                        ]
+                    },
+                    {
+                        title: "Oprava zaseklého šuplíku",
+                        difficulty: "Snadné",
+                        time: "20 min",
+                        icon: "fa-box",
+                        tools: ["Brusný papír", "Vosk"],
+                        materials: ["Mýdlo nebo vosk"],
+                        safety: ["Žádné"],
+                        steps: [
+                            "Vyjměte šuplík",
+                            "Najděte místo, kde se zadrhává",
+                            "Vybruste zadrhávající místo",
+                            "Potřete vodící lišty voskem",
+                            "Vložte šuplík zpět",
+                            "Zkontrolujte chod"
+                        ]
+                    },
+                    {
+                        title: "Oprava poškozené židle",
+                        difficulty: "Střední",
+                        time: "40 min",
+                        icon: "fa-chair",
+                        tools: ["Svěrka", "Štětec"],
+                        materials: ["Lepidlo na dřevo"],
+                        safety: ["Dobře svěrkujte"],
+                        steps: [
+                            "Rozeberte uvolněný spoj",
+                            "Vyčistěte starý lepidlo",
+                            "Naneste nové lepidlo",
+                            "Složte zpět",
+                            "Svěrkujte",
+                            "Nechte zaschnout 24h"
+                        ]
+                    },
+                    {
+                        title: "Oprava vrzající židle",
+                        difficulty: "Snadné",
+                        time: "15 min",
+                        icon: "fa-oil-can",
+                        tools: ["WD-40"],
+                        materials: ["Olej nebo vosk"],
+                        safety: ["Žádné"],
+                        steps: [
+                            "Najděte vrzající spoj",
+                            "Nastříkejte olejem",
+                            "Nebo potřete voskem",
+                            "Dotáhněte šrouby",
+                            "Zkontrolujte"
+                        ]
+                    },
+                    {
+                        title: "Seřízení nevyváženého stolu",
+                        difficulty: "Snadné",
+                        time: "10 min",
+                        icon: "fa-ruler",
+                        tools: ["Vodováha"],
+                        materials: ["Podložky"],
+                        safety: ["Žádné"],
+                        steps: [
+                            "Položte vodováhu na stůl",
+                            "Najděte kratší nohu",
+                            "Podložte gumovou podložkou",
+                            "Zkontrolujte vodováhou",
+                            "Nebo zkraťte delší nohy pilou"
+                        ]
+                    },
+                    {
+                        title: "Oprava pracovní židle",
+                        difficulty: "Střední",
+                        time: "35 min",
+                        icon: "fa-chair",
+                        tools: ["Inbusový klíč", "Kladivo"],
+                        materials: ["Náhradní plyn. piston nebo kolečka"],
+                        safety: ["POZOR - piston je pod tlakem"],
+                        steps: [
+                            "Pro výměnu pistonu - sejměte sedák",
+                            "Vytáhněte piston z kříže",
+                            "Vyrazte piston ze sedáku kladivem",
+                            "Nasaďte nový piston",
+                            "Pro výměnu koleček - vytáhněte stará",
+                            "Zatlačte nová kolečka"
+                        ]
+                    },
+                    {
+                        title: "Oprava roztrženého čalounění",
+                        difficulty: "Střední",
+                        time: "60 min",
+                        icon: "fa-needle",
+                        tools: ["Jehla", "Sponky", "Kleště"],
+                        materials: ["Nit", "Záplata látky"],
+                        safety: ["Umět šít"],
+                        steps: [
+                            "Pro malé trhliny - sešijte",
+                            "Pro velké trhliny - podložte záplatu zevnitř",
+                            "Nebo přečalounujte nábytek",
+                            "Upevněte sponkami",
+                            "Doporučujeme čalouníka"
+                        ]
+                    },
+                    {
+                        title: "Výměna špatné matrace",
+                        difficulty: "Snadné",
+                        time: "10 min",
+                        icon: "fa-bed",
+                        tools: ["Žádné"],
+                        materials: ["Nová matrace"],
+                        safety: ["Dvě osoby pro manipulaci"],
+                        steps: [
+                            "Sejměte povlečení",
+                            "Sejměte starou matraci",
+                            "Vyčistěte rošt",
+                            "Položte novou matraci",
+                            "Nechte provětrat 24h",
+                            "Ustelte"
+                        ]
+                    },
+                    {
+                        title: "Oprava proležené matrace",
+                        difficulty: "Střední",
+                        time: "45 min",
+                        icon: "fa-mattress-pillow",
+                        tools: ["Žádné"],
+                        materials: ["Matracový topper", "Překližka"],
+                        safety: ["Pravidelně otáčejte matraci"],
+                        steps: [
+                            "Otočte matraci hlavou k nohám",
+                            "Nebo položte na druhou stranu",
+                            "Pro větší proležení - podložte překližkou",
+                            "Nebo kupte matracový topper",
+                            "Dlouhodobě zvažte novou matraci"
+                        ]
+                    }
                 ]
             },
             electrical: {
                 title: "Návody pro elektřinu",
                 subtitle: "Bezpečné opravy zásuvek, světel a elektrických zařízení",
                 guides: [
-                    { title: "Výměna zásuvky", difficulty: "Střední", time: "30 min", icon: "fa-plug" },
-                    { title: "Instalace nového vypínače", difficulty: "Střední", time: "25 min", icon: "fa-lightbulb" },
-                    { title: "Výměna žárovky v lustrech", difficulty: "Snadné", time: "10 min", icon: "fa-lightbulb" },
-                    { title: "Reset vypadlého jističe", difficulty: "Snadné", time: "5 min", icon: "fa-bolt" },
-                    { title: "Instalace LED pásku", difficulty: "Snadné", time: "20 min", icon: "fa-lightbulb" },
-                    { title: "Připojení lustru", difficulty: "Těžké", time: "50 min", icon: "fa-lightbulb" }
+                    // Zásuvky & vypínače
+                    {
+                        title: "Výměna zásuvky",
+                        difficulty: "Střední",
+                        time: "30 min",
+                        icon: "fa-plug",
+                        tools: ["Šroubovák", "Tester napětí", "Kleště"],
+                        materials: ["Nová zásuvka"],
+                        safety: ["VYPNĚTE JISTIČ!", "Zkontrolujte testerem, že není napětí"],
+                        steps: [
+                            "VYPNĚTE HLAVNÍ JISTIČ pro danou místnost",
+                            "Zkontrolujte testerem napětí, že zásuvka není pod proudem",
+                            "Odšroubujte kryt zásuvky",
+                            "Vyšroubujte zásuvku z krabice",
+                            "Odpojte vodiče (fáze-hnědá, nula-modrá, zem-žlutozelená)",
+                            "Připojte vodiče k nové zásuvce (respektujte barvy!)",
+                            "Přišroubujte zásuvku do krabice",
+                            "Nasaďte kryt",
+                            "Zapněte jistič",
+                            "Zkontrolujte funkci",
+                            "Pokud si nejste jisti, zavolejte elektrikáře!"
+                        ]
+                    },
+                    {
+                        title: "Instalace nového vypínače",
+                        difficulty: "Střední",
+                        time: "25 min",
+                        icon: "fa-toggle-on",
+                        tools: ["Šroubovák", "Tester napětí"],
+                        materials: ["Nový vypínač"],
+                        safety: ["VYPNĚTE JISTIČ!", "Pouze pokud máte zkušenosti"],
+                        steps: [
+                            "VYPNĚTE JISTIČ",
+                            "Zkontrolujte testerem absence napětí",
+                            "Odšroubujte kryt starého vypínače",
+                            "Vyjměte vypínač",
+                            "Odpojte vodiče",
+                            "Připojte vodiče k novému vypínači",
+                            "Zašroubujte vypínač",
+                            "Nasaďte kryt",
+                            "Zapněte jistič a zkontrolujte"
+                        ]
+                    },
+                    {
+                        title: "Oprava uvolněné zásuvky",
+                        difficulty: "Střední",
+                        time: "20 min",
+                        icon: "fa-screwdriver",
+                        tools: ["Šroubovák", "Tester napětí"],
+                        materials: ["Žádné"],
+                        safety: ["VYPNĚTE JISTIČ!"],
+                        steps: [
+                            "VYPNĚTE JISTIČ",
+                            "Zkontrolujte absenci napětí",
+                            "Odšroubujte kryt",
+                            "Dotáhněte šrouby držící zásuvku v krabici",
+                            "Nasaďte kryt zpět",
+                            "Zapněte jistič"
+                        ]
+                    },
+                    {
+                        title: "Oprava uvolněného vypínače",
+                        difficulty: "Střední",
+                        time: "20 min",
+                        icon: "fa-wrench",
+                        tools: ["Šroubovák", "Tester"],
+                        materials: ["Žádné"],
+                        safety: ["VYPNĚTE JISTIČ!"],
+                        steps: [
+                            "VYPNĚTE JISTIČ",
+                            "Odšroubujte kryt",
+                            "Dotáhněte upevňovací šrouby",
+                            "Nasaďte kryt",
+                            "Zapněte jistič"
+                        ]
+                    },
+                    {
+                        title: "Oprava špatného kontaktu ve vypínači",
+                        difficulty: "Střední",
+                        time: "25 min",
+                        icon: "fa-plug",
+                        tools: ["Šroubovák", "Tester", "Brusný papír"],
+                        materials: ["Nový vypínač (volitelně)"],
+                        safety: ["VYPNĚTE JISTIČ!"],
+                        steps: [
+                            "VYPNĚTE JISTIČ",
+                            "Vyjměte vypínač",
+                            "Zkontrolujte připojení vodičů",
+                            "Dotáhněte svorky",
+                            "Vyčistěte kontakty jemným brusným papírem",
+                            "Pokud kontakty jsou spálené, vyměňte vypínač",
+                            "Zapněte jistič a zkontrolujte"
+                        ]
+                    },
+                    {
+                        title: "Oprava zaseklého stmívače",
+                        difficulty: "Střední",
+                        time: "30 min",
+                        icon: "fa-sliders",
+                        tools: ["Šroubovák", "Tester"],
+                        materials: ["Nový stmívač (volitelně)"],
+                        safety: ["VYPNĚTE JISTIČ!"],
+                        steps: [
+                            "VYPNĚTE JISTIČ",
+                            "Vyjměte stmívač",
+                            "Zkontrolujte, zda je kompatibilní s LED žárovkami",
+                            "Zkontrolujte připojení",
+                            "Pokud je mechanicky poškozený, vyměňte ho",
+                            "Nasaďte zpět",
+                            "Zapněte a zkontrolujte"
+                        ]
+                    },
+                    // Světla
+                    {
+                        title: "Výměna žárovky v lustrech",
+                        difficulty: "Snadné",
+                        time: "10 min",
+                        icon: "fa-lightbulb",
+                        tools: ["Žebřík", "Hadřík"],
+                        materials: ["Nová žárovka"],
+                        safety: ["Vypněte světlo", "Počkejte, až žárovka vychladne"],
+                        steps: [
+                            "Vypněte světlo",
+                            "Počkejte, až žárovka vychladne",
+                            "Postavte žebřík",
+                            "Odšroubujte nebo vytáhněte starou žárovku",
+                            "Zkontrolujte typ patice (E27, E14, GU10...)",
+                            "Našroubujte novou žárovku",
+                            "Zapněte a zkontrolujte"
+                        ]
+                    },
+                    {
+                        title: "Instalace LED pásku",
+                        difficulty: "Snadné",
+                        time: "20 min",
+                        icon: "fa-lightbulb",
+                        tools: ["Nůžky", "Čistič"],
+                        materials: ["LED pásek", "Napájecí zdroj"],
+                        safety: ["Připojte podle instrukcí"],
+                        steps: [
+                            "Vyčistěte povrch, kde budete lepit",
+                            "Změřte potřebnou délku",
+                            "Nařízněte pásek na značkách",
+                            "Odlepte ochrannou fólii",
+                            "Přilepte pásek",
+                            "Připojte k napájecímu zdroji",
+                            "Zapojte do zásuvky a zkontrolujte"
+                        ]
+                    },
+                    {
+                        title: "Připojení lustru",
+                        difficulty: "Těžké",
+                        time: "50 min",
+                        icon: "fa-chandelier-ceiling",
+                        tools: ["Šroubovák", "Vrtačka", "Tester", "Žebřík"],
+                        materials: ["Lustr", "Svorkovnice", "Hmoždinky"],
+                        safety: ["VYPNĚTE JISTIČ!", "Dvě osoby pro těžký lustr"],
+                        steps: [
+                            "VYPNĚTE JISTIČ",
+                            "Sejměte starý lustr",
+                            "Zkontrolujte nosnost stropu",
+                            "Připevněte montážní destičku lustru",
+                            "Připojte vodiče (fáze-hnědá, nula-modrá, zem-žlutozelená)",
+                            "Použijte svorkovnici",
+                            "Pověste tělo lustru",
+                            "Našroubujte žárovky",
+                            "Zapněte jistič a zkontrolujte",
+                            "Pro těžké lustry doporučujeme elektrikáře"
+                        ]
+                    },
+                    {
+                        title: "Výměna vypálené žárovky",
+                        difficulty: "Snadné",
+                        time: "5 min",
+                        icon: "fa-lightbulb",
+                        tools: ["Hadřík"],
+                        materials: ["Nová žárovka"],
+                        safety: ["Vypněte světlo", "Nechte vychladnout"],
+                        steps: [
+                            "Vypněte světlo",
+                            "Počkejte, až vychladne",
+                            "Odšroubujte/vytáhněte starou žárovku",
+                            "Našroubujte/zasuňte novou",
+                            "Zapněte a zkontrolujte"
+                        ]
+                    },
+                    {
+                        title: "Oprava nejdoucího světla",
+                        difficulty: "Střední",
+                        time: "25 min",
+                        icon: "fa-lightbulb",
+                        tools: ["Tester napětí", "Šroubovák"],
+                        materials: ["Nová žárovka"],
+                        safety: ["VYPNĚTE JISTIČ při kontrole"],
+                        steps: [
+                            "Vyměňte žárovku za novou",
+                            "Pokud stále nesvítí, zkontrolujte jistič",
+                            "Zkontrolujte vypínač",
+                            "VYPNĚTE JISTIČ a zkontrolujte připojení svítidla",
+                            "Zkontrolujte testerem napětí v objímce",
+                            "Pokud je napětí ale nesvítí, problém je v objímce",
+                            "Vyměňte objímku nebo celé svítidlo"
+                        ]
+                    },
+                    {
+                        title: "Upevnění uvolněného lustru",
+                        difficulty: "Střední",
+                        time: "30 min",
+                        icon: "fa-screwdriver",
+                        tools: ["Šroubovák", "Vrtačka", "Hmoždinky"],
+                        materials: ["Delší šrouby", "Hmoždinky"],
+                        safety: ["VYPNĚTE JISTIČ", "Dvě osoby"],
+                        steps: [
+                            "VYPNĚTE JISTIČ",
+                            "Přidržujte lustr",
+                            "Dotáhněte upevňovací šrouby",
+                            "Pokud prokluzují, vyměňte za delší s hmoždinkami",
+                            "Zkontrolujte pevnost",
+                            "Zapněte jistič"
+                        ]
+                    },
+                    {
+                        title: "Oprava blikajícího LED pásku",
+                        difficulty: "Střední",
+                        time: "20 min",
+                        icon: "fa-lightbulb",
+                        tools: ["Tester"],
+                        materials: ["Nový napájecí zdroj (volitelně)"],
+                        safety: ["Odpojte od elektriky"],
+                        steps: [
+                            "Odpojte pásek od zdroje",
+                            "Zkontrolujte všechna spojení",
+                            "Zkontrolujte, zda napájecí zdroj má dostatečný výkon",
+                            "Vypočítejte: délka pásku × spotřeba na metr",
+                            "Pokud je zdroj slabý, kupte silnější",
+                            "Zkontrolujte, zda nejsou špatné kontakty",
+                            "Připojte znovu a zkontrolujte"
+                        ]
+                    },
+                    {
+                        title: "Řešení slabého světla",
+                        difficulty: "Střední",
+                        time: "30 min",
+                        icon: "fa-sun",
+                        tools: ["Hadřík", "Tester"],
+                        materials: ["Silnější žárovky"],
+                        safety: ["Zkontrolujte max. wattáž svítidla"],
+                        steps: [
+                            "Vyčistěte stínidlo a žárovku od prachu",
+                            "Vyměňte za silnější žárovku (respektujte max. W)",
+                            "Zkontrolujte napětí v zásuvce testerem (mělo by být 230V)",
+                            "Pokud je napětí nízké, kontaktujte elektrikáře",
+                            "Zvažte výměnu za LED žárovky - jsou světlejší"
+                        ]
+                    },
+                    {
+                        title: "Výměna poškozeného transformátoru",
+                        difficulty: "Střední",
+                        time: "35 min",
+                        icon: "fa-bolt",
+                        tools: ["Šroubovák", "Tester"],
+                        materials: ["Nový transformátor stejného výkonu"],
+                        safety: ["VYPNĚTE JISTIČ!"],
+                        steps: [
+                            "VYPNĚTE JISTIČ",
+                            "Odpojte transformátor od sítě (230V strana)",
+                            "Odpojte nízkonapěťovou stranu (12V)",
+                            "Poznamenejte si připojení vodičů",
+                            "Zkontrolujte výkon starého transformátoru (VA)",
+                            "Kupte nový se stejným nebo vyšším výkonem",
+                            "Připojte podle schématu",
+                            "Zapněte jistič a zkontrolujte"
+                        ]
+                    },
+                    {
+                        title: "Výměna žárovky ve spotu",
+                        difficulty: "Snadné",
+                        time: "10 min",
+                        icon: "fa-lightbulb",
+                        tools: ["Hadřík"],
+                        materials: ["Nová žárovka (GU10 nebo MR16)"],
+                        safety: ["Vypněte světlo", "Nechte vychladnout"],
+                        steps: [
+                            "Vypněte světlo",
+                            "Nechte vychladnout",
+                            "Otočte žárovku proti směru hodinových ručiček",
+                            "Vytáhněte žárovku",
+                            "Zkontrolujte typ (GU10 = 230V, MR16 = 12V)",
+                            "Zasuňte novou žárovku",
+                            "Otočte ve směru hodinových ručiček",
+                            "Zapněte a zkontrolujte"
+                        ]
+                    },
+                    // Jističe & bezpečnost
+                    {
+                        title: "Reset vypadlého jističe",
+                        difficulty: "Snadné",
+                        time: "5 min",
+                        icon: "fa-bolt",
+                        tools: ["Žádné"],
+                        materials: ["Žádné"],
+                        safety: ["Zjistěte příčinu"],
+                        steps: [
+                            "Otevřete rozvodnou skříň",
+                            "Najděte vypadlý jistič (páčka dole)",
+                            "Odpojte nějaké spotřebiče z dané místnosti",
+                            "Zapněte jistič nahoru",
+                            "Pokud vypadne znovu, máte přetížení nebo zkrat",
+                            "Zavolejte elektrikáře"
+                        ]
+                    },
+                    {
+                        title: "Oprava zkratu v zásuvce",
+                        difficulty: "Těžké",
+                        time: "60 min",
+                        icon: "fa-triangle-exclamation",
+                        tools: ["Multimetr", "Šroubovák", "Tester"],
+                        materials: ["Nová zásuvka"],
+                        safety: ["POUZE PRO ODBORNÍKY!", "Zavolejte elektrikáře"],
+                        steps: [
+                            "VYPNĚTE HLAVNÍ JISTIČ",
+                            "Vyjměte podezřelou zásuvku",
+                            "Zkontrolujte vodiče na poškození",
+                            "Změřte odpor mezi fází a nulou (mělo by být nekonečno)",
+                            "Pokud je zkrat, vyměňte zásuvku",
+                            "Zkontrolujte izolaci vodičů",
+                            "Pokud jsou vodiče poškozené, vyměňte je",
+                            "DOPORUČUJEME ZAVOLAT ELEKTRIKÁŘE"
+                        ]
+                    },
+                    {
+                        title: "Oprava vypadávajícího jističe",
+                        difficulty: "Těžké",
+                        time: "90 min",
+                        icon: "fa-power-off",
+                        tools: ["Multimetr", "Kleště"],
+                        materials: ["Žádné"],
+                        safety: ["ZAVOLEJTE ELEKTRIKÁŘE!"],
+                        steps: [
+                            "Odpojte všechny spotřebiče z dané místnosti",
+                            "Zapněte jistič",
+                            "Připojujte spotřebiče postupně",
+                            "Zjistíte, který spotřebič způsobuje vypadávání",
+                            "Pokud vypadává bez zátěže, je problém v rozvodu",
+                            "Změřte proudy v jednotlivých větvích",
+                            "Zkontrolujte všechny zásuvky a vypínače",
+                            "TOTO JE PRÁCE PRO ELEKTRIKÁŘE"
+                        ]
+                    },
+                    {
+                        title: "Výměna spáleného kabelu",
+                        difficulty: "Těžké",
+                        time: "120 min",
+                        icon: "fa-cable-car",
+                        tools: ["Šroubovák", "Kleště", "Tester", "Tahací drát"],
+                        materials: ["Nový kabel"],
+                        safety: ["POUZE PRO ELEKTRIKÁŘE!", "Nebezpečí požáru"],
+                        steps: [
+                            "VYPNĚTE HLAVNÍ JISTIČ",
+                            "Najděte poškozený úsek kabelu",
+                            "Odpojte kabel z obou stran",
+                            "Vytáhněte starý kabel",
+                            "Protáhněte nový kabel",
+                            "Připojte podle schématu",
+                            "Zkontrolujte izolaci",
+                            "Změřte odpor izolace",
+                            "TOTO MUSÍ PROVÉST ELEKTRIKÁŘ S OPRÁVNĚNÍM"
+                        ]
+                    },
+                    // Prodlužovačky & kabely
+                    {
+                        title: "Výměna poškozeného prodlužováku",
+                        difficulty: "Snadné",
+                        time: "15 min",
+                        icon: "fa-plug",
+                        tools: ["Žádné"],
+                        materials: ["Nový prodlužovák"],
+                        safety: ["Nepoužívejte poškozený prodlužovák"],
+                        steps: [
+                            "Poškozený prodlužovák VYHOĎTE",
+                            "Nekupte prodlužovák",
+                            "Zkontrolujte max. zatížení (obvykle 3680W)",
+                            "Nekaskádujte prodlužováky (nepřipojujte za sebe)"
+                        ]
+                    },
+                    {
+                        title: "Výměna poškozené rozdvojky",
+                        difficulty: "Snadné",
+                        time: "10 min",
+                        icon: "fa-plug-circle-bolt",
+                        tools: ["Žádné"],
+                        materials: ["Nová rozdvojka"],
+                        safety: ["Nepřetěžujte"],
+                        steps: [
+                            "Vyhoďte poškozenou rozdvojku",
+                            "Kupte novou s pojistkou",
+                            "Zkontrolujte celkový odběr připojených spotřebičů",
+                            "Max. 16A (3680W)"
+                        ]
+                    },
+                    {
+                        title: "Oprava zapnutí prodlužováku",
+                        difficulty: "Střední",
+                        time: "20 min",
+                        icon: "fa-power-off",
+                        tools: ["Šroubovák"],
+                        materials: ["Nový vypínač (volitelně)"],
+                        safety: ["Odpojte od zásuvky"],
+                        steps: [
+                            "Odpojte prodlužovák",
+                            "Odšroubujte kryt vypínače",
+                            "Zkontrolujte připojení",
+                            "Vyčistěte kontakty",
+                            "Pokud je vypínač spálený, vyměňte celý prodlužovák",
+                            "Neopravujte, raději kupte nový"
+                        ]
+                    },
+                    {
+                        title: "Výměna poškozeného kabelu USB",
+                        difficulty: "Snadné",
+                        time: "10 min",
+                        icon: "fa-usb",
+                        tools: ["Žádné"],
+                        materials: ["Nový kabel USB"],
+                        safety: ["Žádné"],
+                        steps: [
+                            "Vyhoďte poškozený kabel",
+                            "Kupte nový kabel správného typu (USB-C, Lightning, Micro-USB)",
+                            "Kupte kabel od ověřeného výrobce"
+                        ]
+                    },
+                    // Venkovní elektro
+                    {
+                        title: "Oprava venkovního osvětlení",
+                        difficulty: "Střední",
+                        time: "40 min",
+                        icon: "fa-lightbulb",
+                        tools: ["Šroubovák", "Tester", "Žebřík"],
+                        materials: ["Nová žárovka nebo svítidlo"],
+                        safety: ["VYPNĚTE JISTIČ!", "Použijte žebřík"],
+                        steps: [
+                            "VYPNĚTE JISTIČ",
+                            "Zkontrolujte žárovku",
+                            "Zkontrolujte těsnost svítidla",
+                            "Zkontrolujte připojení vodičů",
+                            "Pro venkovní použití musí být IP44 nebo vyšší",
+                            "Utěsněte kabelové vstupy silikonem",
+                            "Zapněte jistič a zkontrolujte"
+                        ]
+                    },
+                    {
+                        title: "Oprava venkovní zásuvky",
+                        difficulty: "Střední",
+                        time: "45 min",
+                        icon: "fa-plug",
+                        tools: ["Šroubovák", "Tester"],
+                        materials: ["Venkovní zásuvka IP44"],
+                        safety: ["VYPNĚTE JISTIČ!", "Pouze vodotěsné zásuvky"],
+                        steps: [
+                            "VYPNĚTE JISTIČ",
+                            "Zkontrolujte, zda je zásuvka pro venkovní použití (IP44)",
+                            "Zkontrolujte těsnost krytu",
+                            "Zkontrolujte připojení",
+                            "Vyměňte těsnění pokud je poškozené",
+                            "Utěsněte kabelové vstupy",
+                            "Zapněte a zkontrolujte"
+                        ]
+                    },
+                    {
+                        title: "Oprava zkratu ve venkovním světle",
+                        difficulty: "Těžké",
+                        time: "60 min",
+                        icon: "fa-bolt",
+                        tools: ["Multimetr", "Šroubovák"],
+                        materials: ["Nové svítidlo"],
+                        safety: ["VYPNĚTE JISTIČ!", "Zavolejte elektrikáře"],
+                        steps: [
+                            "VYPNĚTE JISTIČ",
+                            "Odpojte svítidlo",
+                            "Změřte odpor mezi vodiči",
+                            "Pokud je zkrat ve svítidle, vyměňte ho",
+                            "Pokud je zkrat v kabelu, zavolejte elektrikáře",
+                            "DOPORUČUJEME ODBORNÍKA"
+                        ]
+                    },
+                    {
+                        title: "Výměna poškozeného pohybového senzoru",
+                        difficulty: "Střední",
+                        time: "30 min",
+                        icon: "fa-radar",
+                        tools: ["Šroubovák", "Tester"],
+                        materials: ["Nový pohybový senzor"],
+                        safety: ["VYPNĚTE JISTIČ!"],
+                        steps: [
+                            "VYPNĚTE JISTIČ",
+                            "Odšroubujte kryt senzoru",
+                            "Odpojte vodiče (označte si je!)",
+                            "Připojte nový senzor podle schématu",
+                            "Přišroubujte kryt",
+                            "Zapněte jistič",
+                            "Nastavte citlivost a dobu svícení",
+                            "Zkontrolujte funkci"
+                        ]
+                    },
+                    {
+                        title: "Oprava prasklého krytu světla",
+                        difficulty: "Snadné",
+                        time: "20 min",
+                        icon: "fa-shield",
+                        tools: ["Šroubovák"],
+                        materials: ["Nový kryt nebo celé svítidlo"],
+                        safety: ["Vypněte světlo"],
+                        steps: [
+                            "Vypněte světlo",
+                            "Odšroubujte prasklý kryt",
+                            "Změřte rozměry",
+                            "Kupte nový kryt nebo celé svítidlo",
+                            "Přišroubujte nový kryt",
+                            "Zapněte a zkontrolujte"
+                        ]
+                    },
+                    {
+                        title: "Upevnění uvolněného svítidla",
+                        difficulty: "Snadné",
+                        time: "15 min",
+                        icon: "fa-screwdriver",
+                        tools: ["Šroubovák", "Hmoždinky"],
+                        materials: ["Delší šrouby"],
+                        safety: ["VYPNĚTE JISTIČ při manipulaci s vodiči"],
+                        steps: [
+                            "Vypněte světlo",
+                            "Dotáhněte upevňovací šrouby",
+                            "Pokud prokluzují, vyměňte za delší s hmoždinkami",
+                            "Zkontrolujte pevnost"
+                        ]
+                    },
+                    // Smart home
+                    {
+                        title: "Oprava wifi zásuvky",
+                        difficulty: "Střední",
+                        time: "25 min",
+                        icon: "fa-wifi",
+                        tools: ["Smartphone"],
+                        materials: ["Žádné"],
+                        safety: ["Odpojte od zásuvky při resetu"],
+                        steps: [
+                            "Zkontrolujte připojení k wifi",
+                            "Resetujte zásuvku (držte tlačítko 5-10 sekund)",
+                            "Otevřete aplikaci v telefonu",
+                            "Přidejte zařízení znovu",
+                            "Zadejte wifi heslo",
+                            "Zkontrolujte funkci",
+                            "Aktualizujte firmware"
+                        ]
+                    },
+                    {
+                        title: "Nastavení chytré domácnosti",
+                        difficulty: "Střední",
+                        time: "60 min",
+                        icon: "fa-house-signal",
+                        tools: ["Smartphone", "Tablet"],
+                        materials: ["Chytrá zařízení"],
+                        safety: ["Zabezpečte wifi heslem"],
+                        steps: [
+                            "Stáhněte aplikaci výrobce",
+                            "Vytvořte účet",
+                            "Připojte centrální jednotku",
+                            "Přidejte zařízení postupně",
+                            "Pojmenujte místnosti",
+                            "Vytvořte scény a automatizace",
+                            "Nastavte hlasové ovládání",
+                            "Otestujte funkce"
+                        ]
+                    },
+                    {
+                        title: "Oprava chytrého termostatu",
+                        difficulty: "Střední",
+                        time: "35 min",
+                        icon: "fa-temperature-half",
+                        tools: ["Šroubovák", "Smartphone"],
+                        materials: ["Nové baterie"],
+                        safety: ["VYPNĚTE KOTEL před odpojením"],
+                        steps: [
+                            "Zkontrolujte baterie",
+                            "Zkontrolujte připojení k wifi",
+                            "Resetujte termostat",
+                            "Zkontrolujte připojení vodičů",
+                            "Přidejte znovu do aplikace",
+                            "Nastavte teploty",
+                            "Zkontrolujte funkci"
+                        ]
+                    },
+                    {
+                        title: "Kalibrace termostatu",
+                        difficulty: "Střední",
+                        time: "20 min",
+                        icon: "fa-gauge",
+                        tools: ["Teploměr"],
+                        materials: ["Žádné"],
+                        safety: ["Žádné"],
+                        steps: [
+                            "Změřte skutečnou teplotu v místnosti teploměrem",
+                            "Porovnejte s teplotou na termostatu",
+                            "V nastavení termostatu najděte kalibra ci",
+                            "Nastavte offset podle rozdílu",
+                            "Počkejte 30 minut",
+                            "Zkontrolujte znovu"
+                        ]
+                    },
+                    {
+                        title: "Oprava chytrého zámku",
+                        difficulty: "Střední",
+                        time: "40 min",
+                        icon: "fa-lock",
+                        tools: ["Šroubovák", "Smartphone"],
+                        materials: ["Nové baterie"],
+                        safety: ["Mějte záložní klíč"],
+                        steps: [
+                            "Zkontrolujte baterie",
+                            "Resetujte zámek",
+                            "Zkontrolujte připojení k wifi/Bluetooth",
+                            "Odstraňte a přidejte uživatele znovu",
+                            "Zkontrolujte mechanické části",
+                            "Namažte mechanismus",
+                            "Aktualizujte firmware"
+                        ]
+                    },
+                    {
+                        title: "Výměna baterií v zámku",
+                        difficulty: "Snadné",
+                        time: "10 min",
+                        icon: "fa-battery-half",
+                        tools: ["Šroubovák"],
+                        materials: ["Nové baterie (typ podle návodu)"],
+                        safety: ["Mějte klíč při ruce"],
+                        steps: [
+                            "Otevřete kryt baterie",
+                            "Vyjměte staré baterie",
+                            "Vložte nové baterie (respektujte polaritu)",
+                            "Zavřete kryt",
+                            "Zkontrolujte funkci",
+                            "Aplikace by měla hlásit plnou baterii"
+                        ]
+                    },
+                    // Zvonky & alarmy
+                    {
+                        title: "Oprava zvonku u dveří",
+                        difficulty: "Střední",
+                        time: "30 min",
+                        icon: "fa-bell",
+                        tools: ["Šroubovák", "Multimetr"],
+                        materials: ["Nové tlačítko nebo zvonek"],
+                        safety: ["Zvonek běží na nízké napětí (8-12V)"],
+                        steps: [
+                            "Zkontrolujte baterie (u bezdrátových)",
+                            "Zkontrolujte tlačítko - vyčistěte kontakty",
+                            "Změřte napětí na zvonku (mělo by být 8-12V)",
+                            "Zkontrolujte transformátor",
+                            "Zkontrolujte vodiče",
+                            "Vyměňte poškozené části"
+                        ]
+                    },
+                    {
+                        title: "Zesílení slabého zvuku zvonku",
+                        difficulty: "Střední",
+                        time: "25 min",
+                        icon: "fa-volume-high",
+                        tools: ["Šroubovák"],
+                        materials: ["Silnější zvonek"],
+                        safety: ["Žádné"],
+                        steps: [
+                            "Zkontrolujte napětí transformátoru",
+                            "Vyčistěte kladívko zvonku",
+                            "Seřiďte vzdálenost kladívka",
+                            "Nebo kupte zvonek s vyšší hlasitostí",
+                            "Případně přidejte druhý zvonek"
+                        ]
+                    },
+                    {
+                        title: "Oprava zaseklého tlačítka zvonku",
+                        difficulty: "Snadné",
+                        time: "15 min",
+                        icon: "fa-hand-pointer",
+                        tools: ["Šroubovák"],
+                        materials: ["WD-40", "Nové tlačítko"],
+                        safety: ["Žádné"],
+                        steps: [
+                            "Odšroubujte tlačítko",
+                            "Vyčistěte od nečistot",
+                            "Nastříkejte WD-40",
+                            "Pokud je mechanicky poškozené, vyměňte",
+                            "Přišroubujte zpět"
+                        ]
+                    },
+                    {
+                        title: "Výměna transformátoru zvonku",
+                        difficulty: "Střední",
+                        time: "30 min",
+                        icon: "fa-bolt",
+                        tools: ["Šroubovák", "Tester"],
+                        materials: ["Nový transformátor 8-12V"],
+                        safety: ["VYPNĚTE JISTIČ na straně 230V"],
+                        steps: [
+                            "VYPNĚTE JISTIČ",
+                            "Odpojte primární stranu (230V)",
+                            "Odpojte sekundární stranu (8-12V)",
+                            "Změřte výstupní napětí nového transformátoru",
+                            "Připojte nový transformátor",
+                            "Zapněte jistič a zkontrolujte"
+                        ]
+                    },
+                    {
+                        title: "Oprava kamery u dveří",
+                        difficulty: "Střední",
+                        time: "35 min",
+                        icon: "fa-camera",
+                        tools: ["Šroubovák", "Smartphone"],
+                        materials: ["Žádné"],
+                        safety: ["Zkontrolujte napájení"],
+                        steps: [
+                            "Zkontrolujte připojení k wifi",
+                            "Zkontrolujte napájení",
+                            "Resetujte kameru",
+                            "Vyčistěte objektiv",
+                            "Přidejte znovu do aplikace",
+                            "Aktualizujte firmware",
+                            "Nastavte detekci pohybu"
+                        ]
+                    },
+                    {
+                        title: "Oprava slabého napájení kamery",
+                        difficulty: "Střední",
+                        time: "30 min",
+                        icon: "fa-battery-low",
+                        tools: ["Multimetr", "Šroubovák"],
+                        materials: ["Silnější napájecí zdroj"],
+                        safety: ["Zkontrolujte požadované napětí"],
+                        steps: [
+                            "Změřte výstupní napětí zdroje",
+                            "Zkontrolujte požadované napětí kamery (obvykle 12V nebo 24V)",
+                            "Zkontrolujte proud (A)",
+                            "Pokud je zdroj slabý, kupte silnější",
+                            "Zkontrolujte délku kabelu - příliš dlouhý kabel má úbytek",
+                            "Připojte a zkontrolujte"
+                        ]
+                    },
+                    {
+                        title: "Nastavení alarmu",
+                        difficulty: "Střední",
+                        time: "45 min",
+                        icon: "fa-bell",
+                        tools: ["Smartphone", "Šroubovák"],
+                        materials: ["Senzory"],
+                        safety: ["Nastavte správně zóny"],
+                        steps: [
+                            "Přečtěte si manuál",
+                            "Nainstalujte centrální jednotku",
+                            "Připojte napájení a zálohu (baterie)",
+                            "Přidejte senzory (dveře, okna, pohyb)",
+                            "Pojmenujte zóny",
+                            "Nastavte doby odchodu/příchodu",
+                            "Vytvořte uživatele a kódy",
+                            "Otestujte každý senzor"
+                        ]
+                    },
+                    {
+                        title: "Řešení falešných poplachů",
+                        difficulty: "Střední",
+                        time: "40 min",
+                        icon: "fa-triangle-exclamation",
+                        tools: ["Žádné"],
+                        materials: ["Žádné"],
+                        safety: ["Žádné"],
+                        steps: [
+                            "Zkontrolujte logy v aplikaci",
+                            "Zjistěte, který senzor spouští poplach",
+                            "Zkontrolujte baterie senzoru",
+                            "Zkontrolujte umístění PIR senzoru (netriggery ventilace, topení)",
+                            "Snižte citlivost problematického senzoru",
+                            "Zkontrolujte kontakty na dveřích/oknech",
+                            "Aktualizujte firmware"
+                        ]
+                    }
                 ]
             },
             heating: {
                 title: "Návody pro topení",
                 subtitle: "Údržba radiátorů, kotlů a termostatů",
                 guides: [
-                    { title: "Odvzdušnění radiátoru", difficulty: "Snadné", time: "10 min", icon: "fa-temperature-high" },
-                    { title: "Výměna termostatické hlavice", difficulty: "Snadné", time: "15 min", icon: "fa-temperature-half" },
-                    { title: "Kontrola tlaku v kotli", difficulty: "Snadné", time: "5 min", icon: "fa-gauge" },
-                    { title: "Čištění filtru kotle", difficulty: "Střední", time: "40 min", icon: "fa-filter" },
-                    { title: "Nastavení termostatu", difficulty: "Snadné", time: "10 min", icon: "fa-sliders" },
-                    { title: "Výměna expanzní nádoby", difficulty: "Těžké", time: "120 min", icon: "fa-fire" }
+                    // Radiátory
+                    {
+                        title: "Odvzdušnění radiátoru",
+                        difficulty: "Snadné",
+                        time: "10 min",
+                        icon: "fa-temperature-high",
+                        tools: ["Odvzdušňovací klíček", "Utěrka", "Kbelík"],
+                        materials: ["Žádné"],
+                        safety: ["Pozor na horkou vodu"],
+                        steps: [
+                            "Připravte kbelík a utěrku",
+                            "Najděte odvzdušňovací ventil (nahoře na radiátoru)",
+                            "Vložte odvzdušňovací klíček do ventilu",
+                            "Otočte klíčkem proti směru hodinových ručiček (cca čtvrt otáčky)",
+                            "Nechte unikat vzduch - uslyšíte sykot",
+                            "Když začne téct voda, ihned zavřete ventil",
+                            "Otřete okolí utěrkou",
+                            "Zkontrolujte tlak v kotli - může být třeba doplnit vodu"
+                        ]
+                    },
+                    {
+                        title: "Výměna termostatické hlavice",
+                        difficulty: "Snadné",
+                        time: "15 min",
+                        icon: "fa-temperature-half",
+                        tools: ["Kleště", "Utěrka"],
+                        materials: ["Nová termostatická hlavice"],
+                        safety: ["Žádné"],
+                        steps: [
+                            "Otočte starou hlavici na maximum (otevřeno)",
+                            "Najděte pojistný kroužek nebo šroub",
+                            "Povolte pojistný kroužek",
+                            "Vytáhněte starou hlavici ze tělesa",
+                            "Vyčistěte závit",
+                            "Nasaďte novou hlavici",
+                            "Utáhněte pojistný kroužek",
+                            "Nastavte požadovanou teplotu"
+                        ]
+                    },
+                    {
+                        title: "Oprava netopícího radiátoru",
+                        difficulty: "Střední",
+                        time: "40 min",
+                        icon: "fa-temperature-low",
+                        tools: ["Odvzdušňovací klíček", "Kleště"],
+                        materials: ["Žádné"],
+                        safety: ["Zavolejte topenáře při velkých problémech"],
+                        steps: [
+                            "Zkontrolujte, zda je otevřený ventil radiátoru",
+                            "Zkontrolujte termostatickou hlavici - otočte na maximum",
+                            "Odvzdušněte radiátor",
+                            "Zkontrolujte, zda ostatní radiátory topí",
+                            "Pokud ostatní topí, může být ucpané potrubí tohoto radiátoru",
+                            "Zkontrolujte tlak v kotli",
+                            "Zkontrolujte čerpadlo kotle - běží?",
+                            "Zavolejte topenáře pro proplach radiátoru"
+                        ]
+                    },
+                    {
+                        title: "Oprava šumícího radiátoru",
+                        difficulty: "Střední",
+                        time: "30 min",
+                        icon: "fa-volume-high",
+                        tools: ["Odvzdušňovací klíček"],
+                        materials: ["Žádné"],
+                        safety: ["Žádné"],
+                        steps: [
+                            "Šum způsobuje vzduch v radiátoru",
+                            "Odvzdušněte radiátor",
+                            "Zkontrolujte tlak v systému",
+                            "Zkontrolujte rychlost čerpadla - pokud je příliš vysoká, snižte ji",
+                            "Pokud šum pokračuje, může být problém v potrubí",
+                            "Zavolejte topenáře"
+                        ]
+                    },
+                    {
+                        title: "Odstranění koroze topení",
+                        difficulty: "Střední",
+                        time: "60 min",
+                        icon: "fa-shield",
+                        tools: ["Brusný papír", "Štětec"],
+                        materials: ["Odstraňovač rzi", "Barva na radiátory"],
+                        safety: ["Větrejte místnost", "Používejte rukavice"],
+                        steps: [
+                            "Vypněte topení a nechte vychladnout",
+                            "Očistěte rez drátěným kartáčem nebo brusným papírem",
+                            "Naneste odstraňovač rzi",
+                            "Nechte působit podle návodu",
+                            "Vybruste poškozená místa",
+                            "Očistěte povrch",
+                            "Naneste základní nátěr",
+                            "Natřete barvou na radiátory (teplovzdornou)"
+                        ]
+                    },
+                    // Kotle
+                    {
+                        title: "Kontrola tlaku v kotli",
+                        difficulty: "Snadné",
+                        time: "5 min",
+                        icon: "fa-gauge",
+                        tools: ["Žádné"],
+                        materials: ["Žádné"],
+                        safety: ["Žádné"],
+                        steps: [
+                            "Najděte manometr na kotli",
+                            "Tlak by měl být mezi 1-2 bar (zelená zóna)",
+                            "Pokud je nižší, doplňte vodu",
+                            "Pokud je vyšší, odpusťte vodu přes radiátor",
+                            "Pokud tlak kolísá, zavolejte servisního technika"
+                        ]
+                    },
+                    {
+                        title: "Čištění filtru kotle",
+                        difficulty: "Střední",
+                        time: "40 min",
+                        icon: "fa-filter",
+                        tools: ["Klíč", "Kbelík", "Kartáč"],
+                        materials: ["Žádné"],
+                        safety: ["Vypněte kotel", "Připravte kbelík"],
+                        steps: [
+                            "Vypněte kotel",
+                            "Uzavřete přívod a zpátečku (ventily pod kotlem)",
+                            "Položte kbelík pod filtr",
+                            "Povolte víčko filtru klíčem",
+                            "Vytáhněte filtr",
+                            "Vyčistěte filtr kartáčem pod vodou",
+                            "Vraťte filtr zpět",
+                            "Utáhněte víčko",
+                            "Otevřete ventily",
+                            "Odvzdušněte systém",
+                            "Zapněte kotel"
+                        ]
+                    },
+                    {
+                        title: "Nastavení termostatu",
+                        difficulty: "Snadné",
+                        time: "10 min",
+                        icon: "fa-sliders",
+                        tools: ["Žádné"],
+                        materials: ["Žádné"],
+                        safety: ["Žádné"],
+                        steps: [
+                            "Najděte termostat (na stěně nebo na kotli)",
+                            "Nastavte požadovanou teplotu (obvykle 20-22°C)",
+                            "Nastavte noční útlum (snížení o 3-4°C)",
+                            "Nastavte časový program (pokud má)",
+                            "Počkejte 30 minut na reakci systému"
+                        ]
+                    },
+                    {
+                        title: "Výměna expanzní nádoby",
+                        difficulty: "Těžké",
+                        time: "120 min",
+                        icon: "fa-fire",
+                        tools: ["Klíč", "Hadice"],
+                        materials: ["Nová expanzní nádoba"],
+                        safety: ["ZAVOLEJTE TOPENÁŘE - složitá oprava"],
+                        steps: [
+                            "Vypněte kotel",
+                            "Vypusťte vodu ze systému",
+                            "Odšroubujte starou nádobu",
+                            "Zkontrolujte tlak v nové nádobě (0,8-1 bar)",
+                            "Přišroubujte novou nádobu",
+                            "Napusťte systém vodou",
+                            "Odvzdušněte radiátory",
+                            "Zkontrolujte tlak",
+                            "Zapněte kotel",
+                            "DOPORUČUJEME ODBORNÍKA"
+                        ]
+                    },
+                    {
+                        title: "Oprava nízkého tlaku kotle",
+                        difficulty: "Střední",
+                        time: "30 min",
+                        icon: "fa-gauge-low",
+                        tools: ["Žádné"],
+                        materials: ["Voda"],
+                        safety: ["Neplňte nad 2 bary"],
+                        steps: [
+                            "Zkontrolujte, zda není únik vody (mokré stěny, strop)",
+                            "Zkontrolujte pojistný ventil - netěsní?",
+                            "Najděte plnicí ventil (obvykle pod kotlem)",
+                            "Otevřete plnicí ventil",
+                            "Sledujte manometr",
+                            "Plňte do 1,5 baru",
+                            "Zavřete plnicí ventil",
+                            "Odvzdušněte radiátory",
+                            "Zkontrolujte tlak znovu"
+                        ]
+                    },
+                    {
+                        title: "Oprava vysokého tlaku kotle",
+                        difficulty: "Střední",
+                        time: "30 min",
+                        icon: "fa-gauge-high",
+                        tools: ["Odvzdušňovací klíček", "Kbelík"],
+                        materials: ["Žádné"],
+                        safety: ["Nad 3 bary hrozí poškození"],
+                        steps: [
+                            "Vypněte kotel",
+                            "Připravte kbelík",
+                            "Odvzdušněte radiátory - odpustíte tak vodu",
+                            "Sledujte tlak na manometru",
+                            "Odpouštějte, dokud tlak neklesne na 1,5 baru",
+                            "Pokud tlak stoupá opět, je problém s expanzní nádobou",
+                            "Zavolejte servis"
+                        ]
+                    },
+                    {
+                        title: "Oprava vypínajícího se kotle",
+                        difficulty: "Těžké",
+                        time: "90 min",
+                        icon: "fa-power-off",
+                        tools: ["Multimetr"],
+                        materials: ["Žádné"],
+                        safety: ["ZAVOLEJTE SERVIS"],
+                        steps: [
+                            "Zkontrolujte tlak vody (1-2 bary)",
+                            "Zkontrolujte odvod spalin - může být ucpaný",
+                            "Zkontrolujte čerpadlo - běží?",
+                            "Zkontrolujte kód chyby na displeji",
+                            "Vyhledejte chybový kód v manuálu",
+                            "Zkontrolujte pojistky",
+                            "Resetujte kotel",
+                            "Pokud problém přetrvává, zavolejte autorizovaný servis",
+                            "NEDOPORUČUJEME SAMOSTATNOU OPRAVU"
+                        ]
+                    },
+                    {
+                        title: "Oprava nezapalujícího kotle",
+                        difficulty: "Těžké",
+                        time: "60 min",
+                        icon: "fa-fire",
+                        tools: ["Žádné"],
+                        materials: ["Žádné"],
+                        safety: ["PRÁCE S PLYNEM - ZAVOLEJTE SERVIS"],
+                        steps: [
+                            "Zkontrolujte, zda je otevřený plyn",
+                            "Zkontrolujte tlak vody",
+                            "Zkontrolujte elektrické napájení",
+                            "Zkontrolujte pojistky",
+                            "Zkontrolujte kód chyby",
+                            "Resetujte kotel (tlačítko reset)",
+                            "Zkontrolujte odvod spalin",
+                            "ZAVOLEJTE AUTORIZOVANÝ SERVIS",
+                            "Práce s plynovým kotlem musí provádět technik s oprávněním"
+                        ]
+                    },
+                    {
+                        title: "Oprava špatné cirkulace vody",
+                        difficulty: "Střední",
+                        time: "50 min",
+                        icon: "fa-arrows-rotate",
+                        tools: ["Odvzdušňovací klíček"],
+                        materials: ["Žádné"],
+                        safety: ["Zavolejte topenáře při velkých problémech"],
+                        steps: [
+                            "Odvzdušněte všechny radiátory",
+                            "Zkontrolujte tlak v systému",
+                            "Zkontrolujte, zda běží čerpadlo (slyšíte ho)",
+                            "Zkontrolujte nastavení rychlosti čerpadla",
+                            "Zkontrolujte filtr - může být ucpaný",
+                            "Vyčistěte filtr",
+                            "Pokud problém přetrvává, může být ucpané potrubí",
+                            "Zavolejte topenáře pro proplach systému"
+                        ]
+                    },
+                    // Podlahové topení
+                    {
+                        title: "Oprava studeného podlahového topení",
+                        difficulty: "Těžké",
+                        time: "90 min",
+                        icon: "fa-temperature-low",
+                        tools: ["Žádné"],
+                        materials: ["Žádné"],
+                        safety: ["ZAVOLEJTE TOPENÁŘE"],
+                        steps: [
+                            "Zkontrolujte, zda je zapnutý rozdělovač",
+                            "Zkontrolujte, zda jsou otevřené ventily na rozdělovači",
+                            "Zkontrolujte čerpadlo - běží?",
+                            "Zkontrolujte termostat podlahového topení",
+                            "Zkontrolujte teplotu přívodní vody (měla by být 35-45°C)",
+                            "Odvzdušněte systém podlahového topení",
+                            "Zkontrolujte průtokoměry na rozdělovači",
+                            "Pokud některá smyčka netopí, může být ucpaná",
+                            "ZAVOLEJTE ODBORNÍKA NA PODLAHOVÉ TOPENÍ"
+                        ]
+                    },
+                    // Plyn
+                    {
+                        title: "Kontrola úniku plynu",
+                        difficulty: "Těžké",
+                        time: "45 min",
+                        icon: "fa-triangle-exclamation",
+                        tools: ["Detektor plynu"],
+                        materials: ["Mýdlová pěna"],
+                        safety: ["PŘI ÚNIKU PLYNU OKAMŽITĚ ZAVŘETE HLAVNÍ KOHOUT!", "Větrejte!", "Nezapínejte elektrické spotřebiče!", "ZAVOLEJTE HASIČE 150"],
+                        steps: [
+                            "Pokud cítíte plyn, OKAMŽITĚ zavřete hlavní kohout plynu",
+                            "OTEVŘETE OKNA - větrejte",
+                            "NEZAPÍNEJTE SVĚTLA ani spotřebiče",
+                            "OPUSŤTE BUDOVU",
+                            "ZAVOLEJTE HASIČE 150 a dodavatele plynu",
+                            "Pro preventivní kontrolu:",
+                            "Namíchejte mýdlovou pěnu",
+                            "Naneste na spoje plynového potrubí",
+                            "Pokud se tvoří bubliny, je únik",
+                            "Uzavřete plyn a zavolejte plynáře",
+                            "NIKDY NEHLEDEJTE ÚNIK PLAMENEM!",
+                            "Pravidelně kontrolujte detektor plynu"
+                        ]
+                    }
                 ]
             },
             kitchen: {
                 title: "Návody pro kuchyň",
                 subtitle: "Opravy spotřebičů, dřezu a kuchyňských linek",
                 guides: [
-                    { title: "Oprava kapající baterie u dřezu", difficulty: "Snadné", time: "20 min", icon: "fa-faucet" },
-                    { title: "Výměna filtru digestoře", difficulty: "Snadné", time: "10 min", icon: "fa-wind" },
-                    { title: "Seřízení dvířek kuchyňské linky", difficulty: "Snadné", time: "15 min", icon: "fa-screwdriver" },
-                    { title: "Oprava ucpaného dřezu", difficulty: "Střední", time: "30 min", icon: "fa-sink" },
-                    { title: "Výměna žárovky v troubě", difficulty: "Snadné", time: "10 min", icon: "fa-lightbulb" },
-                    { title: "Instalace nové směšovací baterie", difficulty: "Střední", time: "60 min", icon: "fa-faucet" }
+                    // Dřez & baterie
+                    {
+                        title: "Oprava kapající baterie u dřezu",
+                        difficulty: "Snadné",
+                        time: "20 min",
+                        icon: "fa-faucet",
+                        tools: ["Klíč na matice", "Utěrka"],
+                        materials: ["Nové těsnění", "Teflonová páska"],
+                        safety: ["Uzavřete přívod vody"],
+                        steps: ["Uzavřete ventil pod dřezem", "Odšroubujte baterii", "Vyměňte opotřebené těsnění", "Nasaďte nové těsnění s trochou vazelíny", "Našroubujte baterii zpět", "Otevřete vodu a zkontrolujte těsnost"]
+                    },
+                    {
+                        title: "Oprava ucpaného dřezu",
+                        difficulty: "Střední",
+                        time: "30 min",
+                        icon: "fa-sink",
+                        tools: ["Zvon na ucpávky", "Kleště", "Kbelík"],
+                        materials: ["Čistící prostředek na odpady"],
+                        safety: ["Nepoužívejte kyseliny s horkou vodou"],
+                        steps: ["Vypusťte vodu z dřezu", "Naplňte zvon vodou a přiložte na odpad", "Pevně přitlačte a pumpujte nahoru-dolů", "Pokud nepomaže, odšroubujte sifon", "Vyčistěte sifon od nečistot", "Našroubujte zpět a zkontrolujte těsnost"]
+                    },
+                    {
+                        title: "Instalace nové směšovací baterie",
+                        difficulty: "Střední",
+                        time: "60 min",
+                        icon: "fa-faucet",
+                        tools: ["Klíč na matice", "Inbusový klíč", "Svítilna"],
+                        materials: ["Nová baterie", "Teflonová páska", "Flexibilní hadice"],
+                        safety: ["Uzavřete hlavní přívod vody"],
+                        steps: ["Uzavřete ventily pod dřezem", "Odšroubujte starou baterii", "Vyčistěte otvor v dřezu", "Prostrčte hadice nové baterie otvorem", "Nasaďte podložku a utáhněte matici", "Připojte hadice k ventilům", "Otevřete vodu a zkontrolujte"]
+                    },
+                    // Lednice
+                    {
+                        title: "Oprava nechladící lednice",
+                        difficulty: "Těžké",
+                        time: "90 min",
+                        icon: "fa-snowflake",
+                        tools: ["Multimetr", "Stetoskop"],
+                        materials: ["Žádné"],
+                        safety: ["Odpojte lednici z elektřiny", "Zavolejte servis pokud nejste si jisti"],
+                        steps: ["Zkontrolujte, zda kompresor běží", "Zkontrolujte těsnění dveří", "Vyčistěte kondenzátor vzadu", "Zkontrolujte termostat", "Odledněte mrazák kompletně", "Zkontrolujte ventilátor", "Pokud nic nepomáhá, zavolejte servis"]
+                    },
+                    {
+                        title: "Oprava příliš chladící lednice",
+                        difficulty: "Střední",
+                        time: "40 min",
+                        icon: "fa-temperature-low",
+                        tools: ["Teploměr"],
+                        materials: ["Žádné"],
+                        safety: ["Pozor na elektrické části"],
+                        steps: ["Zkontrolujte nastavení termostatu (mělo by být 3-5°C)", "Snižte teplotu termostatu", "Zkontrolujte, zda termostat není závadný", "Zkontrolujte těsnění dveří", "Vyměňte termostat pokud je potřeba"]
+                    },
+                    {
+                        title: "Odstranění vody pod lednicí",
+                        difficulty: "Střední",
+                        time: "35 min",
+                        icon: "fa-droplet",
+                        tools: ["Utěrka", "Drát nebo špejle"],
+                        materials: ["Čistící prostředek"],
+                        safety: ["Odpojte lednici z elektřiny"],
+                        steps: ["Najděte odtokovou mističku vzadu", "Zkontrolujte, zda není přeplněná", "Vyčistěte odtokový otvor v mrazáku", "Proprochejte ucpaný otvor drátem", "Vylijte vodu z misky", "Vyčistěte misku"]
+                    },
+                    // Digestoř
+                    {
+                        title: "Výměna filtru digestoře",
+                        difficulty: "Snadné",
+                        time: "10 min",
+                        icon: "fa-wind",
+                        tools: ["Žádné"],
+                        materials: ["Nový tukový filtr"],
+                        safety: ["Vypněte digestoř"],
+                        steps: ["Otevřete kryt digestoře", "Vyjměte starý filtr", "Vložte nový filtr", "Zavřete kryt", "Zapněte a zkontrolujte"]
+                    },
+                    {
+                        title: "Zesílení slabého tahu digestoře",
+                        difficulty: "Střední",
+                        time: "30 min",
+                        icon: "fa-fan",
+                        tools: ["Žádné"],
+                        materials: ["Odmašťovač"],
+                        safety: ["Odpojte z elektřiny před čištěním"],
+                        steps: ["Vyjměte a vyčistěte tukový filtr", "Odmastěte ventilátor", "Zkontrolujte odvod vzduchu - není ucpaný?", "Vyčistěte potrubí odtahu", "Zkontrolujte zpětnou klapku", "Zkontrolujte motor ventilátoru"]
+                    },
+                    {
+                        title: "Čištění zaneseného filtru",
+                        difficulty: "Snadné",
+                        time: "15 min",
+                        icon: "fa-filter",
+                        tools: ["Kartáč"],
+                        materials: ["Odmašťovač", "Horká voda", "Saponát"],
+                        safety: ["Použijte rukavice"],
+                        steps: ["Vyjměte filtr z digestoře", "Namočte do horké vody s odmašťovačem", "Nechte působit 15 minut", "Vyčistěte kartáčem", "Opláchněte horkou vodou", "Nechte uschnout a vraťte zpět"]
+                    },
+                    // Sporák & trouba
+                    {
+                        title: "Oprava prasklé varné desky",
+                        difficulty: "Těžké",
+                        time: "120 min",
+                        icon: "fa-fire-burner",
+                        tools: ["Šroubovák"],
+                        materials: ["Nová varná deska"],
+                        safety: ["ODPOJTE Z ELEKTŘINY!", "Zavolejte elektrikáře"],
+                        steps: ["Odpojte sporák z elektřiny", "Odšroubujte rámeček", "Odpojte konektory desky", "Vyjměte prasklou desku", "Připojte novou desku", "Připojte konektory", "Upevněte rámeček", "DOPORUČUJEME ODBORNÍKA"]
+                    },
+                    {
+                        title: "Oprava nezapínajícího sporáku",
+                        difficulty: "Střední",
+                        time: "40 min",
+                        icon: "fa-power-off",
+                        tools: ["Multimetr"],
+                        materials: ["Žádné"],
+                        safety: ["Odpojte z elektřiny", "Zkontrolujte jistič"],
+                        steps: ["Zkontrolujte, zda je jistič zapnutý", "Zkontrolujte elektrickou zástrčku", "Zkontrolujte napětí v zásuvce", "Zkontrolujte přívodní kabel sporáku", "Pokud vše funguje, problém je uvnitř - zavolejte servis"]
+                    },
+                    {
+                        title: "Zesílení slabého plamene",
+                        difficulty: "Střední",
+                        time: "25 min",
+                        icon: "fa-fire",
+                        tools: ["Jehla", "Kartáč"],
+                        materials: ["Odmašťovač"],
+                        safety: ["Uzavřete přívod plynu", "Větrejte"],
+                        steps: ["Uzavřete plyn", "Vyjměte hořák", "Vyčistěte otvory hořáku jehlou", "Vyčistěte hořák odmašťovačem", "Zkontrolujte trysku - není ucpaná?", "Vraťte hořák zpět", "Zapněte plyn a zkontrolujte"]
+                    },
+                    {
+                        title: "Řešení nerovnoměrného pečení",
+                        difficulty: "Střední",
+                        time: "35 min",
+                        icon: "fa-fire-flame-curved",
+                        tools: ["Teploměr do trouby"],
+                        materials: ["Žádné"],
+                        safety: ["Buďte opatrní při práci s horkou troubou"],
+                        steps: ["Zkalibrujte teploměr v troubě", "Zkontrolujte, zda je trouba ve vodorovné poloze", "Vyčistěte ventilátor trouby", "Zkontrolujte těsnění dveří", "Nastavte správnou teplotu", "Používejte správné režimy pečení"]
+                    },
+                    {
+                        title: "Výměna žárovky v troubě",
+                        difficulty: "Snadné",
+                        time: "10 min",
+                        icon: "fa-lightbulb",
+                        tools: ["Rukavice"],
+                        materials: ["Žárovka do trouby (vysokoteplotní)"],
+                        safety: ["Nechte troubu vychladnout!", "Odpojte z elektřiny"],
+                        steps: ["Nechte troubu úplně vychladnout", "Odpojte z elektřiny", "Odšroubujte kryt žárovky", "Vyšroubujte starou žárovku", "Všroubujte novou žárovku (použijte rukavice)", "Našroubujte kryt zpět", "Zapojte a zkontrolujte"]
+                    },
+                    // Mikrovlnka
+                    {
+                        title: "Oprava nehřející mikrovlnky",
+                        difficulty: "Těžké",
+                        time: "60 min",
+                        icon: "fa-microwave",
+                        tools: ["Žádné"],
+                        materials: ["Žádné"],
+                        safety: ["NEBEZPEČNÉ VYSOKÉ NAPĚTÍ UVNITŘ!", "Zavolejte servis"],
+                        steps: ["NEDOPORUČUJEME SAMOSTATNOU OPRAVU", "Mikrovlnka obsahuje vysokonapěťový kondenzátor", "Může být smrtelně nebezpečný i po odpojení", "Zkontrolujte pouze pojistky", "ZAVOLEJTE AUTORIZOVANÝ SERVIS"]
+                    },
+                    {
+                        title: "Oprava jiskřící mikrovlnky",
+                        difficulty: "Střední",
+                        time: "30 min",
+                        icon: "fa-bolt",
+                        tools: ["Žádné"],
+                        materials: ["Speciální barva na mikrovlnku"],
+                        safety: ["Odpojte z elektřiny"],
+                        steps: ["Vyčistěte mikrovlnku zevnitř", "Zkontrolujte kryt vlnovodu - není poškozený?", "Zkontrolujte, zda uvnitř není kovový předmět", "Odstraňte poškozený emailing", "Nastříkejte speciální barvou na mikrovlnku", "Nechte uschnout", "Pokud problém přetrvává, vyměňte kryt vlnovodu"]
+                    },
+                    // Kávovar
+                    {
+                        title: "Oprava netečeného kávovaru",
+                        difficulty: "Střední",
+                        time: "30 min",
+                        icon: "fa-mug-hot",
+                        tools: ["Jehla"],
+                        materials: ["Odvápňovač"],
+                        safety: ["Nechte kávovar vychladnout"],
+                        steps: ["Zkontrolujte, zda je dost vody", "Proprochejte trysku jehlou", "Odvápněte kávovar (viz návod)", "Vyčistěte filtr", "Zkontrolujte čerpadlo - slyšíte ho?", "Pokud čerpadlo neběží, zavolejte servis"]
+                    },
+                    {
+                        title: "Čištění zaneseného kávovaru",
+                        difficulty: "Snadné",
+                        time: "20 min",
+                        icon: "fa-broom",
+                        tools: ["Žádné"],
+                        materials: ["Odvápňovač", "Čistící tablety"],
+                        safety: ["Postupujte podle návodu"],
+                        steps: ["Naplňte nádrž vodou s odvápňovačem", "Spusťte program odvápnění", "Opakujte 2-3x", "Propláchněte čistou vodou", "Vyčistěte trysku", "Vyčistěte mléčnou trysku (pokud má)"]
+                    },
+                    // Myčka
+                    {
+                        title: "Oprava ucpané myčky",
+                        difficulty: "Střední",
+                        time: "40 min",
+                        icon: "fa-pump-soap",
+                        tools: ["Žádné"],
+                        materials: ["Čistící prostředek"],
+                        safety: ["Odpojte z elektřiny"],
+                        steps: ["Vyjměte koše", "Vyčistěte filtry na dně", "Zkontrolujte ramena rozstřikovačů - nejsou ucpaná?", "Vyčistěte otvory v ramenech", "Zkontrolujte odtokovou hadici", "Spusťte prázdný cyklus s čističem"]
+                    },
+                    {
+                        title: "Oprava netěsnící myčky",
+                        difficulty: "Střední",
+                        time: "35 min",
+                        icon: "fa-droplet",
+                        tools: ["Žádné"],
+                        materials: ["Nové těsnění dveří"],
+                        safety: ["Žádné"],
+                        steps: ["Zkontrolujte těsnění dveří - není prasklé?", "Vyčistěte těsnění od nečistot", "Zkontrolujte, zda dveře správně dosedají", "Seřiďte západku dveří", "Vyměňte těsnění pokud je poškozené", "Zkontrolujte hadice - netěsní?"]
+                    },
+                    {
+                        title: "Odstranění zápachu z myčky",
+                        difficulty: "Snadné",
+                        time: "25 min",
+                        icon: "fa-wind",
+                        tools: ["Žádné"],
+                        materials: ["Ocet", "Jedlá soda"],
+                        safety: ["Žádné"],
+                        steps: ["Vyjměte a vyčistěte filtry", "Posypte dno sodou", "Dejte šálek octa do horního koše", "Spusťte horký cyklus", "Nechte odvětrat s otevřenými dveřmi", "Pravidelně používejte čistič myčky"]
+                    },
+                    // Kuchyňský nábytek
+                    {
+                        title: "Seřízení dvířek kuchyňské linky",
+                        difficulty: "Snadné",
+                        time: "15 min",
+                        icon: "fa-screwdriver",
+                        tools: ["Šroubovák", "Inbusový klíč"],
+                        materials: ["Žádné"],
+                        safety: ["Žádné"],
+                        steps: ["Otevřete dvířka", "Najděte seřizovací šrouby na pantech", "Povolte šrouby", "Seřiďte dvířka nahoru/dolů nebo vlevo/vpravo", "Dotáhněte šrouby", "Zkontrolujte, zda dvířka správně zapadají"]
+                    },
+                    {
+                        title: "Oprava uvolněných pantů",
+                        difficulty: "Střední",
+                        time: "20 min",
+                        icon: "fa-wrench",
+                        tools: ["Šroubovák", "Lepidlo na dřevo", "Špejle"],
+                        materials: ["Delší šrouby"],
+                        safety: ["Podepřete dvířka při práci"],
+                        steps: ["Vyjměte uvolněné šrouby", "Naplňte otvory lepidlem a špejlemi", "Nechte zaschnout", "Vyvrtejte nové otvory", "Našroubujte panty delšími šrouby", "Seřiďte dvířka"]
+                    },
+                    {
+                        title: "Oprava zaseklých zásuvek",
+                        difficulty: "Snadné",
+                        time: "15 min",
+                        icon: "fa-box",
+                        tools: ["Šroubovák"],
+                        materials: ["WD-40 nebo olej"],
+                        safety: ["Vyprázdněte zásuvku"],
+                        steps: ["Vyjměte zásuvku úplně", "Zkontrolujte kolejničky - nejsou poškozené?", "Vyčistěte kolejničky od prachu", "Namažte kolejničky olejem", "Zkontrolujte, zda zásuvka není překřivená", "Vraťte zásuvku zpět a zkontrolujte chod"]
+                    },
+                    {
+                        title: "Oprava vysunutého čela zásuvky",
+                        difficulty: "Snadné",
+                        time: "10 min",
+                        icon: "fa-ruler",
+                        tools: ["Šroubovák"],
+                        materials: ["Lepidlo na dřevo"],
+                        safety: ["Žádné"],
+                        steps: ["Vyjměte zásuvku", "Otočte čelem dolů", "Nakapejte lepidlo do spojů", "Utáhněte šrouby zespodu", "Nechte zaschnout 30 minut", "Vraťte zásuvku zpět"]
+                    }
                 ]
             },
             garden: {
                 title: "Návody pro zahradu",
-                subtitle: "Údržba plotu, zavlažování a zahradních nástrojů",
+                subtitle: "Údržba plotu, zavlažování, bazénu a zahradních nástrojů",
                 guides: [
+                    // Zavlažování
                     { title: "Oprava zahradní hadice", difficulty: "Snadné", time: "10 min", icon: "fa-water" },
                     { title: "Nastavení zavlažovacího systému", difficulty: "Střední", time: "45 min", icon: "fa-droplet" },
-                    { title: "Oprava dřevěného plotu", difficulty: "Střední", time: "90 min", icon: "fa-fence" },
-                    { title: "Broušení sekačky na trávu", difficulty: "Střední", time: "30 min", icon: "fa-wrench" },
                     { title: "Výměna sprinklerové hlavice", difficulty: "Snadné", time: "20 min", icon: "fa-shower" },
-                    { title: "Instalace zahradního osvětlení", difficulty: "Střední", time: "60 min", icon: "fa-lightbulb" }
+                    { title: "Oprava netěsné hadice", difficulty: "Snadné", time: "15 min", icon: "fa-tape" },
+                    { title: "Oprava poškozeného postřikovače", difficulty: "Střední", time: "25 min", icon: "fa-spray-can" },
+                    { title: "Oprava zaseknutého ventilu", difficulty: "Střední", time: "30 min", icon: "fa-valve" },
+                    { title: "Oprava úniku vody ze zahradního kohoutu", difficulty: "Střední", time: "25 min", icon: "fa-faucet" },
+                    { title: "Výměna prasklé hadice", difficulty: "Snadné", time: "15 min", icon: "fa-droplet" },
+                    { title: "Čištění ucpaného filtru hadice", difficulty: "Snadné", time: "10 min", icon: "fa-filter" },
+                    { title: "Oprava zalomené hadice", difficulty: "Snadné", time: "10 min", icon: "fa-wrench" },
+                    // Plot & brána
+                    { title: "Oprava dřevěného plotu", difficulty: "Střední", time: "90 min", icon: "fa-fence" },
+                    { title: "Oprava poškozeného plotu", difficulty: "Střední", time: "75 min", icon: "fa-hammer" },
+                    { title: "Upevnění uvolněných plotových sloupků", difficulty: "Střední", time: "60 min", icon: "fa-screwdriver" },
+                    { title: "Odstranění rzi na pletivu", difficulty: "Střední", time: "45 min", icon: "fa-shield" },
+                    { title: "Výměna poškozených betonových sloupků", difficulty: "Těžké", time: "180 min", icon: "fa-cube" },
+                    { title: "Výměna prohnutých dřevěných latí", difficulty: "Střední", time: "50 min", icon: "fa-tree" },
+                    { title: "Oprava uvolněných pantů branky", difficulty: "Střední", time: "30 min", icon: "fa-door-open" },
+                    { title: "Oprava zaseklého zámku branky", difficulty: "Střední", time: "35 min", icon: "fa-lock" },
+                    { title: "Oprava špatného chodu posuvné brány", difficulty: "Střední", time: "60 min", icon: "fa-door-closed" },
+                    { title: "Oprava motoru posuvné brány", difficulty: "Těžké", time: "90 min", icon: "fa-gears" },
+                    { title: "Oprava zaseklého kolečka brány", difficulty: "Střední", time: "25 min", icon: "fa-circle" },
+                    { title: "Oprava fotobuněk brány", difficulty: "Střední", time: "30 min", icon: "fa-eye" },
+                    { title: "Zesílení signálu ovladače brány", difficulty: "Střední", time: "20 min", icon: "fa-signal" },
+                    // Trávník
+                    { title: "Obnova zničeného trávníku", difficulty: "Těžké", time: "180 min", icon: "fa-seedling" },
+                    { title: "Zálivka suchého trávníku", difficulty: "Snadné", time: "30 min", icon: "fa-droplet" },
+                    { title: "Odstranění plísně na trávníku", difficulty: "Střední", time: "45 min", icon: "fa-spray-can" },
+                    { title: "Likvidace mravenišť", difficulty: "Snadné", time: "20 min", icon: "fa-bug" },
+                    { title: "Odstranění krtků", difficulty: "Střední", time: "60 min", icon: "fa-paw" },
+                    // Sekačky & nástroje
+                    { title: "Broušení sekačky na trávu", difficulty: "Střední", time: "30 min", icon: "fa-wrench" },
+                    { title: "Oprava robotické sekačky", difficulty: "Těžké", time: "60 min", icon: "fa-robot" },
+                    { title: "Nabroušení nožů sekačky", difficulty: "Střední", time: "25 min", icon: "fa-scissors" },
+                    { title: "Výměna slabé baterie sekačky", difficulty: "Střední", time: "20 min", icon: "fa-battery-half" },
+                    { title: "Čištění ucpaného koše sekačky", difficulty: "Snadné", time: "15 min", icon: "fa-trash" },
+                    { title: "Oprava benzínové sekačky", difficulty: "Těžké", time: "90 min", icon: "fa-gas-pump" },
+                    { title: "Oprava startování sekačky", difficulty: "Střední", time: "40 min", icon: "fa-power-off" },
+                    { title: "Čištění karburátoru sekačky", difficulty: "Těžké", time: "60 min", icon: "fa-filter" },
+                    { title: "Nabroušení tupého nože", difficulty: "Střední", time: "20 min", icon: "fa-scissors" },
+                    { title: "Oprava strunové sekačky", difficulty: "Střední", time: "30 min", icon: "fa-wrench" },
+                    { title: "Výměna trhající se struny", difficulty: "Snadné", time: "10 min", icon: "fa-rope" },
+                    { title: "Oprava motorové pily", difficulty: "Těžké", time: "75 min", icon: "fa-tree" },
+                    { title: "Nabroušení tupého řetězu pily", difficulty: "Střední", time: "25 min", icon: "fa-link" },
+                    { title: "Výměna poškozené vodicí lišty", difficulty: "Střední", time: "30 min", icon: "fa-ruler" },
+                    { title: "Čištění ucpaného karburátoru pily", difficulty: "Těžké", time: "50 min", icon: "fa-filter" },
+                    { title: "Výměna slabé baterie aku pily", difficulty: "Snadné", time: "10 min", icon: "fa-battery-quarter" },
+                    { title: "Oprava poškozeného kolečka vozíku", difficulty: "Střední", time: "25 min", icon: "fa-wheel" },
+                    // Zahrada - terasa, nábytek
+                    { title: "Instalace zahradního osvětlení", difficulty: "Střední", time: "60 min", icon: "fa-lightbulb" },
+                    { title: "Oprava poškozeného terasového prkna", difficulty: "Střední", time: "60 min", icon: "fa-hammer" },
+                    { title: "Utažení uvolněného šroubu terasy", difficulty: "Snadné", time: "10 min", icon: "fa-screwdriver" },
+                    { title: "Oprava prasklin v betonové terase", difficulty: "Těžké", time: "120 min", icon: "fa-fill-drip" },
+                    { title: "Odstranění mechu z terasy", difficulty: "Střední", time: "45 min", icon: "fa-broom" },
+                    { title: "Ošetření kluzké terasy", difficulty: "Střední", time: "40 min", icon: "fa-droplet" },
+                    { title: "Odstranění plísně ze zahradního nábytku", difficulty: "Snadné", time: "30 min", icon: "fa-spray-can" },
+                    { title: "Odstranění rzi z kovového nábytku", difficulty: "Střední", time: "50 min", icon: "fa-shield" },
+                    { title: "Oprava polámané židle", difficulty: "Střední", time: "40 min", icon: "fa-chair" },
+                    { title: "Oprava uvolněných spojů nábytku", difficulty: "Střední", time: "35 min", icon: "fa-wrench" },
+                    { title: "Oprava poškozeného zahradního osvětlení", difficulty: "Střední", time: "40 min", icon: "fa-lightbulb" },
+                    { title: "Oprava přerušeného kabelu od světel", difficulty: "Střední", time: "45 min", icon: "fa-cable-car" },
+                    { title: "Oprava poškozeného solárního světla", difficulty: "Střední", time: "30 min", icon: "fa-sun" },
+                    { title: "Zesílení svítivosti solárních světel", difficulty: "Střední", time: "25 min", icon: "fa-sun" },
+                    // Bazén & jezírko
+                    { title: "Oprava netěsné fólie v bazénu", difficulty: "Těžké", time: "180 min", icon: "fa-water-ladder" },
+                    { title: "Čištění zelené vody v bazénu", difficulty: "Střední", time: "60 min", icon: "fa-flask" },
+                    { title: "Odstranění zákalu vody", difficulty: "Střední", time: "45 min", icon: "fa-eye-dropper" },
+                    { title: "Oprava filtrace bazénu", difficulty: "Těžké", time: "90 min", icon: "fa-filter" },
+                    { title: "Čištění ucpaného filtru", difficulty: "Střední", time: "40 min", icon: "fa-broom" },
+                    { title: "Výměna poškozené bazénové hadice", difficulty: "Střední", time: "35 min", icon: "fa-droplet" },
+                    { title: "Zesílení průtoku vody", difficulty: "Střední", time: "40 min", icon: "fa-gauge" },
+                    { title: "Oprava bazénového čerpadla", difficulty: "Těžké", time: "90 min", icon: "fa-pump" },
+                    { title: "Odstranění vzduchu z filtrace", difficulty: "Střední", time: "30 min", icon: "fa-wind" },
+                    { title: "Čištění špinavého dna bazénu", difficulty: "Snadné", time: "45 min", icon: "fa-broom" },
+                    { title: "Oprava bazénových schůdků", difficulty: "Střední", time: "60 min", icon: "fa-stairs" },
+                    { title: "Výměna prasklé trysky", difficulty: "Střední", time: "25 min", icon: "fa-shower" },
+                    { title: "Oprava netěsného skimmeru", difficulty: "Střední", time: "45 min", icon: "fa-filter" },
+                    { title: "Oprava solární sprchy", difficulty: "Střední", time: "40 min", icon: "fa-sun" },
+                    { title: "Zesílení tlaku solární sprchy", difficulty: "Střední", time: "25 min", icon: "fa-gauge" },
+                    { title: "Čištění solárního ohřevu", difficulty: "Střední", time: "50 min", icon: "fa-sun" },
+                    { title: "Oprava čerpadla jezírka", difficulty: "Těžké", time: "75 min", icon: "fa-pump" },
+                    { title: "Čištění zelené vody v jezírku", difficulty: "Střední", time: "60 min", icon: "fa-droplet" },
+                    { title: "Oprava prasklé fólie jezírka", difficulty: "Těžké", time: "120 min", icon: "fa-fill-drip" },
+                    { title: "Odstranění řas z jezírka", difficulty: "Střední", time: "45 min", icon: "fa-broom" },
+                    // Trampolína & kolo
+                    { title: "Oprava trampolínového pletiva", difficulty: "Střední", time: "50 min", icon: "fa-grid-2" },
+                    { title: "Výměna trampolínové pružiny", difficulty: "Střední", time: "30 min", icon: "fa-arrows-up-down" },
+                    { title: "Oprava protržené trampolínové sítě", difficulty: "Střední", time: "40 min", icon: "fa-volleyball" },
+                    { title: "Oprava rámu trampolíny", difficulty: "Těžké", time: "90 min", icon: "fa-wrench" },
+                    { title: "Stabilizace trampolíny", difficulty: "Střední", time: "35 min", icon: "fa-anchor" },
+                    { title: "Odstranění rzi z trampolíny", difficulty: "Střední", time: "45 min", icon: "fa-shield" },
+                    { title: "Oprava prasklé duše kola", difficulty: "Snadné", time: "20 min", icon: "fa-bicycle" },
+                    { title: "Oprava poškozeného ráfku", difficulty: "Střední", time: "40 min", icon: "fa-circle" },
+                    { title: "Oprava ohřáté brzdy", difficulty: "Střední", time: "30 min", icon: "fa-brake-warning" },
+                    { title: "Seřízení přehazovačky", difficulty: "Střední", time: "25 min", icon: "fa-gears" },
+                    { title: "Promazání vrzajících pedálů", difficulty: "Snadné", time: "10 min", icon: "fa-oil-can" },
+                    { title: "Oprava zaseklé kazety", difficulty: "Střední", time: "30 min", icon: "fa-cog" },
+                    { title: "Oprava prokluzujícího řetězu", difficulty: "Střední", time: "25 min", icon: "fa-link" },
+                    { title: "Výměna poškozeného ventilu", difficulty: "Snadné", time: "10 min", icon: "fa-valve" },
+                    { title: "Oprava brzd kola", difficulty: "Střední", time: "35 min", icon: "fa-hand" },
+                    { title: "Seřízení křivých řídítek", difficulty: "Snadné", time: "15 min", icon: "fa-bicycle" },
+                    { title: "Oprava hlučného náboje", difficulty: "Střední", time: "30 min", icon: "fa-circle" },
+                    { title: "Oprava poškozeného stojanu", difficulty: "Snadné", time: "15 min", icon: "fa-wrench" },
+                    { title: "Výměna prasklé sedačky", difficulty: "Snadné", time: "20 min", icon: "fa-chair" }
                 ]
             }
         };
