@@ -19,35 +19,27 @@
                     <div class="logo-tagline">AI asistent pro domácí opravy</div>
                 </div>
             </a>
-
-            <nav class="nav">
+                        <nav class="nav">
                 <a href="index.html" class="nav-link">
-                    <span class="icon">Domů</span>
                     <span>Domů</span>
                 </a>
                 <a href="repair.html" class="nav-link">
-                    <span class="icon">Návody</span>
                     <span>Návody</span>
                 </a>
                 <a href="partners.html" class="nav-link">
-                    <span class="icon">E-shopy</span>
                     <span>E-shopy</span>
                 </a>
                 <a href="providers.html" class="nav-link active">
-                    <span class="icon">Řemeslníci</span>
                     <span>Řemeslníci</span>
                 </a>
                 <a href="about.html" class="nav-link">
-                    <span class="icon">i</span>
                     <span>O aplikaci</span>
                 </a>
                 <a href="contacts.html" class="nav-link">
-                    <span class="icon"></span>
                     <span>Kontakt</span>
                 </a>
             </nav>
         </header>
-
         <!-- Main Content -->
         <main class="main-content">
             <!-- Sidebar s filtry -->
@@ -55,11 +47,10 @@
                 <div class="sidebar-section">
                     <h3 class="sidebar-title">Vyhledávání</h3>
                     <div class="search-box">
-                        <span class="icon">Analyzovat</span>
+                        <span class="icon">🔍</span>
                         <input type="text" id="searchProvider" placeholder="Hledat řemeslníka...">
                     </div>
                 </div>
-
                 <div class="sidebar-section">
                     <h3 class="sidebar-title">Vaše lokalita</h3>
                     <div class="form-group">
@@ -69,7 +60,6 @@
                         <span>📍</span> Zjistit polohu
                     </button>
                 </div>
-
                 <div class="sidebar-section">
                     <h3 class="sidebar-title">Specializace</h3>
                     <ul class="sidebar-menu">
@@ -81,13 +71,11 @@
                         </li>
                         <li class="sidebar-item">
                             <a href="#" class="sidebar-link" data-spec="plumber">
-                                <span class="icon"></span>
                                 <span>Instalatér</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
                             <a href="#" class="sidebar-link" data-spec="electrician">
-                                <span class="icon"></span>
                                 <span>Elektrikář</span>
                             </a>
                         </li>
@@ -105,13 +93,11 @@
                         </li>
                         <li class="sidebar-item">
                             <a href="#" class="sidebar-link" data-spec="heating">
-                                <span class="icon"></span>
                                 <span>Topenář</span>
                             </a>
                         </li>
                         <li class="sidebar-item">
                             <a href="#" class="sidebar-link" data-spec="painter">
-                                <span class="icon">🎨</span>
                                 <span>Malíř</span>
                             </a>
                         </li>
@@ -123,7 +109,6 @@
                         </li>
                     </ul>
                 </div>
-
                 <div class="sidebar-section">
                     <h3 class="sidebar-title">Jste řemeslník?</h3>
                     <button class="btn btn-success btn-block" onclick="openRegisterModal()">
@@ -134,7 +119,6 @@
                     </p>
                 </div>
             </aside>
-
             <!-- Obsahová oblast -->
             <div class="content-area">
                 <!-- Hlavička -->
@@ -151,6 +135,65 @@
                         </select>
                     </div>
                 </div>
+                <!-- ROI Kalkulačka pro řemeslníky -->
+                <div class="card mb-2" style="background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%); color: white;">
+                    <div style="padding: 16px;">
+                        <h2 style="font-size: 0.95rem; margin-bottom: 8px; color: white;">💰 ROI Kalkulačka - Kolik vyděláte s FIXO?</h2>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;">
+                            <div style="background: rgba(255,255,255,0.15); padding: 10px; border-radius: 8px;">
+                                <div style="font-size: 0.7rem; opacity: 0.9; margin-bottom: 4px;">Průměrně zakázek/měsíc</div>
+                                <div style="font-size: 1.5rem; font-weight: 700;">8-12</div>
+                            </div>
+                            <div style="background: rgba(255,255,255,0.15); padding: 10px; border-radius: 8px;">
+                                <div style="font-size: 0.7rem; opacity: 0.9; margin-bottom: 4px;">Průměrná hodnota zakázky</div>
+                                <div style="font-size: 1.5rem; font-weight: 700;">2 500 Kč</div>
+                            </div>
+                        </div>
+                        <div style="background: rgba(255,255,255,0.2); padding: 12px; border-radius: 8px; border: 2px solid rgba(255,255,255,0.3);">
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <div>
+                                    <div style="font-size: 0.75rem; opacity: 0.9;">Premium: 299 Kč/měs</div>
+                                    <div style="font-size: 0.75rem; opacity: 0.9;">Obrat: 10 zakázek × 2 500 Kč</div>
+                                    <div style="font-size: 0.75rem; opacity: 0.9; margin-top: 4px; font-weight: 700;">ROI: 8 267%</div>
+                                </div>
+                                <div style="text-align: right;">
+                                    <div style="font-size: 0.7rem; opacity: 0.9;">Měsíční obrat</div>
+                                    <div style="font-size: 1.8rem; font-weight: 700;">25 000 Kč</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonials od řemeslníků -->
+                <div class="card mb-2">
+                    <div class="card-header">
+                        <h2 class="card-title">
+                            <span class="icon">⭐</span>
+                            Co říkají řemeslníci
+                        </h2>
+                    </div>
+                    <div style="padding: 12px; display: grid; gap: 8px;">
+                        <div style="background: var(--bg-secondary); padding: 10px; border-radius: 8px; border-left: 3px solid var(--success);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                                <strong style="font-size: 0.75rem;">Petr N., Instalatér</strong>
+                                <span style="color: var(--warning); font-size: 0.7rem;">★★★★★</span>
+                            </div>
+                            <p style="font-size: 0.7rem; color: var(--text-secondary); margin: 0;">
+                                "Za 3 měsíce jsem dostal 27 zakázek. Premium se vrátí už z první zakázky!"
+                            </p>
+                        </div>
+                        <div style="background: var(--bg-secondary); padding: 10px; border-radius: 8px; border-left: 3px solid var(--accent-primary);">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                                <strong style="font-size: 0.75rem;">Karel V., Elektrikář</strong>
+                                <span style="color: var(--warning); font-size: 0.7rem;">★★★★★</span>
+                            </div>
+                            <p style="font-size: 0.7rem; color: var(--text-secondary); margin: 0;">
+                                "Kvalitní poptávky, férová provize. Konečně platforma, která funguje!"
+                            </p>
+                        </div>
+                    </div>
+                </div>
 
                 <!-- Ceníky plánů -->
                 <div class="card mb-2">
@@ -162,7 +205,7 @@
                     </div>
                     <div class="grid grid-3">
                         <div class="partner-card" style="border: 2px solid #e5e7eb;">
-                            <div style="font-size: 22px; margin-bottom: 4px;">📋</div>
+                            <div style="font-size: 22px; margin-bottom: 4px;"></div>
                             <h3 style="font-size: 0.85rem;">Základní</h3>
                             <div style="font-size: 1.2rem; font-weight: 700; color: #10b981; margin: 6px 0;">ZDARMA</div>
                             <ul style="text-align: left; font-size: 0.7rem; color: #666; list-style: none; padding: 0;">
@@ -180,6 +223,8 @@
                                 <li>✓ Neomezené poptávky</li>
                                 <li>✓ Odznak "Ověřeno"</li>
                                 <li>✓ Prioritní zobrazení</li>
+                                <li>✓ Průměrně 10 zakázek/měs</li>
+                                <li>✓ ROI 8 000%+</li>
                             </ul>
                         </div>
                         <div class="partner-card" style="border: 2px solid #f59e0b;">
@@ -190,16 +235,15 @@
                                 <li>✓ Marketing podpora</li>
                                 <li>✓ API přístup</li>
                                 <li>✓ Statistiky a reporty</li>
+                                <li>✓ Dedikovaný account manager</li>
                             </ul>
                         </div>
                     </div>
                 </div>
-
                 <!-- Seznam řemeslníků -->
                 <div class="grid grid-2" id="providersGrid">
                     <!-- Řemeslníci budou načteni JavaScriptem -->
                 </div>
-
                 <!-- Loading -->
                 <div id="loadingState" class="loading hidden">
                     <div class="spinner"></div>
@@ -207,7 +251,6 @@
                 </div>
             </div>
         </main>
-
         <!-- Footer -->
         <footer class="footer">
             <div>© 2024 FIXO - AI Asistent pro domácí opravy</div>
@@ -219,7 +262,6 @@
             </div>
         </footer>
     </div>
-
     <!-- Modal pro registraci řemeslníka -->
     <div class="modal-overlay" id="registerModal">
         <div class="modal">
@@ -286,7 +328,6 @@
             </div>
         </div>
     </div>
-
     <!-- Modal pro detail řemeslníka -->
     <div class="modal-overlay" id="providerDetailModal">
         <div class="modal" style="max-width: 450px;">
@@ -305,10 +346,8 @@
             </div>
         </div>
     </div>
-
     <!-- Toast Container -->
     <div class="toast-container" id="toastContainer"></div>
-
     <script src="js/app.js"></script>
     <script>
         // Inicializace stránky řemeslníků
