@@ -89,7 +89,7 @@ function showToast(message, type = 'success') {
     const toast = document.createElement('div');
     toast.className = `toast ${type}`;
     toast.innerHTML = `
-        <span class="icon">${type === 'success' ? '✓' : type === 'error' ? '✗' : '⚠️'}</span>
+        <span class="icon">${type === 'success' ? 'OK' : type === 'error' ? 'X' : '!'}</span>
         <span>${message}</span>
     `;
 
@@ -724,7 +724,7 @@ function showRepairDetail(id) {
 
             ${repair.warning ? `
                 <div class="warning-box mb-3">
-                    <span class="icon">⚠️</span>
+                    <span class="icon">!</span>
                     <div>
                         <h4>Bezpečnostní upozornění</h4>
                         <p>${repair.warning}</p>

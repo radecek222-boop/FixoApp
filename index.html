@@ -14,19 +14,19 @@
     <meta property="og:type" content="website">
 
     <!-- PWA -->
-    <meta name="theme-color" content="#2563eb">
+    <meta name="theme-color" content="#000000">
     <link rel="manifest" href="manifest.json">
 
     <title>FIXO - AI Asistent pro domácí opravy</title>
     <link rel="stylesheet" href="css/style.css">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔧</text></svg>">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>FIXO</text></svg>">
 </head>
 <body>
     <div class="app-container fullscreen-layout">
         <!-- Header -->
         <header class="header">
             <a href="index.html" class="logo">
-                <div class="logo-icon">🔧</div>
+                <div class="logo-icon">FIXO</div>
                 <div>
                     <div class="logo-text">FIXO</div>
                     <div class="logo-tagline">AI asistent pro domácí opravy</div>
@@ -35,27 +35,27 @@
 
             <nav class="nav">
                 <a href="index.html" class="nav-link active">
-                    <span class="icon">🏠</span>
+                    <span class="icon">Domů</span>
                     <span>Domů</span>
                 </a>
                 <a href="repair.html" class="nav-link">
-                    <span class="icon">📚</span>
+                    <span class="icon">Návody</span>
                     <span>Návody</span>
                 </a>
                 <a href="partners.html" class="nav-link">
-                    <span class="icon">🛒</span>
+                    <span class="icon">E-shopy</span>
                     <span>E-shopy</span>
                 </a>
                 <a href="providers.html" class="nav-link">
-                    <span class="icon">👷</span>
+                    <span class="icon">Řemeslníci</span>
                     <span>Řemeslníci</span>
                 </a>
                 <a href="about.html" class="nav-link">
-                    <span class="icon">ℹ️</span>
+                    <span class="icon">i</span>
                     <span>O aplikaci</span>
                 </a>
                 <a href="contacts.html" class="nav-link">
-                    <span class="icon">📞</span>
+                    <span class="icon"></span>
                     <span>Kontakt</span>
                 </a>
             </nav>
@@ -66,7 +66,7 @@
             <div class="content-area" style="padding: 0; display: flex; flex-direction: column; height: 100%;">
                 <!-- Hero sekce - kompaktní -->
                 <section class="hero-compact">
-                    <h1>🔧 Vyfoťte problém, opravte ho sami!</h1>
+                    <h1>Vyfoťte problém, opravte ho sami!</h1>
                     <p>AI analyzuje fotografii a navrhne řešení. Ušetřete tisíce korun.</p>
                 </section>
 
@@ -75,18 +75,18 @@
                     <!-- Upload karta -->
                     <div class="card-compact">
                         <div class="card-header-compact">
-                            <h2>📸 Nahrát fotografii závady</h2>
+                            <h2>Nahrát fotografii závady</h2>
                         </div>
                         <div class="upload-zone-compact" id="uploadZone">
                             <div class="upload-content">
-                                <span class="upload-icon">📷</span>
+                                <span class="upload-icon"></span>
                                 <div class="upload-text">
                                     <strong>Klikněte nebo přetáhněte fotografii</strong>
                                     <small>JPG, PNG, WEBP (max 10 MB) - fotky se neukládají</small>
                                 </div>
                                 <input type="file" id="fileInput" accept="image/*" capture="environment">
                                 <button class="btn btn-primary" onclick="document.getElementById('fileInput').click()">
-                                    📸 Vybrat fotografii
+                                    Vybrat fotografii
                                 </button>
                             </div>
                         </div>
@@ -95,8 +95,8 @@
                         <div id="previewContainer" class="hidden">
                             <img id="imagePreview" class="image-preview show" alt="Náhled" style="max-height: 150px;">
                             <div class="flex gap-2 mt-1">
-                                <button class="btn btn-primary btn-block" id="analyzeBtn">🔍 Analyzovat</button>
-                                <button class="btn btn-secondary" id="clearBtn">✖️</button>
+                                <button class="btn btn-primary btn-block" id="analyzeBtn">Analyzovat</button>
+                                <button class="btn btn-secondary" id="clearBtn">×</button>
                             </div>
                         </div>
 
@@ -110,31 +110,31 @@
                     <!-- Kategorie karta -->
                     <div class="card-compact">
                         <div class="card-header-compact">
-                            <h2>📂 Procházet podle kategorie</h2>
+                            <h2> Procházet podle kategorie</h2>
                         </div>
                         <div class="categories-grid">
                             <a href="repair.html?category=bathroom" class="category-item">
-                                <span>🚿</span>
+                                <span></span>
                                 <div><strong>Koupelna</strong><small>WC, sprcha</small></div>
                             </a>
                             <a href="repair.html?category=house" class="category-item">
-                                <span>🏠</span>
+                                <span>Domů</span>
                                 <div><strong>Dům</strong><small>Dveře, okna</small></div>
                             </a>
                             <a href="repair.html?category=electrical" class="category-item">
-                                <span>⚡</span>
+                                <span></span>
                                 <div><strong>Elektřina</strong><small>Zásuvky</small></div>
                             </a>
                             <a href="repair.html?category=heating" class="category-item">
-                                <span>🌡️</span>
+                                <span></span>
                                 <div><strong>Topení</strong><small>Radiátory</small></div>
                             </a>
                             <a href="repair.html?category=kitchen" class="category-item">
-                                <span>🍳</span>
+                                <span></span>
                                 <div><strong>Kuchyň</strong><small>Spotřebiče</small></div>
                             </a>
                             <a href="repair.html?category=garden" class="category-item">
-                                <span>🌱</span>
+                                <span></span>
                                 <div><strong>Zahrada</strong><small>Sekačky</small></div>
                             </a>
                         </div>
