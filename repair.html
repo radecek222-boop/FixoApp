@@ -5351,6 +5351,100 @@
             window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
+        // Affiliate partner mapping for tools and materials
+        const affiliatePartners = {
+            // Elektrické nářadí - Bosch
+            elektricky: { name: 'Bosch', url: 'https://www.bosch-eshop.cz/vyhledavani/', color: '#007BC0' },
+            vrtacka: { name: 'Bosch', url: 'https://www.bosch-eshop.cz/vyhledavani/', color: '#007BC0' },
+            bruska: { name: 'Bosch', url: 'https://www.bosch-eshop.cz/vyhledavani/', color: '#007BC0' },
+            pila: { name: 'Bosch', url: 'https://www.bosch-eshop.cz/vyhledavani/', color: '#007BC0' },
+            // Ruční nářadí - Narex/Hornbach
+            kladivo: { name: 'Hornbach', url: 'https://www.hornbach.cz/s/', color: '#F07D00' },
+            sroubovak: { name: 'Hornbach', url: 'https://www.hornbach.cz/s/', color: '#F07D00' },
+            kleste: { name: 'Hornbach', url: 'https://www.hornbach.cz/s/', color: '#F07D00' },
+            klic: { name: 'Hornbach', url: 'https://www.hornbach.cz/s/', color: '#F07D00' },
+            metr: { name: 'Hornbach', url: 'https://www.hornbach.cz/s/', color: '#F07D00' },
+            vodovaha: { name: 'Hornbach', url: 'https://www.hornbach.cz/s/', color: '#F07D00' },
+            stetec: { name: 'Hornbach', url: 'https://www.hornbach.cz/s/', color: '#F07D00' },
+            valik: { name: 'Hornbach', url: 'https://www.hornbach.cz/s/', color: '#F07D00' },
+            // Instalatérské - Ptáček
+            trubka: { name: 'Ptáček', url: 'https://www.ptacek.cz/hledani/', color: '#E30613' },
+            sifon: { name: 'Ptáček', url: 'https://www.ptacek.cz/hledani/', color: '#E30613' },
+            ventil: { name: 'Ptáček', url: 'https://www.ptacek.cz/hledani/', color: '#E30613' },
+            baterie: { name: 'Ptáček', url: 'https://www.ptacek.cz/hledani/', color: '#E30613' },
+            wc: { name: 'Ptáček', url: 'https://www.ptacek.cz/hledani/', color: '#E30613' },
+            umyvadlo: { name: 'Ptáček', url: 'https://www.ptacek.cz/hledani/', color: '#E30613' },
+            // Sanitární - SIKO
+            obklad: { name: 'SIKO', url: 'https://www.siko.cz/hledani/', color: '#00A0E3' },
+            dlazba: { name: 'SIKO', url: 'https://www.siko.cz/hledani/', color: '#00A0E3' },
+            sprcha: { name: 'SIKO', url: 'https://www.siko.cz/hledani/', color: '#00A0E3' },
+            vana: { name: 'SIKO', url: 'https://www.siko.cz/hledani/', color: '#00A0E3' },
+            // Stavební materiály - DEK
+            cement: { name: 'DEK', url: 'https://www.dek.cz/hledani/', color: '#E31E24' },
+            malta: { name: 'DEK', url: 'https://www.dek.cz/hledani/', color: '#E31E24' },
+            sadra: { name: 'DEK', url: 'https://www.dek.cz/hledani/', color: '#E31E24' },
+            izolac: { name: 'DEK', url: 'https://www.dek.cz/hledani/', color: '#E31E24' },
+            deska: { name: 'DEK', url: 'https://www.dek.cz/hledani/', color: '#E31E24' },
+            tmel: { name: 'DEK', url: 'https://www.dek.cz/hledani/', color: '#E31E24' },
+            lepidlo: { name: 'DEK', url: 'https://www.dek.cz/hledani/', color: '#E31E24' },
+            // Barvy - HET
+            barv: { name: 'HET', url: 'https://www.het.cz/produkty/', color: '#D4145A' },
+            lak: { name: 'HET', url: 'https://www.het.cz/produkty/', color: '#D4145A' },
+            penetrac: { name: 'HET', url: 'https://www.het.cz/produkty/', color: '#D4145A' },
+            zaklad: { name: 'HET', url: 'https://www.het.cz/produkty/', color: '#D4145A' },
+            // Elektro - GES
+            kabel: { name: 'GES', url: 'https://www.ges.cz/cz/search/', color: '#0066B3' },
+            zasuvk: { name: 'GES', url: 'https://www.ges.cz/cz/search/', color: '#0066B3' },
+            vypinac: { name: 'GES', url: 'https://www.ges.cz/cz/search/', color: '#0066B3' },
+            jistic: { name: 'GES', url: 'https://www.ges.cz/cz/search/', color: '#0066B3' },
+            pojistk: { name: 'GES', url: 'https://www.ges.cz/cz/search/', color: '#0066B3' },
+            // Zahrada - Mountfield
+            sekac: { name: 'Mountfield', url: 'https://www.mountfield.cz/hledani/', color: '#009640' },
+            zahrad: { name: 'Mountfield', url: 'https://www.mountfield.cz/hledani/', color: '#009640' },
+            hadice: { name: 'Mountfield', url: 'https://www.mountfield.cz/hledani/', color: '#009640' },
+            hrabl: { name: 'Mountfield', url: 'https://www.mountfield.cz/hledani/', color: '#009640' },
+            lopat: { name: 'Mountfield', url: 'https://www.mountfield.cz/hledani/', color: '#009640' }
+        };
+
+        // Default partner for items without specific match
+        const defaultPartner = { name: 'Hornbach', url: 'https://www.hornbach.cz/s/', color: '#F07D00' };
+
+        function getAffiliateLink(itemName) {
+            const lowerName = itemName.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
+            for (const [keyword, partner] of Object.entries(affiliatePartners)) {
+                if (lowerName.includes(keyword)) {
+                    return {
+                        ...partner,
+                        searchUrl: partner.url + encodeURIComponent(itemName)
+                    };
+                }
+            }
+
+            return {
+                ...defaultPartner,
+                searchUrl: defaultPartner.url + encodeURIComponent(itemName)
+            };
+        }
+
+        function renderItemWithAffiliate(item) {
+            const affiliate = getAffiliateLink(item);
+            return `
+                <li style="margin-bottom: 8px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px;">
+                    <span>${item}</span>
+                    <a href="${affiliate.searchUrl}" target="_blank" rel="noopener"
+                       style="display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px;
+                              background: ${affiliate.color}; color: white; border-radius: 4px;
+                              font-size: 0.75rem; text-decoration: none; white-space: nowrap;
+                              transition: opacity 0.2s;"
+                       onmouseover="this.style.opacity='0.85'"
+                       onmouseout="this.style.opacity='1'">
+                        <i class="fas fa-shopping-cart"></i> Koupit na ${affiliate.name}
+                    </a>
+                </li>
+            `;
+        }
+
         function showGuideDetail(category, guideIndex) {
             const guide = guidesData[category].guides[guideIndex];
             if (!guide.steps) {
@@ -5373,8 +5467,9 @@
                 html += `
                     <div style="margin-bottom: 24px;">
                         <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 12px; color: var(--text-dark-primary);"><i class="fas fa-tools"></i> Potřebné nástroje</h3>
-                        <ul style="margin-left: 20px;">
-                            ${guide.tools.map(tool => `<li style="margin-bottom: 4px;">${tool}</li>`).join('')}
+                        <p style="font-size: 0.85rem; color: var(--text-dark-secondary); margin-bottom: 12px;"><i class="fas fa-info-circle"></i> Klikněte pro zakoupení u partnerského e-shopu</p>
+                        <ul style="list-style: none; margin: 0; padding: 0;">
+                            ${guide.tools.map(tool => renderItemWithAffiliate(tool)).join('')}
                         </ul>
                     </div>
                 `;
@@ -5384,8 +5479,9 @@
                 html += `
                     <div style="margin-bottom: 24px;">
                         <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 12px; color: var(--text-dark-primary);"><i class="fas fa-box"></i> Potřebné materiály</h3>
-                        <ul style="margin-left: 20px;">
-                            ${guide.materials.map(material => `<li style="margin-bottom: 4px;">${material}</li>`).join('')}
+                        <p style="font-size: 0.85rem; color: var(--text-dark-secondary); margin-bottom: 12px;"><i class="fas fa-info-circle"></i> Klikněte pro zakoupení u partnerského e-shopu</p>
+                        <ul style="list-style: none; margin: 0; padding: 0;">
+                            ${guide.materials.map(material => renderItemWithAffiliate(material)).join('')}
                         </ul>
                     </div>
                 `;
