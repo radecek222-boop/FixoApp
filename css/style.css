@@ -425,6 +425,14 @@ body {
     -webkit-backdrop-filter: none !important;
 }
 
+.category-card h3 {
+    color: #1a1a1a !important;
+}
+
+.category-card p {
+    color: #4a4a4a !important;
+}
+
 .card-header {
     display: flex;
     align-items: center;
