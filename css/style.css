@@ -110,6 +110,11 @@ body {
     font-family: var(--font-main);
     font-weight: var(--font-weight-normal);
     background: var(--bg-primary);
+    background-image: url('../BACK-GROUND.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
     color: var(--text-primary);
     line-height: 1.6;
     min-height: 100vh;
