@@ -5318,9 +5318,6 @@
             const data = guidesData[category];
             if (!data) return;
 
-            // Scroll to top
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-
             // Update title and subtitle
             document.getElementById('guidesTitle').textContent = data.title;
             document.getElementById('guidesSubtitle').textContent = data.subtitle;
@@ -5339,8 +5336,14 @@
                 </div>
             `).join('');
 
-            // Show guides section, hide categories
-            document.getElementById('guidesSection').style.display = 'block';
+            // Show guides section
+            const guidesSection = document.getElementById('guidesSection');
+            guidesSection.style.display = 'block';
+
+            // Scroll smoothly to the guides section
+            setTimeout(() => {
+                guidesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
         }
 
         function hideGuides() {
