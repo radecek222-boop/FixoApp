@@ -14,23 +14,30 @@
 }
 
 :root {
-    /* Modern Color Palette - Softer, more sophisticated */
+    /* Modern Color Palette - Light cards on cosmic background */
     --bg-primary: #0a0a0b;           /* Deep dark background */
     --bg-secondary: #1a1a1d;         /* Slightly lighter dark */
     --bg-tertiary: #2a2a2f;          /* Card background base */
-    --bg-glass: rgba(42, 42, 47, 0.35);  /* Glass effect background */
+    --bg-glass: rgba(42, 42, 47, 0.7);  /* Glass effect for header (dark) */
     --bg-glass-light: rgba(255, 255, 255, 0.05);  /* Subtle glass overlay */
+    --bg-card-light: rgba(255, 255, 255, 0.92);  /* Light cards with transparency */
 
-    /* Text - Refined and readable */
-    --text-primary: #ffffff;         /* Pure white for headers */
-    --text-secondary: rgba(255, 255, 255, 0.7);  /* Subtle white */
-    --text-tertiary: rgba(255, 255, 255, 0.5);   /* Very subtle */
+    /* Text - Dual system for dark/light backgrounds */
+    --text-primary: #ffffff;         /* Pure white for dark backgrounds */
+    --text-secondary: rgba(255, 255, 255, 0.7);  /* Subtle white for dark backgrounds */
+    --text-tertiary: rgba(255, 255, 255, 0.5);   /* Very subtle for dark backgrounds */
     --text-muted: rgba(255, 255, 255, 0.3);      /* Ultra subtle */
 
-    /* Borders - Subtle and elegant */
-    --border-subtle: rgba(255, 255, 255, 0.1);
-    --border-medium: rgba(255, 255, 255, 0.15);
-    --border-strong: rgba(255, 255, 255, 0.2);
+    /* Text for light backgrounds (cards) */
+    --text-dark-primary: #1a1a1d;    /* Dark text for light backgrounds */
+    --text-dark-secondary: rgba(26, 26, 29, 0.7);  /* Subtle dark text */
+    --text-dark-tertiary: rgba(26, 26, 29, 0.5);   /* Very subtle dark text */
+
+    /* Borders - Dual system */
+    --border-subtle: rgba(255, 255, 255, 0.15);
+    --border-medium: rgba(255, 255, 255, 0.2);
+    --border-strong: rgba(255, 255, 255, 0.3);
+    --border-dark: rgba(26, 26, 29, 0.1);  /* Borders for light cards */
 
     /* Accent - Single brand color (Apple blue) */
     --accent: #0071e3;              /* Apple-like blue */
@@ -335,15 +342,15 @@ body {
    ======================================== */
 
 .card {
-    /* Glassmorphism effect */
-    background: var(--bg-glass);
-    backdrop-filter: blur(10px) saturate(150%);
-    -webkit-backdrop-filter: blur(10px) saturate(150%);
+    /* Light glassmorphism effect */
+    background: var(--bg-card-light);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
 
     /* Border and shadows */
-    border: 1px solid var(--border-subtle);
+    border: 1px solid var(--border-dark);
     border-radius: var(--radius-xl);
-    box-shadow: var(--shadow-glass);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15), 0 2px 8px rgba(0, 0, 0, 0.1);
 
     /* Spacing - breathable */
     padding: var(--space-xl);
@@ -355,6 +362,9 @@ body {
     /* Subtle inner glow */
     position: relative;
     overflow: hidden;
+
+    /* Dark text for light cards */
+    color: var(--text-dark-primary);
 }
 
 .card::before {
@@ -366,15 +376,28 @@ body {
     height: 1px;
     background: linear-gradient(90deg,
         transparent,
-        rgba(255, 255, 255, 0.1),
+        rgba(255, 255, 255, 0.5),
         transparent
     );
 }
 
 .card:hover {
-    border-color: var(--border-medium);
+    border-color: rgba(0, 113, 227, 0.3);
     transform: translateY(-2px);
-    box-shadow: var(--shadow-xl);
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.2), 0 4px 12px rgba(0, 113, 227, 0.15);
+}
+
+/* Dark text styles for card content */
+.card h1, .card h2, .card h3, .card h4, .card h5, .card h6 {
+    color: var(--text-dark-primary);
+}
+
+.card p, .card li {
+    color: var(--text-dark-secondary);
+}
+
+.card small, .card .text-muted {
+    color: var(--text-dark-tertiary);
 }
 
 .card-header {
@@ -389,7 +412,7 @@ body {
 .card-title {
     font-size: var(--font-size-xl);
     font-weight: var(--font-weight-semibold);
-    color: var(--text-primary);
+    color: var(--text-dark-primary);
     display: flex;
     align-items: center;
     gap: var(--space-sm);
@@ -497,12 +520,14 @@ body {
     background: transparent;
     border: 2px solid var(--accent);
     color: var(--accent);
+    font-weight: var(--font-weight-semibold);
 }
 
 .btn-outline:hover {
     background: var(--accent);
     color: #ffffff;
     box-shadow: 0 4px 12px rgba(0, 113, 227, 0.3);
+    transform: translateY(-1px);
 }
 
 /* Button sizes */
