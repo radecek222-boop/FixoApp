@@ -16,6 +16,7 @@
     <link rel="manifest" href="manifest.json">
     <title>FIXO - AI Asistent pro domácí opravy</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>FIXO</text></svg>">
 </head>
 <body>
@@ -67,14 +68,14 @@
                     <div class="card" style="text-align: center;">
                         <div class="upload-zone-compact" id="uploadZone">
                             <div class="upload-content" style="padding: 64px 32px;">
-                                <span class="upload-icon" style="font-size: 4rem; margin-bottom: 24px;">📸</span>
+                                <i class="fas fa-camera upload-icon" style="font-size: 4rem; margin-bottom: 24px; color: var(--accent);"></i>
                                 <div class="upload-text">
                                     <strong style="font-size: 1.125rem; display: block; margin-bottom: 8px;">Nahrát fotografii závady</strong>
                                     <small style="color: var(--text-tertiary); font-size: 0.875rem;">JPG, PNG, WEBP (max 10 MB)</small>
                                 </div>
                                 <input type="file" id="fileInput" accept="image/*" capture="environment">
                                 <button class="btn btn-primary btn-lg" onclick="document.getElementById('fileInput').click()" style="margin-top: 24px;">
-                                    📷 Vybrat fotografii
+                                    <i class="fas fa-camera"></i> Vybrat fotografii
                                 </button>
                             </div>
                         </div>
@@ -94,29 +95,29 @@
                     </div>
                 </section>
                 <!-- Simple CTA Grid -->
-                <section style="max-width: 1000px; margin: 0 auto 64px; padding: 0 32px;">
-                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px;">
+                <section style="max-width: 1200px; margin: 0 auto 64px; padding: 0 32px;">
+                    <div class="cta-grid">
                         <!-- DIY Návody -->
-                        <a href="repair.html" class="card" style="text-decoration: none; text-align: center; padding: 48px 32px; transition: transform 0.3s;">
-                            <div style="font-size: 3rem; margin-bottom: 16px;">🔧</div>
-                            <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 8px; color: var(--text-primary);">DIY Návody</h3>
-                            <p style="color: var(--text-secondary); font-size: 0.875rem; margin-bottom: 16px;">537 návodů krok za krokem</p>
+                        <a href="repair.html" class="card" style="text-decoration: none; text-align: center; padding: var(--space-3xl) var(--space-xl); transition: transform 0.3s;">
+                            <i class="fas fa-screwdriver-wrench" style="font-size: 3rem; margin-bottom: var(--space-lg); color: var(--accent); display: block;"></i>
+                            <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: var(--space-sm); color: var(--text-primary);">DIY Návody</h3>
+                            <p style="color: var(--text-secondary); font-size: 0.875rem; margin-bottom: var(--space-lg);">537 návodů krok za krokem</p>
                             <div class="btn btn-outline btn-sm">Procházet</div>
                         </a>
 
                         <!-- Najít Řemeslníka -->
-                        <a href="providers.html" class="card" style="text-decoration: none; text-align: center; padding: 48px 32px; transition: transform 0.3s;">
-                            <div style="font-size: 3rem; margin-bottom: 16px;">👷</div>
-                            <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 8px; color: var(--text-primary);">Najít Řemeslníka</h3>
-                            <p style="color: var(--text-secondary); font-size: 0.875rem; margin-bottom: 16px;">163 ověřených profesionálů</p>
+                        <a href="providers.html" class="card" style="text-decoration: none; text-align: center; padding: var(--space-3xl) var(--space-xl); transition: transform 0.3s;">
+                            <i class="fas fa-user-helmet-safety" style="font-size: 3rem; margin-bottom: var(--space-lg); color: var(--accent); display: block;"></i>
+                            <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: var(--space-sm); color: var(--text-primary);">Najít Řemeslníka</h3>
+                            <p style="color: var(--text-secondary); font-size: 0.875rem; margin-bottom: var(--space-lg);">163 ověřených profesionálů</p>
                             <div class="btn btn-outline btn-sm">Zobrazit</div>
                         </a>
 
                         <!-- E-shopy -->
-                        <a href="partners.html" class="card" style="text-decoration: none; text-align: center; padding: 48px 32px; transition: transform 0.3s;">
-                            <div style="font-size: 3rem; margin-bottom: 16px;">🛒</div>
-                            <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 8px; color: var(--text-primary);">Nakoupit Nástroje</h3>
-                            <p style="color: var(--text-secondary); font-size: 0.875rem; margin-bottom: 16px;">Partnerské e-shopy</p>
+                        <a href="partners.html" class="card" style="text-decoration: none; text-align: center; padding: var(--space-3xl) var(--space-xl); transition: transform 0.3s;">
+                            <i class="fas fa-shopping-cart" style="font-size: 3rem; margin-bottom: var(--space-lg); color: var(--accent); display: block;"></i>
+                            <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: var(--space-sm); color: var(--text-primary);">Nakoupit Nástroje</h3>
+                            <p style="color: var(--text-secondary); font-size: 0.875rem; margin-bottom: var(--space-lg);">Partnerské e-shopy</p>
                             <div class="btn btn-outline btn-sm">Obchody</div>
                         </a>
                     </div>
