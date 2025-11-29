@@ -1801,3 +1801,23 @@ tr:hover {
         grid-template-columns: repeat(2, 1fr);
     }
 }
+
+/* CTA Grid - responsive */
+.cta-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-lg);
+}
+
+@media (max-width: 768px) {
+    .cta-grid {
+        grid-template-columns: 1fr;
+        gap: var(--space-md);
+    }
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .cta-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

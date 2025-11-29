@@ -6,6 +6,7 @@
     <meta name="description" content="FIXO - Databáze návodů na opravu domácích závad">
     <title>Návody na opravu - FIXO</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>FIXO</text></svg>">
 </head>
 <body>
@@ -122,10 +123,10 @@
                 <div class="sidebar-section">
                     <h3 class="sidebar-title">Potřebujete pomoc?</h3>
                     <a href="index.html" class="btn btn-primary" style="width: 100%; margin-bottom: var(--space-md);">
-                        📸 AI Analýza
+                        <i class="fas fa-camera"></i> AI Analýza
                     </a>
                     <a href="providers.html" class="btn btn-outline" style="width: 100%;">
-                        👷 Najít řemeslníka
+                        <i class="fas fa-user-helmet-safety"></i> Najít řemeslníka
                     </a>
                 </div>
             </aside>
@@ -134,7 +135,7 @@
                 <!-- Hlavička s počtem -->
                 <div class="flex-between" style="margin-bottom: var(--space-xl);">
                     <h1 style="font-size: 2rem; font-weight: 700; margin: 0;">
-                        <span id="categoryIcon">🔧</span>
+                        <i class="fas fa-screwdriver-wrench" id="categoryIcon" style="margin-right: var(--space-sm);"></i>
                         <span id="categoryTitle">Všechny návody</span>
                         <span style="color: var(--text-tertiary); font-weight: normal; font-size: 1rem; margin-left: var(--space-md);" id="repairCount">(537 návodů)</span>
                     </h1>
@@ -151,7 +152,7 @@
                 <!-- Prázdný stav -->
                 <div id="emptyState" class="card text-center hidden">
                     <div style="padding: var(--space-3xl);">
-                        <div style="font-size: 4rem; margin-bottom: var(--space-lg);">🔍</div>
+                        <i class="fas fa-search" style="font-size: 4rem; margin-bottom: var(--space-lg); color: var(--text-tertiary); display: block;"></i>
                         <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: var(--space-md);">Žádné návody nenalezeny</h3>
                         <p style="color: var(--text-secondary); font-size: 1rem;">Zkuste změnit vyhledávání nebo kategorii.</p>
                     </div>
@@ -182,7 +183,7 @@
             <div class="modal-footer">
                 <button class="btn btn-secondary" onclick="closeModal()">Zavřít</button>
                 <a href="providers.html" class="btn btn-primary">
-                    👷 Najít řemeslníka
+                    <i class="fas fa-user-helmet-safety"></i> Najít řemeslníka
                 </a>
             </div>
         </div>
