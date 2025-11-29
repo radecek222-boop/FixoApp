@@ -1,7 +1,10 @@
 /* ========================================
-   FIXO - AI Asistent pro domácí opravy
-   Hlavní styly aplikace
+   FIXO - Modern AI Home Repair Assistant
+   Apple-inspired minimalist design with glassmorphism
    ======================================== */
+
+/* Google Fonts - Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 /* Reset a základní nastavení */
 * {
@@ -11,77 +14,107 @@
 }
 
 :root {
-    /* Moderní tmavé téma - příjemné a čitelné (Discord/Slack inspirace) */
-    --bg-primary: #2b2d31;      /* Hlavní pozadí */
-    --bg-secondary: #1e1f22;    /* Tmavší pozadí */
-    --bg-tertiary: #313338;     /* Střední pozadí */
-    --bg-card: #383a40;         /* Karty - světlejší než pozadí */
-    --bg-hover: #404249;        /* Hover stavy */
+    /* Modern Color Palette - Softer, more sophisticated */
+    --bg-primary: #0a0a0b;           /* Deep dark background */
+    --bg-secondary: #1a1a1d;         /* Slightly lighter dark */
+    --bg-tertiary: #2a2a2f;          /* Card background base */
+    --bg-glass: rgba(42, 42, 47, 0.7);  /* Glass effect background */
+    --bg-glass-light: rgba(255, 255, 255, 0.05);  /* Subtle glass overlay */
 
-    /* Text - dobře čitelný */
-    --text-primary: #f2f3f5;    /* Hlavní text */
-    --text-secondary: #b5bac1;  /* Sekundární text */
-    --text-tertiary: #80848e;   /* Terciární text */
+    /* Text - Refined and readable */
+    --text-primary: #ffffff;         /* Pure white for headers */
+    --text-secondary: rgba(255, 255, 255, 0.7);  /* Subtle white */
+    --text-tertiary: rgba(255, 255, 255, 0.5);   /* Very subtle */
+    --text-muted: rgba(255, 255, 255, 0.3);      /* Ultra subtle */
 
-    /* Borders */
-    --border-color: #4e5058;    /* Viditelné hranice */
-    --border-hover: #6d6f78;    /* Zvýrazněné hranice */
+    /* Borders - Subtle and elegant */
+    --border-subtle: rgba(255, 255, 255, 0.1);
+    --border-medium: rgba(255, 255, 255, 0.15);
+    --border-strong: rgba(255, 255, 255, 0.2);
 
-    /* Akcent - jemná modrá pro živost */
-    --accent-primary: #5865f2;  /* Modrý akcent pro aktivní prvky */
-    --accent-hover: #4752c4;    /* Tmavší při hover */
+    /* Accent - Single brand color (Apple blue) */
+    --accent: #0071e3;              /* Apple-like blue */
+    --accent-hover: #0077ed;
+    --accent-light: rgba(0, 113, 227, 0.1);
 
-    /* Stavy - barevné ale tlumené */
-    --success: #3ba55d;
-    --warning: #faa81a;
-    --danger: #ed4245;
+    /* State colors - Subtle and refined */
+    --success: #30d158;
+    --success-light: rgba(48, 209, 88, 0.1);
+    --warning: #ff9f0a;
+    --warning-light: rgba(255, 159, 10, 0.1);
+    --danger: #ff3b30;
+    --danger-light: rgba(255, 59, 48, 0.1);
 
-    /* Starší proměnné - kompatibilita */
-    --white: #ffffff;
-    --gray-50: #2b2d31;
-    --gray-100: #313338;
-    --gray-200: #383a40;
-    --gray-300: #404249;
-    --gray-400: #80848e;
-    --gray-500: #80848e;
-    --gray-600: #b5bac1;
-    --gray-700: #b5bac1;
-    --gray-800: #f2f3f5;
-    --gray-900: #f2f3f5;
+    /* Typography - Poppins font family */
+    --font-main: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-weight-light: 300;
+    --font-weight-normal: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
 
-    /* Typografie - KOMPAKTNÍ */
-    --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    --font-size-xs: 0.7rem;
-    --font-size-sm: 0.8rem;
-    --font-size-base: 0.875rem;
-    --font-size-lg: 0.95rem;
-    --font-size-xl: 1.05rem;
-    --font-size-2xl: 1.2rem;
-    --font-size-3xl: 1.4rem;
-    --font-size-4xl: 1.6rem;
+    /* Font sizes - Generous and breathable */
+    --font-size-xs: 0.75rem;    /* 12px */
+    --font-size-sm: 0.875rem;   /* 14px */
+    --font-size-base: 1rem;     /* 16px */
+    --font-size-lg: 1.125rem;   /* 18px */
+    --font-size-xl: 1.25rem;    /* 20px */
+    --font-size-2xl: 1.5rem;    /* 24px */
+    --font-size-3xl: 1.875rem;  /* 30px */
+    --font-size-4xl: 2.25rem;   /* 36px */
+    --font-size-5xl: 3rem;      /* 48px */
 
-    /* Rozměry - KOMPAKTNÍ */
-    --header-height: 50px;
-    --sidebar-width: 200px;
-    --border-radius: 8px;
-    --border-radius-lg: 10px;
-    --shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.1);
-    --shadow-lg: 0 4px 8px -2px rgba(0, 0, 0, 0.1);
-    --shadow-xl: 0 8px 16px -4px rgba(0, 0, 0, 0.1);
+    /* Spacing - Apple-style generous spacing */
+    --space-xs: 0.5rem;    /* 8px */
+    --space-sm: 0.75rem;   /* 12px */
+    --space-md: 1rem;      /* 16px */
+    --space-lg: 1.5rem;    /* 24px */
+    --space-xl: 2rem;      /* 32px */
+    --space-2xl: 3rem;     /* 48px */
+    --space-3xl: 4rem;     /* 64px */
+
+    /* Border radius - Smooth and modern */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 20px;
+    --radius-2xl: 24px;
+    --radius-full: 9999px;
+
+    /* Shadows - Soft and elevated */
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.16), 0 2px 4px rgba(0, 0, 0, 0.06);
+    --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.3), 0 6px 12px rgba(0, 0, 0, 0.2);
+    --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.4), 0 10px 20px rgba(0, 0, 0, 0.3);
+    --shadow-glass: 0 8px 32px rgba(0, 0, 0, 0.37);
+
+    /* Transitions - Smooth and professional */
+    --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* Layout */
+    --header-height: 64px;
+    --sidebar-width: 240px;
+    --container-max: 1200px;
 }
 
 html {
     font-size: 16px;
     scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
 body {
     font-family: var(--font-main);
+    font-weight: var(--font-weight-normal);
     background: var(--bg-primary);
     color: var(--text-primary);
     line-height: 1.6;
     min-height: 100vh;
     overflow-x: hidden;
+    letter-spacing: -0.01em;
 }
 
 /* ========================================
@@ -254,113 +287,190 @@ body {
    Komponenty
    ======================================== */
 
-/* Karty - KOMPAKTNÍ */
+/* ========================================
+   Cards - Glassmorphism Design
+   ======================================== */
+
 .card {
-    background: var(--bg-card);
-    border-radius: var(--border-radius);
-    box-shadow: var(--shadow);
-    padding: 12px;
-    margin-bottom: 10px;
+    /* Glassmorphism effect */
+    background: var(--bg-glass);
+    backdrop-filter: blur(20px) saturate(180%);
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+
+    /* Border and shadows */
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-glass);
+
+    /* Spacing - breathable */
+    padding: var(--space-xl);
+    margin-bottom: var(--space-lg);
+
+    /* Smooth transitions */
+    transition: all var(--transition-base);
+
+    /* Subtle inner glow */
+    position: relative;
+    overflow: hidden;
+}
+
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg,
+        transparent,
+        rgba(255, 255, 255, 0.1),
+        transparent
+    );
+}
+
+.card:hover {
+    border-color: var(--border-medium);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-xl);
 }
 
 .card-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 10px;
-    padding-bottom: 8px;
-    border-bottom: 1px solid var(--border-color);
+    margin-bottom: var(--space-lg);
+    padding-bottom: var(--space-md);
+    border-bottom: 1px solid var(--border-subtle);
 }
 
 .card-title {
-    font-size: 0.95rem;
-    font-weight: 600;
-    color: var(--gray-900);
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    color: var(--text-primary);
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: var(--space-sm);
+    letter-spacing: -0.02em;
 }
 
 .card-title .icon {
-    color: var(--text-primary);
+    font-size: var(--font-size-2xl);
+    opacity: 0.9;
     font-size: 14px;
 }
 
-/* Tlačítka - KOMPAKTNÍ */
+/* ========================================
+   Buttons - Modern, Minimalist Style
+   ======================================== */
+
 .btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 4px;
-    padding: 6px 12px;
-    font-size: 0.8rem;
-    font-weight: 600;
+    gap: var(--space-sm);
+    padding: var(--space-md) var(--space-xl);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-medium);
+    font-family: var(--font-main);
     border: none;
-    border-radius: 6px;
+    border-radius: var(--radius-full);
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: all var(--transition-base);
     text-decoration: none;
+    white-space: nowrap;
+    position: relative;
+    overflow: hidden;
+    letter-spacing: -0.01em;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.btn:active::before {
+    width: 300px;
+    height: 300px;
 }
 
 .btn-primary {
-    background: var(--accent-primary);
+    background: var(--accent);
     color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 113, 227, 0.3);
 }
 
 .btn-primary:hover {
     background: var(--accent-hover);
-    color: #ffffff;
-    transform: translateY(-1px);
-    box-shadow: var(--shadow-lg);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 113, 227, 0.4);
 }
 
 .btn-secondary {
-    background: var(--bg-hover);
-    color: var(--text-secondary);
+    background: var(--bg-glass);
+    backdrop-filter: blur(10px);
+    color: var(--text-primary);
+    border: 1px solid var(--border-subtle);
 }
 
 .btn-secondary:hover {
-    background: var(--gray-200);
+    background: var(--bg-glass-light);
+    border-color: var(--border-medium);
+    transform: translateY(-1px);
 }
 
 .btn-success {
-    background: var(--secondary);
+    background: var(--success);
     color: #ffffff;
+    box-shadow: 0 4px 12px rgba(48, 209, 88, 0.3);
 }
 
 .btn-success:hover {
-    background: var(--secondary-dark);
+    background: #28c44c;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(48, 209, 88, 0.4);
 }
 
 .btn-danger {
     background: var(--danger);
     color: #ffffff;
+    box-shadow: 0 4px 12px rgba(255, 59, 48, 0.3);
 }
 
 .btn-danger:hover {
-    background: var(--danger);
+    background: #ff2d20;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 59, 48, 0.4);
 }
 
 .btn-outline {
     background: transparent;
-    border: 2px solid var(--accent-primary);
-    color: var(--text-primary);
+    border: 2px solid var(--accent);
+    color: var(--accent);
 }
 
 .btn-outline:hover {
-    background: var(--accent-primary);
+    background: var(--accent);
     color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 113, 227, 0.3);
+}
+
+/* Button sizes */
+.btn-sm {
+    padding: var(--space-sm) var(--space-lg);
+    font-size: var(--font-size-sm);
 }
 
 .btn-lg {
-    padding: 8px 16px;
-    font-size: 0.85rem;
-}
-
-.btn-xl {
-    padding: 10px 20px;
-    font-size: 0.9rem;
-    border-radius: var(--border-radius);
+    padding: var(--space-lg) var(--space-2xl);
+    font-size: var(--font-size-lg);
 }
 
 .btn-block {
