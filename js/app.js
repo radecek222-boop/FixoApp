@@ -634,19 +634,51 @@ function loadRepairs(filter = {}) {
 
     if (emptyState) emptyState.classList.add('hidden');
 
-    grid.innerHTML = repairs.map(repair => `
-        <div class="category-card" onclick="showRepairDetail('${repair.id}')">
-            <span class="icon">${repair.icon}</span>
-            <h3>${repair.title}</h3>
-            <p>${repair.description}</p>
-            <div class="flex-between mt-2">
-                <span class="badge ${repair.difficulty === 'easy' ? 'badge-success' : repair.difficulty === 'medium' ? 'badge-warning' : 'badge-danger'}">
-                    ${repair.difficultyName}
-                </span>
-                <span style="font-size: 12px; color: #666;">⏱️ ${repair.time}</span>
+    grid.innerHTML = repairs.map(repair => {
+        // Výpočet úspor
+        const diyAvg = parseInt(repair.diyCost.split('-')[0]) || 0;
+        const proAvg = parseInt(repair.proCost.split('-')[0]) || 0;
+        const savings = proAvg - diyAvg;
+
+        // Bezpečnostní indikátor
+        const hasSafety = repair.warning || repair.category === 'electrical';
+        const safetyBadge = hasSafety ? `<span style="font-size: 10px; color: var(--danger); border: 1px solid var(--danger); padding: 2px 6px; border-radius: 4px;">⚠️ Bezpečnost</span>` : '';
+
+        return `
+            <div class="category-card" onclick="showRepairDetail('${repair.id}')" style="position: relative;">
+                ${safetyBadge ? `<div style="position: absolute; top: 8px; right: 8px;">${safetyBadge}</div>` : ''}
+                <span class="icon">${repair.icon}</span>
+                <h3 style="font-size: 0.85rem; margin-bottom: 4px;">${repair.title}</h3>
+                <p style="font-size: 0.7rem; margin-bottom: 8px;">${repair.description}</p>
+
+                <!-- Ceny a úspora -->
+                <div style="background: var(--bg-secondary); padding: 6px 8px; border-radius: 6px; margin-bottom: 8px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.65rem; margin-bottom: 4px;">
+                        <span style="color: var(--text-tertiary);">DIY:</span>
+                        <strong style="color: var(--success);">${repair.diyCost}</strong>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.65rem; margin-bottom: 4px;">
+                        <span style="color: var(--text-tertiary);">Profesionál:</span>
+                        <strong>${repair.proCost}</strong>
+                    </div>
+                    <div style="border-top: 1px solid var(--border-color); padding-top: 4px; margin-top: 4px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; font-size: 0.65rem;">
+                            <span style="color: var(--text-tertiary);">Ušetříte:</span>
+                            <strong style="color: var(--success); font-size: 0.75rem;">~${savings.toLocaleString('cs-CZ')} Kč</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Obtížnost a čas -->
+                <div class="flex-between">
+                    <span class="badge ${repair.difficulty === 'easy' ? 'badge-success' : repair.difficulty === 'medium' ? 'badge-warning' : 'badge-danger'}" style="font-size: 0.6rem;">
+                        ${repair.difficultyName}
+                    </span>
+                    <span style="font-size: 0.65rem; color: var(--text-tertiary);">⏱ ${repair.time}</span>
+                </div>
             </div>
-        </div>
-    `).join('');
+        `;
+    }).join('');
 }
 
 function initCategoryFilters() {
@@ -751,11 +783,35 @@ function showRepairDetail(id) {
                     <div class="tools-list">
                         ${repair.tools.map(t => `<a href="${getAffiliateLink(t)}" target="_blank" rel="noopener" class="tool-item tool-link"><span class="icon">🔧</span><span>${t}</span><span class="link-arrow">→</span></a>`).join('')}
                     </div>
+                    ${repair.materials && repair.materials.length > 0 ? `
+                        <h3 style="margin-top: 16px;"><span class="icon">📦</span> Materiály</h3>
+                        <div class="tools-list">
+                            ${repair.materials.map(m => `<a href="${getAffiliateLink(m)}" target="_blank" rel="noopener" class="tool-item tool-link"><span class="icon">🛒</span><span>${m}</span><span class="link-arrow">→</span></a>`).join('')}
+                        </div>
+                    ` : ''}
                 </div>
                 <div>
-                    <h3><span class="icon">💰</span> Náklady</h3>
-                    <p><strong>DIY:</strong> ${repair.diyCost}</p>
-                    <p><strong>Řemeslník:</strong> ${repair.proCost}</p>
+                    <h3><span class="icon">💰</span> Náklady & Úspora</h3>
+                    <div style="background: var(--bg-secondary); padding: 12px; border-radius: 8px;">
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                            <span>DIY oprava:</span>
+                            <strong style="color: var(--success);">${repair.diyCost}</strong>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                            <span>Řemeslník:</span>
+                            <strong>${repair.proCost}</strong>
+                        </div>
+                        <div style="border-top: 2px solid var(--border-color); padding-top: 8px; margin-top: 8px;">
+                            <div style="display: flex; justify-content: space-between;">
+                                <span>Ušetříte:</span>
+                                <strong style="color: var(--success); font-size: 1.1rem;">~${(parseInt(repair.proCost.split('-')[0]) - parseInt(repair.diyCost.split('-')[0])).toLocaleString('cs-CZ')} Kč</strong>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 12px; padding: 10px; background: var(--bg-tertiary); border-radius: 6px; font-size: 0.8rem;">
+                        <div style="margin-bottom: 6px;"><strong>⏱ Čas:</strong> ${repair.time}</div>
+                        <div><strong>📊 Obtížnost:</strong> ${repair.difficultyName}</div>
+                    </div>
                 </div>
             </div>
         `;
@@ -902,10 +958,55 @@ function showProviderDetail(id) {
                 <p>${provider.description}</p>
             </div>
 
-            <div>
+            <div class="mb-3">
                 <h4>🏷️ Ceník (orientační)</h4>
                 <p><strong>Hodinová sazba:</strong> ${provider.hourlyRate} Kč/hod</p>
                 <p><strong>Výjezd:</strong> ${provider.calloutFee} Kč</p>
+            </div>
+
+            <!-- Booking/Poptávkový formulář -->
+            <div style="background: var(--bg-secondary); padding: 14px; border-radius: 8px; border: 2px solid var(--accent-primary);">
+                <h4 style="margin-bottom: 10px;">📋 Odeslat poptávku</h4>
+                <form id="bookingForm" onsubmit="submitBooking(event, '${provider.id}')">
+                    <div class="form-group" style="margin-bottom: 10px;">
+                        <label class="form-label" style="font-size: 0.75rem;">Vaše jméno *</label>
+                        <input type="text" class="form-input" required placeholder="Jan Novák" style="font-size: 0.8rem;">
+                    </div>
+                    <div class="form-group" style="margin-bottom: 10px;">
+                        <label class="form-label" style="font-size: 0.75rem;">Telefon *</label>
+                        <input type="tel" class="form-input" required placeholder="+420 123 456 789" style="font-size: 0.8rem;">
+                    </div>
+                    <div class="form-group" style="margin-bottom: 10px;">
+                        <label class="form-label" style="font-size: 0.75rem;">Typ opravy *</label>
+                        <select class="form-select" required style="font-size: 0.8rem;">
+                            <option value="">Vyberte typ opravy...</option>
+                            <option value="bathroom">Koupelna (WC, sprcha, umyvadlo)</option>
+                            <option value="electrical">Elektřina (zásuvky, vypínače)</option>
+                            <option value="heating">Topení (radiátory, kotel)</option>
+                            <option value="kitchen">Kuchyň (spotřebiče, dřez)</option>
+                            <option value="house">Dům (dveře, okna, podlahy)</option>
+                            <option value="other">Jiné</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="margin-bottom: 10px;">
+                        <label class="form-label" style="font-size: 0.75rem;">Popis problému *</label>
+                        <textarea class="form-textarea" required placeholder="Popište problém..." style="font-size: 0.8rem; min-height: 60px;"></textarea>
+                    </div>
+                    <div class="form-group" style="margin-bottom: 10px;">
+                        <label class="form-label" style="font-size: 0.75rem;">Urgence</label>
+                        <select class="form-select" style="font-size: 0.8rem;">
+                            <option value="normal">Běžná (do týdne)</option>
+                            <option value="urgent">Urgentní (do 2 dnů)</option>
+                            <option value="emergency">Nouzová (dnes/zítra)</option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block" style="font-size: 0.8rem;">
+                        Odeslat poptávku
+                    </button>
+                    <p style="font-size: 0.65rem; color: var(--text-tertiary); margin-top: 8px; text-align: center;">
+                        Řemeslník vás bude kontaktovat do 24 hodin
+                    </p>
+                </form>
             </div>
         `;
     }
@@ -916,6 +1017,23 @@ function showProviderDetail(id) {
 function closeProviderDetail() {
     const modal = document.getElementById('providerDetailModal');
     if (modal) modal.classList.remove('show');
+}
+
+/**
+ * Odeslání poptávky řemeslníkovi
+ */
+function submitBooking(event, providerId) {
+    event.preventDefault();
+
+    // V produkci by se data odeslala na server
+    // Pro demo jen zobrazíme úspěšnou zprávu
+
+    closeProviderDetail();
+
+    showToast('Poptávka odeslána! Řemeslník vás bude kontaktovat do 24 hodin.', 'success');
+
+    // Analytics tracking (v produkci)
+    // trackEvent('booking_submitted', { provider_id: providerId });
 }
 
 function openRegisterModal() {
@@ -954,6 +1072,7 @@ function getMockRepairs() {
             diyCost: '50-150 Kč',
             proCost: '800-1500 Kč',
             tools: ['Křížový šroubovák', 'Nastavitelný klíč'],
+            materials: ['Nové těsnění', 'Hadřík'],
             steps: [
                 { title: 'Uzavřete vodu', description: 'Zavřete přívod vody pod umyvadlem.', time: '2 min' },
                 { title: 'Demontujte rukojeť', description: 'Odšroubujte krytku a vyjměte rukojeť.', time: '3 min' },
@@ -994,6 +1113,7 @@ function getMockRepairs() {
             proCost: '1000-2000 Kč',
             warning: 'VŽDY vypněte jistič před prací na elektroinstalaci!',
             tools: ['Zkoušečka', 'Šroubovák'],
+            materials: ['Nová zásuvka'],
             steps: [
                 { title: 'Vypněte jistič', description: 'Vypněte příslušný jistič v rozvaděči.', time: '2 min' },
                 { title: 'Zkontrolujte spoje', description: 'Demontujte kryt a zkontrolujte vodiče.', time: '5 min' },
@@ -1013,6 +1133,7 @@ function getMockRepairs() {
             diyCost: '50-200 Kč',
             proCost: '800-1500 Kč',
             tools: ['Zvon', 'Gumové rukavice'],
+            materials: ['Čistič odpadů'],
             steps: [
                 { title: 'Použijte zvon', description: 'Vytvořte podtlak pomocí zvonu.', time: '3 min' },
                 { title: 'Chemický čistič', description: 'Použijte čistič dle návodu.', time: '15 min' },
@@ -1032,6 +1153,7 @@ function getMockRepairs() {
             diyCost: '100-300 Kč',
             proCost: '1500-3000 Kč',
             tools: ['Imbusový klíč', 'Nůž'],
+            materials: ['Těsnění pro okna', 'Silikón'],
             steps: [
                 { title: 'Zkontrolujte těsnění', description: 'Prohlédněte gumové těsnění.', time: '3 min' },
                 { title: 'Seřiďte kování', description: 'Pomocí imbusového klíče seřiďte přítlak.', time: '10 min' },
@@ -1279,6 +1401,152 @@ function getMockProviders() {
             calloutFee: 300
         }
     ];
+}
+
+// ========================================
+// Emergency Triage & Kalkulačky
+// ========================================
+
+/**
+ * Data pro kalkulačku úspor
+ */
+const SAVINGS_DATA = {
+    toilet: {
+        name: 'WC - netěsnost',
+        diy: { cost: 300, min: 200, max: 400, time: '30-60 min', difficulty: 'Snadné' },
+        pro: { cost: 1800, min: 1200, max: 2500, time: '1-2 hod' }
+    },
+    faucet: {
+        name: 'Výměna baterie',
+        diy: { cost: 1150, min: 800, max: 1500, time: '45-90 min', difficulty: 'Střední' },
+        pro: { cost: 3250, min: 2500, max: 4000, time: '1-2 hod' }
+    },
+    door: {
+        name: 'Oprava dveří',
+        diy: { cost: 225, min: 150, max: 300, time: '30-60 min', difficulty: 'Snadné' },
+        pro: { cost: 1150, min: 800, max: 1500, time: '30-60 min' }
+    },
+    outlet: {
+        name: 'Výměna zásuvky',
+        diy: { cost: 140, min: 80, max: 200, time: '20-40 min', difficulty: 'Střední' },
+        pro: { cost: 900, min: 600, max: 1200, time: '30-60 min' }
+    },
+    radiator: {
+        name: 'Odvzdušnění topení',
+        diy: { cost: 25, min: 0, max: 50, time: '10-20 min', difficulty: 'Velmi snadné' },
+        pro: { cost: 600, min: 400, max: 800, time: '30 min' }
+    },
+    paint: {
+        name: 'Malování pokoje (15m²)',
+        diy: { cost: 3000, min: 2000, max: 4000, time: '4-8 hod', difficulty: 'Střední' },
+        pro: { cost: 11500, min: 8000, max: 15000, time: '6-12 hod' }
+    }
+};
+
+/**
+ * Kalkulačka úspor - DIY vs Profesionál
+ */
+function calculateSavings() {
+    const select = document.getElementById('repairTypeCalc');
+    const resultDiv = document.getElementById('savingsResult');
+
+    if (!select || !resultDiv) return;
+
+    const repairType = select.value;
+
+    if (!repairType || !SAVINGS_DATA[repairType]) {
+        resultDiv.classList.add('hidden');
+        return;
+    }
+
+    const data = SAVINGS_DATA[repairType];
+    const savings = data.pro.cost - data.diy.cost;
+
+    // Aktualizuj UI
+    document.getElementById('diyCost').textContent = `${data.diy.cost.toLocaleString('cs-CZ')} Kč`;
+    document.getElementById('diyTime').textContent = `⏱ ${data.diy.time} | ${data.diy.difficulty}`;
+    document.getElementById('proCost').textContent = `${data.pro.cost.toLocaleString('cs-CZ')} Kč`;
+    document.getElementById('proTime').textContent = `⏱ ${data.pro.time}`;
+    document.getElementById('savings').textContent = `${savings.toLocaleString('cs-CZ')} Kč`;
+
+    resultDiv.classList.remove('hidden');
+}
+
+/**
+ * Emergency triage handler
+ */
+function handleEmergency(type) {
+    const messages = {
+        critical: {
+            title: '🚨 Kritická situace',
+            message: 'Okamžitě vypněte hlavní přívod (voda/elektřina) a volejte odborníka!',
+            action: 'Najít řemeslníka',
+            actionUrl: 'providers.html',
+            color: '#ed4245'
+        },
+        urgent: {
+            title: '⚠️ Urgentní oprava',
+            message: 'Tato závada vyžaduje rychlou opravu. Doporučujeme kontaktovat řemeslníka.',
+            action: 'Najít řemeslníka',
+            actionUrl: 'providers.html',
+            color: '#faa81a'
+        },
+        normal: {
+            title: '✓ Běžná oprava',
+            message: 'Máte čas si to rozmyslet. Můžete zkusit opravu svépomocí nebo pozvat řemeslníka.',
+            action: 'Procházet návody',
+            actionUrl: 'repair.html',
+            color: '#3ba55d'
+        }
+    };
+
+    const data = messages[type];
+    if (!data) return;
+
+    // Vytvoř modal
+    const modalHTML = `
+        <div class="modal-overlay show" id="emergencyModal" style="z-index: 10000;">
+            <div class="modal" style="max-width: 400px;">
+                <div class="modal-header" style="background: ${data.color}; color: white;">
+                    <h3>${data.title}</h3>
+                    <button class="modal-close" onclick="closeEmergencyModal()" style="color: white;">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p style="font-size: 0.85rem; margin-bottom: 16px;">${data.message}</p>
+                    ${type === 'critical' ? `
+                        <div style="background: var(--bg-secondary); padding: 12px; border-radius: 8px; margin-bottom: 16px;">
+                            <strong style="font-size: 0.8rem; display: block; margin-bottom: 8px;">🚑 Pohotovosti:</strong>
+                            <div style="font-size: 0.75rem; color: var(--text-secondary);">
+                                <div>• Hasiči: <strong>150</strong></div>
+                                <div>• Policie: <strong>158</strong></div>
+                                <div>• Záchranka: <strong>155</strong></div>
+                            </div>
+                        </div>
+                    ` : ''}
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" onclick="closeEmergencyModal()">Zavřít</button>
+                    <a href="${data.actionUrl}" class="btn btn-primary">${data.action}</a>
+                </div>
+            </div>
+        </div>
+    `;
+
+    // Přidej do body
+    const temp = document.createElement('div');
+    temp.innerHTML = modalHTML;
+    document.body.appendChild(temp.firstElementChild);
+}
+
+/**
+ * Zavření emergency modalu
+ */
+function closeEmergencyModal() {
+    const modal = document.getElementById('emergencyModal');
+    if (modal) {
+        modal.classList.remove('show');
+        setTimeout(() => modal.remove(), 300);
+    }
 }
 
 // ========================================

@@ -58,6 +58,25 @@
                     <h1>Vyfoťte problém, opravte ho sami!</h1>
                     <p>AI analyzuje fotografii a navrhne řešení. Ušetřete tisíce korun.</p>
                 </section>
+
+                <!-- Emergency Triage - prioritní widget -->
+                <div class="card-compact" style="background: linear-gradient(135deg, #ed4245 0%, #c13943 100%); color: white; margin: 0 16px 12px;">
+                    <div style="padding: 12px;">
+                        <h2 style="font-size: 0.9rem; margin-bottom: 8px; color: white;">⚡ Je to urgentní?</h2>
+                        <p style="font-size: 0.7rem; margin-bottom: 10px; opacity: 0.9;">Rychlá kontrola naléhavosti</p>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px;">
+                            <button class="btn" onclick="handleEmergency('critical')" style="background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); color: white; font-size: 0.65rem; padding: 8px 4px;">
+                                🚨<br>Nebezpečí
+                            </button>
+                            <button class="btn" onclick="handleEmergency('urgent')" style="background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); color: white; font-size: 0.65rem; padding: 8px 4px;">
+                                ⚠️<br>Urgentní
+                            </button>
+                            <button class="btn" onclick="handleEmergency('normal')" style="background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); color: white; font-size: 0.65rem; padding: 8px 4px;">
+                                ✓<br>Běžné
+                            </button>
+                        </div>
+                    </div>
+                </div>
                 <!-- Hlavní sekce - bez scrollování -->
                 <section class="main-section-compact">
                     <!-- Upload karta -->
@@ -125,10 +144,102 @@
                         </div>
                         <!-- Statistiky v řádku -->
                         <div class="stats-row">
-                            <div class="stat-item"><strong>500+</strong> návodů</div>
-                            <div class="stat-item"><strong>150+</strong> řemeslníků</div>
-                            <div class="stat-item"><strong>4.8</strong> hodnocení</div>
-                            <div class="stat-item"><strong>2-5k</strong> Kč úspora</div>
+                            <div class="stat-item"><strong>537</strong> návodů</div>
+                            <div class="stat-item"><strong>163</strong> řemeslníků</div>
+                            <div class="stat-item"><strong>4.7/5</strong> hodnocení</div>
+                            <div class="stat-item"><strong>3 850</strong> Kč úspora</div>
+                        </div>
+                    </div>
+
+                    <!-- Kalkulačka úspor DIY vs Profesionál -->
+                    <div class="card-compact">
+                        <div class="card-header-compact">
+                            <h2>💰 Kalkulačka úspor</h2>
+                        </div>
+                        <div style="padding: 12px;">
+                            <div class="form-group" style="margin-bottom: 10px;">
+                                <label class="form-label" style="font-size: 0.75rem;">Typ opravy</label>
+                                <select class="form-select" id="repairTypeCalc" onchange="calculateSavings()" style="font-size: 0.75rem;">
+                                    <option value="">Vyberte typ opravy...</option>
+                                    <option value="toilet">WC - netěsnost</option>
+                                    <option value="faucet">Výměna baterie</option>
+                                    <option value="door">Oprava dveří</option>
+                                    <option value="outlet">Výměna zásuvky</option>
+                                    <option value="radiator">Odvzdušnění topení</option>
+                                    <option value="paint">Malování pokoje</option>
+                                </select>
+                            </div>
+                            <div id="savingsResult" class="hidden">
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px;">
+                                    <div style="background: var(--bg-secondary); padding: 10px; border-radius: 8px; border: 2px solid var(--success);">
+                                        <div style="font-size: 0.65rem; color: var(--text-secondary); margin-bottom: 4px;">DIY Oprava</div>
+                                        <div style="font-size: 1.1rem; font-weight: 700; color: var(--success);" id="diyCost">-</div>
+                                        <div style="font-size: 0.6rem; color: var(--text-tertiary); margin-top: 2px;" id="diyTime">-</div>
+                                    </div>
+                                    <div style="background: var(--bg-secondary); padding: 10px; border-radius: 8px; border: 2px solid var(--border-color);">
+                                        <div style="font-size: 0.65rem; color: var(--text-secondary); margin-bottom: 4px;">Řemeslník</div>
+                                        <div style="font-size: 1.1rem; font-weight: 700;" id="proCost">-</div>
+                                        <div style="font-size: 0.6rem; color: var(--text-tertiary); margin-top: 2px;" id="proTime">-</div>
+                                    </div>
+                                </div>
+                                <div style="background: linear-gradient(135deg, var(--success) 0%, #2d7a4f 100%); color: white; padding: 10px; border-radius: 8px; text-align: center;">
+                                    <div style="font-size: 0.7rem; opacity: 0.9; margin-bottom: 2px;">Ušetříte</div>
+                                    <div style="font-size: 1.3rem; font-weight: 700;" id="savings">-</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Testimonials -->
+                    <div class="card-compact">
+                        <div class="card-header-compact">
+                            <h2>⭐ Co říkají uživatelé</h2>
+                        </div>
+                        <div style="padding: 12px; display: grid; gap: 8px;">
+                            <div style="background: var(--bg-secondary); padding: 10px; border-radius: 8px; border-left: 3px solid var(--success);">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                                    <strong style="font-size: 0.75rem;">Jana K., Praha</strong>
+                                    <span style="color: var(--warning); font-size: 0.7rem;">★★★★★</span>
+                                </div>
+                                <p style="font-size: 0.7rem; color: var(--text-secondary); margin: 0;">
+                                    "Protékající WC - návod byl skvělý, opravila jsem za 45 min. Ušetřila 2 500 Kč!"
+                                </p>
+                                <div style="font-size: 0.6rem; color: var(--text-tertiary); margin-top: 4px;">před 2 dny</div>
+                            </div>
+                            <div style="background: var(--bg-secondary); padding: 10px; border-radius: 8px; border-left: 3px solid var(--accent-primary);">
+                                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                                    <strong style="font-size: 0.75rem;">Martin P., Brno</strong>
+                                    <span style="color: var(--warning); font-size: 0.7rem;">★★★★★</span>
+                                </div>
+                                <p style="font-size: 0.7rem; color: var(--text-secondary); margin: 0;">
+                                    "Nemohl jsem si to troufnout, našel jsem řemeslníka přes FIXO. Férová cena, rychle!"
+                                </p>
+                                <div style="font-size: 0.6rem; color: var(--text-tertiary); margin-top: 4px;">před týdnem</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Trust Badges -->
+                    <div class="card-compact" style="background: var(--bg-secondary);">
+                        <div style="padding: 12px;">
+                            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; text-align: center;">
+                                <div>
+                                    <div style="font-size: 1.2rem; margin-bottom: 2px;">🛡️</div>
+                                    <div style="font-size: 0.6rem; color: var(--text-secondary);">Ověření řemeslníci</div>
+                                </div>
+                                <div>
+                                    <div style="font-size: 1.2rem; margin-bottom: 2px;">🔒</div>
+                                    <div style="font-size: 0.6rem; color: var(--text-secondary);">GDPR</div>
+                                </div>
+                                <div>
+                                    <div style="font-size: 1.2rem; margin-bottom: 2px;">💳</div>
+                                    <div style="font-size: 0.6rem; color: var(--text-secondary);">Bezpečná platba</div>
+                                </div>
+                                <div>
+                                    <div style="font-size: 1.2rem; margin-bottom: 2px;">📞</div>
+                                    <div style="font-size: 0.6rem; color: var(--text-secondary);">Podpora 24/7</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </section>
