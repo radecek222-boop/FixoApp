@@ -49,7 +49,7 @@
             <div class="content-area" style="padding: 0; display: flex; flex-direction: column; height: 100%; overflow-y: auto;">
                 <!-- Hero sekce -->
                 <section style="text-align: center; padding: 40px 32px 24px; max-width: 700px; margin: 0 auto;">
-                    <h1 style="font-size: 2.5rem; font-weight: 700; margin-bottom: 16px; line-height: 1.1; letter-spacing: -0.03em;">
+                    <h1 style="font-size: 2.5rem; font-weight: 700; margin-bottom: 16px; line-height: 1.1; letter-spacing: -0.03em; color: var(--text-primary);">
                         DIY Návody
                     </h1>
                     <p style="font-size: 1rem; color: var(--text-secondary); font-weight: 400; margin-bottom: 32px; line-height: 1.5;">
@@ -61,52 +61,66 @@
                 <section style="max-width: 1200px; margin: 0 auto 64px; padding: 0 32px;">
                     <div class="cta-grid">
                         <!-- Koupelna -->
-                        <a href="#" class="card" style="text-decoration: none; text-align: center; padding: var(--space-3xl) var(--space-xl); transition: transform 0.3s;" data-category="bathroom">
+                        <div class="card category-card" style="cursor: pointer; text-align: center; padding: var(--space-3xl) var(--space-xl); transition: all 0.3s;" onclick="showGuides('bathroom')">
                             <i class="fas fa-bath" style="font-size: 3rem; margin-bottom: var(--space-lg); color: var(--accent); display: block;"></i>
-                            <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: var(--space-sm); color: var(--text-primary);">Koupelna</h3>
-                            <p style="color: var(--text-secondary); font-size: 0.875rem; margin-bottom: var(--space-lg);">Baterie, sprchy, záchody</p>
+                            <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: var(--space-sm);">Koupelna</h3>
+                            <p style="color: var(--text-dark-secondary); font-size: 0.875rem; margin-bottom: var(--space-lg);">Baterie, sprchy, záchody</p>
                             <div class="btn btn-outline btn-sm">Zobrazit návody</div>
-                        </a>
+                        </div>
 
                         <!-- Dům -->
-                        <a href="#" class="card" style="text-decoration: none; text-align: center; padding: var(--space-3xl) var(--space-xl); transition: transform 0.3s;" data-category="house">
+                        <div class="card category-card" style="cursor: pointer; text-align: center; padding: var(--space-3xl) var(--space-xl); transition: all 0.3s;" onclick="showGuides('house')">
                             <i class="fas fa-house" style="font-size: 3rem; margin-bottom: var(--space-lg); color: var(--accent); display: block;"></i>
-                            <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: var(--space-sm); color: var(--text-primary);">Dům</h3>
-                            <p style="color: var(--text-secondary); font-size: 0.875rem; margin-bottom: var(--space-lg);">Okna, dveře, podlahy</p>
+                            <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: var(--space-sm);">Dům</h3>
+                            <p style="color: var(--text-dark-secondary); font-size: 0.875rem; margin-bottom: var(--space-lg);">Okna, dveře, podlahy</p>
                             <div class="btn btn-outline btn-sm">Zobrazit návody</div>
-                        </a>
+                        </div>
 
                         <!-- Elektřina -->
-                        <a href="#" class="card" style="text-decoration: none; text-align: center; padding: var(--space-3xl) var(--space-xl); transition: transform 0.3s;" data-category="electrical">
+                        <div class="card category-card" style="cursor: pointer; text-align: center; padding: var(--space-3xl) var(--space-xl); transition: all 0.3s;" onclick="showGuides('electrical')">
                             <i class="fas fa-bolt" style="font-size: 3rem; margin-bottom: var(--space-lg); color: var(--accent); display: block;"></i>
-                            <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: var(--space-sm); color: var(--text-primary);">Elektřina</h3>
-                            <p style="color: var(--text-secondary); font-size: 0.875rem; margin-bottom: var(--space-lg);">Zásuvky, světla, jističe</p>
+                            <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: var(--space-sm);">Elektřina</h3>
+                            <p style="color: var(--text-dark-secondary); font-size: 0.875rem; margin-bottom: var(--space-lg);">Zásuvky, světla, jističe</p>
                             <div class="btn btn-outline btn-sm">Zobrazit návody</div>
-                        </a>
+                        </div>
 
                         <!-- Topení -->
-                        <a href="#" class="card" style="text-decoration: none; text-align: center; padding: var(--space-3xl) var(--space-xl); transition: transform 0.3s;" data-category="heating">
+                        <div class="card category-card" style="cursor: pointer; text-align: center; padding: var(--space-3xl) var(--space-xl); transition: all 0.3s;" onclick="showGuides('heating')">
                             <i class="fas fa-fire" style="font-size: 3rem; margin-bottom: var(--space-lg); color: var(--accent); display: block;"></i>
-                            <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: var(--space-sm); color: var(--text-primary);">Topení</h3>
-                            <p style="color: var(--text-secondary); font-size: 0.875rem; margin-bottom: var(--space-lg);">Radiátory, kotle, termostaty</p>
+                            <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: var(--space-sm);">Topení</h3>
+                            <p style="color: var(--text-dark-secondary); font-size: 0.875rem; margin-bottom: var(--space-lg);">Radiátory, kotle, termostaty</p>
                             <div class="btn btn-outline btn-sm">Zobrazit návody</div>
-                        </a>
+                        </div>
 
                         <!-- Kuchyň -->
-                        <a href="#" class="card" style="text-decoration: none; text-align: center; padding: var(--space-3xl) var(--space-xl); transition: transform 0.3s;" data-category="kitchen">
+                        <div class="card category-card" style="cursor: pointer; text-align: center; padding: var(--space-3xl) var(--space-xl); transition: all 0.3s;" onclick="showGuides('kitchen')">
                             <i class="fas fa-kitchen-set" style="font-size: 3rem; margin-bottom: var(--space-lg); color: var(--accent); display: block;"></i>
-                            <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: var(--space-sm); color: var(--text-primary);">Kuchyň</h3>
-                            <p style="color: var(--text-secondary); font-size: 0.875rem; margin-bottom: var(--space-lg);">Spotřebiče, dřez, linky</p>
+                            <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: var(--space-sm);">Kuchyň</h3>
+                            <p style="color: var(--text-dark-secondary); font-size: 0.875rem; margin-bottom: var(--space-lg);">Spotřebiče, dřez, linky</p>
                             <div class="btn btn-outline btn-sm">Zobrazit návody</div>
-                        </a>
+                        </div>
 
                         <!-- Zahrada -->
-                        <a href="#" class="card" style="text-decoration: none; text-align: center; padding: var(--space-3xl) var(--space-xl); transition: transform 0.3s;" data-category="garden">
+                        <div class="card category-card" style="cursor: pointer; text-align: center; padding: var(--space-3xl) var(--space-xl); transition: all 0.3s;" onclick="showGuides('garden')">
                             <i class="fas fa-tree" style="font-size: 3rem; margin-bottom: var(--space-lg); color: var(--accent); display: block;"></i>
-                            <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: var(--space-sm); color: var(--text-primary);">Zahrada</h3>
-                            <p style="color: var(--text-secondary); font-size: 0.875rem; margin-bottom: var(--space-lg);">Plot, zavlažování, nástroje</p>
+                            <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: var(--space-sm);">Zahrada</h3>
+                            <p style="color: var(--text-dark-secondary); font-size: 0.875rem; margin-bottom: var(--space-lg);">Plot, zavlažování, nástroje</p>
                             <div class="btn btn-outline btn-sm">Zobrazit návody</div>
-                        </a>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Návody Section (skrytá, zobrazí se po kliknutí) -->
+                <section id="guidesSection" style="max-width: 1200px; margin: 0 auto 64px; padding: 0 32px; display: none;">
+                    <div style="text-align: center; margin-bottom: var(--space-2xl);">
+                        <button onclick="hideGuides()" class="btn btn-outline" style="margin-bottom: 24px;">
+                            <i class="fas fa-arrow-left"></i> Zpět na kategorie
+                        </button>
+                        <h2 id="guidesTitle" style="font-size: 2rem; font-weight: 700; color: var(--text-primary); margin-bottom: 8px;"></h2>
+                        <p id="guidesSubtitle" style="color: var(--text-secondary);"></p>
+                    </div>
+                    <div id="guidesGrid" class="cta-grid">
+                        <!-- Návody budou vloženy JavaScriptem -->
                     </div>
                 </section>
 
@@ -115,11 +129,11 @@
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
                         <a href="index.html" class="card" style="text-decoration: none; text-align: center; padding: var(--space-xl);">
                             <i class="fas fa-camera" style="font-size: 2rem; margin-bottom: var(--space-md); color: var(--accent); display: block;"></i>
-                            <h4 style="font-size: 1rem; font-weight: 600; color: var(--text-primary);">AI Analýza</h4>
+                            <h4 style="font-size: 1rem; font-weight: 600;">AI Analýza</h4>
                         </a>
                         <a href="providers.html" class="card" style="text-decoration: none; text-align: center; padding: var(--space-xl);">
                             <i class="fas fa-user-helmet-safety" style="font-size: 2rem; margin-bottom: var(--space-md); color: var(--accent); display: block;"></i>
-                            <h4 style="font-size: 1rem; font-weight: 600; color: var(--text-primary);">Najít Řemeslníka</h4>
+                            <h4 style="font-size: 1rem; font-weight: 600;">Najít Řemeslníka</h4>
                         </a>
                     </div>
                 </section>
@@ -139,5 +153,116 @@
     <!-- Toast Container -->
     <div class="toast-container" id="toastContainer"></div>
     <script src="js/app.js"></script>
+    <script>
+        // Databáze návodů pro každou kategorii
+        const guidesData = {
+            bathroom: {
+                title: "Návody pro koupelnu",
+                subtitle: "Opravy baterií, sprch, záchodů a dalších koupelnových zařízení",
+                guides: [
+                    { title: "Výměna těsnění vodovodního kohoutku", difficulty: "Snadné", time: "15 min", icon: "fa-faucet" },
+                    { title: "Oprava kapající sprchy", difficulty: "Snadné", time: "20 min", icon: "fa-shower" },
+                    { title: "Výměna splachovacího mechanismu", difficulty: "Střední", time: "30 min", icon: "fa-toilet" },
+                    { title: "Instalace nové sprchové hlavice", difficulty: "Snadné", time: "10 min", icon: "fa-shower" },
+                    { title: "Oprava ucpaného sifonu", difficulty: "Snadné", time: "25 min", icon: "fa-wrench" },
+                    { title: "Výměna baterie umyvadla", difficulty: "Střední", time: "45 min", icon: "fa-sink" }
+                ]
+            },
+            house: {
+                title: "Návody pro dům",
+                subtitle: "Opravy oken, dveří, podlah a dalších částí domu",
+                guides: [
+                    { title: "Seřízení okenních závěsů", difficulty: "Snadné", time: "15 min", icon: "fa-window-maximize" },
+                    { title: "Výměna zámku u dveří", difficulty: "Střední", time: "40 min", icon: "fa-door-closed" },
+                    { title: "Oprava skřípající podlahy", difficulty: "Střední", time: "60 min", icon: "fa-house" },
+                    { title: "Utěsnění oken a dveří", difficulty: "Snadné", time: "30 min", icon: "fa-wind" },
+                    { title: "Výměna dveřní kliky", difficulty: "Snadné", time: "20 min", icon: "fa-door-open" },
+                    { title: "Oprava praskliny ve zdi", difficulty: "Střední", time: "90 min", icon: "fa-house-crack" }
+                ]
+            },
+            electrical: {
+                title: "Návody pro elektřinu",
+                subtitle: "Bezpečné opravy zásuvek, světel a elektrických zařízení",
+                guides: [
+                    { title: "Výměna zásuvky", difficulty: "Střední", time: "30 min", icon: "fa-plug" },
+                    { title: "Instalace nového vypínače", difficulty: "Střední", time: "25 min", icon: "fa-lightbulb" },
+                    { title: "Výměna žárovky v lustrech", difficulty: "Snadné", time: "10 min", icon: "fa-lightbulb" },
+                    { title: "Reset vypadlého jističe", difficulty: "Snadné", time: "5 min", icon: "fa-bolt" },
+                    { title: "Instalace LED pásku", difficulty: "Snadné", time: "20 min", icon: "fa-lightbulb" },
+                    { title: "Připojení lustru", difficulty: "Těžké", time: "50 min", icon: "fa-lightbulb" }
+                ]
+            },
+            heating: {
+                title: "Návody pro topení",
+                subtitle: "Údržba radiátorů, kotlů a termostatů",
+                guides: [
+                    { title: "Odvzdušnění radiátoru", difficulty: "Snadné", time: "10 min", icon: "fa-temperature-high" },
+                    { title: "Výměna termostatické hlavice", difficulty: "Snadné", time: "15 min", icon: "fa-temperature-half" },
+                    { title: "Kontrola tlaku v kotli", difficulty: "Snadné", time: "5 min", icon: "fa-gauge" },
+                    { title: "Čištění filtru kotle", difficulty: "Střední", time: "40 min", icon: "fa-filter" },
+                    { title: "Nastavení termostatu", difficulty: "Snadné", time: "10 min", icon: "fa-sliders" },
+                    { title: "Výměna expanzní nádoby", difficulty: "Těžké", time: "120 min", icon: "fa-fire" }
+                ]
+            },
+            kitchen: {
+                title: "Návody pro kuchyň",
+                subtitle: "Opravy spotřebičů, dřezu a kuchyňských linek",
+                guides: [
+                    { title: "Oprava kapající baterie u dřezu", difficulty: "Snadné", time: "20 min", icon: "fa-faucet" },
+                    { title: "Výměna filtru digestoře", difficulty: "Snadné", time: "10 min", icon: "fa-wind" },
+                    { title: "Seřízení dvířek kuchyňské linky", difficulty: "Snadné", time: "15 min", icon: "fa-screwdriver" },
+                    { title: "Oprava ucpaného dřezu", difficulty: "Střední", time: "30 min", icon: "fa-sink" },
+                    { title: "Výměna žárovky v troubě", difficulty: "Snadné", time: "10 min", icon: "fa-lightbulb" },
+                    { title: "Instalace nové směšovací baterie", difficulty: "Střední", time: "60 min", icon: "fa-faucet" }
+                ]
+            },
+            garden: {
+                title: "Návody pro zahradu",
+                subtitle: "Údržba plotu, zavlažování a zahradních nástrojů",
+                guides: [
+                    { title: "Oprava zahradní hadice", difficulty: "Snadné", time: "10 min", icon: "fa-water" },
+                    { title: "Nastavení zavlažovacího systému", difficulty: "Střední", time: "45 min", icon: "fa-droplet" },
+                    { title: "Oprava dřevěného plotu", difficulty: "Střední", time: "90 min", icon: "fa-fence" },
+                    { title: "Broušení sekačky na trávu", difficulty: "Střední", time: "30 min", icon: "fa-wrench" },
+                    { title: "Výměna sprinklerové hlavice", difficulty: "Snadné", time: "20 min", icon: "fa-shower" },
+                    { title: "Instalace zahradního osvětlení", difficulty: "Střední", time: "60 min", icon: "fa-lightbulb" }
+                ]
+            }
+        };
+
+        function showGuides(category) {
+            const data = guidesData[category];
+            if (!data) return;
+
+            // Scroll to top
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // Update title and subtitle
+            document.getElementById('guidesTitle').textContent = data.title;
+            document.getElementById('guidesSubtitle').textContent = data.subtitle;
+
+            // Generate guide cards
+            const guidesGrid = document.getElementById('guidesGrid');
+            guidesGrid.innerHTML = data.guides.map(guide => `
+                <div class="card" style="text-align: center; padding: var(--space-2xl); cursor: pointer; transition: transform 0.3s;" onclick="showToast('${guide.title} - Brzy k dispozici!')">
+                    <i class="fas ${guide.icon}" style="font-size: 2.5rem; margin-bottom: var(--space-lg); color: var(--accent);"></i>
+                    <h3 style="font-size: 1.125rem; font-weight: 600; margin-bottom: var(--space-sm);">${guide.title}</h3>
+                    <div style="display: flex; gap: 8px; justify-content: center; margin-bottom: var(--space-md);">
+                        <span class="badge ${guide.difficulty === 'Snadné' ? 'badge-success' : guide.difficulty === 'Střední' ? 'badge-warning' : 'badge-danger'}" style="font-size: 0.75rem;">${guide.difficulty}</span>
+                        <span class="badge" style="background: var(--text-dark-secondary); color: white; font-size: 0.75rem;"><i class="far fa-clock"></i> ${guide.time}</span>
+                    </div>
+                    <div class="btn btn-outline btn-sm">Zobrazit návod</div>
+                </div>
+            `).join('');
+
+            // Show guides section, hide categories
+            document.getElementById('guidesSection').style.display = 'block';
+        }
+
+        function hideGuides() {
+            document.getElementById('guidesSection').style.display = 'none';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
 </body>
 </html>
