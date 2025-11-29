@@ -6,20 +6,21 @@
     <meta name="description" content="FIXO - Výsledky AI analýzy vaší závady">
     <title>Výsledky analýzy - FIXO</title>
     <link rel="stylesheet" href="css/style.css">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔧</text></svg>">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>FIXO</text></svg>">
 </head>
 <body>
-    <div class="app-container">
+    <div class="app-container fullscreen-layout">
         <!-- Header -->
         <header class="header">
             <a href="index.html" class="logo">
-                <div class="logo-icon">🔧</div>
+                <div class="logo-icon">F</div>
                 <div>
                     <div class="logo-text">FIXO</div>
                     <div class="logo-tagline">AI asistent pro domácí opravy</div>
                 </div>
             </a>
-                        <nav class="nav">
+            <nav class="nav">
                 <a href="index.html" class="nav-link">
                     <span>Domů</span>
                 </a>
@@ -33,7 +34,10 @@
                     <span>Řemeslníci</span>
                 </a>
                 <a href="about.html" class="nav-link">
-                    <span>O aplikaci</span>
+                    <span>O projektu</span>
+                </a>
+                <a href="investor.html" class="nav-link">
+                    <span>INVEST PROGRAM</span>
                 </a>
                 <a href="contacts.html" class="nav-link">
                     <span>Kontakt</span>
@@ -42,223 +46,185 @@
         </header>
         <!-- Main Content -->
         <main class="main-content">
-            <!-- Sidebar s náhledem -->
-            <aside class="sidebar">
-                <div class="sidebar-section">
-                    <h3 class="sidebar-title">Analyzovaná fotografie</h3>
-                    <img id="analyzedImage" src="" alt="Analyzovaná fotografie" style="width: 100%; border-radius: 6px; margin-bottom: 10px; max-height: 120px; object-fit: contain;">
-                    <button class="btn btn-secondary btn-block" onclick="window.location.href='index.html'">
-                        <span>📷</span> Nová analýza
-                    </button>
-                </div>
-                <div class="sidebar-section">
-                    <h3 class="sidebar-title">Rychlé akce</h3>
-                    <ul class="sidebar-menu">
-                        <li class="sidebar-item">
-                            <a href="#problem" class="sidebar-link">
-                                <span class="icon">🔍</span>
-                                <span>Identifikace</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="#steps" class="sidebar-link">
-                                <span>Postup opravy</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="#tools" class="sidebar-link">
-                                <span class="icon">🛠️</span>
-                                <span>Nástroje</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="#costs" class="sidebar-link">
-                                <span class="icon">💰</span>
-                                <span>Náklady</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="#providers" class="sidebar-link">
-                                <span class="icon">👷</span>
-                                <span>Řemeslníci</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="sidebar-section">
-                    <h3 class="sidebar-title">Potřebujete pomoc?</h3>
-                    <a href="providers.html" class="btn btn-success btn-block">
-                        <span>👷</span> Najít řemeslníka
-                    </a>
-                </div>
-            </aside>
-            <!-- Obsahová oblast -->
-            <div class="content-area">
+            <div class="content-area" style="padding: 0; display: flex; flex-direction: column; height: 100%; overflow-y: auto;">
+
                 <!-- Loading state -->
-                <div id="loadingState" class="card loading">
-                    <div class="spinner"></div>
-                    <p>Načítám výsledky analýzy...</p>
+                <div id="loadingState" style="padding: 40px; text-align: center;">
+                    <div class="spinner" style="margin: 0 auto 20px;"></div>
+                    <p style="color: var(--text-primary);">Načítám výsledky analýzy...</p>
                 </div>
-                <!-- Výsledky analýzy -->
-                <div id="resultsContainer" class="hidden">
-                    <!-- Hlavní výsledek -->
-                    <div class="analysis-result mb-3" id="problem">
-                        <div class="analysis-header">
-                            <h2 id="problemTitle" style="font-size: 1.3rem;">🔍 Identifikovaný problém</h2>
-                            <div class="badge" id="confidenceBadge">
-                                <span>✓</span>
-                                <span id="confidenceText">85% jistota</span>
-                            </div>
-                        </div>
-                        <div class="analysis-body">
-                            <div class="analysis-section">
-                                <h3 style="font-size: 1rem;">
-                                    <span class="icon">📝</span>
-                                    Popis problému
-                                </h3>
-                                <p id="problemDescription">Načítám...</p>
-                            </div>
-                            <div class="analysis-section">
-                                <h3 style="font-size: 1rem;">
-                                    <span class="icon">🎯</span>
-                                    Kategorie
-                                </h3>
-                                <span class="badge badge-primary" id="problemCategory">Koupelna</span>
-                                <span class="badge badge-success" id="problemDifficulty">Snadné</span>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Varování -->
-                    <div id="warningBox" class="warning-box mb-3 hidden">
-                        <span class="icon">⚠️</span>
-                        <div>
-                            <h4 style="font-size: 1rem;">Bezpečnostní upozornění</h4>
-                            <p id="warningText"></p>
-                        </div>
-                    </div>
-                    <!-- Postup opravy -->
-                    <div class="card mb-3" id="steps">
-                        <div class="card-header">
-                            <h2 class="card-title" style="font-size: 1.1rem;">
-                                Postup opravy krok za krokem
-                            </h2>
-                            <span class="badge badge-primary" id="totalTime">~30 min</span>
-                        </div>
-                        <ol class="repair-steps" id="repairSteps">
-                            <!-- Kroky budou vloženy JavaScriptem -->
-                        </ol>
-                    </div>
-                    <!-- Nástroje a materiál -->
-                    <div class="grid grid-2 mb-3">
-                        <div class="card" id="tools">
-                            <div class="card-header">
-                                <h2 class="card-title" style="font-size: 1.1rem;">
-                                    <span class="icon">🛠️</span>
-                                    Potřebné nástroje
-                                </h2>
-                            </div>
-                            <div class="tools-list" id="toolsList">
-                                <!-- Nástroje budou vloženy JavaScriptem -->
-                            </div>
-                        </div>
-                        <div class="card">
-                            <div class="card-header">
-                                <h2 class="card-title" style="font-size: 1.1rem;">
-                                    <span class="icon">🧰</span>
-                                    Materiál
-                                </h2>
-                            </div>
-                            <div class="tools-list" id="materialsList">
-                                <!-- Materiál bude vložen JavaScriptem -->
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Náklady -->
-                    <div class="card mb-3" id="costs">
-                        <div class="card-header">
-                            <h2 class="card-title" style="font-size: 1.1rem;">
-                                <span class="icon">💰</span>
-                                Odhad nákladů
-                            </h2>
-                        </div>
-                        <div class="cost-comparison">
-                            <div class="cost-card diy">
-                                <h4 style="font-size: 0.95rem;">🔧 Opravíte sami (DIY)</h4>
-                                <div class="price" id="diyCost">150 - 300 Kč</div>
-                                <div class="savings" id="savings">Ušetříte: 1 500 - 2 700 Kč</div>
-                            </div>
-                            <div class="cost-card pro">
-                                <h4 style="font-size: 0.95rem;">👷 Profesionální oprava</h4>
-                                <div class="price" id="proCost">1 500 - 3 000 Kč</div>
-                                <p style="font-size: 12px; color: #666; margin-top: 8px;">Včetně práce a dopravy</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Kde koupit -->
-                    <div class="card mb-2">
-                        <div class="card-header">
-                            <h2 class="card-title">
-                                <span class="icon">🛒</span>
-                                Kde koupit materiál
-                            </h2>
-                        </div>
-                        <div class="grid grid-4">
-                            <a href="https://www.hornbach.cz" target="_blank" rel="noopener" class="partner-card">
-                                <div style="font-size: 24px; margin-bottom: 4px;">🏪</div>
-                                <h3>Hornbach</h3>
-                                <p>Hobby market</p>
-                            </a>
-                            <a href="https://www.obi.cz" target="_blank" rel="noopener" class="partner-card">
-                                <div style="font-size: 24px; margin-bottom: 4px;">🏬</div>
-                                <h3>OBI</h3>
-                                <p>Stavební market</p>
-                            </a>
-                            <a href="https://www.bauhaus.cz" target="_blank" rel="noopener" class="partner-card">
-                                <div style="font-size: 24px; margin-bottom: 4px;">🏗️</div>
-                                <h3>Bauhaus</h3>
-                                <p>Specialista</p>
-                            </a>
-                            <a href="https://www.alza.cz" target="_blank" rel="noopener" class="partner-card">
-                                <div style="font-size: 24px; margin-bottom: 4px;">📦</div>
-                                <h3>Alza</h3>
-                                <p>E-shop</p>
-                            </a>
-                        </div>
-                    </div>
-                    <!-- Řemeslníci v okolí -->
-                    <div class="card" id="providers">
-                        <div class="card-header">
-                            <h2 class="card-title">
-                                <span class="icon">👷</span>
-                                Řemeslníci ve vašem okolí
-                            </h2>
-                            <a href="providers.html" class="btn btn-outline">Zobrazit všechny</a>
-                        </div>
-                        <div class="grid grid-2" id="providersList">
-                            <!-- Řemeslníci budou vloženi JavaScriptem -->
-                        </div>
-                    </div>
-                    <!-- Disclaimer -->
-                    <div class="info-box mt-3">
-                        <span class="icon">ℹ️</span>
-                        <p>
-                            <strong>Upozornění:</strong> AI analýza je orientační a slouží jako vodítko.
-                            U složitějších oprav, zejména elektroinstalace a plynových zařízení,
-                            vždy konzultujte s odborníkem. FIXO nenese odpovědnost za škody
-                            způsobené nesprávnou opravou.
-                        </p>
-                    </div>
-                </div>
-                <!-- Prázdný stav -->
-                <div id="emptyState" class="card text-center hidden">
-                    <div style="padding: 30px;">
-                        <div style="font-size: 40px; margin-bottom: 10px;">📷</div>
-                        <h2 style="font-size: 1rem;">Žádná analýza k zobrazení</h2>
-                        <p style="color: #666; margin-bottom: 16px; font-size: 0.8rem;">Nejprve nahrajte fotografii závady na hlavní stránce.</p>
-                        <a href="index.html" class="btn btn-primary">
-                            <span>🏠</span> Přejít na hlavní stránku
+
+                <!-- Empty state -->
+                <div id="emptyState" class="hidden" style="text-align: center; padding: 64px 32px; max-width: 600px; margin: 0 auto;">
+                    <div class="card" style="text-align: center; padding: var(--space-3xl);">
+                        <i class="fas fa-camera" style="font-size: 4rem; margin-bottom: var(--space-lg); color: var(--text-dark-tertiary);"></i>
+                        <h2 style="font-size: 1.5rem; margin-bottom: var(--space-md);">Žádná analýza k zobrazení</h2>
+                        <p style="margin-bottom: var(--space-xl);">Nejprve nahrajte fotografii závady na hlavní stránce.</p>
+                        <a href="index.html" class="btn btn-primary btn-lg">
+                            <i class="fas fa-home"></i> Přejít na hlavní stránku
                         </a>
                     </div>
+                </div>
+
+                <!-- Results Container -->
+                <div id="resultsContainer" class="hidden">
+                    <!-- Hero sekce s výsledkem -->
+                    <section style="text-align: center; padding: 40px 32px 24px; max-width: 900px; margin: 0 auto;" id="problem">
+                        <div style="display: inline-block; padding: 8px 20px; background: var(--accent-light); border-radius: var(--radius-full); margin-bottom: var(--space-md);">
+                            <span id="confidenceText" style="color: var(--accent); font-weight: 600; font-size: 0.875rem;">✓ 85% jistota</span>
+                        </div>
+                        <h1 id="problemTitle" style="font-size: 2.5rem; font-weight: 700; margin-bottom: 16px; line-height: 1.1; letter-spacing: -0.03em; color: var(--text-primary);">
+                            Identifikovaný problém
+                        </h1>
+                        <p id="problemDescription" style="font-size: 1.125rem; color: var(--text-secondary); max-width: 700px; margin: 0 auto 24px;">
+                            Načítám popis problému...
+                        </p>
+                        <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-bottom: 24px;">
+                            <span class="badge badge-primary" id="problemCategory" style="padding: 8px 16px; font-size: 0.875rem;">Koupelna</span>
+                            <span class="badge badge-success" id="problemDifficulty" style="padding: 8px 16px; font-size: 0.875rem;">Snadné</span>
+                            <span class="badge" id="totalTime" style="background: var(--text-secondary); color: white; padding: 8px 16px; font-size: 0.875rem;"><i class="far fa-clock"></i> ~30 min</span>
+                        </div>
+                        <div style="display: flex; gap: 12px; justify-content: center;">
+                            <a href="index.html" class="btn btn-outline">
+                                <i class="fas fa-camera"></i> Nová analýza
+                            </a>
+                            <a href="providers.html" class="btn btn-success">
+                                <i class="fas fa-user-helmet-safety"></i> Najít řemeslníka
+                            </a>
+                        </div>
+                    </section>
+
+                    <!-- Varování (pokud existuje) -->
+                    <section id="warningBox" class="hidden" style="max-width: 900px; margin: 0 auto 32px; padding: 0 32px;">
+                        <div class="card" style="background: linear-gradient(135deg, var(--danger-light) 0%, rgba(255, 59, 48, 0.05) 100%); border: 2px solid var(--danger); padding: var(--space-xl);">
+                            <div style="display: flex; gap: 16px; align-items: start;">
+                                <i class="fas fa-triangle-exclamation" style="font-size: 2rem; color: var(--danger); flex-shrink: 0;"></i>
+                                <div>
+                                    <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 8px; color: var(--danger);">
+                                        <i class="fas fa-shield-halved"></i> Bezpečnostní upozornění
+                                    </h3>
+                                    <p id="warningText" style="font-size: 1rem;"></p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Postup opravy -->
+                    <section style="max-width: 900px; margin: 0 auto 64px; padding: 0 32px;" id="steps">
+                        <div class="card" style="padding: var(--space-3xl);">
+                            <div style="text-align: center; margin-bottom: var(--space-2xl);">
+                                <i class="fas fa-list-check" style="font-size: 3rem; margin-bottom: var(--space-lg); color: var(--accent);"></i>
+                                <h2 style="font-size: 2rem; font-weight: 700; margin-bottom: var(--space-sm);">Postup opravy krok za krokem</h2>
+                                <p style="color: var(--text-dark-secondary);">Postupujte opatrně a podle instrukcí</p>
+                            </div>
+                            <ol class="repair-steps" id="repairSteps" style="list-style: none; counter-reset: step; padding: 0;">
+                                <!-- Kroky budou vloženy JavaScriptem -->
+                            </ol>
+                        </div>
+                    </section>
+
+                    <!-- Nástroje a materiál -->
+                    <section style="max-width: 1200px; margin: 0 auto 64px; padding: 0 32px;">
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-lg);">
+                            <!-- Nástroje -->
+                            <div class="card" id="tools" style="text-align: center; padding: var(--space-3xl);">
+                                <i class="fas fa-screwdriver-wrench" style="font-size: 3rem; margin-bottom: var(--space-lg); color: var(--accent);"></i>
+                                <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: var(--space-lg);">Potřebné nástroje</h3>
+                                <div class="tools-list" id="toolsList" style="display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;">
+                                    <!-- Nástroje budou vloženy JavaScriptem -->
+                                </div>
+                            </div>
+                            <!-- Materiál -->
+                            <div class="card" style="text-align: center; padding: var(--space-3xl);">
+                                <i class="fas fa-box" style="font-size: 3rem; margin-bottom: var(--space-lg); color: var(--accent);"></i>
+                                <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: var(--space-lg);">Materiál</h3>
+                                <div class="tools-list" id="materialsList" style="display: flex; flex-wrap: wrap; gap: 8px; justify-content: center;">
+                                    <!-- Materiál bude vložen JavaScriptem -->
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Náklady -->
+                    <section style="max-width: 900px; margin: 0 auto 64px; padding: 0 32px;" id="costs">
+                        <div style="text-align: center; margin-bottom: var(--space-2xl);">
+                            <i class="fas fa-coins" style="font-size: 3rem; margin-bottom: var(--space-md); color: var(--accent);"></i>
+                            <h2 style="font-size: 2rem; font-weight: 700; color: var(--text-primary);">Odhad nákladů</h2>
+                        </div>
+                        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-xl);">
+                            <!-- DIY -->
+                            <div class="card" style="text-align: center; padding: var(--space-2xl); background: linear-gradient(135deg, var(--success-light) 0%, rgba(48, 209, 88, 0.05) 100%); border: 2px solid var(--success);">
+                                <i class="fas fa-hand-sparkles" style="font-size: 2.5rem; margin-bottom: var(--space-md); color: var(--success);"></i>
+                                <h4 style="font-size: 1rem; margin-bottom: var(--space-md); color: var(--text-dark-secondary);">Opravíte sami (DIY)</h4>
+                                <div id="diyCost" style="font-size: 2.5rem; font-weight: 700; margin-bottom: var(--space-md); color: var(--success);">150 - 300 Kč</div>
+                                <div id="savings" style="color: var(--success); font-weight: 600;">Ušetříte: 1 500 - 2 700 Kč</div>
+                            </div>
+                            <!-- PRO -->
+                            <div class="card" style="text-align: center; padding: var(--space-2xl); background: linear-gradient(135deg, var(--warning-light) 0%, rgba(255, 159, 10, 0.05) 100%); border: 2px solid var(--warning);">
+                                <i class="fas fa-user-helmet-safety" style="font-size: 2.5rem; margin-bottom: var(--space-md); color: var(--warning);"></i>
+                                <h4 style="font-size: 1rem; margin-bottom: var(--space-md); color: var(--text-dark-secondary);">Profesionální oprava</h4>
+                                <div id="proCost" style="font-size: 2.5rem; font-weight: 700; margin-bottom: var(--space-md); color: var(--warning);">1 500 - 3 000 Kč</div>
+                                <p style="font-size: 0.875rem; color: var(--text-dark-tertiary);">Včetně práce a dopravy</p>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- Kde koupit -->
+                    <section style="max-width: 1200px; margin: 0 auto 64px; padding: 0 32px;">
+                        <div style="text-align: center; margin-bottom: var(--space-2xl);">
+                            <i class="fas fa-store" style="font-size: 3rem; margin-bottom: var(--space-md); color: var(--accent);"></i>
+                            <h2 style="font-size: 2rem; font-weight: 700; color: var(--text-primary);">Kde koupit materiál</h2>
+                        </div>
+                        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: var(--space-lg);">
+                            <a href="https://www.hornbach.cz" target="_blank" rel="noopener" class="card" style="text-decoration: none; text-align: center; padding: var(--space-2xl); transition: transform 0.3s;">
+                                <i class="fas fa-store" style="font-size: 2.5rem; margin-bottom: var(--space-md); color: var(--accent);"></i>
+                                <h3 style="font-size: 1.125rem; font-weight: 600; margin-bottom: 4px;">Hornbach</h3>
+                                <p style="font-size: 0.875rem; color: var(--text-dark-secondary);">Hobby market</p>
+                            </a>
+                            <a href="https://www.obi.cz" target="_blank" rel="noopener" class="card" style="text-decoration: none; text-align: center; padding: var(--space-2xl); transition: transform 0.3s;">
+                                <i class="fas fa-store-alt" style="font-size: 2.5rem; margin-bottom: var(--space-md); color: var(--accent);"></i>
+                                <h3 style="font-size: 1.125rem; font-weight: 600; margin-bottom: 4px;">OBI</h3>
+                                <p style="font-size: 0.875rem; color: var(--text-dark-secondary);">Stavební market</p>
+                            </a>
+                            <a href="https://www.bauhaus.cz" target="_blank" rel="noopener" class="card" style="text-decoration: none; text-align: center; padding: var(--space-2xl); transition: transform 0.3s;">
+                                <i class="fas fa-hammer" style="font-size: 2.5rem; margin-bottom: var(--space-md); color: var(--accent);"></i>
+                                <h3 style="font-size: 1.125rem; font-weight: 600; margin-bottom: 4px;">Bauhaus</h3>
+                                <p style="font-size: 0.875rem; color: var(--text-dark-secondary);">Specialista</p>
+                            </a>
+                            <a href="https://www.alza.cz" target="_blank" rel="noopener" class="card" style="text-decoration: none; text-align: center; padding: var(--space-2xl); transition: transform 0.3s;">
+                                <i class="fas fa-box-open" style="font-size: 2.5rem; margin-bottom: var(--space-md); color: var(--accent);"></i>
+                                <h3 style="font-size: 1.125rem; font-weight: 600; margin-bottom: 4px;">Alza</h3>
+                                <p style="font-size: 0.875rem; color: var(--text-dark-secondary);">E-shop</p>
+                            </a>
+                        </div>
+                    </section>
+
+                    <!-- Řemeslníci -->
+                    <section style="max-width: 1200px; margin: 0 auto 64px; padding: 0 32px;" id="providers">
+                        <div style="text-align: center; margin-bottom: var(--space-2xl);">
+                            <i class="fas fa-users" style="font-size: 3rem; margin-bottom: var(--space-md); color: var(--accent);"></i>
+                            <h2 style="font-size: 2rem; font-weight: 700; margin-bottom: var(--space-sm); color: var(--text-primary);">Řemeslníci ve vašem okolí</h2>
+                            <a href="providers.html" class="btn btn-outline">Zobrazit všechny <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                        <div id="providersList" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--space-lg);">
+                            <!-- Řemeslníci budou vloženi JavaScriptem -->
+                        </div>
+                    </section>
+
+                    <!-- Disclaimer -->
+                    <section style="max-width: 900px; margin: 0 auto 64px; padding: 0 32px;">
+                        <div class="card" style="background: var(--accent-light); border: 1px solid rgba(0, 113, 227, 0.2); padding: var(--space-xl);">
+                            <div style="display: flex; gap: 16px; align-items: start;">
+                                <i class="fas fa-circle-info" style="font-size: 2rem; color: var(--accent); flex-shrink: 0;"></i>
+                                <div>
+                                    <h4 style="font-size: 1.125rem; font-weight: 600; margin-bottom: 8px; color: var(--accent);">Důležité upozornění</h4>
+                                    <p style="font-size: 0.9375rem; line-height: 1.6;">
+                                        AI analýza je orientační a slouží jako vodítko. U složitějších oprav, zejména elektroinstalace a plynových zařízení, vždy konzultujte s odborníkem. FIXO nenese odpovědnost za škody způsobené nesprávnou opravou.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
                 </div>
             </div>
         </main>
@@ -268,7 +234,7 @@
             <div class="footer-links">
                 <a href="privacy.html">Ochrana soukromí</a>
                 <a href="terms.html">Podmínky použití</a>
-                <a href="about.html">O aplikaci</a>
+                <a href="about.html">O projektu</a>
                 <a href="contacts.html">Kontakt</a>
             </div>
         </footer>
