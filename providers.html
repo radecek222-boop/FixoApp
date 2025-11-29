@@ -372,17 +372,29 @@
     <script>
         // Registration Modal Functions
         function openRegistrationModal() {
-            document.getElementById('registrationModal').style.display = 'flex';
+            const modal = document.getElementById('registrationModal');
+            modal.style.display = 'flex';
+            // Trigger reflow then add show class for animation
+            modal.offsetHeight;
+            modal.classList.add('show');
             document.body.style.overflow = 'hidden';
         }
 
         function closeRegistrationModal() {
-            document.getElementById('registrationModal').style.display = 'none';
+            const modal = document.getElementById('registrationModal');
+            modal.classList.remove('show');
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 300);
             document.body.style.overflow = '';
         }
 
         function closeSuccessModal() {
-            document.getElementById('registrationSuccessModal').style.display = 'none';
+            const modal = document.getElementById('registrationSuccessModal');
+            modal.classList.remove('show');
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 300);
             document.body.style.overflow = '';
         }
 
@@ -416,7 +428,12 @@
 
             // Close registration modal and show success
             closeRegistrationModal();
-            document.getElementById('registrationSuccessModal').style.display = 'flex';
+            setTimeout(() => {
+                const successModal = document.getElementById('registrationSuccessModal');
+                successModal.style.display = 'flex';
+                successModal.offsetHeight;
+                successModal.classList.add('show');
+            }, 350);
 
             // Reset form
             form.reset();
