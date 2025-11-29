@@ -11,44 +11,43 @@
 }
 
 :root {
-    /* Tmavé téma - tmavě šedá paleta pro lepší kontrast */
-    --bg-primary: #1a1a1a;
-    --bg-secondary: #222222;
-    --bg-tertiary: #2a2a2a;
-    --bg-card: #252525;
-    --bg-hover: #303030;
+    /* Moderní tmavé téma - příjemné a čitelné (Discord/Slack inspirace) */
+    --bg-primary: #2b2d31;      /* Hlavní pozadí */
+    --bg-secondary: #1e1f22;    /* Tmavší pozadí */
+    --bg-tertiary: #313338;     /* Střední pozadí */
+    --bg-card: #383a40;         /* Karty - světlejší než pozadí */
+    --bg-hover: #404249;        /* Hover stavy */
 
-    /* Text */
-    --text-primary: #ffffff;
-    --text-secondary: #cccccc;
-    --text-tertiary: #999999;
+    /* Text - dobře čitelný */
+    --text-primary: #f2f3f5;    /* Hlavní text */
+    --text-secondary: #b5bac1;  /* Sekundární text */
+    --text-tertiary: #80848e;   /* Terciární text */
 
-    /* Borders & Dividers */
-    --border-color: #3a3a3a;
-    --border-hover: #4a4a4a;
+    /* Borders */
+    --border-color: #4e5058;    /* Viditelné hranice */
+    --border-hover: #6d6f78;    /* Zvýrazněné hranice */
 
-    /* Akcenty - pouze šedá škála */
-    --accent: #ffffff;
-    --accent-dim: #cccccc;
-    --accent-dimmer: #808080;
+    /* Akcent - jemná modrá pro živost */
+    --accent-primary: #5865f2;  /* Modrý akcent pro aktivní prvky */
+    --accent-hover: #4752c4;    /* Tmavší při hover */
 
-    /* Stavy */
-    --success: #e0e0e0;
-    --warning: #c0c0c0;
-    --danger: #a0a0a0;
+    /* Stavy - barevné ale tlumené */
+    --success: #3ba55d;
+    --warning: #faa81a;
+    --danger: #ed4245;
 
     /* Starší proměnné - kompatibilita */
     --white: #ffffff;
-    --gray-50: #1a1a1a;
-    --gray-100: #222222;
-    --gray-200: #2a2a2a;
-    --gray-300: #333333;
-    --gray-400: #666666;
-    --gray-500: #808080;
-    --gray-600: #b3b3b3;
-    --gray-700: #cccccc;
-    --gray-800: #e6e6e6;
-    --gray-900: #ffffff;
+    --gray-50: #2b2d31;
+    --gray-100: #313338;
+    --gray-200: #383a40;
+    --gray-300: #404249;
+    --gray-400: #80848e;
+    --gray-500: #80848e;
+    --gray-600: #b5bac1;
+    --gray-700: #b5bac1;
+    --gray-800: #f2f3f5;
+    --gray-900: #f2f3f5;
 
     /* Typografie - KOMPAKTNÍ */
     --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -169,8 +168,8 @@ body {
 }
 
 .nav-link.active {
-    background: var(--text-primary);
-    color: var(--bg-primary);
+    background: var(--accent-primary);
+    color: #ffffff;
 }
 
 .nav-link .icon {
@@ -233,8 +232,8 @@ body {
 }
 
 .sidebar-link.active {
-    background: var(--text-primary);
-    color: var(--white);
+    background: var(--accent-primary);
+    color: #ffffff;
 }
 
 .sidebar-link .icon {
@@ -304,13 +303,13 @@ body {
 }
 
 .btn-primary {
-    background: var(--text-primary);
-    color: var(--white);
+    background: var(--accent-primary);
+    color: #ffffff;
 }
 
 .btn-primary:hover {
-    background: var(--accent-dim);
-    color: var(--bg-primary);
+    background: var(--accent-hover);
+    color: #ffffff;
     transform: translateY(-1px);
     box-shadow: var(--shadow-lg);
 }
@@ -326,7 +325,7 @@ body {
 
 .btn-success {
     background: var(--secondary);
-    color: var(--white);
+    color: #ffffff;
 }
 
 .btn-success:hover {
@@ -335,7 +334,7 @@ body {
 
 .btn-danger {
     background: var(--danger);
-    color: var(--white);
+    color: #ffffff;
 }
 
 .btn-danger:hover {
@@ -344,13 +343,13 @@ body {
 
 .btn-outline {
     background: transparent;
-    border: 2px solid var(--primary);
+    border: 2px solid var(--accent-primary);
     color: var(--text-primary);
 }
 
 .btn-outline:hover {
-    background: var(--text-primary);
-    color: var(--white);
+    background: var(--accent-primary);
+    color: #ffffff;
 }
 
 .btn-lg {
@@ -381,8 +380,8 @@ body {
 
 .upload-zone:hover,
 .upload-zone.dragover {
-    border-color: var(--text-primary);
-    background: rgba(255, 255, 255, 0.03);
+    border-color: var(--accent-primary);
+    background: rgba(88, 101, 242, 0.1);
 }
 
 .upload-zone .icon {
@@ -458,7 +457,7 @@ body {
 .category-card:hover {
     transform: translateY(-2px);
     box-shadow: var(--shadow-lg);
-    border-color: var(--text-primary);
+    border-color: var(--accent-primary);
 }
 
 .category-card .icon {
@@ -556,8 +555,8 @@ body {
     top: 0;
     width: 20px;
     height: 20px;
-    background: var(--text-primary);
-    color: var(--white);
+    background: var(--accent-primary);
+    color: #ffffff;
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -729,14 +728,14 @@ a.tool-link {
 }
 
 a.tool-link:hover {
-    background: var(--text-primary);
-    color: var(--white);
-    border-color: var(--text-primary);
+    background: var(--accent-primary);
+    color: #ffffff;
+    border-color: var(--accent-primary);
     transform: translateY(-1px);
 }
 
 a.tool-link:hover .icon {
-    color: var(--white);
+    color: #ffffff;
 }
 
 a.tool-link .link-arrow {
@@ -763,7 +762,7 @@ a.tool-link:hover .link-arrow {
 }
 
 .partner-card:hover {
-    border-color: var(--text-primary);
+    border-color: var(--accent-primary);
     transform: translateY(-2px);
     box-shadow: var(--shadow);
 }
@@ -801,7 +800,7 @@ a.tool-link:hover .link-arrow {
 
 .provider-card:hover {
     box-shadow: var(--shadow);
-    border-color: var(--text-primary);
+    border-color: var(--accent-primary);
 }
 
 .provider-avatar {
@@ -838,7 +837,7 @@ a.tool-link:hover .link-arrow {
 
 .provider-badge {
     background: var(--secondary);
-    color: var(--white);
+    color: #ffffff;
     padding: 2px 6px;
     border-radius: 8px;
     font-size: 0.6rem;
@@ -876,8 +875,8 @@ a.tool-link:hover .link-arrow {
 .form-select:focus,
 .form-textarea:focus {
     outline: none;
-    border-color: var(--text-primary);
-    box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.05);
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 2px rgba(88, 101, 242, 0.2);
 }
 
 .form-textarea {
@@ -923,7 +922,7 @@ a.tool-link:hover .link-arrow {
 
 .search-box input:focus {
     outline: none;
-    border-color: var(--text-primary);
+    border-color: var(--accent-primary);
 }
 
 .search-box .icon {
@@ -1054,7 +1053,7 @@ a.tool-link:hover .link-arrow {
     width: 32px;
     height: 32px;
     border: 3px solid var(--gray-200);
-    border-top-color: var(--text-primary);
+    border-top-color: var(--accent-primary);
     border-radius: 50%;
     animation: spin 1s linear infinite;
 }
@@ -1280,23 +1279,23 @@ tr:hover {
 }
 
 .badge-primary {
-    background: var(--text-primary);
-    color: var(--white);
+    background: var(--accent-primary);
+    color: #ffffff;
 }
 
 .badge-success {
     background: var(--success);
-    color: var(--white);
+    color: #ffffff;
 }
 
 .badge-warning {
     background: var(--warning);
-    color: var(--white);
+    color: #ffffff;
 }
 
 .badge-danger {
     background: var(--danger);
-    color: var(--white);
+    color: #ffffff;
 }
 
 /* Difficulty indicator */
@@ -1502,8 +1501,8 @@ tr:hover {
 
 .upload-zone-compact:hover,
 .upload-zone-compact.dragover {
-    border-color: var(--text-primary);
-    background: rgba(255, 255, 255, 0.03);
+    border-color: var(--accent-primary);
+    background: rgba(88, 101, 242, 0.1);
 }
 
 .upload-content {
@@ -1561,7 +1560,7 @@ tr:hover {
 
 .category-item:hover {
     background: var(--bg-card);
-    border-color: var(--text-primary);
+    border-color: var(--accent-primary);
     box-shadow: var(--shadow);
 }
 
