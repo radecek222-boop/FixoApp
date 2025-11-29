@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="FIXO - Najděte ověřené řemeslníky ve vašem okolí">
+    <meta name="description" content="FIXO - Najděte ověřené řemeslníky pro domácí opravy">
     <title>Řemeslníci - FIXO</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>FIXO</text></svg>">
 </head>
 <body>
-    <div class="app-container">
+    <div class="app-container fullscreen-layout">
         <!-- Header -->
         <header class="header">
             <a href="index.html" class="logo">
@@ -19,7 +20,7 @@
                     <div class="logo-tagline">AI asistent pro domácí opravy</div>
                 </div>
             </a>
-                        <nav class="nav">
+            <nav class="nav">
                 <a href="index.html" class="nav-link">
                     <span>Domů</span>
                 </a>
@@ -42,213 +43,83 @@
         </header>
         <!-- Main Content -->
         <main class="main-content">
-            <!-- Sidebar s filtry -->
-            <aside class="sidebar">
-                <div class="sidebar-section">
-                    <h3 class="sidebar-title">Vyhledávání</h3>
-                    <div class="search-box">
-                        <span class="icon">🔍</span>
-                        <input type="text" id="searchProvider" placeholder="Hledat řemeslníka...">
-                    </div>
-                </div>
-                <div class="sidebar-section">
-                    <h3 class="sidebar-title">Vaše lokalita</h3>
-                    <div class="form-group">
-                        <input type="text" class="form-input" id="locationInput" placeholder="PSČ nebo město">
-                    </div>
-                    <button class="btn btn-secondary btn-block" onclick="detectLocation()">
-                        <span>📍</span> Zjistit polohu
-                    </button>
-                </div>
-                <div class="sidebar-section">
-                    <h3 class="sidebar-title">Specializace</h3>
-                    <ul class="sidebar-menu">
-                        <li class="sidebar-item">
-                            <a href="#" class="sidebar-link active" data-spec="all">
-                                <span class="icon">Řemeslníci</span>
-                                <span>Všechny obory</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="#" class="sidebar-link" data-spec="plumber">
-                                <span>Instalatér</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="#" class="sidebar-link" data-spec="electrician">
-                                <span>Elektrikář</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="#" class="sidebar-link" data-spec="carpenter">
-                                <span class="icon">🪚</span>
-                                <span>Truhlář</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="#" class="sidebar-link" data-spec="locksmith">
-                                <span class="icon">🔐</span>
-                                <span>Zámečník</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="#" class="sidebar-link" data-spec="heating">
-                                <span>Topenář</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="#" class="sidebar-link" data-spec="painter">
-                                <span>Malíř</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="#" class="sidebar-link" data-spec="handyman">
-                                <span class="icon">FIXO</span>
-                                <span>Údržbář</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="sidebar-section">
-                    <h3 class="sidebar-title">Jste řemeslník?</h3>
-                    <button class="btn btn-success btn-block" onclick="openRegisterModal()">
-                        <span>📝</span> Registrovat se
-                    </button>
-                    <p style="font-size: 0.65rem; color: #666; margin-top: 4px; text-align: center;">
-                        Získejte nové zakázky
-                    </p>
-                </div>
-            </aside>
-            <!-- Obsahová oblast -->
-            <div class="content-area">
-                <!-- Hlavička -->
-                <div class="flex-between mb-2">
-                    <h1 style="font-size: 1.3rem;">
-                        <span>Řemeslníci</span> Ověření řemeslníci
-                        <span style="color: #666; font-weight: normal; font-size: 0.8rem;" id="providerCount">(150+ řemeslníků)</span>
+            <div class="content-area" style="padding: 0; display: flex; flex-direction: column; height: 100%; overflow-y: auto;">
+                <!-- Hero sekce -->
+                <section style="text-align: center; padding: 40px 32px 24px; max-width: 700px; margin: 0 auto;">
+                    <h1 style="font-size: 2.5rem; font-weight: 700; margin-bottom: 16px; line-height: 1.1; letter-spacing: -0.03em;">
+                        Najít Řemeslníka
                     </h1>
-                    <div class="flex gap-2">
-                        <select class="form-select" id="sortProviders" style="width: auto;">
-                            <option value="rating">Podle hodnocení</option>
-                            <option value="distance">Podle vzdálenosti</option>
-                            <option value="price">Podle ceny</option>
-                        </select>
-                    </div>
-                </div>
-                <!-- ROI Kalkulačka pro řemeslníky -->
-                <div class="card mb-2" style="background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%); color: white;">
-                    <div style="padding: 12px;">
-                        <h2 style="font-size: 0.9rem; margin-bottom: 6px; color: white;">💰 ROI Kalkulačka - Kolik vyděláte s FIXO?</h2>
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px;">
-                            <div style="background: rgba(255,255,255,0.15); padding: 10px; border-radius: 8px;">
-                                <div style="font-size: 0.7rem; opacity: 0.9; margin-bottom: 4px;">Průměrně zakázek/měsíc</div>
-                                <div style="font-size: 1.5rem; font-weight: 700;">8-12</div>
-                            </div>
-                            <div style="background: rgba(255,255,255,0.15); padding: 10px; border-radius: 8px;">
-                                <div style="font-size: 0.7rem; opacity: 0.9; margin-bottom: 4px;">Průměrná hodnota zakázky</div>
-                                <div style="font-size: 1.5rem; font-weight: 700;">2 500 Kč</div>
-                            </div>
-                        </div>
-                        <div style="background: rgba(255,255,255,0.2); padding: 12px; border-radius: 8px; border: 2px solid rgba(255,255,255,0.3);">
-                            <div style="display: flex; justify-content: space-between; align-items: center;">
-                                <div>
-                                    <div style="font-size: 0.75rem; opacity: 0.9;">Premium: 299 Kč/měs</div>
-                                    <div style="font-size: 0.75rem; opacity: 0.9;">Obrat: 10 zakázek × 2 500 Kč</div>
-                                    <div style="font-size: 0.75rem; opacity: 0.9; margin-top: 4px; font-weight: 700;">ROI: 8 267%</div>
-                                </div>
-                                <div style="text-align: right;">
-                                    <div style="font-size: 0.7rem; opacity: 0.9;">Měsíční obrat</div>
-                                    <div style="font-size: 1.8rem; font-weight: 700;">25 000 Kč</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                    <p style="font-size: 1rem; color: var(--text-secondary); font-weight: 400; margin-bottom: 32px; line-height: 1.5;">
+                        163 ověřených profesionálů ve vaší oblasti
+                    </p>
+                </section>
 
-                <!-- Testimonials od řemeslníků -->
-                <div class="card mb-2">
-                    <div class="card-header">
-                        <h2 class="card-title">
-                            <span class="icon">⭐</span>
-                            Co říkají řemeslníci
-                        </h2>
-                    </div>
-                    <div style="padding: 12px; display: grid; gap: 8px;">
-                        <div style="background: var(--bg-secondary); padding: 10px; border-radius: 8px; border-left: 3px solid var(--success);">
-                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                                <strong style="font-size: 0.75rem;">Petr N., Instalatér</strong>
-                                <span style="color: var(--warning); font-size: 0.7rem;">★★★★★</span>
-                            </div>
-                            <p style="font-size: 0.7rem; color: var(--text-secondary); margin: 0;">
-                                "Za 3 měsíce jsem dostal 27 zakázek. Premium se vrátí už z první zakázky!"
-                            </p>
-                        </div>
-                        <div style="background: var(--bg-secondary); padding: 10px; border-radius: 8px; border-left: 3px solid var(--accent-primary);">
-                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-                                <strong style="font-size: 0.75rem;">Karel V., Elektrikář</strong>
-                                <span style="color: var(--warning); font-size: 0.7rem;">★★★★★</span>
-                            </div>
-                            <p style="font-size: 0.7rem; color: var(--text-secondary); margin: 0;">
-                                "Kvalitní poptávky, férová provize. Konečně platforma, která funguje!"
-                            </p>
-                        </div>
-                    </div>
-                </div>
+                <!-- Specializace Grid -->
+                <section style="max-width: 1200px; margin: 0 auto 64px; padding: 0 32px;">
+                    <div class="cta-grid">
+                        <!-- Instalatér -->
+                        <a href="#" class="card" style="text-decoration: none; text-align: center; padding: var(--space-3xl) var(--space-xl); transition: transform 0.3s;">
+                            <i class="fas fa-faucet" style="font-size: 3rem; margin-bottom: var(--space-lg); color: var(--accent); display: block;"></i>
+                            <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: var(--space-sm); color: var(--text-primary);">Instalatéři</h3>
+                            <p style="color: var(--text-secondary); font-size: 0.875rem; margin-bottom: var(--space-lg);">Voda, topení, kanalizace</p>
+                            <div class="btn btn-outline btn-sm">Zobrazit řemeslníky</div>
+                        </a>
 
-                <!-- Ceníky plánů -->
-                <div class="card mb-2">
-                    <div class="card-header">
-                        <h2 class="card-title">
-                            <span class="icon">💼</span>
-                            Plány pro řemeslníky
-                        </h2>
+                        <!-- Elektrikář -->
+                        <a href="#" class="card" style="text-decoration: none; text-align: center; padding: var(--space-3xl) var(--space-xl); transition: transform 0.3s;">
+                            <i class="fas fa-bolt" style="font-size: 3rem; margin-bottom: var(--space-lg); color: var(--accent); display: block;"></i>
+                            <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: var(--space-sm); color: var(--text-primary);">Elektrikáři</h3>
+                            <p style="color: var(--text-secondary); font-size: 0.875rem; margin-bottom: var(--space-lg);">Elektroinstalace, revize</p>
+                            <div class="btn btn-outline btn-sm">Zobrazit řemeslníky</div>
+                        </a>
+
+                        <!-- Truhlář -->
+                        <a href="#" class="card" style="text-decoration: none; text-align: center; padding: var(--space-3xl) var(--space-xl); transition: transform 0.3s;">
+                            <i class="fas fa-hammer" style="font-size: 3rem; margin-bottom: var(--space-lg); color: var(--accent); display: block;"></i>
+                            <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: var(--space-sm); color: var(--text-primary);">Truhláři</h3>
+                            <p style="color: var(--text-secondary); font-size: 0.875rem; margin-bottom: var(--space-lg);">Nábytek, dveře, podlahy</p>
+                            <div class="btn btn-outline btn-sm">Zobrazit řemeslníky</div>
+                        </a>
+
+                        <!-- Zedník -->
+                        <a href="#" class="card" style="text-decoration: none; text-align: center; padding: var(--space-3xl) var(--space-xl); transition: transform 0.3s;">
+                            <i class="fas fa-trowel-bricks" style="font-size: 3rem; margin-bottom: var(--space-lg); color: var(--accent); display: block;"></i>
+                            <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: var(--space-sm); color: var(--text-primary);">Zedníci</h3>
+                            <p style="color: var(--text-secondary); font-size: 0.875rem; margin-bottom: var(--space-lg);">Obkladačské práce, omítky</p>
+                            <div class="btn btn-outline btn-sm">Zobrazit řemeslníky</div>
+                        </a>
+
+                        <!-- Malíř -->
+                        <a href="#" class="card" style="text-decoration: none; text-align: center; padding: var(--space-3xl) var(--space-xl); transition: transform 0.3s;">
+                            <i class="fas fa-paint-roller" style="font-size: 3rem; margin-bottom: var(--space-lg); color: var(--accent); display: block;"></i>
+                            <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: var(--space-sm); color: var(--text-primary);">Malíři</h3>
+                            <p style="color: var(--text-secondary); font-size: 0.875rem; margin-bottom: var(--space-lg);">Malování, tapety, nátěry</p>
+                            <div class="btn btn-outline btn-sm">Zobrazit řemeslníky</div>
+                        </a>
+
+                        <!-- Ostatní -->
+                        <a href="#" class="card" style="text-decoration: none; text-align: center; padding: var(--space-3xl) var(--space-xl); transition: transform 0.3s;">
+                            <i class="fas fa-wrench" style="font-size: 3rem; margin-bottom: var(--space-lg); color: var(--accent); display: block;"></i>
+                            <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: var(--space-sm); color: var(--text-primary);">Ostatní</h3>
+                            <p style="color: var(--text-secondary); font-size: 0.875rem; margin-bottom: var(--space-lg);">Opravy a údržba</p>
+                            <div class="btn btn-outline btn-sm">Zobrazit řemeslníky</div>
+                        </a>
                     </div>
-                    <div class="grid grid-3">
-                        <div class="partner-card" style="border: 2px solid #e5e7eb;">
-                            <div style="font-size: 22px; margin-bottom: 4px;"></div>
-                            <h3 style="font-size: 0.85rem;">Základní</h3>
-                            <div style="font-size: 1.2rem; font-weight: 700; color: #10b981; margin: 6px 0;">ZDARMA</div>
-                            <ul style="text-align: left; font-size: 0.7rem; color: #666; list-style: none; padding: 0;">
-                                <li>✓ Profil řemeslníka</li>
-                                <li>✓ 5 poptávek/měsíc</li>
-                                <li style="color: #ccc;">✗ Odznak "Ověřeno"</li>
-                            </ul>
-                        </div>
-                        <div class="partner-card" style="border: 2px solid #2563eb;">
-                            <span class="badge badge-primary">Doporučeno</span>
-                            <div style="font-size: 22px; margin-bottom: 4px;">⭐</div>
-                            <h3 style="font-size: 0.85rem;">Premium</h3>
-                            <div style="font-size: 1.2rem; font-weight: 700; color: #2563eb; margin: 6px 0;">299 Kč/měs.</div>
-                            <ul style="text-align: left; font-size: 0.7rem; color: #666; list-style: none; padding: 0;">
-                                <li>✓ Neomezené poptávky</li>
-                                <li>✓ Odznak "Ověřeno"</li>
-                                <li>✓ Prioritní zobrazení</li>
-                                <li>✓ Průměrně 10 zakázek/měs</li>
-                                <li>✓ ROI 8 000%+</li>
-                            </ul>
-                        </div>
-                        <div class="partner-card" style="border: 2px solid #f59e0b;">
-                            <div style="font-size: 22px; margin-bottom: 4px;">🏆</div>
-                            <h3 style="font-size: 0.85rem;">Enterprise</h3>
-                            <div style="font-size: 1.2rem; font-weight: 700; color: #f59e0b; margin: 6px 0;">999 Kč/měs.</div>
-                            <ul style="text-align: left; font-size: 0.7rem; color: #666; list-style: none; padding: 0;">
-                                <li>✓ Marketing podpora</li>
-                                <li>✓ API přístup</li>
-                                <li>✓ Statistiky a reporty</li>
-                                <li>✓ Dedikovaný account manager</li>
-                            </ul>
-                        </div>
+                </section>
+
+                <!-- Registrace CTA -->
+                <section style="max-width: 700px; margin: 0 auto 64px; padding: 0 32px;">
+                    <div class="card" style="text-align: center; padding: var(--space-3xl) var(--space-xl); background: linear-gradient(135deg, var(--accent) 0%, #0056b3 100%); border: none;">
+                        <i class="fas fa-user-plus" style="font-size: 3rem; margin-bottom: var(--space-lg); color: white; display: block;"></i>
+                        <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: var(--space-sm); color: white;">Jste řemeslník?</h3>
+                        <p style="color: rgba(255,255,255,0.9); font-size: 1rem; margin-bottom: var(--space-xl);">
+                            Získejte nové zakázky z vaší oblasti
+                        </p>
+                        <a href="contacts.html" class="btn" style="background: white; color: var(--accent); border: none;">
+                            <i class="fas fa-arrow-right"></i> Registrovat se
+                        </a>
                     </div>
-                </div>
-                <!-- Seznam řemeslníků -->
-                <div class="grid grid-2" id="providersGrid">
-                    <!-- Řemeslníci budou načteni JavaScriptem -->
-                </div>
-                <!-- Loading -->
-                <div id="loadingState" class="loading hidden">
-                    <div class="spinner"></div>
-                    <p>Načítám řemeslníky...</p>
-                </div>
+                </section>
             </div>
         </main>
         <!-- Footer -->
@@ -262,98 +133,8 @@
             </div>
         </footer>
     </div>
-    <!-- Modal pro registraci řemeslníka -->
-    <div class="modal-overlay" id="registerModal">
-        <div class="modal" style="max-width: 600px;">
-            <div class="modal-header" style="padding: 16px 20px;">
-                <h3 style="font-size: 1.2rem; margin: 0;">📝 Registrace řemeslníka</h3>
-                <button class="modal-close" onclick="closeRegisterModal()">&times;</button>
-            </div>
-            <div class="modal-body">
-                <form id="registerForm">
-                    <div class="grid grid-2">
-                        <div class="form-group">
-                            <label class="form-label">Jméno a příjmení *</label>
-                            <input type="text" class="form-input" required placeholder="Jan Novák">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Telefon *</label>
-                            <input type="tel" class="form-input" required placeholder="+420 123 456 789">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">E-mail *</label>
-                        <input type="email" class="form-input" required placeholder="jan@example.cz">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Specializace *</label>
-                        <select class="form-select" required>
-                            <option value="">Vyberte specializaci</option>
-                            <option value="plumber">Instalatér</option>
-                            <option value="electrician">Elektrikář</option>
-                            <option value="carpenter">Truhlář</option>
-                            <option value="locksmith">Zámečník</option>
-                            <option value="heating">Topenář</option>
-                            <option value="painter">Malíř</option>
-                            <option value="handyman">Údržbář</option>
-                        </select>
-                    </div>
-                    <div class="grid grid-2">
-                        <div class="form-group">
-                            <label class="form-label">Město *</label>
-                            <input type="text" class="form-input" required placeholder="Praha">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">PSČ *</label>
-                            <input type="text" class="form-input" required placeholder="110 00">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">O vás (volitelné)</label>
-                        <textarea class="form-textarea" placeholder="Krátký popis vaší činnosti, zkušeností..."></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-checkbox">
-                            <input type="checkbox" required>
-                            <span>Souhlasím s <a href="terms.html" target="_blank">obchodními podmínkami</a> a <a href="privacy.html" target="_blank">zpracováním osobních údajů</a> *</span>
-                        </label>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" onclick="closeRegisterModal()">Zrušit</button>
-                <button class="btn btn-primary" onclick="submitRegistration()">
-                    <span>✓</span> Odeslat registraci
-                </button>
-            </div>
-        </div>
-    </div>
-    <!-- Modal pro detail řemeslníka -->
-    <div class="modal-overlay" id="providerDetailModal">
-        <div class="modal" style="max-width: 500px;">
-            <div class="modal-header" style="padding: 16px 20px;">
-                <h3 id="providerDetailTitle" style="font-size: 1.2rem; margin: 0;">Detail řemeslníka</h3>
-                <button class="modal-close" onclick="closeProviderDetail()">&times;</button>
-            </div>
-            <div class="modal-body" id="providerDetailBody">
-                <!-- Obsah bude vložen JavaScriptem -->
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" onclick="closeProviderDetail()">Zavřít</button>
-                <a href="tel:" class="btn btn-success" id="callProviderBtn">
-                    <span></span> Zavolat
-                </a>
-            </div>
-        </div>
-    </div>
     <!-- Toast Container -->
     <div class="toast-container" id="toastContainer"></div>
     <script src="js/app.js"></script>
-    <script>
-        // Inicializace stránky řemeslníků
-        document.addEventListener('DOMContentLoaded', function() {
-            initProvidersPage();
-        });
-    </script>
 </body>
 </html>

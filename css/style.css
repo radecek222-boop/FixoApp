@@ -18,7 +18,7 @@
     --bg-primary: #0a0a0b;           /* Deep dark background */
     --bg-secondary: #1a1a1d;         /* Slightly lighter dark */
     --bg-tertiary: #2a2a2f;          /* Card background base */
-    --bg-glass: rgba(42, 42, 47, 0.7);  /* Glass effect background */
+    --bg-glass: rgba(42, 42, 47, 0.35);  /* Glass effect background */
     --bg-glass-light: rgba(255, 255, 255, 0.05);  /* Subtle glass overlay */
 
     /* Text - Refined and readable */
@@ -140,8 +140,8 @@ body {
 .header {
     /* Glassmorphism header */
     background: var(--bg-glass);
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    backdrop-filter: blur(10px) saturate(150%);
+    -webkit-backdrop-filter: blur(10px) saturate(150%);
 
     height: var(--header-height);
     border-bottom: 1px solid var(--border-subtle);
@@ -323,7 +323,7 @@ body {
     flex: 1;
     padding: 12px;
     overflow-y: auto;
-    background: var(--bg-tertiary);
+    background: transparent;
 }
 
 /* ========================================
@@ -337,8 +337,8 @@ body {
 .card {
     /* Glassmorphism effect */
     background: var(--bg-glass);
-    backdrop-filter: blur(20px) saturate(180%);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    backdrop-filter: blur(10px) saturate(150%);
+    -webkit-backdrop-filter: blur(10px) saturate(150%);
 
     /* Border and shadows */
     border: 1px solid var(--border-subtle);

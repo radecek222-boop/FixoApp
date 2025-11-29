@@ -10,7 +10,7 @@
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>FIXO</text></svg>">
 </head>
 <body>
-    <div class="app-container">
+    <div class="app-container fullscreen-layout">
         <!-- Header -->
         <header class="header">
             <a href="index.html" class="logo">
@@ -20,7 +20,7 @@
                     <div class="logo-tagline">AI asistent pro domácí opravy</div>
                 </div>
             </a>
-                        <nav class="nav">
+            <nav class="nav">
                 <a href="index.html" class="nav-link">
                     <span>Domů</span>
                 </a>
@@ -43,120 +43,83 @@
         </header>
         <!-- Main Content -->
         <main class="main-content">
-            <!-- Sidebar s kategoriemi -->
-            <aside class="sidebar">
-                <div class="sidebar-section">
-                    <h3 class="sidebar-title">Vyhledávání</h3>
-                    <div class="search-box">
-                        <span class="icon">🔍</span>
-                        <input type="text" id="searchInput" placeholder="Hledat návod...">
-                    </div>
-                </div>
-                <div class="sidebar-section">
-                    <h3 class="sidebar-title">Kategorie</h3>
-                    <ul class="sidebar-menu">
-                        <li class="sidebar-item">
-                            <a href="#" class="sidebar-link active" data-category="all">
-                                <span>Všechny návody</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="#" class="sidebar-link" data-category="bathroom">
-                                <span>Koupelna</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="#" class="sidebar-link" data-category="house">
-                                <span>Dům</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="#" class="sidebar-link" data-category="electrical">
-                                <span>Elektřina</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="#" class="sidebar-link" data-category="heating">
-                                <span>Topení</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="#" class="sidebar-link" data-category="kitchen">
-                                <span>Kuchyň</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="#" class="sidebar-link" data-category="garden">
-                                <span>Zahrada</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="sidebar-section">
-                    <h3 class="sidebar-title">Filtr obtížnosti</h3>
-                    <ul class="sidebar-menu">
-                        <li class="sidebar-item">
-                            <a href="#" class="sidebar-link" data-difficulty="all">
-                                <span>Všechny úrovně</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="#" class="sidebar-link" data-difficulty="easy">
-                                <span class="icon">●</span>
-                                <span>Snadné</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="#" class="sidebar-link" data-difficulty="medium">
-                                <span class="icon">●</span>
-                                <span>Střední</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a href="#" class="sidebar-link" data-difficulty="hard">
-                                <span class="icon">●</span>
-                                <span>Náročné</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="sidebar-section">
-                    <h3 class="sidebar-title">Potřebujete pomoc?</h3>
-                    <a href="index.html" class="btn btn-primary" style="width: 100%; margin-bottom: var(--space-md);">
-                        <i class="fas fa-camera"></i> AI Analýza
-                    </a>
-                    <a href="providers.html" class="btn btn-outline" style="width: 100%;">
-                        <i class="fas fa-user-helmet-safety"></i> Najít řemeslníka
-                    </a>
-                </div>
-            </aside>
-            <!-- Obsahová oblast -->
-            <div class="content-area">
-                <!-- Hlavička s počtem -->
-                <div class="flex-between" style="margin-bottom: var(--space-md);">
-                    <h1 style="font-size: 1.4rem; font-weight: 700; margin: 0;">
-                        <i class="fas fa-screwdriver-wrench" id="categoryIcon" style="margin-right: var(--space-sm);"></i>
-                        <span id="categoryTitle">Všechny návody</span>
-                        <span style="color: var(--text-tertiary); font-weight: normal; font-size: 0.85rem; margin-left: var(--space-md);" id="repairCount">(537 návodů)</span>
+            <div class="content-area" style="padding: 0; display: flex; flex-direction: column; height: 100%; overflow-y: auto;">
+                <!-- Hero sekce -->
+                <section style="text-align: center; padding: 40px 32px 24px; max-width: 700px; margin: 0 auto;">
+                    <h1 style="font-size: 2.5rem; font-weight: 700; margin-bottom: 16px; line-height: 1.1; letter-spacing: -0.03em;">
+                        DIY Návody
                     </h1>
-                </div>
-                <!-- Grid s návody -->
-                <div class="grid grid-3" id="repairsGrid">
-                    <!-- Návody budou načteny JavaScriptem -->
-                </div>
-                <!-- Loading -->
-                <div id="loadingState" class="loading hidden">
-                    <div class="spinner"></div>
-                    <p>Načítám návody...</p>
-                </div>
-                <!-- Prázdný stav -->
-                <div id="emptyState" class="card text-center hidden">
-                    <div style="padding: var(--space-3xl);">
-                        <i class="fas fa-search" style="font-size: 4rem; margin-bottom: var(--space-lg); color: var(--text-tertiary); display: block;"></i>
-                        <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: var(--space-md);">Žádné návody nenalezeny</h3>
-                        <p style="color: var(--text-secondary); font-size: 1rem;">Zkuste změnit vyhledávání nebo kategorii.</p>
+                    <p style="font-size: 1rem; color: var(--text-secondary); font-weight: 400; margin-bottom: 32px; line-height: 1.5;">
+                        537 krok-za-krokem návodů pro opravu domácích závad
+                    </p>
+                </section>
+
+                <!-- Kategorie Grid -->
+                <section style="max-width: 1200px; margin: 0 auto 64px; padding: 0 32px;">
+                    <div class="cta-grid">
+                        <!-- Koupelna -->
+                        <a href="#" class="card" style="text-decoration: none; text-align: center; padding: var(--space-3xl) var(--space-xl); transition: transform 0.3s;" data-category="bathroom">
+                            <i class="fas fa-bath" style="font-size: 3rem; margin-bottom: var(--space-lg); color: var(--accent); display: block;"></i>
+                            <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: var(--space-sm); color: var(--text-primary);">Koupelna</h3>
+                            <p style="color: var(--text-secondary); font-size: 0.875rem; margin-bottom: var(--space-lg);">Baterie, sprchy, záchody</p>
+                            <div class="btn btn-outline btn-sm">Zobrazit návody</div>
+                        </a>
+
+                        <!-- Dům -->
+                        <a href="#" class="card" style="text-decoration: none; text-align: center; padding: var(--space-3xl) var(--space-xl); transition: transform 0.3s;" data-category="house">
+                            <i class="fas fa-house" style="font-size: 3rem; margin-bottom: var(--space-lg); color: var(--accent); display: block;"></i>
+                            <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: var(--space-sm); color: var(--text-primary);">Dům</h3>
+                            <p style="color: var(--text-secondary); font-size: 0.875rem; margin-bottom: var(--space-lg);">Okna, dveře, podlahy</p>
+                            <div class="btn btn-outline btn-sm">Zobrazit návody</div>
+                        </a>
+
+                        <!-- Elektřina -->
+                        <a href="#" class="card" style="text-decoration: none; text-align: center; padding: var(--space-3xl) var(--space-xl); transition: transform 0.3s;" data-category="electrical">
+                            <i class="fas fa-bolt" style="font-size: 3rem; margin-bottom: var(--space-lg); color: var(--accent); display: block;"></i>
+                            <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: var(--space-sm); color: var(--text-primary);">Elektřina</h3>
+                            <p style="color: var(--text-secondary); font-size: 0.875rem; margin-bottom: var(--space-lg);">Zásuvky, světla, jističe</p>
+                            <div class="btn btn-outline btn-sm">Zobrazit návody</div>
+                        </a>
+
+                        <!-- Topení -->
+                        <a href="#" class="card" style="text-decoration: none; text-align: center; padding: var(--space-3xl) var(--space-xl); transition: transform 0.3s;" data-category="heating">
+                            <i class="fas fa-fire" style="font-size: 3rem; margin-bottom: var(--space-lg); color: var(--accent); display: block;"></i>
+                            <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: var(--space-sm); color: var(--text-primary);">Topení</h3>
+                            <p style="color: var(--text-secondary); font-size: 0.875rem; margin-bottom: var(--space-lg);">Radiátory, kotle, termostaty</p>
+                            <div class="btn btn-outline btn-sm">Zobrazit návody</div>
+                        </a>
+
+                        <!-- Kuchyň -->
+                        <a href="#" class="card" style="text-decoration: none; text-align: center; padding: var(--space-3xl) var(--space-xl); transition: transform 0.3s;" data-category="kitchen">
+                            <i class="fas fa-kitchen-set" style="font-size: 3rem; margin-bottom: var(--space-lg); color: var(--accent); display: block;"></i>
+                            <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: var(--space-sm); color: var(--text-primary);">Kuchyň</h3>
+                            <p style="color: var(--text-secondary); font-size: 0.875rem; margin-bottom: var(--space-lg);">Spotřebiče, dřez, linky</p>
+                            <div class="btn btn-outline btn-sm">Zobrazit návody</div>
+                        </a>
+
+                        <!-- Zahrada -->
+                        <a href="#" class="card" style="text-decoration: none; text-align: center; padding: var(--space-3xl) var(--space-xl); transition: transform 0.3s;" data-category="garden">
+                            <i class="fas fa-tree" style="font-size: 3rem; margin-bottom: var(--space-lg); color: var(--accent); display: block;"></i>
+                            <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: var(--space-sm); color: var(--text-primary);">Zahrada</h3>
+                            <p style="color: var(--text-secondary); font-size: 0.875rem; margin-bottom: var(--space-lg);">Plot, zavlažování, nástroje</p>
+                            <div class="btn btn-outline btn-sm">Zobrazit návody</div>
+                        </a>
                     </div>
-                </div>
+                </section>
+
+                <!-- Quick Actions -->
+                <section style="max-width: 800px; margin: 0 auto 64px; padding: 0 32px;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
+                        <a href="index.html" class="card" style="text-decoration: none; text-align: center; padding: var(--space-xl);">
+                            <i class="fas fa-camera" style="font-size: 2rem; margin-bottom: var(--space-md); color: var(--accent); display: block;"></i>
+                            <h4 style="font-size: 1rem; font-weight: 600; color: var(--text-primary);">AI Analýza</h4>
+                        </a>
+                        <a href="providers.html" class="card" style="text-decoration: none; text-align: center; padding: var(--space-xl);">
+                            <i class="fas fa-user-helmet-safety" style="font-size: 2rem; margin-bottom: var(--space-md); color: var(--accent); display: block;"></i>
+                            <h4 style="font-size: 1rem; font-weight: 600; color: var(--text-primary);">Najít Řemeslníka</h4>
+                        </a>
+                    </div>
+                </section>
             </div>
         </main>
         <!-- Footer -->
@@ -170,32 +133,8 @@
             </div>
         </footer>
     </div>
-    <!-- Modal pro detail opravy -->
-    <div class="modal-overlay" id="repairModal">
-        <div class="modal" style="max-width: 700px;">
-            <div class="modal-header" style="padding: 16px 20px;">
-                <h3 id="modalTitle" style="font-size: 1.2rem; margin: 0;">Detail opravy</h3>
-                <button class="modal-close" onclick="closeModal()">&times;</button>
-            </div>
-            <div class="modal-body" id="modalBody">
-                <!-- Obsah bude vložen JavaScriptem -->
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-secondary" onclick="closeModal()">Zavřít</button>
-                <a href="providers.html" class="btn btn-primary">
-                    <i class="fas fa-user-helmet-safety"></i> Najít řemeslníka
-                </a>
-            </div>
-        </div>
-    </div>
     <!-- Toast Container -->
     <div class="toast-container" id="toastContainer"></div>
     <script src="js/app.js"></script>
-    <script>
-        // Inicializace stránky návodů
-        document.addEventListener('DOMContentLoaded', function() {
-            initRepairPage();
-        });
-    </script>
 </body>
 </html>
