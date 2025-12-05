@@ -1560,6 +1560,9 @@ document.addEventListener('DOMContentLoaded', function() {
     // Upload (hlavní stránka)
     initUpload();
 
+    // Mobile menu
+    initMobileMenu();
+
     // Zavření modalů kliknutím na overlay
     document.querySelectorAll('.modal-overlay').forEach(overlay => {
         overlay.addEventListener('click', (e) => {
@@ -1575,6 +1578,323 @@ document.addEventListener('DOMContentLoaded', function() {
             document.querySelectorAll('.modal-overlay.show').forEach(modal => {
                 modal.classList.remove('show');
             });
+            // Also close mobile menu on Escape
+            const nav = document.getElementById('mainNav');
+            const menuBtn = document.getElementById('mobileMenuBtn');
+            if (nav && nav.classList.contains('show')) {
+                nav.classList.remove('show');
+                if (menuBtn) {
+                    const icon = menuBtn.querySelector('i');
+                    if (icon) {
+                        icon.classList.remove('fa-times');
+                        icon.classList.add('fa-bars');
+                    }
+                }
+            }
         }
     });
 });
+
+// ========================================
+// API Key Management (AES-256 Encryption)
+// ========================================
+
+// Encryption key derivation from a passphrase (device-specific)
+const API_KEY_STORAGE = 'fixo_api_key_encrypted';
+const API_KEY_SALT = 'fixo_salt';
+
+/**
+ * Generate a device-specific encryption key
+ */
+async function getEncryptionKey() {
+    const encoder = new TextEncoder();
+    // Use a combination of factors for device-specific key
+    const deviceId = navigator.userAgent + (navigator.language || '') + screen.width + screen.height;
+    const salt = encoder.encode(API_KEY_SALT + deviceId.substring(0, 16));
+
+    const keyMaterial = await crypto.subtle.importKey(
+        'raw',
+        encoder.encode(deviceId),
+        'PBKDF2',
+        false,
+        ['deriveKey']
+    );
+
+    return crypto.subtle.deriveKey(
+        {
+            name: 'PBKDF2',
+            salt: salt,
+            iterations: 100000,
+            hash: 'SHA-256'
+        },
+        keyMaterial,
+        { name: 'AES-GCM', length: 256 },
+        false,
+        ['encrypt', 'decrypt']
+    );
+}
+
+/**
+ * Encrypt API key using AES-256-GCM
+ */
+async function encryptApiKey(apiKey) {
+    try {
+        const key = await getEncryptionKey();
+        const encoder = new TextEncoder();
+        const iv = crypto.getRandomValues(new Uint8Array(12));
+
+        const encrypted = await crypto.subtle.encrypt(
+            { name: 'AES-GCM', iv: iv },
+            key,
+            encoder.encode(apiKey)
+        );
+
+        // Combine IV and encrypted data
+        const combined = new Uint8Array(iv.length + encrypted.byteLength);
+        combined.set(iv);
+        combined.set(new Uint8Array(encrypted), iv.length);
+
+        // Convert to base64 for storage
+        return btoa(String.fromCharCode(...combined));
+    } catch (error) {
+        console.error('Encryption error:', error);
+        return null;
+    }
+}
+
+/**
+ * Decrypt API key
+ */
+async function decryptApiKey(encryptedData) {
+    try {
+        const key = await getEncryptionKey();
+
+        // Decode from base64
+        const combined = new Uint8Array(atob(encryptedData).split('').map(c => c.charCodeAt(0)));
+
+        // Extract IV and encrypted data
+        const iv = combined.slice(0, 12);
+        const encrypted = combined.slice(12);
+
+        const decrypted = await crypto.subtle.decrypt(
+            { name: 'AES-GCM', iv: iv },
+            key,
+            encrypted
+        );
+
+        return new TextDecoder().decode(decrypted);
+    } catch (error) {
+        console.error('Decryption error:', error);
+        return null;
+    }
+}
+
+/**
+ * Open API Key modal
+ */
+function openApiKeyModal() {
+    const modal = document.getElementById('apiKeyModal');
+    const input = document.getElementById('apiKeyInput');
+    const status = document.getElementById('apiKeyStatus');
+    const deleteBtn = document.getElementById('deleteApiKeyBtn');
+
+    if (modal) {
+        modal.classList.add('show');
+
+        // Check if key exists
+        const encryptedKey = localStorage.getItem(API_KEY_STORAGE);
+        if (encryptedKey) {
+            status.innerHTML = '<span style="color: var(--success);"><i class="fas fa-check-circle"></i> API klíč je uložen</span>';
+            input.placeholder = '••••••••••••••••';
+            input.value = '';
+            if (deleteBtn) deleteBtn.style.display = 'block';
+        } else {
+            status.innerHTML = '<span style="color: var(--warning);"><i class="fas fa-exclamation-circle"></i> API klíč není nastaven</span>';
+            input.placeholder = 'sk-...';
+            if (deleteBtn) deleteBtn.style.display = 'none';
+        }
+    }
+
+    // Close mobile menu if open
+    const nav = document.getElementById('mainNav');
+    const menuIcon = document.getElementById('menuIcon');
+    if (nav && nav.classList.contains('show')) {
+        nav.classList.remove('show');
+        if (menuIcon) {
+            menuIcon.classList.remove('fa-times');
+            menuIcon.classList.add('fa-bars');
+        }
+    }
+}
+
+/**
+ * Close API Key modal
+ */
+function closeApiKeyModal() {
+    const modal = document.getElementById('apiKeyModal');
+    if (modal) {
+        modal.classList.remove('show');
+    }
+}
+
+/**
+ * Toggle API key visibility
+ */
+function toggleApiKeyVisibility() {
+    const input = document.getElementById('apiKeyInput');
+    const icon = document.getElementById('apiKeyToggleIcon');
+
+    if (input && icon) {
+        if (input.type === 'password') {
+            input.type = 'text';
+            icon.classList.remove('fa-eye');
+            icon.classList.add('fa-eye-slash');
+        } else {
+            input.type = 'password';
+            icon.classList.remove('fa-eye-slash');
+            icon.classList.add('fa-eye');
+        }
+    }
+}
+
+/**
+ * Save API key (encrypted)
+ */
+async function saveApiKey() {
+    const input = document.getElementById('apiKeyInput');
+    const status = document.getElementById('apiKeyStatus');
+    const deleteBtn = document.getElementById('deleteApiKeyBtn');
+
+    if (!input || !input.value.trim()) {
+        if (status) {
+            status.innerHTML = '<span style="color: var(--danger);"><i class="fas fa-times-circle"></i> Zadejte API klíč</span>';
+        }
+        return;
+    }
+
+    const apiKey = input.value.trim();
+
+    // Basic validation for OpenAI API key format
+    if (!apiKey.startsWith('sk-') || apiKey.length < 20) {
+        if (status) {
+            status.innerHTML = '<span style="color: var(--danger);"><i class="fas fa-times-circle"></i> Neplatný formát API klíče</span>';
+        }
+        return;
+    }
+
+    try {
+        const encrypted = await encryptApiKey(apiKey);
+        if (encrypted) {
+            localStorage.setItem(API_KEY_STORAGE, encrypted);
+            if (status) {
+                status.innerHTML = '<span style="color: var(--success);"><i class="fas fa-check-circle"></i> API klíč úspěšně uložen!</span>';
+            }
+            input.value = '';
+            input.placeholder = '••••••••••••••••';
+            if (deleteBtn) deleteBtn.style.display = 'block';
+
+            showToast('API klíč byl úspěšně uložen', 'success');
+        } else {
+            throw new Error('Encryption failed');
+        }
+    } catch (error) {
+        if (status) {
+            status.innerHTML = '<span style="color: var(--danger);"><i class="fas fa-times-circle"></i> Chyba při ukládání</span>';
+        }
+        showToast('Chyba při ukládání API klíče', 'error');
+    }
+}
+
+/**
+ * Delete API key
+ */
+function deleteApiKey() {
+    if (confirm('Opravdu chcete smazat uložený API klíč?')) {
+        localStorage.removeItem(API_KEY_STORAGE);
+        const status = document.getElementById('apiKeyStatus');
+        const input = document.getElementById('apiKeyInput');
+        const deleteBtn = document.getElementById('deleteApiKeyBtn');
+
+        if (status) {
+            status.innerHTML = '<span style="color: var(--warning);"><i class="fas fa-exclamation-circle"></i> API klíč není nastaven</span>';
+        }
+        if (input) {
+            input.placeholder = 'sk-...';
+            input.value = '';
+        }
+        if (deleteBtn) deleteBtn.style.display = 'none';
+
+        showToast('API klíč byl smazán', 'success');
+    }
+}
+
+/**
+ * Get decrypted API key for use
+ */
+async function getApiKey() {
+    const encryptedKey = localStorage.getItem(API_KEY_STORAGE);
+    if (!encryptedKey) {
+        return null;
+    }
+    return await decryptApiKey(encryptedKey);
+}
+
+/**
+ * Check if API key is set
+ */
+function hasApiKey() {
+    return localStorage.getItem(API_KEY_STORAGE) !== null;
+}
+
+// ========================================
+// Mobile Menu
+// ========================================
+
+/**
+ * Inicializace mobilního menu
+ */
+function initMobileMenu() {
+    const menuBtn = document.getElementById('mobileMenuBtn');
+    const nav = document.getElementById('mainNav');
+    const menuIcon = document.getElementById('menuIcon');
+
+    if (!menuBtn || !nav) return;
+
+    menuBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        nav.classList.toggle('show');
+
+        // Toggle icon
+        if (menuIcon) {
+            if (nav.classList.contains('show')) {
+                menuIcon.classList.remove('fa-bars');
+                menuIcon.classList.add('fa-times');
+            } else {
+                menuIcon.classList.remove('fa-times');
+                menuIcon.classList.add('fa-bars');
+            }
+        }
+    });
+
+    // Close menu when clicking on a link
+    nav.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', function() {
+            nav.classList.remove('show');
+            if (menuIcon) {
+                menuIcon.classList.remove('fa-times');
+                menuIcon.classList.add('fa-bars');
+            }
+        });
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', function(e) {
+        if (nav.classList.contains('show') && !nav.contains(e.target) && !menuBtn.contains(e.target)) {
+            nav.classList.remove('show');
+            if (menuIcon) {
+                menuIcon.classList.remove('fa-times');
+                menuIcon.classList.add('fa-bars');
+            }
+        }
+    });
+}

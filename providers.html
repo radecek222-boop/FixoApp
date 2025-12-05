@@ -20,7 +20,7 @@
                     <div class="logo-tagline">AI asistent pro domácí opravy</div>
                 </div>
             </a>
-            <nav class="nav">
+            <nav class="nav" id="mainNav">
                 <a href="index.html" class="nav-link">
                     <span>Domů</span>
                 </a>
@@ -37,12 +37,18 @@
                     <span>O projektu</span>
                 </a>
                 <a href="investor.html" class="nav-link">
-                    <span>INVEST PROGRAM</span>
+                    <span>Investor</span>
                 </a>
                 <a href="contacts.html" class="nav-link">
                     <span>Kontakt</span>
                 </a>
+                <a href="#" class="nav-link" id="apiKeyLink" onclick="openApiKeyModal(); return false;">
+                    <span>API</span>
+                </a>
             </nav>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menu">
+                <i class="fas fa-bars" id="menuIcon"></i>
+            </button>
         </header>
         <!-- Main Content -->
         <main class="main-content">
@@ -364,6 +370,42 @@
                 <button class="btn btn-primary" onclick="closeSuccessModal()">
                     <i class="fas fa-check"></i> Rozumím
                 </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- API Key Modal -->
+    <div class="modal-overlay" id="apiKeyModal">
+        <div class="modal-content" style="max-width: 420px;">
+            <div class="modal-header">
+                <h3><i class="fas fa-key"></i> OpenAI API Klíč</h3>
+                <button class="modal-close" onclick="closeApiKeyModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 16px;">
+                    Vložte váš OpenAI API klíč pro aktivaci AI analýzy fotografií. Klíč bude bezpečně zašifrován a uložen pouze ve vašem prohlížeči.
+                </p>
+                <div class="form-group">
+                    <label>API Klíč</label>
+                    <div style="position: relative;">
+                        <input type="password" id="apiKeyInput" placeholder="sk-..." style="padding-right: 40px;">
+                        <button type="button" onclick="toggleApiKeyVisibility()" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: var(--text-tertiary);">
+                            <i class="fas fa-eye" id="apiKeyToggleIcon"></i>
+                        </button>
+                    </div>
+                </div>
+                <div id="apiKeyStatus" style="font-size: 0.8rem; margin-bottom: 12px;"></div>
+                <div style="display: flex; gap: 10px;">
+                    <button class="btn btn-primary" onclick="saveApiKey()" style="flex: 1;">
+                        <i class="fas fa-save"></i> Uložit
+                    </button>
+                    <button class="btn btn-danger btn-sm" onclick="deleteApiKey()" id="deleteApiKeyBtn" style="display: none;">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+                <p style="font-size: 0.7rem; color: var(--text-tertiary); margin-top: 12px; text-align: center;">
+                    <i class="fas fa-shield-halved"></i> Klíč je šifrován pomocí AES-256 a nikdy neopouští váš prohlížeč
+                </p>
             </div>
         </div>
     </div>
