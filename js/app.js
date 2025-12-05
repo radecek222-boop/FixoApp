@@ -789,7 +789,11 @@ function loadNearbyProviders(category) {
 // Stránka návodů
 // ========================================
 
-function initRepairPage() {
+async function initRepairPage() {
+    // Nejdříve načteme data z JSON
+    await loadRepairsFromJSON();
+
+    // Pak zobrazíme
     loadRepairs();
     initCategoryFilters();
     initSearch();
@@ -809,7 +813,8 @@ function loadRepairs(filter = {}) {
 
     if (!grid) return;
 
-    let repairs = getMockRepairs();
+    // Použijeme cache z JSON nebo fallback
+    let repairs = repairsCache || getMockRepairs();
 
     // Filtrace podle kategorie
     if (filter.category && filter.category !== 'all') {
@@ -948,7 +953,7 @@ function initSearch() {
 }
 
 function showRepairDetail(id) {
-    const repairs = getMockRepairs();
+    const repairs = repairsCache || getMockRepairs();
     const repair = repairs.find(r => r.id === id);
     if (!repair) return;
 
@@ -1264,209 +1269,177 @@ function submitRegistration() {
 }
 
 // ========================================
-// Mock data
+// Data loading from JSON
 // ========================================
 
+// Cache pro načtená data
+let repairsCache = null;
+let repairsLoading = null;
+
+// Mapování kategorií z JSON na app kategorie
+const CATEGORY_MAP = {
+    'voda': 'bathroom',
+    'koupelna': 'bathroom',
+    'elektrina': 'electrical',
+    'elektro': 'electrical',
+    'topeni': 'heating',
+    'vytapeni': 'heating',
+    'vytápění': 'heating',
+    'spotrebice': 'kitchen',
+    'kuchyn': 'kitchen',
+    'dvere_okna': 'house',
+    'nabytek': 'house',
+    'steny_podlahy': 'house',
+    'podlahy': 'house',
+    'konstrukce': 'house',
+    'zahrada': 'garden',
+    'ventilace': 'heating'
+};
+
+const CATEGORY_NAMES = {
+    'bathroom': 'Koupelna',
+    'house': 'Dům',
+    'electrical': 'Elektřina',
+    'heating': 'Topení',
+    'kitchen': 'Kuchyň',
+    'garden': 'Zahrada'
+};
+
+const DIFFICULTY_MAP = {
+    'Velmi nízká': { key: 'easy', name: 'Snadné' },
+    'Nízká': { key: 'easy', name: 'Snadné' },
+    'Střední': { key: 'medium', name: 'Střední' },
+    'Vysoká': { key: 'hard', name: 'Obtížné' },
+    'Velmi vysoká': { key: 'hard', name: 'Obtížné' }
+};
+
+/**
+ * Načte návody z JSON souboru
+ */
+async function loadRepairsFromJSON() {
+    if (repairsCache) {
+        return repairsCache;
+    }
+
+    if (repairsLoading) {
+        return repairsLoading;
+    }
+
+    repairsLoading = fetch('data/repairs.json')
+        .then(response => {
+            if (!response.ok) throw new Error('Failed to load repairs.json');
+            return response.json();
+        })
+        .then(data => {
+            repairsCache = transformRepairsData(data);
+            repairsLoading = null;
+            return repairsCache;
+        })
+        .catch(error => {
+            console.error('Error loading repairs:', error);
+            repairsLoading = null;
+            // Fallback na prázdné pole
+            return [];
+        });
+
+    return repairsLoading;
+}
+
+/**
+ * Transformuje JSON data na formát očekávaný aplikací
+ */
+function transformRepairsData(jsonData) {
+    const repairs = [];
+
+    for (const [categoryKey, categoryData] of Object.entries(jsonData.repairs)) {
+        const appCategory = CATEGORY_MAP[categoryData.category] || 'house';
+        const categoryName = CATEGORY_NAMES[appCategory] || categoryData.name;
+
+        for (const issue of categoryData.issues || []) {
+            const difficultyInfo = DIFFICULTY_MAP[issue.difficulty] || { key: 'medium', name: 'Střední' };
+
+            // Formátování cen
+            let diyCost = '0 Kč';
+            let proCost = '0 Kč';
+
+            if (issue.materialCost) {
+                diyCost = `${issue.materialCost.min}-${issue.materialCost.max} Kč`;
+            }
+            if (issue.professionalCost) {
+                proCost = `${issue.professionalCost.min}-${issue.professionalCost.max} Kč`;
+            }
+
+            // Transformace kroků
+            const steps = (issue.steps || []).map(step => ({
+                title: step.action.split(' ').slice(0, 4).join(' '),
+                description: step.hint || step.action,
+                time: step.time || '1 min'
+            }));
+
+            // Bezpečnostní varování
+            const warning = issue.safetyWarnings && issue.safetyWarnings.length > 0
+                ? issue.safetyWarnings.join(' ')
+                : null;
+
+            // Rozdělení nástrojů na nástroje a materiály
+            const tools = issue.tools || [];
+            const materials = [];
+
+            repairs.push({
+                id: `${categoryKey}-${issue.id}`,
+                icon: categoryData.icon || '🔧',
+                title: issue.name,
+                description: issue.description,
+                fullDescription: issue.description,
+                category: appCategory,
+                categoryName: categoryName,
+                difficulty: difficultyInfo.key,
+                difficultyName: difficultyInfo.name,
+                time: issue.timeEstimate || '30 min',
+                diyCost: diyCost,
+                proCost: proCost,
+                warning: warning,
+                tools: tools,
+                materials: materials,
+                steps: steps,
+                riskScore: issue.riskScore || 1
+            });
+        }
+    }
+
+    return repairs;
+}
+
+/**
+ * Synchronní verze pro zpětnou kompatibilitu - vrací cache nebo prázdné pole
+ */
 function getMockRepairs() {
+    // Pokud máme cache, vrátíme ji
+    if (repairsCache) {
+        return repairsCache;
+    }
+    // Jinak vrátíme fallback data
     return [
         {
             id: 'faucet-drip',
             icon: '🚿',
             title: 'Kapající kohoutek',
             description: 'Výměna těsnění a oprava kapání',
-            fullDescription: 'Kapající kohoutek je jedním z nejčastějších problémů v domácnosti. Příčinou je obvykle opotřebené těsnění, které lze snadno vyměnit.',
+            fullDescription: 'Kapající kohoutek je jedním z nejčastějších problémů v domácnosti.',
             category: 'bathroom',
+            categoryName: 'Koupelna',
             difficulty: 'easy',
             difficultyName: 'Snadné',
             time: '20 min',
             diyCost: '50-150 Kč',
             proCost: '800-1500 Kč',
             tools: ['Křížový šroubovák', 'Nastavitelný klíč'],
-            materials: ['Nové těsnění', 'Hadřík'],
+            materials: ['Nové těsnění'],
             steps: [
                 { title: 'Uzavřete vodu', description: 'Zavřete přívod vody pod umyvadlem.', time: '2 min' },
                 { title: 'Demontujte rukojeť', description: 'Odšroubujte krytku a vyjměte rukojeť.', time: '3 min' },
                 { title: 'Vyměňte těsnění', description: 'Vložte nové těsnění stejné velikosti.', time: '5 min' },
                 { title: 'Složte zpět', description: 'Postupujte v opačném pořadí.', time: '3 min' }
-            ]
-        },
-        {
-            id: 'door-squeak',
-            icon: '🚪',
-            title: 'Vrzající dveře',
-            description: 'Mazání pantů a seřízení dveří',
-            fullDescription: 'Vrzající dveře jsou způsobeny nedostatečným mazáním pantů. Stačí několik kapek oleje.',
-            category: 'house',
-            difficulty: 'easy',
-            difficultyName: 'Snadné',
-            time: '10 min',
-            diyCost: '80-150 Kč',
-            proCost: '500-800 Kč',
-            tools: ['WD-40', 'Hadřík'],
-            steps: [
-                { title: 'Očistěte panty', description: 'Odstraňte prach a nečistoty.', time: '2 min' },
-                { title: 'Naneste mazivo', description: 'Nastříkejte WD-40 do pantů.', time: '2 min' },
-                { title: 'Rozpohybujte', description: 'Několikrát otevřete a zavřete dveře.', time: '1 min' }
-            ]
-        },
-        {
-            id: 'outlet-fix',
-            icon: '🔌',
-            title: 'Nefunkční zásuvka',
-            description: 'Kontrola a oprava elektrické zásuvky',
-            fullDescription: 'Nefunkční zásuvka může být způsobena uvolněnými spoji nebo vypadlým jističem.',
-            category: 'electrical',
-            difficulty: 'medium',
-            difficultyName: 'Střední',
-            time: '20 min',
-            diyCost: '0-200 Kč',
-            proCost: '1000-2000 Kč',
-            warning: 'VŽDY vypněte jistič před prací na elektroinstalaci!',
-            tools: ['Zkoušečka', 'Šroubovák'],
-            materials: ['Nová zásuvka'],
-            steps: [
-                { title: 'Vypněte jistič', description: 'Vypněte příslušný jistič v rozvaděči.', time: '2 min' },
-                { title: 'Zkontrolujte spoje', description: 'Demontujte kryt a zkontrolujte vodiče.', time: '5 min' },
-                { title: 'Utáhněte spoje', description: 'Dotáhněte uvolněné svorky.', time: '3 min' }
-            ]
-        },
-        {
-            id: 'drain-clog',
-            icon: '🚰',
-            title: 'Ucpaný odpad',
-            description: 'Čištění ucpaného odpadu v umyvadle',
-            fullDescription: 'Ucpaný odpad je nejčastěji způsoben vlasy a zbytky mýdla. Lze vyčistit zvonkem nebo chemicky.',
-            category: 'bathroom',
-            difficulty: 'easy',
-            difficultyName: 'Snadné',
-            time: '25 min',
-            diyCost: '50-200 Kč',
-            proCost: '800-1500 Kč',
-            tools: ['Zvon', 'Gumové rukavice'],
-            materials: ['Čistič odpadů'],
-            steps: [
-                { title: 'Použijte zvon', description: 'Vytvořte podtlak pomocí zvonu.', time: '3 min' },
-                { title: 'Chemický čistič', description: 'Použijte čistič dle návodu.', time: '15 min' },
-                { title: 'Propláchněte', description: 'Propláchněte horkou vodou.', time: '2 min' }
-            ]
-        },
-        {
-            id: 'window-seal',
-            icon: '🪟',
-            title: 'Netěsnící okno',
-            description: 'Výměna těsnění a seřízení oken',
-            fullDescription: 'Netěsnící okno způsobuje úniky tepla a průvan. Řešením je výměna těsnění nebo seřízení kování.',
-            category: 'house',
-            difficulty: 'medium',
-            difficultyName: 'Střední',
-            time: '40 min',
-            diyCost: '100-300 Kč',
-            proCost: '1500-3000 Kč',
-            tools: ['Imbusový klíč', 'Nůž'],
-            materials: ['Těsnění pro okna', 'Silikón'],
-            steps: [
-                { title: 'Zkontrolujte těsnění', description: 'Prohlédněte gumové těsnění.', time: '3 min' },
-                { title: 'Seřiďte kování', description: 'Pomocí imbusového klíče seřiďte přítlak.', time: '10 min' },
-                { title: 'Vyměňte těsnění', description: 'Pokud je poškozené, vložte nové.', time: '15 min' }
-            ]
-        },
-        {
-            id: 'radiator-bleed',
-            icon: '🌡️',
-            title: 'Odvzdušnění radiátoru',
-            description: 'Odstranění vzduchu z topného systému',
-            fullDescription: 'Vzduch v radiátoru snižuje účinnost topení. Odvzdušnění je jednoduchý úkon.',
-            category: 'heating',
-            difficulty: 'easy',
-            difficultyName: 'Snadné',
-            time: '15 min',
-            diyCost: '0 Kč',
-            proCost: '500-800 Kč',
-            tools: ['Odvzdušňovací klíč', 'Hadřík'],
-            steps: [
-                { title: 'Vypněte kotel', description: 'Zastavte cirkulační čerpadlo.', time: '1 min' },
-                { title: 'Otevřete ventil', description: 'Pomocí klíče otevřete odvzdušňovací ventil.', time: '3 min' },
-                { title: 'Počkejte na vodu', description: 'Až začne téct voda, zavřete ventil.', time: '2 min' }
-            ]
-        },
-        {
-            id: 'toilet-flush',
-            icon: '🚽',
-            title: 'Netěsnící WC',
-            description: 'Oprava splachovacího mechanismu',
-            fullDescription: 'Neustále tekoucí voda do WC je způsobena poškozeným ventilem nebo plovákem.',
-            category: 'bathroom',
-            difficulty: 'medium',
-            difficultyName: 'Střední',
-            time: '30 min',
-            diyCost: '100-400 Kč',
-            proCost: '1000-2000 Kč',
-            tools: ['Nastavitelný klíč', 'Hadřík'],
-            steps: [
-                { title: 'Uzavřete vodu', description: 'Zavřete přívod vody k WC.', time: '1 min' },
-                { title: 'Sundejte víko', description: 'Odstraňte víko nádržky.', time: '1 min' },
-                { title: 'Zkontrolujte mechanismus', description: 'Najděte příčinu netěsnosti.', time: '5 min' },
-                { title: 'Vyměňte díl', description: 'Nahraďte poškozený díl novým.', time: '15 min' }
-            ]
-        },
-        {
-            id: 'light-switch',
-            icon: '💡',
-            title: 'Výměna vypínače',
-            description: 'Instalace nového světelného vypínače',
-            fullDescription: 'Nefunkční nebo poškozený vypínač lze snadno vyměnit za nový.',
-            category: 'electrical',
-            difficulty: 'medium',
-            difficultyName: 'Střední',
-            time: '20 min',
-            diyCost: '50-200 Kč',
-            proCost: '800-1500 Kč',
-            warning: 'VŽDY vypněte jistič před prací na elektroinstalaci!',
-            tools: ['Zkoušečka', 'Šroubovák'],
-            steps: [
-                { title: 'Vypněte jistič', description: 'Zajistěte, že obvod je bez napětí.', time: '2 min' },
-                { title: 'Demontujte kryt', description: 'Odšroubujte kryt vypínače.', time: '2 min' },
-                { title: 'Odpojte vodiče', description: 'Poznamenejte si zapojení a odpojte.', time: '3 min' },
-                { title: 'Připojte nový vypínač', description: 'Zapojte vodiče do nového vypínače.', time: '5 min' }
-            ]
-        },
-        {
-            id: 'sink-leak',
-            icon: '🍳',
-            title: 'Kapající sifon',
-            description: 'Oprava netěsnosti pod dřezem',
-            fullDescription: 'Kapající sifon je způsoben uvolněnými spoji nebo poškozeným těsněním.',
-            category: 'kitchen',
-            difficulty: 'easy',
-            difficultyName: 'Snadné',
-            time: '20 min',
-            diyCost: '50-150 Kč',
-            proCost: '800-1200 Kč',
-            tools: ['Nastavitelný klíč', 'Kbelík'],
-            steps: [
-                { title: 'Připravte kbelík', description: 'Položte pod sifon pro zachycení vody.', time: '1 min' },
-                { title: 'Utáhněte spoje', description: 'Dotáhněte všechny matice sifonu.', time: '5 min' },
-                { title: 'Vyměňte těsnění', description: 'Pokud stále kape, vyměňte těsnění.', time: '10 min' }
-            ]
-        },
-        {
-            id: 'mower-service',
-            icon: '🌱',
-            title: 'Údržba sekačky',
-            description: 'Základní servis zahradní sekačky',
-            fullDescription: 'Pravidelná údržba sekačky prodlouží její životnost a zlepší výkon.',
-            category: 'garden',
-            difficulty: 'medium',
-            difficultyName: 'Střední',
-            time: '45 min',
-            diyCost: '200-500 Kč',
-            proCost: '800-1500 Kč',
-            tools: ['Klíče', 'Čistič karburátoru', 'Pilník'],
-            steps: [
-                { title: 'Odpojte svíčku', description: 'Pro bezpečnost odpojte zapalovací svíčku.', time: '1 min' },
-                { title: 'Očistěte podvozek', description: 'Odstraňte usazenou trávu.', time: '10 min' },
-                { title: 'Zkontrolujte olej', description: 'Doplňte nebo vyměňte olej.', time: '10 min' },
-                { title: 'Nabruste nože', description: 'Opatrně nabruste řezací nože.', time: '15 min' }
             ]
         }
     ];
