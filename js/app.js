@@ -1314,7 +1314,7 @@ const DIFFICULTY_MAP = {
 };
 
 /**
- * Načte návody z JSON souboru
+ * Načte návody z JSON souboru + sloučené z localStorage
  */
 async function loadRepairsFromJSON() {
     if (repairsCache) {
@@ -1331,14 +1331,48 @@ async function loadRepairsFromJSON() {
             return response.json();
         })
         .then(data => {
-            repairsCache = transformRepairsData(data);
+            let repairs = transformRepairsData(data);
+
+            // Přidat sloučené návody z localStorage
+            try {
+                const mergedData = localStorage.getItem('mergedRepairs');
+                if (mergedData) {
+                    const mergedRepairs = JSON.parse(mergedData);
+                    if (Array.isArray(mergedRepairs) && mergedRepairs.length > 0) {
+                        // Transformovat na formát aplikace a přidat
+                        const existingIds = new Set(repairs.map(r => r.id));
+                        const uniqueMerged = mergedRepairs
+                            .filter(r => !existingIds.has(r.id))
+                            .map(r => ({
+                                id: r.id,
+                                title: r.name,
+                                description: r.description,
+                                category: r.category,
+                                categoryKey: r.categoryKey,
+                                difficulty: r.difficulty,
+                                timeEstimate: r.timeEstimate,
+                                riskScore: r.riskScore || 2,
+                                materialCost: r.materialCost,
+                                professionalCost: r.professionalCost,
+                                tools: r.tools || [],
+                                steps: r.steps || [],
+                                safetyWarnings: r.safetyWarnings || []
+                            }));
+                        repairs = [...repairs, ...uniqueMerged];
+                        console.log(`Loaded ${uniqueMerged.length} merged repairs from localStorage`);
+                    }
+                }
+            } catch (e) {
+                console.error('Error loading merged repairs:', e);
+            }
+
+            repairsCache = repairs;
             repairsLoading = null;
             return repairsCache;
         })
         .catch(error => {
             console.error('Error loading repairs:', error);
             repairsLoading = null;
-            // Fallback na prázdné pole
             return [];
         });
 
@@ -2324,12 +2358,16 @@ async function startGenerating() {
         // Uložit do localStorage
         localStorage.setItem('generatedRepairs', JSON.stringify(generatedRepairsData, null, 2));
 
+        // Automaticky sloučit
+        updateProgress(98, 'Slučuji do databáze...', '');
+        await mergeGeneratedRepairs();
+
         // Zobrazit výsledek
         setTimeout(() => {
             progress.style.display = 'none';
             result.style.display = 'block';
             document.getElementById('resultText').textContent =
-                `Vygenerováno ${generatedRepairsData.length} nových návodů. Stáhněte JSON a přidejte do data/repairs.json`;
+                `Vygenerováno a sloučeno ${generatedRepairsData.length} nových návodů do databáze!`;
         }, 500);
 
     } catch (error) {
@@ -2409,30 +2447,57 @@ function updateProgress(percent, text, detail) {
     if (det) det.textContent = detail;
 }
 
-function downloadGeneratedJSON() {
-    const data = localStorage.getItem('generatedRepairs');
-    if (!data) { showToast('Žádná data', 'error'); return; }
+async function mergeGeneratedRepairs() {
+    const newData = localStorage.getItem('generatedRepairs');
+    if (!newData) {
+        showToast('Žádná nová data k sloučení', 'error');
+        return;
+    }
 
-    const blob = new Blob([data], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `new-repairs-${new Date().toISOString().split('T')[0]}.json`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
-    showToast('JSON stažen!', 'success');
-}
-
-async function copyGeneratedJSON() {
-    const data = localStorage.getItem('generatedRepairs');
-    if (!data) { showToast('Žádná data', 'error'); return; }
     try {
-        await navigator.clipboard.writeText(data);
-        showToast('Zkopírováno!', 'success');
+        const newRepairs = JSON.parse(newData);
+        if (!Array.isArray(newRepairs) || newRepairs.length === 0) {
+            showToast('Žádné návody k sloučení', 'error');
+            return;
+        }
+
+        // Načíst existující sloučené návody z localStorage
+        const existingMerged = localStorage.getItem('mergedRepairs');
+        let allMerged = existingMerged ? JSON.parse(existingMerged) : [];
+
+        // Přidat nové (vyhnout se duplicitám podle id)
+        const existingIds = new Set(allMerged.map(r => r.id));
+        const uniqueNew = newRepairs.filter(r => !existingIds.has(r.id));
+
+        allMerged = [...allMerged, ...uniqueNew];
+
+        // Uložit sloučené
+        localStorage.setItem('mergedRepairs', JSON.stringify(allMerged));
+
+        // Vyčistit generované (už jsou sloučené)
+        localStorage.removeItem('generatedRepairs');
+
+        // Invalidovat cache aby se znovu načetly s novými daty
+        repairsCache = null;
+
+        // Aktualizovat počty
+        await updateInvestorRepairCount();
+        if (typeof updateRepairCount === 'function') {
+            updateRepairCount();
+        }
+
+        // Aktualizovat UI
+        const btn = document.getElementById('mergeBtn');
+        if (btn) {
+            btn.innerHTML = '<i class="fas fa-check"></i> Sloučeno!';
+            btn.disabled = true;
+        }
+
+        showToast(`Sloučeno ${uniqueNew.length} nových návodů!`, 'success');
+
     } catch (err) {
-        showToast('Chyba kopírování', 'error');
+        console.error('Merge error:', err);
+        showToast('Chyba při slučování: ' + err.message, 'error');
     }
 }
 
@@ -2462,6 +2527,5 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 window.startGenerating = startGenerating;
-window.downloadGeneratedJSON = downloadGeneratedJSON;
-window.copyGeneratedJSON = copyGeneratedJSON;
+window.mergeGeneratedRepairs = mergeGeneratedRepairs;
 window.resetGenerator = resetGenerator;
