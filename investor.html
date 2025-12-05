@@ -85,7 +85,7 @@
                                     </p>
                                 </div>
                                 <button id="generateBtn" onclick="startGenerating()" class="btn btn-primary" style="white-space: nowrap;">
-                                    <i class="fas fa-wand-magic-sparkles"></i> Vygenerovat 50 nových
+                                    <i class="fas fa-wand-magic-sparkles"></i> Vygenerovat 500 nových
                                 </button>
                             </div>
 
@@ -106,21 +106,13 @@
                                 <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
                                     <i class="fas fa-check-circle" style="font-size: 2rem; color: var(--success);"></i>
                                     <div>
-                                        <h4 style="color: white; font-size: 1rem; margin-bottom: 4px;">Generování dokončeno!</h4>
+                                        <h4 style="color: white; font-size: 1rem; margin-bottom: 4px;">Hotovo!</h4>
                                         <p id="resultText" style="color: rgba(255,255,255,0.7); font-size: 0.875rem;"></p>
                                     </div>
                                 </div>
-                                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                                    <button onclick="downloadGeneratedJSON()" class="btn btn-success btn-sm">
-                                        <i class="fas fa-download"></i> Stáhnout JSON
-                                    </button>
-                                    <button onclick="copyGeneratedJSON()" class="btn btn-outline btn-sm" style="border-color: white; color: white;">
-                                        <i class="fas fa-copy"></i> Kopírovat
-                                    </button>
-                                    <button onclick="resetGenerator()" class="btn btn-sm" style="background: rgba(255,255,255,0.1); color: white;">
-                                        <i class="fas fa-redo"></i> Další generování
-                                    </button>
-                                </div>
+                                <button onclick="resetGenerator()" class="btn btn-sm" style="background: rgba(255,255,255,0.1); color: white;">
+                                    <i class="fas fa-plus"></i> Generovat další
+                                </button>
                             </div>
                         </div>
                     </section>
