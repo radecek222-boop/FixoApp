@@ -71,6 +71,60 @@
 
                 <!-- Investor Content (hidden by default) -->
                 <div id="investorContent" style="display: none;">
+                    <!-- AI Generátor návodů -->
+                    <section id="aiGeneratorSection" style="max-width: 900px; margin: 0 auto; padding: 24px 32px;">
+                        <div class="card" style="padding: var(--space-xl); background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%); border: 2px solid var(--accent);">
+                            <div style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap;">
+                                <div style="flex: 1; min-width: 200px;">
+                                    <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 8px; color: white;">
+                                        <i class="fas fa-robot" style="margin-right: 8px; color: var(--accent);"></i>
+                                        AI Generátor návodů
+                                    </h3>
+                                    <p style="color: rgba(255,255,255,0.7); font-size: 0.875rem;">
+                                        Aktuálně: <strong id="currentRepairCount" style="color: var(--success);">...</strong> návodů v databázi
+                                    </p>
+                                </div>
+                                <button id="generateBtn" onclick="startGenerating()" class="btn btn-primary" style="white-space: nowrap;">
+                                    <i class="fas fa-wand-magic-sparkles"></i> Vygenerovat 50 nových
+                                </button>
+                            </div>
+
+                            <!-- Progress sekce (skrytá) -->
+                            <div id="generatorProgress" style="display: none; margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1);">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                    <span id="progressText" style="color: rgba(255,255,255,0.9); font-size: 0.875rem;">Inicializuji...</span>
+                                    <span id="progressPercent" style="color: var(--accent); font-weight: 600;">0%</span>
+                                </div>
+                                <div style="background: rgba(255,255,255,0.1); border-radius: 4px; height: 8px; overflow: hidden;">
+                                    <div id="progressBar" style="background: var(--accent); height: 100%; width: 0%; transition: width 0.3s;"></div>
+                                </div>
+                                <p id="progressDetail" style="color: rgba(255,255,255,0.5); font-size: 0.75rem; margin-top: 8px;"></p>
+                            </div>
+
+                            <!-- Výsledek (skrytý) -->
+                            <div id="generatorResult" style="display: none; margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.1);">
+                                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+                                    <i class="fas fa-check-circle" style="font-size: 2rem; color: var(--success);"></i>
+                                    <div>
+                                        <h4 style="color: white; font-size: 1rem; margin-bottom: 4px;">Generování dokončeno!</h4>
+                                        <p id="resultText" style="color: rgba(255,255,255,0.7); font-size: 0.875rem;"></p>
+                                    </div>
+                                </div>
+                                <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                                    <button onclick="downloadGeneratedJSON()" class="btn btn-success btn-sm">
+                                        <i class="fas fa-download"></i> Stáhnout JSON
+                                    </button>
+                                    <button onclick="copyGeneratedJSON()" class="btn btn-outline btn-sm" style="border-color: white; color: white;">
+                                        <i class="fas fa-copy"></i> Kopírovat
+                                    </button>
+                                    <button onclick="resetGenerator()" class="btn btn-sm" style="background: rgba(255,255,255,0.1); color: white;">
+                                        <i class="fas fa-redo"></i> Další generování
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
                     <!-- Hero sekce -->
                     <section style="text-align: center; padding: 40px 32px 24px; max-width: 700px; margin: 0 auto;">
                         <h1 style="font-size: 2.5rem; font-weight: 700; margin-bottom: 16px; line-height: 1.1; letter-spacing: -0.03em; color: var(--text-primary);">
@@ -96,9 +150,9 @@
                                 <p style="color: var(--text-dark-tertiary); font-size: 0.75rem;">Leden 2026</p>
                             </div>
                             <div class="card" style="text-align: center; padding: var(--space-3xl) var(--space-xl);">
-                                <div style="font-size: 2.5rem; font-weight: 700; color: var(--warning); margin-bottom: var(--space-sm);">537</div>
+                                <div id="investorRepairCount" style="font-size: 2.5rem; font-weight: 700; color: var(--warning); margin-bottom: var(--space-sm);">...</div>
                                 <p style="color: var(--text-dark-secondary); font-size: 0.875rem; margin-bottom: var(--space-md);">Připravených návodů</p>
-                                <p style="color: var(--text-dark-tertiary); font-size: 0.75rem;">DIY databáze hotova</p>
+                                <p style="color: var(--text-dark-tertiary); font-size: 0.75rem;">DIY databáze</p>
                             </div>
                         </div>
                     </section>
