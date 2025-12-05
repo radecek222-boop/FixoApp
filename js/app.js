@@ -2289,32 +2289,32 @@ async function startGenerating() {
 
         updateProgress(5, 'Připravuji kontext pro AI...', `${existingRepairs.length} existujících návodů`);
 
-        // 3. Generovat v dávkách (17 dávek po 3 = 51 návodů)
-        const batchSize = 3;  // Malé dávky = garantovaně validní JSON
-        const totalBatches = 17;
+        // 3. Generovat jednotlivě (spolehlivější)
+        const totalGuides = 50;
+        let failures = 0;
+        const maxFailures = 5;
 
-        for (let batch = 0; batch < totalBatches; batch++) {
-            const batchNum = batch + 1;
-            const baseProgress = 5 + (batch * 5.5);  // 17 dávek, ~5.5% každá
-
-            updateProgress(baseProgress, `Generuji dávku ${batchNum}/${totalBatches}...`, `Zatím: ${generatedRepairsData.length} návodů`);
+        for (let i = 0; i < totalGuides && failures < maxFailures; i++) {
+            const progress_pct = 5 + (i / totalGuides) * 90;
+            updateProgress(progress_pct, `Generuji návod ${i + 1}/${totalGuides}...`, `Hotovo: ${generatedRepairsData.length}`);
 
             try {
-                const newRepairs = await generateBatchRepairs(apiKey, batchSize, existingTitles, generatedRepairsData);
-
-                if (newRepairs && newRepairs.length > 0) {
-                    generatedRepairsData = [...generatedRepairsData, ...newRepairs];
+                const newRepair = await generateSingleRepair(apiKey, existingTitles, generatedRepairsData);
+                if (newRepair) {
+                    generatedRepairsData.push(newRepair);
+                    failures = 0; // Reset po úspěchu
                 }
-            } catch (batchErr) {
-                console.error(`Batch ${batchNum} error:`, batchErr);
-                updateProgress(baseProgress, `Dávka ${batchNum} selhala, pokračuji...`, batchErr.message);
+            } catch (err) {
+                console.error(`Guide ${i + 1} error:`, err);
+                failures++;
+                if (failures >= maxFailures) {
+                    showToast(`Příliš mnoho chyb (${failures}), zastavuji`, 'error');
+                }
             }
 
-            updateProgress(baseProgress + 4, `Dávka ${batchNum} dokončena`, `Celkem: ${generatedRepairsData.length} návodů`);
-
-            // Pauza mezi dávkami
-            if (batch < totalBatches - 1) {
-                await new Promise(resolve => setTimeout(resolve, 1000));
+            // Krátká pauza mezi requesty
+            if (i < totalGuides - 1) {
+                await new Promise(resolve => setTimeout(resolve, 500));
             }
         }
 
@@ -2344,32 +2344,12 @@ async function startGenerating() {
 }
 
 /**
- * Generuje jednu dávku návodů
+ * Generuje jeden návod - spolehlivější než batch
  */
-async function generateBatchRepairs(apiKey, count, existingTitles, alreadyGenerated) {
-    const alreadyGeneratedTitles = alreadyGenerated.map(r => r.name).slice(-20).join(', ');
-
-    const prompt = `Vygeneruj PŘESNĚ ${count} nové návody na domácí opravy. KRÁTKÉ texty!
-
-NEPOUŽÍVEJ tyto názvy: ${existingTitles.substring(0, 1500)}
-${alreadyGeneratedTitles ? `NEOPAKUJ: ${alreadyGeneratedTitles}` : ''}
-
-Vrať JSON: {"repairs":[...]}
-
-Každý návod má:
-- id: unikatni-kebab-case
-- name: krátký název (max 50 znaků)
-- description: 1 věta
-- category: česky (Koupelna/Dům/Elektro/Topení/Kuchyň/Zahrada)
-- categoryKey: bathroom/house/electrical/heating/kitchen/garden
-- difficulty: Nízká/Střední/Vysoká
-- timeEstimate: "XX min"
-- riskScore: 1-5
-- materialCost: {min:X,max:Y}
-- professionalCost: {min:X,max:Y}
-- tools: [max 3 nástroje]
-- steps: [{step:1,action:"krátce",time:"X min",hint:"tip"}] (max 4 kroky!)
-- safetyWarnings: [max 2 varování]`;
+async function generateSingleRepair(apiKey, existingTitles, alreadyGenerated) {
+    const recentNames = alreadyGenerated.slice(-15).map(r => r.name).join(', ');
+    const categories = ['Koupelna', 'Dům', 'Elektro', 'Topení', 'Kuchyň', 'Zahrada'];
+    const randomCat = categories[Math.floor(Math.random() * categories.length)];
 
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
         method: 'POST',
@@ -2378,80 +2358,43 @@ Každý návod má:
             'Authorization': `Bearer ${apiKey}`
         },
         body: JSON.stringify({
-            model: 'gpt-4o',
-            messages: [
-                { role: 'system', content: 'Jsi expert na domácí opravy. Generuješ unikátní návody v češtině. Odpovídej POUZE validním JSON polem, nic jiného.' },
-                { role: 'user', content: prompt }
-            ],
-            max_tokens: 8000,
-            temperature: 0.8,
-            response_format: { type: "json_object" }
+            model: 'gpt-4o-mini',
+            messages: [{
+                role: 'user',
+                content: `Vygeneruj 1 návod na opravu v kategorii "${randomCat}".
+
+NEPOUŽÍVEJ: ${existingTitles.substring(0, 800)}${recentNames ? ', ' + recentNames : ''}
+
+Vrať POUZE tento JSON (nic jiného):
+{"id":"kebab-id","name":"Název","description":"Popis","category":"${randomCat}","categoryKey":"${randomCat === 'Koupelna' ? 'bathroom' : randomCat === 'Dům' ? 'house' : randomCat === 'Elektro' ? 'electrical' : randomCat === 'Topení' ? 'heating' : randomCat === 'Kuchyň' ? 'kitchen' : 'garden'}","difficulty":"Střední","timeEstimate":"30 min","riskScore":2,"materialCost":{"min":200,"max":800},"professionalCost":{"min":800,"max":2500},"tools":["nástroj1","nástroj2"],"steps":[{"step":1,"action":"Krok","time":"10 min","hint":"Tip"}],"safetyWarnings":["Varování"]}`
+            }],
+            max_tokens: 1000,
+            temperature: 0.9
         })
     });
 
     if (!response.ok) {
-        const errText = await response.text();
-        throw new Error(`API error ${response.status}: ${errText}`);
+        throw new Error(`API ${response.status}`);
     }
 
     const data = await response.json();
-    const finishReason = data.choices?.[0]?.finish_reason;
     let content = data.choices?.[0]?.message?.content?.trim();
 
-    console.log('AI response finish_reason:', finishReason, 'length:', content?.length);
+    if (!content) throw new Error('Prázdná odpověď');
 
-    if (!content) throw new Error('Prázdná odpověď od AI');
+    // Očistit od markdown
+    content = content.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
 
-    // Kontrola jestli odpověď byla oříznutá
-    if (finishReason === 'length') {
-        console.warn('Response was truncated due to length limit');
-    }
+    // Najít JSON objekt
+    const jsonMatch = content.match(/\{[\s\S]*\}/);
+    if (!jsonMatch) throw new Error('Žádný JSON v odpovědi');
 
-    // Odstranění markdown bloků pokud jsou
-    if (content.startsWith('```json')) content = content.slice(7);
-    if (content.startsWith('```')) content = content.slice(3);
-    if (content.endsWith('```')) content = content.slice(0, -3);
-    content = content.trim();
+    const repair = JSON.parse(jsonMatch[0]);
 
-    // Parsování JSON s error handlingem
-    let parsed;
-    try {
-        parsed = JSON.parse(content);
-    } catch (parseErr) {
-        console.error('JSON parse error, attempting recovery. Raw (first 1000 chars):', content.substring(0, 1000));
+    // Validace základních polí
+    if (!repair.id || !repair.name) throw new Error('Neplatný návod');
 
-        // Pokus opravit oříznutý JSON - najít poslední kompletní objekt
-        try {
-            // Hledáme poslední kompletní }, pak uzavřeme pole a objekt
-            let lastCompleteObj = content.lastIndexOf('}]}');
-            if (lastCompleteObj > 0) {
-                const fixed = content.substring(0, lastCompleteObj + 3);
-                parsed = JSON.parse(fixed);
-                console.log('Recovered complete JSON');
-            } else {
-                // Zkusit najít alespoň jeden kompletní objekt
-                const match = content.match(/\{"repairs":\s*\[\s*(\{[^{}]*\})/);
-                if (match) {
-                    parsed = { repairs: [JSON.parse(match[1])] };
-                    console.log('Recovered single item');
-                } else {
-                    throw parseErr;
-                }
-            }
-        } catch (recoveryErr) {
-            console.error('Recovery failed:', recoveryErr);
-            throw new Error('JSON odpověď je poškozená - zkuste znovu');
-        }
-    }
-
-    // Podpora pro response_format JSON object wrapper
-    if (parsed.repairs && Array.isArray(parsed.repairs)) {
-        return parsed.repairs;
-    }
-    if (Array.isArray(parsed)) {
-        return parsed;
-    }
-    throw new Error('Neočekávaný formát odpovědi');
+    return repair;
 }
 
 function updateProgress(percent, text, detail) {
