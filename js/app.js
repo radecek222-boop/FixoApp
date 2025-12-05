@@ -2289,23 +2289,28 @@ async function startGenerating() {
 
         updateProgress(5, 'Připravuji kontext pro AI...', `${existingRepairs.length} existujících návodů`);
 
-        // 3. Generovat v dávkách (5 dávek po 10)
-        const batchSize = 10;
-        const totalBatches = 5;
+        // 3. Generovat v dávkách (10 dávek po 5 = 50 návodů)
+        const batchSize = 5;  // Menší dávky = spolehlivější JSON
+        const totalBatches = 10;
 
         for (let batch = 0; batch < totalBatches; batch++) {
             const batchNum = batch + 1;
-            const baseProgress = 5 + (batch * 18);
+            const baseProgress = 5 + (batch * 9);  // 10 dávek, každá ~9%
 
             updateProgress(baseProgress, `Generuji dávku ${batchNum}/${totalBatches}...`, `Zatím: ${generatedRepairsData.length} návodů`);
 
-            const newRepairs = await generateBatchRepairs(apiKey, batchSize, existingTitles, generatedRepairsData);
+            try {
+                const newRepairs = await generateBatchRepairs(apiKey, batchSize, existingTitles, generatedRepairsData);
 
-            if (newRepairs && newRepairs.length > 0) {
-                generatedRepairsData = [...generatedRepairsData, ...newRepairs];
+                if (newRepairs && newRepairs.length > 0) {
+                    generatedRepairsData = [...generatedRepairsData, ...newRepairs];
+                }
+            } catch (batchErr) {
+                console.error(`Batch ${batchNum} error:`, batchErr);
+                updateProgress(baseProgress, `Dávka ${batchNum} selhala, pokračuji...`, batchErr.message);
             }
 
-            updateProgress(baseProgress + 15, `Dávka ${batchNum} dokončena`, `Celkem: ${generatedRepairsData.length} návodů`);
+            updateProgress(baseProgress + 7, `Dávka ${batchNum} dokončena`, `Celkem: ${generatedRepairsData.length} návodů`);
 
             // Pauza mezi dávkami
             if (batch < totalBatches - 1) {
@@ -2361,8 +2366,8 @@ POŽADAVKY:
 KATEGORIE:
 - bathroom, house, electrical, heating, kitchen, garden (nebo nové)
 
-Vrať POUZE validní JSON pole:
-[{"id":"id","name":"Název","description":"Popis","category":"kat","categoryKey":"klic","difficulty":"Nízká|Střední|Vysoká","timeEstimate":"XX min","riskScore":1,"materialCost":{"min":100,"max":500},"professionalCost":{"min":500,"max":2000},"tools":["nástroj"],"steps":[{"step":1,"action":"Akce","time":"X min","hint":"Tip"}],"safetyWarnings":["Varování"]}]`;
+Vrať JSON objekt s klíčem "repairs" obsahujícím pole návodů:
+{"repairs":[{"id":"unikatni-id","name":"Název problému","description":"Popis","category":"Kategorie CZ","categoryKey":"bathroom|house|electrical|heating|kitchen|garden","difficulty":"Nízká|Střední|Vysoká","timeEstimate":"XX min","riskScore":1-5,"materialCost":{"min":100,"max":500},"professionalCost":{"min":500,"max":2000},"tools":["nástroj1","nástroj2"],"steps":[{"step":1,"action":"Co udělat","time":"X min","hint":"Užitečný tip"}],"safetyWarnings":["Bezpečnostní varování"]}]}`;
 
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
         method: 'POST',
@@ -2373,24 +2378,60 @@ Vrať POUZE validní JSON pole:
         body: JSON.stringify({
             model: 'gpt-4o',
             messages: [
-                { role: 'system', content: 'Jsi expert na domácí opravy. Generuješ unikátní návody v češtině. Vrať pouze validní JSON pole.' },
+                { role: 'system', content: 'Jsi expert na domácí opravy. Generuješ unikátní návody v češtině. Odpovídej POUZE validním JSON polem, nic jiného.' },
                 { role: 'user', content: prompt }
             ],
-            max_tokens: 4000,
-            temperature: 0.9
+            max_tokens: 8000,
+            temperature: 0.8,
+            response_format: { type: "json_object" }
         })
     });
 
-    if (!response.ok) throw new Error(`API error: ${response.status}`);
+    if (!response.ok) {
+        const errText = await response.text();
+        throw new Error(`API error ${response.status}: ${errText}`);
+    }
 
     const data = await response.json();
     let content = data.choices?.[0]?.message?.content?.trim();
 
+    if (!content) throw new Error('Prázdná odpověď od AI');
+
+    // Odstranění markdown bloků pokud jsou
     if (content.startsWith('```json')) content = content.slice(7);
     if (content.startsWith('```')) content = content.slice(3);
     if (content.endsWith('```')) content = content.slice(0, -3);
+    content = content.trim();
 
-    return JSON.parse(content.trim());
+    // Parsování JSON s error handlingem
+    let parsed;
+    try {
+        parsed = JSON.parse(content);
+    } catch (parseErr) {
+        console.error('JSON parse error, raw content:', content.substring(0, 500));
+        // Pokus opravit oříznutý JSON
+        const lastBracket = content.lastIndexOf('}');
+        if (lastBracket > 0) {
+            const fixed = content.substring(0, lastBracket + 1) + ']';
+            try {
+                parsed = JSON.parse(fixed);
+                console.log('Recovered partial JSON with', parsed.length || (parsed.repairs?.length) || 0, 'items');
+            } catch {
+                throw new Error('Nepodařilo se zparsovat odpověď AI');
+            }
+        } else {
+            throw parseErr;
+        }
+    }
+
+    // Podpora pro response_format JSON object wrapper
+    if (parsed.repairs && Array.isArray(parsed.repairs)) {
+        return parsed.repairs;
+    }
+    if (Array.isArray(parsed)) {
+        return parsed;
+    }
+    throw new Error('Neočekávaný formát odpovědi');
 }
 
 function updateProgress(percent, text, detail) {
