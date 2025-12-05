@@ -2245,3 +2245,219 @@ async function mergeGeneratedRepairs() {
 // Export pro konzoli
 window.generateNewRepairs = generateNewRepairs;
 window.mergeGeneratedRepairs = mergeGeneratedRepairs;
+
+// ========================================
+// Inteligentní AI Generátor (pro Investor stránku)
+// ========================================
+
+let generatedRepairsData = [];
+let isGenerating = false;
+
+/**
+ * Hlavní funkce pro generování 50 nových unikátních návodů
+ */
+async function startGenerating() {
+    if (isGenerating) return;
+
+    const apiKey = await getApiKey();
+    if (!apiKey) {
+        showToast('Nejdříve nastavte OpenAI API klíč v menu.', 'error');
+        openApiKeyModal();
+        return;
+    }
+
+    isGenerating = true;
+    generatedRepairsData = [];
+
+    // UI elementy
+    const btn = document.getElementById('generateBtn');
+    const progress = document.getElementById('generatorProgress');
+    const result = document.getElementById('generatorResult');
+
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generuji...';
+    progress.style.display = 'block';
+    result.style.display = 'none';
+
+    try {
+        // 1. Načíst existující návody
+        updateProgress(0, 'Načítám existující návody...', '');
+        const existingRepairs = await loadRepairsFromJSON();
+
+        // 2. Vytvořit seznam existujících názvů pro AI
+        const existingTitles = existingRepairs.map(r => r.title).join(', ');
+
+        updateProgress(5, 'Připravuji kontext pro AI...', `${existingRepairs.length} existujících návodů`);
+
+        // 3. Generovat v dávkách (5 dávek po 10)
+        const batchSize = 10;
+        const totalBatches = 5;
+
+        for (let batch = 0; batch < totalBatches; batch++) {
+            const batchNum = batch + 1;
+            const baseProgress = 5 + (batch * 18);
+
+            updateProgress(baseProgress, `Generuji dávku ${batchNum}/${totalBatches}...`, `Zatím: ${generatedRepairsData.length} návodů`);
+
+            const newRepairs = await generateBatchRepairs(apiKey, batchSize, existingTitles, generatedRepairsData);
+
+            if (newRepairs && newRepairs.length > 0) {
+                generatedRepairsData = [...generatedRepairsData, ...newRepairs];
+            }
+
+            updateProgress(baseProgress + 15, `Dávka ${batchNum} dokončena`, `Celkem: ${generatedRepairsData.length} návodů`);
+
+            // Pauza mezi dávkami
+            if (batch < totalBatches - 1) {
+                await new Promise(resolve => setTimeout(resolve, 1000));
+            }
+        }
+
+        // 4. Dokončeno
+        updateProgress(100, 'Dokončeno!', '');
+
+        // Uložit do localStorage
+        localStorage.setItem('generatedRepairs', JSON.stringify(generatedRepairsData, null, 2));
+
+        // Zobrazit výsledek
+        setTimeout(() => {
+            progress.style.display = 'none';
+            result.style.display = 'block';
+            document.getElementById('resultText').textContent =
+                `Vygenerováno ${generatedRepairsData.length} nových návodů. Stáhněte JSON a přidejte do data/repairs.json`;
+        }, 500);
+
+    } catch (error) {
+        console.error('Generation error:', error);
+        showToast('Chyba při generování: ' + error.message, 'error');
+        progress.style.display = 'none';
+    } finally {
+        isGenerating = false;
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-wand-magic-sparkles"></i> Vygenerovat 50 nových';
+    }
+}
+
+/**
+ * Generuje jednu dávku návodů
+ */
+async function generateBatchRepairs(apiKey, count, existingTitles, alreadyGenerated) {
+    const alreadyGeneratedTitles = alreadyGenerated.map(r => r.name).join(', ');
+
+    const prompt = `Vygeneruj ${count} ZCELA NOVÝCH a UNIKÁTNÍCH návodů na domácí opravy v češtině.
+
+EXISTUJÍCÍ NÁVODY (NEOPAKOVAT):
+${existingTitles.substring(0, 2000)}
+
+JIŽ VYGENEROVANÉ (NEOPAKOVAT):
+${alreadyGeneratedTitles || 'žádné'}
+
+POŽADAVKY:
+1. Každý návod musí být UNIKÁTNÍ - jiný problém než existující
+2. Buď kreativní - mysli na neobvyklé ale reálné problémy
+3. Můžeš vytvořit NOVÉ kategorie pokud dávají smysl
+4. Zaměř se na praktické problémy českých domácností
+
+KATEGORIE:
+- bathroom, house, electrical, heating, kitchen, garden (nebo nové)
+
+Vrať POUZE validní JSON pole:
+[{"id":"id","name":"Název","description":"Popis","category":"kat","categoryKey":"klic","difficulty":"Nízká|Střední|Vysoká","timeEstimate":"XX min","riskScore":1,"materialCost":{"min":100,"max":500},"professionalCost":{"min":500,"max":2000},"tools":["nástroj"],"steps":[{"step":1,"action":"Akce","time":"X min","hint":"Tip"}],"safetyWarnings":["Varování"]}]`;
+
+    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${apiKey}`
+        },
+        body: JSON.stringify({
+            model: 'gpt-4o',
+            messages: [
+                { role: 'system', content: 'Jsi expert na domácí opravy. Generuješ unikátní návody v češtině. Vrať pouze validní JSON pole.' },
+                { role: 'user', content: prompt }
+            ],
+            max_tokens: 4000,
+            temperature: 0.9
+        })
+    });
+
+    if (!response.ok) throw new Error(`API error: ${response.status}`);
+
+    const data = await response.json();
+    let content = data.choices?.[0]?.message?.content?.trim();
+
+    if (content.startsWith('```json')) content = content.slice(7);
+    if (content.startsWith('```')) content = content.slice(3);
+    if (content.endsWith('```')) content = content.slice(0, -3);
+
+    return JSON.parse(content.trim());
+}
+
+function updateProgress(percent, text, detail) {
+    const bar = document.getElementById('progressBar');
+    const txt = document.getElementById('progressText');
+    const pct = document.getElementById('progressPercent');
+    const det = document.getElementById('progressDetail');
+
+    if (bar) bar.style.width = percent + '%';
+    if (txt) txt.textContent = text;
+    if (pct) pct.textContent = Math.round(percent) + '%';
+    if (det) det.textContent = detail;
+}
+
+function downloadGeneratedJSON() {
+    const data = localStorage.getItem('generatedRepairs');
+    if (!data) { showToast('Žádná data', 'error'); return; }
+
+    const blob = new Blob([data], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `new-repairs-${new Date().toISOString().split('T')[0]}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    showToast('JSON stažen!', 'success');
+}
+
+async function copyGeneratedJSON() {
+    const data = localStorage.getItem('generatedRepairs');
+    if (!data) { showToast('Žádná data', 'error'); return; }
+    try {
+        await navigator.clipboard.writeText(data);
+        showToast('Zkopírováno!', 'success');
+    } catch (err) {
+        showToast('Chyba kopírování', 'error');
+    }
+}
+
+function resetGenerator() {
+    document.getElementById('generatorProgress').style.display = 'none';
+    document.getElementById('generatorResult').style.display = 'none';
+    generatedRepairsData = [];
+}
+
+async function updateInvestorRepairCount() {
+    const el1 = document.getElementById('currentRepairCount');
+    const el2 = document.getElementById('investorRepairCount');
+    try {
+        const repairs = await loadRepairsFromJSON();
+        if (el1) el1.textContent = repairs.length;
+        if (el2) el2.textContent = repairs.length;
+    } catch (e) {
+        if (el1) el1.textContent = '100+';
+        if (el2) el2.textContent = '100+';
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    if (document.getElementById('currentRepairCount') || document.getElementById('investorRepairCount')) {
+        updateInvestorRepairCount();
+    }
+});
+
+window.startGenerating = startGenerating;
+window.downloadGeneratedJSON = downloadGeneratedJSON;
+window.copyGeneratedJSON = copyGeneratedJSON;
+window.resetGenerator = resetGenerator;
