@@ -60,32 +60,32 @@
     --font-weight-semibold: 600;
     --font-weight-bold: 700;
 
-    /* Font sizes - Generous and breathable */
-    --font-size-xs: 0.75rem;    /* 12px */
-    --font-size-sm: 0.875rem;   /* 14px */
-    --font-size-base: 1rem;     /* 16px */
-    --font-size-lg: 1.125rem;   /* 18px */
-    --font-size-xl: 1.25rem;    /* 20px */
-    --font-size-2xl: 1.5rem;    /* 24px */
-    --font-size-3xl: 1.875rem;  /* 30px */
-    --font-size-4xl: 2.25rem;   /* 36px */
-    --font-size-5xl: 3rem;      /* 48px */
+    /* Font sizes - Compact */
+    --font-size-xs: 0.7rem;     /* 11px */
+    --font-size-sm: 0.8rem;     /* 13px */
+    --font-size-base: 0.875rem; /* 14px */
+    --font-size-lg: 0.95rem;    /* 15px */
+    --font-size-xl: 1.05rem;    /* 17px */
+    --font-size-2xl: 1.2rem;    /* 19px */
+    --font-size-3xl: 1.4rem;    /* 22px */
+    --font-size-4xl: 1.65rem;   /* 26px */
+    --font-size-5xl: 2rem;      /* 32px */
 
-    /* Spacing - Apple-style generous spacing */
-    --space-xs: 0.5rem;    /* 8px */
-    --space-sm: 0.75rem;   /* 12px */
-    --space-md: 1rem;      /* 16px */
-    --space-lg: 1.5rem;    /* 24px */
-    --space-xl: 2rem;      /* 32px */
-    --space-2xl: 3rem;     /* 48px */
-    --space-3xl: 4rem;     /* 64px */
+    /* Spacing - Compact */
+    --space-xs: 0.35rem;   /* 5.6px */
+    --space-sm: 0.5rem;    /* 8px */
+    --space-md: 0.7rem;    /* 11px */
+    --space-lg: 1rem;      /* 16px */
+    --space-xl: 1.25rem;   /* 20px */
+    --space-2xl: 1.75rem;  /* 28px */
+    --space-3xl: 2.5rem;   /* 40px */
 
-    /* Border radius - Smooth and modern */
-    --radius-sm: 8px;
-    --radius-md: 12px;
-    --radius-lg: 16px;
-    --radius-xl: 20px;
-    --radius-2xl: 24px;
+    /* Border radius - Compact */
+    --radius-sm: 6px;
+    --radius-md: 8px;
+    --radius-lg: 10px;
+    --radius-xl: 14px;
+    --radius-2xl: 18px;
     --radius-full: 9999px;
 
     /* Shadows - Soft and elevated */
@@ -100,10 +100,10 @@
     --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
     --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
 
-    /* Layout */
-    --header-height: 64px;
-    --sidebar-width: 240px;
-    --container-max: 1200px;
+    /* Layout - Compact */
+    --header-height: 48px;
+    --sidebar-width: 200px;
+    --container-max: 1100px;
 }
 
 html {
@@ -123,7 +123,7 @@ body {
     background-attachment: fixed;
     background-repeat: no-repeat;
     color: var(--text-primary);
-    line-height: 1.6;
+    line-height: 1.45;
     min-height: 100vh;
     overflow-x: hidden;
     letter-spacing: -0.01em;
@@ -177,17 +177,17 @@ body {
 }
 
 .logo-icon {
-    width: 40px;
-    height: 40px;
+    width: 32px;
+    height: 32px;
     background: linear-gradient(135deg, var(--accent) 0%, var(--accent-hover) 100%);
     border-radius: var(--radius-md);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: var(--font-size-xl);
+    font-size: var(--font-size-base);
     font-weight: var(--font-weight-bold);
     color: #ffffff;
-    box-shadow: 0 4px 12px rgba(0, 113, 227, 0.3);
+    box-shadow: 0 3px 10px rgba(0, 113, 227, 0.3);
 }
 
 .logo-text {
@@ -218,12 +218,12 @@ body {
 .nav-link {
     display: flex;
     align-items: center;
-    gap: var(--space-sm);
-    padding: var(--space-sm) var(--space-lg);
+    gap: var(--space-xs);
+    padding: 6px 12px;
     text-decoration: none;
     color: var(--text-secondary);
     font-weight: var(--font-weight-medium);
-    font-size: var(--font-size-sm);
+    font-size: 0.78rem;
     border-radius: var(--radius-full);
     transition: all var(--transition-base);
     position: relative;
@@ -349,12 +349,12 @@ body {
 
     /* Border and shadows */
     border: 1px solid var(--border-dark);
-    border-radius: var(--radius-xl);
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15), 0 2px 8px rgba(0, 0, 0, 0.1);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12), 0 2px 6px rgba(0, 0, 0, 0.08);
 
-    /* Spacing - breathable */
-    padding: var(--space-xl);
-    margin-bottom: var(--space-lg);
+    /* Spacing - compact */
+    padding: var(--space-lg);
+    margin-bottom: var(--space-md);
 
     /* Smooth transitions */
     transition: all var(--transition-base);
@@ -437,25 +437,24 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: var(--space-lg);
-    padding-bottom: var(--space-md);
+    margin-bottom: var(--space-md);
+    padding-bottom: var(--space-sm);
     border-bottom: 1px solid var(--border-subtle);
 }
 
 .card-title {
-    font-size: var(--font-size-xl);
+    font-size: var(--font-size-lg);
     font-weight: var(--font-weight-semibold);
     color: var(--text-dark-primary);
     display: flex;
     align-items: center;
-    gap: var(--space-sm);
+    gap: var(--space-xs);
     letter-spacing: -0.02em;
 }
 
 .card-title .icon {
-    font-size: var(--font-size-2xl);
+    font-size: var(--font-size-lg);
     opacity: 0.9;
-    font-size: 14px;
 }
 
 /* ========================================
@@ -466,9 +465,9 @@ body {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: var(--space-sm);
-    padding: var(--space-md) var(--space-xl);
-    font-size: var(--font-size-base);
+    gap: var(--space-xs);
+    padding: 8px 16px;
+    font-size: 0.8rem;
     font-weight: var(--font-weight-medium);
     font-family: var(--font-main);
     border: none;
@@ -565,13 +564,13 @@ body {
 
 /* Button sizes */
 .btn-sm {
-    padding: var(--space-sm) var(--space-lg);
-    font-size: var(--font-size-sm);
+    padding: 5px 12px;
+    font-size: 0.75rem;
 }
 
 .btn-lg {
-    padding: var(--space-lg) var(--space-2xl);
-    font-size: var(--font-size-lg);
+    padding: 10px 20px;
+    font-size: 0.85rem;
 }
 
 .btn-block {
@@ -1216,7 +1215,7 @@ a.tool-link:hover .link-arrow {
 }
 
 .modal-header {
-    padding: 12px 16px;
+    padding: 10px 14px;
     border-bottom: 1px solid var(--border-color);
     display: flex;
     align-items: center;
@@ -1224,13 +1223,13 @@ a.tool-link:hover .link-arrow {
 }
 
 .modal-header h3 {
-    font-size: 0.95rem;
+    font-size: 0.88rem;
 }
 
 .modal-close {
     background: none;
     border: none;
-    font-size: 18px;
+    font-size: 16px;
     cursor: pointer;
     color: var(--text-tertiary);
 }
@@ -1240,15 +1239,15 @@ a.tool-link:hover .link-arrow {
 }
 
 .modal-body {
-    padding: 14px 16px;
+    padding: 12px 14px;
 }
 
 .modal-footer {
-    padding: 10px 16px;
+    padding: 8px 14px;
     border-top: 1px solid var(--border-color);
     display: flex;
     justify-content: flex-end;
-    gap: 8px;
+    gap: 6px;
 }
 
 /* Modal Content - for registration forms */
@@ -1256,38 +1255,38 @@ a.tool-link:hover .link-arrow {
     background: var(--bg-card);
     border-radius: var(--border-radius);
     width: 90%;
-    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5);
 }
 
 .modal-content .modal-header {
-    padding: 20px 24px;
+    padding: 14px 18px;
 }
 
 .modal-content .modal-body {
-    padding: 24px;
+    padding: 16px 18px;
 }
 
 /* Form elements inside modal */
 .modal-content .form-group {
-    margin-bottom: 16px;
+    margin-bottom: 12px;
 }
 
 .modal-content .form-group label {
     display: block;
-    font-size: 0.875rem;
+    font-size: 0.8rem;
     font-weight: 500;
     color: var(--text-primary);
-    margin-bottom: 6px;
+    margin-bottom: 4px;
 }
 
 .modal-content .form-group input,
 .modal-content .form-group select,
 .modal-content .form-group textarea {
     width: 100%;
-    padding: 10px 14px;
-    font-size: 0.9375rem;
+    padding: 8px 12px;
+    font-size: 0.85rem;
     border: 1px solid var(--border-color);
-    border-radius: 8px;
+    border-radius: 6px;
     transition: all 0.2s ease;
     font-family: inherit;
     background: var(--bg-tertiary);
@@ -1324,13 +1323,13 @@ a.tool-link:hover .link-arrow {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 20px;
+    padding: 14px;
 }
 
 .spinner {
-    width: 32px;
-    height: 32px;
-    border: 3px solid var(--gray-200);
+    width: 26px;
+    height: 26px;
+    border: 2px solid var(--gray-200);
     border-top-color: var(--accent-primary);
     border-radius: 50%;
     animation: spin 1s linear infinite;
@@ -1433,7 +1432,7 @@ a.tool-link:hover .link-arrow {
     background: var(--bg-secondary);
     border-bottom: 1px solid var(--border-color);
     color: var(--text-primary);
-    padding: 16px 24px;
+    padding: 12px 20px;
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -1442,14 +1441,14 @@ a.tool-link:hover .link-arrow {
 }
 
 .hero h1 {
-    font-size: 1.3rem;
-    margin-bottom: 4px;
+    font-size: 1.15rem;
+    margin-bottom: 3px;
 }
 
 .hero p {
-    font-size: 0.85rem;
+    font-size: 0.78rem;
     opacity: 0.9;
-    max-width: 600px;
+    max-width: 550px;
 }
 
 /* Hlavní sekce indexu - KOMPAKTNÍ */
@@ -1718,17 +1717,17 @@ tr:hover {
     background: var(--bg-secondary);
     border-bottom: 1px solid var(--border-color);
     color: var(--text-primary);
-    padding: 16px 24px;
+    padding: 12px 18px;
     text-align: center;
 }
 
 .hero-compact h1 {
-    font-size: 1.4rem;
-    margin-bottom: 4px;
+    font-size: 1.2rem;
+    margin-bottom: 3px;
 }
 
 .hero-compact p {
-    font-size: 0.9rem;
+    font-size: 0.8rem;
     opacity: 0.9;
 }
 
@@ -1936,7 +1935,7 @@ tr:hover {
 .cta-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-lg);
+    gap: var(--space-md);
 }
 
 @media (max-width: 768px) {
