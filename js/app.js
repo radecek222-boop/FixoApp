@@ -2289,27 +2289,32 @@ async function startGenerating() {
 
         updateProgress(5, 'Připravuji kontext pro AI...', `${existingRepairs.length} existujících návodů`);
 
-        // 3. Generovat v dávkách (5 dávek po 10)
-        const batchSize = 10;
-        const totalBatches = 5;
+        // 3. Generovat jednotlivě (spolehlivější)
+        const totalGuides = 50;
+        let failures = 0;
+        const maxFailures = 5;
 
-        for (let batch = 0; batch < totalBatches; batch++) {
-            const batchNum = batch + 1;
-            const baseProgress = 5 + (batch * 18);
+        for (let i = 0; i < totalGuides && failures < maxFailures; i++) {
+            const progress_pct = 5 + (i / totalGuides) * 90;
+            updateProgress(progress_pct, `Generuji návod ${i + 1}/${totalGuides}...`, `Hotovo: ${generatedRepairsData.length}`);
 
-            updateProgress(baseProgress, `Generuji dávku ${batchNum}/${totalBatches}...`, `Zatím: ${generatedRepairsData.length} návodů`);
-
-            const newRepairs = await generateBatchRepairs(apiKey, batchSize, existingTitles, generatedRepairsData);
-
-            if (newRepairs && newRepairs.length > 0) {
-                generatedRepairsData = [...generatedRepairsData, ...newRepairs];
+            try {
+                const newRepair = await generateSingleRepair(apiKey, existingTitles, generatedRepairsData);
+                if (newRepair) {
+                    generatedRepairsData.push(newRepair);
+                    failures = 0; // Reset po úspěchu
+                }
+            } catch (err) {
+                console.error(`Guide ${i + 1} error:`, err);
+                failures++;
+                if (failures >= maxFailures) {
+                    showToast(`Příliš mnoho chyb (${failures}), zastavuji`, 'error');
+                }
             }
 
-            updateProgress(baseProgress + 15, `Dávka ${batchNum} dokončena`, `Celkem: ${generatedRepairsData.length} návodů`);
-
-            // Pauza mezi dávkami
-            if (batch < totalBatches - 1) {
-                await new Promise(resolve => setTimeout(resolve, 1000));
+            // Krátká pauza mezi requesty
+            if (i < totalGuides - 1) {
+                await new Promise(resolve => setTimeout(resolve, 500));
             }
         }
 
@@ -2339,30 +2344,12 @@ async function startGenerating() {
 }
 
 /**
- * Generuje jednu dávku návodů
+ * Generuje jeden návod - spolehlivější než batch
  */
-async function generateBatchRepairs(apiKey, count, existingTitles, alreadyGenerated) {
-    const alreadyGeneratedTitles = alreadyGenerated.map(r => r.name).join(', ');
-
-    const prompt = `Vygeneruj ${count} ZCELA NOVÝCH a UNIKÁTNÍCH návodů na domácí opravy v češtině.
-
-EXISTUJÍCÍ NÁVODY (NEOPAKOVAT):
-${existingTitles.substring(0, 2000)}
-
-JIŽ VYGENEROVANÉ (NEOPAKOVAT):
-${alreadyGeneratedTitles || 'žádné'}
-
-POŽADAVKY:
-1. Každý návod musí být UNIKÁTNÍ - jiný problém než existující
-2. Buď kreativní - mysli na neobvyklé ale reálné problémy
-3. Můžeš vytvořit NOVÉ kategorie pokud dávají smysl
-4. Zaměř se na praktické problémy českých domácností
-
-KATEGORIE:
-- bathroom, house, electrical, heating, kitchen, garden (nebo nové)
-
-Vrať POUZE validní JSON pole:
-[{"id":"id","name":"Název","description":"Popis","category":"kat","categoryKey":"klic","difficulty":"Nízká|Střední|Vysoká","timeEstimate":"XX min","riskScore":1,"materialCost":{"min":100,"max":500},"professionalCost":{"min":500,"max":2000},"tools":["nástroj"],"steps":[{"step":1,"action":"Akce","time":"X min","hint":"Tip"}],"safetyWarnings":["Varování"]}]`;
+async function generateSingleRepair(apiKey, existingTitles, alreadyGenerated) {
+    const recentNames = alreadyGenerated.slice(-15).map(r => r.name).join(', ');
+    const categories = ['Koupelna', 'Dům', 'Elektro', 'Topení', 'Kuchyň', 'Zahrada'];
+    const randomCat = categories[Math.floor(Math.random() * categories.length)];
 
     const response = await fetch('https://api.openai.com/v1/chat/completions', {
         method: 'POST',
@@ -2371,26 +2358,43 @@ Vrať POUZE validní JSON pole:
             'Authorization': `Bearer ${apiKey}`
         },
         body: JSON.stringify({
-            model: 'gpt-4o',
-            messages: [
-                { role: 'system', content: 'Jsi expert na domácí opravy. Generuješ unikátní návody v češtině. Vrať pouze validní JSON pole.' },
-                { role: 'user', content: prompt }
-            ],
-            max_tokens: 4000,
+            model: 'gpt-4o-mini',
+            messages: [{
+                role: 'user',
+                content: `Vygeneruj 1 návod na opravu v kategorii "${randomCat}".
+
+NEPOUŽÍVEJ: ${existingTitles.substring(0, 800)}${recentNames ? ', ' + recentNames : ''}
+
+Vrať POUZE tento JSON (nic jiného):
+{"id":"kebab-id","name":"Název","description":"Popis","category":"${randomCat}","categoryKey":"${randomCat === 'Koupelna' ? 'bathroom' : randomCat === 'Dům' ? 'house' : randomCat === 'Elektro' ? 'electrical' : randomCat === 'Topení' ? 'heating' : randomCat === 'Kuchyň' ? 'kitchen' : 'garden'}","difficulty":"Střední","timeEstimate":"30 min","riskScore":2,"materialCost":{"min":200,"max":800},"professionalCost":{"min":800,"max":2500},"tools":["nástroj1","nástroj2"],"steps":[{"step":1,"action":"Krok","time":"10 min","hint":"Tip"}],"safetyWarnings":["Varování"]}`
+            }],
+            max_tokens: 1000,
             temperature: 0.9
         })
     });
 
-    if (!response.ok) throw new Error(`API error: ${response.status}`);
+    if (!response.ok) {
+        throw new Error(`API ${response.status}`);
+    }
 
     const data = await response.json();
     let content = data.choices?.[0]?.message?.content?.trim();
 
-    if (content.startsWith('```json')) content = content.slice(7);
-    if (content.startsWith('```')) content = content.slice(3);
-    if (content.endsWith('```')) content = content.slice(0, -3);
+    if (!content) throw new Error('Prázdná odpověď');
 
-    return JSON.parse(content.trim());
+    // Očistit od markdown
+    content = content.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+
+    // Najít JSON objekt
+    const jsonMatch = content.match(/\{[\s\S]*\}/);
+    if (!jsonMatch) throw new Error('Žádný JSON v odpovědi');
+
+    const repair = JSON.parse(jsonMatch[0]);
+
+    // Validace základních polí
+    if (!repair.id || !repair.name) throw new Error('Neplatný návod');
+
+    return repair;
 }
 
 function updateProgress(percent, text, detail) {
