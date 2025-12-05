@@ -54,76 +54,76 @@
         <main class="main-content">
             <div class="content-area" style="padding: 0; display: flex; flex-direction: column; height: 100%; overflow-y: auto;">
                 <!-- Hero sekce -->
-                <section style="text-align: center; padding: 40px 32px 24px; max-width: 700px; margin: 0 auto;">
-                    <h1 style="font-size: 2.5rem; font-weight: 700; margin-bottom: 16px; line-height: 1.1; letter-spacing: -0.03em; color: var(--text-primary);">
+                <section style="text-align: center; padding: 16px 20px 12px; max-width: 650px; margin: 0 auto;">
+                    <h1 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 8px; line-height: 1.15; letter-spacing: -0.03em; color: var(--text-primary);">
                         DIY Návody
                     </h1>
-                    <p style="font-size: 1rem; color: var(--text-secondary); font-weight: 400; margin-bottom: 32px; line-height: 1.5;">
+                    <p style="font-size: 0.85rem; color: var(--text-secondary); font-weight: 400; margin-bottom: 16px; line-height: 1.4;">
                         537 krok-za-krokem návodů pro opravu domácích závad
                     </p>
                 </section>
 
                 <!-- Kategorie Grid -->
-                <section style="max-width: 1200px; margin: 0 auto 64px; padding: 0 32px;">
+                <section style="max-width: 1000px; margin: 0 auto 24px; padding: 0 16px;">
                     <div class="cta-grid">
                         <!-- Koupelna -->
-                        <div class="card category-card" style="cursor: pointer; text-align: center; padding: var(--space-3xl) var(--space-xl); transition: all 0.3s;" onclick="showGuides('bathroom')">
-                            <i class="fas fa-bath" style="font-size: 3rem; margin-bottom: var(--space-lg); color: var(--accent); display: block;"></i>
-                            <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: var(--space-sm);">Koupelna</h3>
-                            <p style="font-size: 0.875rem; margin-bottom: var(--space-lg);">Baterie, sprchy, záchody</p>
+                        <div class="card category-card" style="cursor: pointer; text-align: center; padding: 16px 14px; transition: all 0.3s;" onclick="showGuides('bathroom')">
+                            <i class="fas fa-bath" style="font-size: 1.5rem; margin-bottom: 8px; color: var(--accent); display: block;"></i>
+                            <h3 style="font-size: 0.95rem; font-weight: 600; margin-bottom: 3px;">Koupelna</h3>
+                            <p style="color: var(--text-dark-secondary); font-size: 0.78rem; margin-bottom: 8px;">Baterie, sprchy, záchody</p>
                             <div class="btn btn-outline btn-sm">Zobrazit návody</div>
                         </div>
 
                         <!-- Dům -->
-                        <div class="card category-card" style="cursor: pointer; text-align: center; padding: var(--space-3xl) var(--space-xl); transition: all 0.3s;" onclick="showGuides('house')">
-                            <i class="fas fa-house" style="font-size: 3rem; margin-bottom: var(--space-lg); color: var(--accent); display: block;"></i>
-                            <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: var(--space-sm);">Dům</h3>
-                            <p style="font-size: 0.875rem; margin-bottom: var(--space-lg);">Okna, dveře, podlahy</p>
+                        <div class="card category-card" style="cursor: pointer; text-align: center; padding: 16px 14px; transition: all 0.3s;" onclick="showGuides('house')">
+                            <i class="fas fa-house" style="font-size: 1.5rem; margin-bottom: 8px; color: var(--accent); display: block;"></i>
+                            <h3 style="font-size: 0.95rem; font-weight: 600; margin-bottom: 3px;">Dům</h3>
+                            <p style="color: var(--text-dark-secondary); font-size: 0.78rem; margin-bottom: 8px;">Okna, dveře, podlahy</p>
                             <div class="btn btn-outline btn-sm">Zobrazit návody</div>
                         </div>
 
                         <!-- Elektřina -->
-                        <div class="card category-card" style="cursor: pointer; text-align: center; padding: var(--space-3xl) var(--space-xl); transition: all 0.3s;" onclick="showGuides('electrical')">
-                            <i class="fas fa-bolt" style="font-size: 3rem; margin-bottom: var(--space-lg); color: var(--accent); display: block;"></i>
-                            <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: var(--space-sm);">Elektřina</h3>
-                            <p style="font-size: 0.875rem; margin-bottom: var(--space-lg);">Zásuvky, světla, jističe</p>
+                        <div class="card category-card" style="cursor: pointer; text-align: center; padding: 16px 14px; transition: all 0.3s;" onclick="showGuides('electrical')">
+                            <i class="fas fa-bolt" style="font-size: 1.5rem; margin-bottom: 8px; color: var(--accent); display: block;"></i>
+                            <h3 style="font-size: 0.95rem; font-weight: 600; margin-bottom: 3px;">Elektřina</h3>
+                            <p style="color: var(--text-dark-secondary); font-size: 0.78rem; margin-bottom: 8px;">Zásuvky, světla, jističe</p>
                             <div class="btn btn-outline btn-sm">Zobrazit návody</div>
                         </div>
 
                         <!-- Topení -->
-                        <div class="card category-card" style="cursor: pointer; text-align: center; padding: var(--space-3xl) var(--space-xl); transition: all 0.3s;" onclick="showGuides('heating')">
-                            <i class="fas fa-fire" style="font-size: 3rem; margin-bottom: var(--space-lg); color: var(--accent); display: block;"></i>
-                            <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: var(--space-sm);">Topení</h3>
-                            <p style="font-size: 0.875rem; margin-bottom: var(--space-lg);">Radiátory, kotle, termostaty</p>
+                        <div class="card category-card" style="cursor: pointer; text-align: center; padding: 16px 14px; transition: all 0.3s;" onclick="showGuides('heating')">
+                            <i class="fas fa-fire" style="font-size: 1.5rem; margin-bottom: 8px; color: var(--accent); display: block;"></i>
+                            <h3 style="font-size: 0.95rem; font-weight: 600; margin-bottom: 3px;">Topení</h3>
+                            <p style="color: var(--text-dark-secondary); font-size: 0.78rem; margin-bottom: 8px;">Radiátory, kotle, termostaty</p>
                             <div class="btn btn-outline btn-sm">Zobrazit návody</div>
                         </div>
 
                         <!-- Kuchyň -->
-                        <div class="card category-card" style="cursor: pointer; text-align: center; padding: var(--space-3xl) var(--space-xl); transition: all 0.3s;" onclick="showGuides('kitchen')">
-                            <i class="fas fa-kitchen-set" style="font-size: 3rem; margin-bottom: var(--space-lg); color: var(--accent); display: block;"></i>
-                            <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: var(--space-sm);">Kuchyň</h3>
-                            <p style="font-size: 0.875rem; margin-bottom: var(--space-lg);">Spotřebiče, dřez, linky</p>
+                        <div class="card category-card" style="cursor: pointer; text-align: center; padding: 16px 14px; transition: all 0.3s;" onclick="showGuides('kitchen')">
+                            <i class="fas fa-kitchen-set" style="font-size: 1.5rem; margin-bottom: 8px; color: var(--accent); display: block;"></i>
+                            <h3 style="font-size: 0.95rem; font-weight: 600; margin-bottom: 3px;">Kuchyň</h3>
+                            <p style="color: var(--text-dark-secondary); font-size: 0.78rem; margin-bottom: 8px;">Spotřebiče, dřez, linky</p>
                             <div class="btn btn-outline btn-sm">Zobrazit návody</div>
                         </div>
 
                         <!-- Zahrada -->
-                        <div class="card category-card" style="cursor: pointer; text-align: center; padding: var(--space-3xl) var(--space-xl); transition: all 0.3s;" onclick="showGuides('garden')">
-                            <i class="fas fa-tree" style="font-size: 3rem; margin-bottom: var(--space-lg); color: var(--accent); display: block;"></i>
-                            <h3 style="font-size: 1.25rem; font-weight: 600; margin-bottom: var(--space-sm);">Zahrada</h3>
-                            <p style="font-size: 0.875rem; margin-bottom: var(--space-lg);">Plot, zavlažování, nástroje</p>
+                        <div class="card category-card" style="cursor: pointer; text-align: center; padding: 16px 14px; transition: all 0.3s;" onclick="showGuides('garden')">
+                            <i class="fas fa-tree" style="font-size: 1.5rem; margin-bottom: 8px; color: var(--accent); display: block;"></i>
+                            <h3 style="font-size: 0.95rem; font-weight: 600; margin-bottom: 3px;">Zahrada</h3>
+                            <p style="color: var(--text-dark-secondary); font-size: 0.78rem; margin-bottom: 8px;">Plot, zavlažování, nástroje</p>
                             <div class="btn btn-outline btn-sm">Zobrazit návody</div>
                         </div>
                     </div>
                 </section>
 
                 <!-- Návody Section (skrytá, zobrazí se po kliknutí) -->
-                <section id="guidesSection" style="max-width: 1200px; margin: 0 auto 64px; padding: 0 32px; display: none;">
-                    <div style="text-align: center; margin-bottom: var(--space-2xl);">
-                        <button onclick="hideGuides()" class="btn btn-outline" style="margin-bottom: 24px;">
+                <section id="guidesSection" style="max-width: 1000px; margin: 0 auto 24px; padding: 0 16px; display: none;">
+                    <div style="text-align: center; margin-bottom: 16px;">
+                        <button onclick="hideGuides()" class="btn btn-outline btn-sm" style="margin-bottom: 12px;">
                             <i class="fas fa-arrow-left"></i> Zpět na kategorie
                         </button>
-                        <h2 id="guidesTitle" style="font-size: 2rem; font-weight: 700; color: var(--text-primary); margin-bottom: 8px;"></h2>
-                        <p id="guidesSubtitle" style="color: var(--text-secondary);"></p>
+                        <h2 id="guidesTitle" style="font-size: 1.25rem; font-weight: 700; color: var(--text-primary); margin-bottom: 4px;"></h2>
+                        <p id="guidesSubtitle" style="color: var(--text-secondary); font-size: 0.85rem;"></p>
                     </div>
                     <div id="guidesGrid" class="cta-grid">
                         <!-- Návody budou vloženy JavaScriptem -->
@@ -131,15 +131,15 @@
                 </section>
 
                 <!-- Quick Actions -->
-                <section style="max-width: 800px; margin: 0 auto 64px; padding: 0 32px;">
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;">
-                        <a href="index.html" class="card" style="text-decoration: none; text-align: center; padding: var(--space-xl);">
-                            <i class="fas fa-camera" style="font-size: 2rem; margin-bottom: var(--space-md); color: var(--accent); display: block;"></i>
-                            <h4 style="font-size: 1rem; font-weight: 600;">AI Analýza</h4>
+                <section style="max-width: 500px; margin: 0 auto 24px; padding: 0 16px;">
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                        <a href="index.html" class="card" style="text-decoration: none; text-align: center; padding: 14px 12px;">
+                            <i class="fas fa-camera" style="font-size: 1.5rem; margin-bottom: 6px; color: var(--accent); display: block;"></i>
+                            <h4 style="font-size: 0.85rem; font-weight: 600;">AI Analýza</h4>
                         </a>
-                        <a href="providers.html" class="card" style="text-decoration: none; text-align: center; padding: var(--space-xl);">
-                            <i class="fas fa-helmet-safety" style="font-size: 2rem; margin-bottom: var(--space-md); color: var(--accent); display: block;"></i>
-                            <h4 style="font-size: 1rem; font-weight: 600;">Najít Řemeslníka</h4>
+                        <a href="providers.html" class="card" style="text-decoration: none; text-align: center; padding: 14px 12px;">
+                            <i class="fas fa-helmet-safety" style="font-size: 1.5rem; margin-bottom: 6px; color: var(--accent); display: block;"></i>
+                            <h4 style="font-size: 0.85rem; font-weight: 600;">Najít Řemeslníka</h4>
                         </a>
                     </div>
                 </section>
@@ -157,12 +157,12 @@
         </footer>
     </div>
     <!-- Guide Detail Modal -->
-    <div id="guideModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); z-index: 10000; overflow-y: auto; padding: 20px;">
-        <div class="card" style="max-width: 900px; margin: 40px auto; position: relative;">
-            <button onclick="closeGuideModal()" style="position: absolute; top: 20px; right: 20px; background: var(--bg-secondary); border: none; color: var(--text-primary); width: 40px; height: 40px; border-radius: 50%; cursor: pointer; font-size: 1.5rem; display: flex; align-items: center; justify-content: center;">
+    <div id="guideModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(10, 10, 11, 0.92); z-index: 10000; overflow-y: auto; padding: 12px;">
+        <div class="card" style="max-width: 700px; margin: 20px auto; position: relative;">
+            <button onclick="closeGuideModal()" style="position: absolute; top: 12px; right: 12px; background: var(--bg-secondary); border: none; color: var(--text-primary); width: 32px; height: 32px; border-radius: 50%; cursor: pointer; font-size: 1.1rem; display: flex; align-items: center; justify-content: center; z-index: 10;">
                 <i class="fas fa-times"></i>
             </button>
-            <div id="guideModalContent" style="padding: var(--space-3xl);"></div>
+            <div id="guideModalContent" style="padding: 16px;"></div>
         </div>
     </div>
     <!-- Toast Container -->
@@ -170,35 +170,35 @@
 
     <!-- API Key Modal -->
     <div class="modal-overlay" id="apiKeyModal">
-        <div class="modal-content" style="max-width: 420px;">
+        <div class="modal-content" style="max-width: 380px;">
             <div class="modal-header">
-                <h3><i class="fas fa-key"></i> OpenAI API Klíč</h3>
+                <h3 style="font-size: 0.9rem;"><i class="fas fa-key"></i> OpenAI API Klíč</h3>
                 <button class="modal-close" onclick="closeApiKeyModal()">&times;</button>
             </div>
-            <div class="modal-body">
-                <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 16px;">
-                    Vložte váš OpenAI API klíč pro aktivaci AI analýzy fotografií. Klíč bude bezpečně zašifrován a uložen pouze ve vašem prohlížeči.
+            <div class="modal-body" style="padding: 14px;">
+                <p style="font-size: 0.78rem; color: var(--text-secondary); margin-bottom: 12px; line-height: 1.4;">
+                    Vložte váš OpenAI API klíč pro aktivaci AI analýzy. Klíč bude zašifrován a uložen v prohlížeči.
                 </p>
-                <div class="form-group">
-                    <label>API Klíč</label>
+                <div class="form-group" style="margin-bottom: 10px;">
+                    <label style="font-size: 0.75rem;">API Klíč</label>
                     <div style="position: relative;">
-                        <input type="password" id="apiKeyInput" placeholder="sk-..." style="padding-right: 40px;">
-                        <button type="button" onclick="toggleApiKeyVisibility()" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: var(--text-tertiary);">
+                        <input type="password" id="apiKeyInput" placeholder="sk-..." style="padding-right: 36px; font-size: 0.8rem;">
+                        <button type="button" onclick="toggleApiKeyVisibility()" style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: var(--text-tertiary);">
                             <i class="fas fa-eye" id="apiKeyToggleIcon"></i>
                         </button>
                     </div>
                 </div>
-                <div id="apiKeyStatus" style="font-size: 0.8rem; margin-bottom: 12px;"></div>
-                <div style="display: flex; gap: 10px;">
-                    <button class="btn btn-primary" onclick="saveApiKey()" style="flex: 1;">
+                <div id="apiKeyStatus" style="font-size: 0.78rem; margin-bottom: 10px;"></div>
+                <div style="display: flex; gap: 8px;">
+                    <button class="btn btn-primary btn-sm" onclick="saveApiKey()" style="flex: 1;">
                         <i class="fas fa-save"></i> Uložit
                     </button>
                     <button class="btn btn-danger btn-sm" onclick="deleteApiKey()" id="deleteApiKeyBtn" style="display: none;">
                         <i class="fas fa-trash"></i>
                     </button>
                 </div>
-                <p style="font-size: 0.7rem; color: var(--text-tertiary); margin-top: 12px; text-align: center;">
-                    <i class="fas fa-shield-halved"></i> Klíč je šifrován pomocí AES-256 a nikdy neopouští váš prohlížeč
+                <p style="font-size: 0.72rem; color: var(--text-tertiary); margin-top: 10px; text-align: center;">
+                    <i class="fas fa-shield-halved"></i> AES-256 šifrování, klíč neopouští prohlížeč
                 </p>
             </div>
         </div>

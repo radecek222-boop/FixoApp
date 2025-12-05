@@ -24,20 +24,20 @@
 
     /* Text - Dual system for dark/light backgrounds */
     --text-primary: #ffffff;         /* Pure white for dark backgrounds */
-    --text-secondary: rgba(255, 255, 255, 0.7);  /* Subtle white for dark backgrounds */
-    --text-tertiary: rgba(255, 255, 255, 0.5);   /* Very subtle for dark backgrounds */
-    --text-muted: rgba(255, 255, 255, 0.3);      /* Ultra subtle */
+    --text-secondary: rgba(255, 255, 255, 0.85);  /* Readable on dark backgrounds */
+    --text-tertiary: rgba(255, 255, 255, 0.7);    /* Subtle but visible on dark backgrounds */
+    --text-muted: rgba(255, 255, 255, 0.55);      /* Still readable muted text */
 
     /* Text for light backgrounds (cards) */
     --text-dark-primary: #1a1a1d;    /* Dark text for light backgrounds */
-    --text-dark-secondary: rgba(26, 26, 29, 0.7);  /* Subtle dark text */
-    --text-dark-tertiary: rgba(26, 26, 29, 0.5);   /* Very subtle dark text */
+    --text-dark-secondary: rgba(26, 26, 29, 0.78);  /* Readable dark text */
+    --text-dark-tertiary: rgba(26, 26, 29, 0.65);   /* Subtle but visible dark text */
 
     /* Borders - Dual system */
-    --border-subtle: rgba(255, 255, 255, 0.15);
-    --border-medium: rgba(255, 255, 255, 0.2);
-    --border-strong: rgba(255, 255, 255, 0.3);
-    --border-dark: rgba(26, 26, 29, 0.1);  /* Borders for light cards */
+    --border-subtle: rgba(255, 255, 255, 0.2);
+    --border-medium: rgba(255, 255, 255, 0.28);
+    --border-strong: rgba(255, 255, 255, 0.4);
+    --border-dark: rgba(26, 26, 29, 0.15);  /* Borders for light cards */
 
     /* Accent - Single brand color (Apple blue) */
     --accent: #0071e3;              /* Apple-like blue */
@@ -549,17 +549,29 @@ body {
 }
 
 .btn-outline {
-    background: transparent;
+    background: rgba(0, 113, 227, 0.15);
     border: 2px solid var(--accent);
-    color: var(--accent);
+    color: #ffffff;
     font-weight: var(--font-weight-semibold);
 }
 
 .btn-outline:hover {
     background: var(--accent);
     color: #ffffff;
-    box-shadow: 0 4px 12px rgba(0, 113, 227, 0.3);
+    box-shadow: 0 4px 12px rgba(0, 113, 227, 0.4);
     transform: translateY(-1px);
+}
+
+/* Outline button on light cards - better contrast */
+.card .btn-outline {
+    background: rgba(0, 113, 227, 0.12);
+    color: var(--accent);
+    border-color: var(--accent);
+}
+
+.card .btn-outline:hover {
+    background: var(--accent);
+    color: #ffffff;
 }
 
 /* Button sizes */

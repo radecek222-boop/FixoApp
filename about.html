@@ -54,11 +54,11 @@
         <main class="main-content">
             <div class="content-area" style="padding: 0; display: flex; flex-direction: column; height: 100%; overflow-y: auto;">
                 <!-- Hero sekce - na tmavém pozadí -->
-                <section style="text-align: center; padding: 40px 32px 24px; max-width: 700px; margin: 0 auto;">
-                    <h1 style="font-size: 2.5rem; font-weight: 700; margin-bottom: 16px; line-height: 1.1; letter-spacing: -0.03em; color: var(--text-primary);">
+                <section style="text-align: center; padding: 16px 20px 12px; max-width: 650px; margin: 0 auto;">
+                    <h1 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 8px; line-height: 1.15; letter-spacing: -0.03em; color: var(--text-primary);">
                         O projektu FIXO
                     </h1>
-                    <p style="font-size: 1.125rem; color: var(--text-secondary); font-weight: 400; margin-bottom: 32px; line-height: 1.6;">
+                    <p style="font-size: 0.85rem; color: var(--text-secondary); font-weight: 400; margin-bottom: 16px; line-height: 1.4;">
                         Připravujeme AI platformu, která změní způsob řešení domácích oprav
                     </p>
                 </section>
@@ -212,35 +212,35 @@
 
     <!-- API Key Modal -->
     <div class="modal-overlay" id="apiKeyModal">
-        <div class="modal-content" style="max-width: 420px;">
+        <div class="modal-content" style="max-width: 380px;">
             <div class="modal-header">
-                <h3><i class="fas fa-key"></i> OpenAI API Klíč</h3>
+                <h3 style="font-size: 0.9rem;"><i class="fas fa-key"></i> OpenAI API Klíč</h3>
                 <button class="modal-close" onclick="closeApiKeyModal()">&times;</button>
             </div>
-            <div class="modal-body">
-                <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 16px;">
-                    Vložte váš OpenAI API klíč pro aktivaci AI analýzy fotografií. Klíč bude bezpečně zašifrován a uložen pouze ve vašem prohlížeči.
+            <div class="modal-body" style="padding: 14px;">
+                <p style="font-size: 0.78rem; color: var(--text-secondary); margin-bottom: 12px; line-height: 1.4;">
+                    Vložte váš OpenAI API klíč pro aktivaci AI analýzy. Klíč bude zašifrován a uložen v prohlížeči.
                 </p>
-                <div class="form-group">
-                    <label>API Klíč</label>
+                <div class="form-group" style="margin-bottom: 10px;">
+                    <label style="font-size: 0.75rem;">API Klíč</label>
                     <div style="position: relative;">
-                        <input type="password" id="apiKeyInput" placeholder="sk-..." style="padding-right: 40px;">
-                        <button type="button" onclick="toggleApiKeyVisibility()" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: var(--text-tertiary);">
+                        <input type="password" id="apiKeyInput" placeholder="sk-..." style="padding-right: 36px; font-size: 0.8rem;">
+                        <button type="button" onclick="toggleApiKeyVisibility()" style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: var(--text-tertiary);">
                             <i class="fas fa-eye" id="apiKeyToggleIcon"></i>
                         </button>
                     </div>
                 </div>
-                <div id="apiKeyStatus" style="font-size: 0.8rem; margin-bottom: 12px;"></div>
-                <div style="display: flex; gap: 10px;">
-                    <button class="btn btn-primary" onclick="saveApiKey()" style="flex: 1;">
+                <div id="apiKeyStatus" style="font-size: 0.78rem; margin-bottom: 10px;"></div>
+                <div style="display: flex; gap: 8px;">
+                    <button class="btn btn-primary btn-sm" onclick="saveApiKey()" style="flex: 1;">
                         <i class="fas fa-save"></i> Uložit
                     </button>
                     <button class="btn btn-danger btn-sm" onclick="deleteApiKey()" id="deleteApiKeyBtn" style="display: none;">
                         <i class="fas fa-trash"></i>
                     </button>
                 </div>
-                <p style="font-size: 0.7rem; color: var(--text-tertiary); margin-top: 12px; text-align: center;">
-                    <i class="fas fa-shield-halved"></i> Klíč je šifrován pomocí AES-256 a nikdy neopouští váš prohlížeč
+                <p style="font-size: 0.72rem; color: var(--text-tertiary); margin-top: 10px; text-align: center;">
+                    <i class="fas fa-shield-halved"></i> AES-256 šifrování, klíč neopouští prohlížeč
                 </p>
             </div>
         </div>
