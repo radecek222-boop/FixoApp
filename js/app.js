@@ -2324,9 +2324,9 @@ async function startGenerating() {
         updateProgress(5, 'Připravuji kontext pro AI...', `${existingRepairs.length} existujících návodů`);
 
         // 3. Generovat jednotlivě (spolehlivější)
-        const totalGuides = 50;
+        const totalGuides = 500;
         let failures = 0;
-        const maxFailures = 5;
+        const maxFailures = 25;  // Více tolerance pro 500 návodů
 
         for (let i = 0; i < totalGuides && failures < maxFailures; i++) {
             const progress_pct = 5 + (i / totalGuides) * 90;
@@ -2377,7 +2377,7 @@ async function startGenerating() {
     } finally {
         isGenerating = false;
         btn.disabled = false;
-        btn.innerHTML = '<i class="fas fa-wand-magic-sparkles"></i> Vygenerovat 50 nových';
+        btn.innerHTML = '<i class="fas fa-wand-magic-sparkles"></i> Vygenerovat 500 nových';
     }
 }
 
