@@ -297,31 +297,109 @@ function clearUpload() {
     if (fileInput) fileInput.value = '';
 }
 
-function startAnalysis() {
+async function startAnalysis() {
     if (!compressedImageData) {
         showToast('Nejprve nahrajte fotografii.', 'error');
         return;
     }
 
+    // Kontrola API klíče
+    if (!hasApiKey()) {
+        showToast('Pro analýzu je nutné nastavit API klíč. Klikněte na ikonu klíče v menu.', 'warning');
+        openApiKeyModal();
+        return;
+    }
+
     const previewContainer = document.getElementById('previewContainer');
     const loadingState = document.getElementById('loadingState');
+    const loadingText = document.getElementById('loadingText');
 
     if (previewContainer) previewContainer.classList.add('hidden');
     if (loadingState) loadingState.classList.remove('hidden');
+    if (loadingText) loadingText.textContent = 'Analyzuji fotografii pomocí AI...';
 
-    // Simulovaná AI analýza - uložení dat a přesměrování
+    try {
+        // Skutečná AI analýza pomocí OpenAI Vision API
+        const result = await analyzeImageWithAI(compressedImageData);
+
+        const analysisData = {
+            image: compressedImageData,
+            timestamp: new Date().toISOString(),
+            result: result,
+            source: 'openai' // Označení že jde o skutečnou analýzu
+        };
+
+        saveToStorage('lastAnalysis', analysisData);
+        addToHistory(analysisData);
+
+        window.location.href = 'analytics.html';
+
+    } catch (error) {
+        console.error('Analysis error:', error);
+
+        // Zpracování různých typů chyb
+        let errorMessage = 'Došlo k chybě při analýze.';
+        let shouldFallback = false;
+
+        if (error.message === 'API_KEY_MISSING') {
+            errorMessage = 'API klíč není nastaven. Nastavte ho v menu.';
+            openApiKeyModal();
+        } else if (error.message === 'API_KEY_INVALID') {
+            errorMessage = 'API klíč je neplatný. Zkontrolujte ho v nastavení.';
+            openApiKeyModal();
+        } else if (error.message === 'API_RATE_LIMIT') {
+            errorMessage = 'Příliš mnoho požadavků. Zkuste to za chvíli.';
+            shouldFallback = true;
+        } else if (error.message === 'API_QUOTA_EXCEEDED') {
+            errorMessage = 'Vyčerpán kredit na API. Zkontrolujte váš OpenAI účet.';
+        } else if (error.message.startsWith('ANALYSIS_FAILED:')) {
+            errorMessage = error.message.replace('ANALYSIS_FAILED: ', '');
+        } else if (error.message === 'API_EMPTY_RESPONSE') {
+            errorMessage = 'AI nevrátila žádnou odpověď. Zkuste to znovu.';
+            shouldFallback = true;
+        } else {
+            // Obecná chyba - nabídneme fallback na demo
+            shouldFallback = true;
+        }
+
+        if (loadingState) loadingState.classList.add('hidden');
+        if (previewContainer) previewContainer.classList.remove('hidden');
+
+        if (shouldFallback) {
+            // Nabídnout demo analýzu jako fallback
+            if (confirm(`${errorMessage}\n\nChcete místo toho spustit demo analýzu?`)) {
+                runDemoAnalysis();
+            } else {
+                showToast(errorMessage, 'error');
+            }
+        } else {
+            showToast(errorMessage, 'error');
+        }
+    }
+}
+
+/**
+ * Spustí demo analýzu (mock data) jako fallback
+ */
+function runDemoAnalysis() {
+    const previewContainer = document.getElementById('previewContainer');
+    const loadingState = document.getElementById('loadingState');
+    const loadingText = document.getElementById('loadingText');
+
+    if (previewContainer) previewContainer.classList.add('hidden');
+    if (loadingState) loadingState.classList.remove('hidden');
+    if (loadingText) loadingText.textContent = 'Spouštím demo analýzu...';
+
     const analysisData = {
         image: compressedImageData,
         timestamp: new Date().toISOString(),
-        result: generateMockAnalysis()
+        result: generateMockAnalysis(),
+        source: 'demo' // Označení že jde o demo
     };
 
     saveToStorage('lastAnalysis', analysisData);
-
-    // Přidání do historie
     addToHistory(analysisData);
 
-    // Simulace doby analýzy
     setTimeout(() => {
         window.location.href = 'analytics.html';
     }, CONFIG.analysisDelay);
@@ -341,7 +419,128 @@ function addToHistory(analysisData) {
 }
 
 // ========================================
-// Mock AI analýza
+// OpenAI Vision API - Skutečná AI analýza
+// ========================================
+
+/**
+ * Analyzuje obrázek pomocí OpenAI Vision API
+ * @param {string} base64Image - Obrázek v base64 formátu
+ * @returns {Promise<Object>} - Výsledek analýzy
+ */
+async function analyzeImageWithAI(base64Image) {
+    const apiKey = await getApiKey();
+
+    if (!apiKey) {
+        throw new Error('API_KEY_MISSING');
+    }
+
+    const systemPrompt = `Jsi expert na domácí opravy a údržbu. Analyzuj fotografii a identifikuj problém.
+
+DŮLEŽITÉ: Odpověz POUZE validním JSON objektem bez jakéhokoli dalšího textu. Formát:
+
+{
+    "title": "Název problému (česky, max 30 znaků)",
+    "category": "bathroom|house|electrical|heating|kitchen|garden",
+    "categoryName": "Český název kategorie",
+    "difficulty": "easy|medium|hard",
+    "difficultyName": "Snadné|Střední|Obtížné",
+    "confidence": 75-95,
+    "description": "Detailní popis problému a jeho pravděpodobné příčiny (2-3 věty česky)",
+    "warning": "Bezpečnostní varování pokud je potřeba, jinak null",
+    "steps": [
+        {"title": "Název kroku", "description": "Popis kroku", "time": "X min"}
+    ],
+    "tools": ["Seznam potřebných nástrojů"],
+    "materials": ["Seznam potřebných materiálů"],
+    "diyCost": "XXX - XXX Kč",
+    "proCost": "XXX - XXX Kč",
+    "savings": "XXX - XXX Kč",
+    "totalTime": "~XX min"
+}
+
+Pokud na obrázku není vidět žádný problém k opravě nebo nejde o domácí opravu, vrať:
+{
+    "error": true,
+    "message": "Popis proč nelze analyzovat"
+}`;
+
+    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${apiKey}`
+        },
+        body: JSON.stringify({
+            model: 'gpt-4o',
+            messages: [
+                {
+                    role: 'system',
+                    content: systemPrompt
+                },
+                {
+                    role: 'user',
+                    content: [
+                        {
+                            type: 'text',
+                            text: 'Analyzuj tento obrázek a identifikuj problém k opravě. Odpověz pouze JSON objektem.'
+                        },
+                        {
+                            type: 'image_url',
+                            image_url: {
+                                url: base64Image,
+                                detail: 'high'
+                            }
+                        }
+                    ]
+                }
+            ],
+            max_tokens: 2000,
+            temperature: 0.3
+        })
+    });
+
+    if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        if (response.status === 401) {
+            throw new Error('API_KEY_INVALID');
+        } else if (response.status === 429) {
+            throw new Error('API_RATE_LIMIT');
+        } else if (response.status === 402 || errorData.error?.code === 'insufficient_quota') {
+            throw new Error('API_QUOTA_EXCEEDED');
+        }
+        throw new Error(`API_ERROR: ${response.status}`);
+    }
+
+    const data = await response.json();
+    const content = data.choices?.[0]?.message?.content;
+
+    if (!content) {
+        throw new Error('API_EMPTY_RESPONSE');
+    }
+
+    // Parsování JSON z odpovědi (může být obaleno v markdown code blocku)
+    let jsonContent = content.trim();
+    if (jsonContent.startsWith('```json')) {
+        jsonContent = jsonContent.slice(7);
+    } else if (jsonContent.startsWith('```')) {
+        jsonContent = jsonContent.slice(3);
+    }
+    if (jsonContent.endsWith('```')) {
+        jsonContent = jsonContent.slice(0, -3);
+    }
+    jsonContent = jsonContent.trim();
+
+    const result = JSON.parse(jsonContent);
+
+    if (result.error) {
+        throw new Error(`ANALYSIS_FAILED: ${result.message}`);
+    }
+
+    return result;
+}
+
+// ========================================
+// Mock AI analýza (fallback)
 // ========================================
 
 function generateMockAnalysis() {
@@ -493,6 +692,17 @@ function loadAnalysisResults() {
 
     // Nastavení výsledků
     document.getElementById('problemTitle').textContent = `🔍 ${result.title}`;
+
+    // Zobrazení zdroje analýzy (AI vs Demo)
+    const sourceIndicator = document.getElementById('analysisSource');
+    if (sourceIndicator) {
+        if (analysis.source === 'openai') {
+            sourceIndicator.innerHTML = '<span style="background: var(--success); color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.7rem;"><i class="fas fa-robot"></i> AI Analýza</span>';
+        } else {
+            sourceIndicator.innerHTML = '<span style="background: var(--warning); color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.7rem;"><i class="fas fa-flask"></i> Demo</span>';
+        }
+    }
+
     document.getElementById('confidenceText').textContent = `${result.confidence}% jistota`;
     document.getElementById('problemDescription').textContent = result.description;
     document.getElementById('problemCategory').textContent = result.categoryName;
