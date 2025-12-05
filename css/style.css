@@ -43,6 +43,8 @@
     --accent: #0071e3;              /* Apple-like blue */
     --accent-hover: #0077ed;
     --accent-light: rgba(0, 113, 227, 0.1);
+    --accent-bright: #5cb3ff;       /* Brighter blue for text on dark backgrounds */
+    --accent-text: #004a9e;         /* Darker blue for text on light accent backgrounds */
 
     /* State colors - Subtle and refined */
     --success: #30d158;
@@ -549,20 +551,21 @@ body {
 }
 
 .btn-outline {
-    background: rgba(0, 113, 227, 0.15);
-    border: 2px solid var(--accent);
+    background: rgba(255, 255, 255, 0.15);
+    border: 2px solid rgba(255, 255, 255, 0.8);
     color: #ffffff;
     font-weight: var(--font-weight-semibold);
 }
 
 .btn-outline:hover {
-    background: var(--accent);
+    background: rgba(255, 255, 255, 0.25);
     color: #ffffff;
-    box-shadow: 0 4px 12px rgba(0, 113, 227, 0.4);
+    border-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.2);
     transform: translateY(-1px);
 }
 
-/* Outline button on light cards - better contrast */
+/* Outline button on light cards - use accent color */
 .card .btn-outline {
     background: rgba(0, 113, 227, 0.12);
     color: var(--accent);
@@ -572,6 +575,7 @@ body {
 .card .btn-outline:hover {
     background: var(--accent);
     color: #ffffff;
+    border-color: var(--accent);
 }
 
 /* Button sizes */
@@ -789,18 +793,18 @@ body {
 
 .repair-step h4 {
     font-size: 0.8rem;
-    color: var(--text-primary);
+    color: var(--text-dark-primary);
     margin-bottom: 2px;
 }
 
 .repair-step p {
     font-size: 0.75rem;
-    color: var(--text-secondary);
+    color: var(--text-dark-secondary);
 }
 
 .repair-step .time {
-    font-size: 0.65rem;
-    color: var(--text-tertiary);
+    font-size: 0.7rem;
+    color: var(--text-dark-tertiary);
     margin-top: 2px;
 }
 
