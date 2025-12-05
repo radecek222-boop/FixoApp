@@ -2081,3 +2081,167 @@ function initMobileMenu() {
         }
     });
 }
+
+// ========================================
+// Dynamický počet návodů
+// ========================================
+
+/**
+ * Aktualizuje počet návodů na hlavní stránce
+ */
+async function updateRepairCount() {
+    const countElement = document.getElementById('repairCountHome');
+    if (!countElement) return;
+
+    try {
+        const repairs = await loadRepairsFromJSON();
+        countElement.textContent = repairs.length;
+    } catch (error) {
+        console.error('Error loading repair count:', error);
+        countElement.textContent = '100+';
+    }
+}
+
+// Spustit při načtení stránky
+document.addEventListener('DOMContentLoaded', updateRepairCount);
+
+// ========================================
+// AI Generátor návodů (Admin funkce)
+// ========================================
+
+/**
+ * Generuje nové návody pomocí OpenAI API
+ * Volá se z konzole: generateNewRepairs(5, 'bathroom')
+ */
+async function generateNewRepairs(count = 5, category = null) {
+    const apiKey = await getApiKey();
+    if (!apiKey) {
+        console.error('❌ API klíč není nastaven. Nastavte ho přes menu.');
+        return null;
+    }
+
+    console.log(`🔧 Generuji ${count} nových návodů${category ? ` pro kategorii: ${category}` : ''}...`);
+
+    const categories = category ? [category] : ['bathroom', 'house', 'electrical', 'heating', 'kitchen', 'garden'];
+    const categoryNames = {
+        'bathroom': 'koupelna a voda',
+        'house': 'dům, dveře, okna, nábytek',
+        'electrical': 'elektřina a osvětlení',
+        'heating': 'topení a klimatizace',
+        'kitchen': 'kuchyň a spotřebiče',
+        'garden': 'zahrada a exteriér'
+    };
+
+    const prompt = `Vygeneruj ${count} unikátních návodů na domácí opravy v češtině.
+${category ? `Kategorie: ${categoryNames[category]}` : `Kategorie: náhodně z ${Object.values(categoryNames).join(', ')}`}
+
+DŮLEŽITÉ:
+- Vygeneruj POUZE návody které JEŠTĚ NEEXISTUJÍ v běžných databázích
+- Buď kreativní - mysli na neobvyklé ale reálné problémy
+- Každý návod musí být praktický a proveditelný
+
+Vrať POUZE validní JSON pole bez dalšího textu:
+[
+  {
+    "id": "unikatni-id-bez-diakritiky",
+    "name": "Název problému",
+    "description": "Krátký popis problému (1 věta)",
+    "category": "${category || 'jedna z: bathroom, house, electrical, heating, kitchen, garden'}",
+    "categoryKey": "klíč pro seskupení (např. kohoutek, dvere, zasuvka)",
+    "difficulty": "Nízká|Střední|Vysoká",
+    "timeEstimate": "XX min",
+    "riskScore": 1-5,
+    "materialCost": { "min": XXX, "max": XXX },
+    "professionalCost": { "min": XXX, "max": XXX },
+    "tools": ["nástroj1", "nástroj2"],
+    "steps": [
+      { "step": 1, "action": "Co udělat", "time": "X min", "hint": "Užitečný tip" }
+    ],
+    "safetyWarnings": ["Varování pokud je potřeba"]
+  }
+]`;
+
+    try {
+        const response = await fetch('https://api.openai.com/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${apiKey}`
+            },
+            body: JSON.stringify({
+                model: 'gpt-4o',
+                messages: [
+                    { role: 'system', content: 'Jsi expert na domácí opravy. Generuješ detailní, praktické návody v češtině.' },
+                    { role: 'user', content: prompt }
+                ],
+                max_tokens: 4000,
+                temperature: 0.8
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error(`API error: ${response.status}`);
+        }
+
+        const data = await response.json();
+        let content = data.choices?.[0]?.message?.content?.trim();
+
+        // Odstranit markdown bloky
+        if (content.startsWith('```json')) content = content.slice(7);
+        if (content.startsWith('```')) content = content.slice(3);
+        if (content.endsWith('```')) content = content.slice(0, -3);
+
+        const newRepairs = JSON.parse(content.trim());
+
+        console.log(`✅ Vygenerováno ${newRepairs.length} návodů:`);
+        newRepairs.forEach((r, i) => {
+            console.log(`   ${i + 1}. ${r.name} (${r.category})`);
+        });
+
+        // Uložit do localStorage pro snadné kopírování
+        localStorage.setItem('generatedRepairs', JSON.stringify(newRepairs, null, 2));
+        console.log('\n📋 Data uložena do localStorage["generatedRepairs"]');
+        console.log('   Pro kopírování: copy(localStorage.getItem("generatedRepairs"))');
+
+        return newRepairs;
+
+    } catch (error) {
+        console.error('❌ Chyba při generování:', error);
+        return null;
+    }
+}
+
+/**
+ * Přidá vygenerované návody do stávajícího JSON (nutno ručně uložit)
+ */
+async function mergeGeneratedRepairs() {
+    const generated = localStorage.getItem('generatedRepairs');
+    if (!generated) {
+        console.error('❌ Žádné vygenerované návody. Nejdříve spusť generateNewRepairs()');
+        return;
+    }
+
+    const newRepairs = JSON.parse(generated);
+    const existingRepairs = await loadRepairsFromJSON();
+
+    // Kontrola duplicit
+    const existingIds = new Set(existingRepairs.map(r => r.id));
+    const uniqueNew = newRepairs.filter(r => !existingIds.has(r.id));
+
+    if (uniqueNew.length < newRepairs.length) {
+        console.warn(`⚠️ ${newRepairs.length - uniqueNew.length} duplicitních návodů přeskočeno`);
+    }
+
+    console.log(`\n📄 Pro přidání ${uniqueNew.length} návodů do repairs.json:`);
+    console.log('1. Zkopíruj výstup níže');
+    console.log('2. Přidej do příslušné kategorie v data/repairs.json');
+    console.log('\n--- KOPÍROVAT OD ZDE ---\n');
+    console.log(JSON.stringify(uniqueNew, null, 2));
+    console.log('\n--- KONEC ---');
+
+    return uniqueNew;
+}
+
+// Export pro konzoli
+window.generateNewRepairs = generateNewRepairs;
+window.mergeGeneratedRepairs = mergeGeneratedRepairs;
