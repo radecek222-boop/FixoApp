@@ -565,17 +565,17 @@ body {
     transform: translateY(-1px);
 }
 
-/* Outline button on light cards - use accent color */
+/* Outline button on light cards - white text with dark border */
 .card .btn-outline {
-    background: rgba(0, 113, 227, 0.12);
-    color: var(--accent);
-    border-color: var(--accent);
+    background: rgba(26, 26, 29, 0.08);
+    color: var(--text-dark-primary);
+    border-color: var(--text-dark-primary);
 }
 
 .card .btn-outline:hover {
-    background: var(--accent);
+    background: var(--text-dark-primary);
     color: #ffffff;
-    border-color: var(--accent);
+    border-color: var(--text-dark-primary);
 }
 
 /* Button sizes */
