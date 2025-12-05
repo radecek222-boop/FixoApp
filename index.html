@@ -63,36 +63,36 @@
         <!-- Main Content -->
         <main class="main-content">
             <div class="content-area" style="padding: 0; display: flex; flex-direction: column; height: 100%;">
-                <!-- Hero sekce - responzivní -->
-                <section class="hero-mobile" style="text-align: center; padding: 24px 16px 16px; max-width: 700px; margin: 0 auto;">
-                    <h1 style="font-size: 2rem; font-weight: 700; margin-bottom: 10px; line-height: 1.15; letter-spacing: -0.03em; color: var(--text-primary);">
+                <!-- Hero sekce - kompaktní -->
+                <section class="hero-mobile" style="text-align: center; padding: 14px 12px 10px; max-width: 650px; margin: 0 auto;">
+                    <h1 style="font-size: 1.5rem; font-weight: 700; margin-bottom: 6px; line-height: 1.15; letter-spacing: -0.03em; color: var(--text-primary);">
                         Vyfoťte. Opravte. Ušetřete.
                     </h1>
-                    <p style="font-size: 0.95rem; color: var(--text-secondary); font-weight: 400; margin-bottom: 20px; line-height: 1.4;">
+                    <p style="font-size: 0.85rem; color: var(--text-secondary); font-weight: 400; margin-bottom: 12px; line-height: 1.35;">
                         AI diagnostika během sekund. Návody krok za krokem.
                     </p>
                 </section>
                 <!-- Upload sekce - kompaktní -->
-                <section style="max-width: 500px; margin: 0 auto 24px; padding: 0 16px; width: 100%;">
-                    <div class="card" style="text-align: center;">
+                <section style="max-width: 420px; margin: 0 auto 16px; padding: 0 12px; width: 100%;">
+                    <div class="card" style="text-align: center; padding: 12px;">
                         <div class="upload-zone-compact" id="uploadZone">
-                            <div class="upload-content" style="padding: 24px 16px;">
-                                <i class="fas fa-camera upload-icon" style="font-size: 2.5rem; margin-bottom: 12px; color: var(--accent);"></i>
+                            <div class="upload-content" style="padding: 16px 12px;">
+                                <i class="fas fa-camera upload-icon" style="font-size: 2rem; margin-bottom: 8px; color: var(--accent);"></i>
                                 <div class="upload-text">
-                                    <strong style="font-size: 0.95rem; display: block; margin-bottom: 4px; color: white;">Nahrát fotografii závady</strong>
-                                    <small style="color: rgba(255, 255, 255, 0.7); font-size: 0.75rem;">JPG, PNG, WEBP (max 10 MB)</small>
+                                    <strong style="font-size: 0.85rem; display: block; margin-bottom: 3px; color: white;">Nahrát fotografii závady</strong>
+                                    <small style="color: rgba(255, 255, 255, 0.7); font-size: 0.7rem;">JPG, PNG, WEBP (max 10 MB)</small>
                                 </div>
                                 <input type="file" id="fileInput" accept="image/*" capture="environment">
-                                <button class="btn btn-primary" onclick="document.getElementById('fileInput').click()" style="margin-top: 14px;">
+                                <button class="btn btn-primary btn-sm" onclick="document.getElementById('fileInput').click()" style="margin-top: 10px;">
                                     <i class="fas fa-camera"></i> Vybrat fotografii
                                 </button>
                             </div>
                         </div>
                         <!-- Náhled obrázku -->
                         <div id="previewContainer" class="hidden">
-                            <img id="imagePreview" class="image-preview show" alt="Náhled" style="max-height: 150px; border-radius: 10px; margin-bottom: 12px;">
-                            <div style="display: flex; gap: 10px; justify-content: center;">
-                                <button class="btn btn-primary" id="analyzeBtn">Analyzovat</button>
+                            <img id="imagePreview" class="image-preview show" alt="Náhled" style="max-height: 120px; border-radius: 8px; margin-bottom: 10px;">
+                            <div style="display: flex; gap: 8px; justify-content: center;">
+                                <button class="btn btn-primary btn-sm" id="analyzeBtn">Analyzovat</button>
                                 <button class="btn btn-secondary btn-sm" id="clearBtn">Zrušit</button>
                             </div>
                         </div>
@@ -104,29 +104,29 @@
                     </div>
                 </section>
                 <!-- CTA Grid - kompaktní -->
-                <section style="max-width: 1000px; margin: 0 auto 24px; padding: 0 16px; width: 100%;">
+                <section style="max-width: 900px; margin: 0 auto 16px; padding: 0 12px; width: 100%;">
                     <div class="cta-grid">
                         <!-- DIY Návody -->
-                        <a href="repair.html" class="card cta-card" style="text-decoration: none; text-align: center; padding: 24px 20px;">
-                            <i class="fas fa-screwdriver-wrench" style="font-size: 2rem; margin-bottom: 12px; color: var(--accent); display: block;"></i>
-                            <h3 style="font-size: 1.1rem; font-weight: 600; margin-bottom: 4px;">DIY Návody</h3>
-                            <p style="color: var(--text-dark-secondary); font-size: 0.8rem; margin-bottom: 12px;">537 návodů krok za krokem</p>
+                        <a href="repair.html" class="card cta-card" style="text-decoration: none; text-align: center; padding: 16px 14px;">
+                            <i class="fas fa-screwdriver-wrench" style="font-size: 1.5rem; margin-bottom: 8px; color: var(--accent); display: block;"></i>
+                            <h3 style="font-size: 0.95rem; font-weight: 600; margin-bottom: 3px;">DIY Návody</h3>
+                            <p style="color: var(--text-dark-secondary); font-size: 0.72rem; margin-bottom: 8px;">537 návodů krok za krokem</p>
                             <div class="btn btn-outline btn-sm">Procházet</div>
                         </a>
 
                         <!-- Najít Řemeslníka -->
-                        <a href="providers.html" class="card cta-card" style="text-decoration: none; text-align: center; padding: 24px 20px;">
-                            <i class="fas fa-helmet-safety" style="font-size: 2rem; margin-bottom: 12px; color: var(--accent); display: block;"></i>
-                            <h3 style="font-size: 1.1rem; font-weight: 600; margin-bottom: 4px;">Najít Řemeslníka</h3>
-                            <p style="color: var(--text-dark-secondary); font-size: 0.8rem; margin-bottom: 12px;">163 ověřených profesionálů</p>
+                        <a href="providers.html" class="card cta-card" style="text-decoration: none; text-align: center; padding: 16px 14px;">
+                            <i class="fas fa-helmet-safety" style="font-size: 1.5rem; margin-bottom: 8px; color: var(--accent); display: block;"></i>
+                            <h3 style="font-size: 0.95rem; font-weight: 600; margin-bottom: 3px;">Najít Řemeslníka</h3>
+                            <p style="color: var(--text-dark-secondary); font-size: 0.72rem; margin-bottom: 8px;">163 ověřených profesionálů</p>
                             <div class="btn btn-outline btn-sm">Zobrazit</div>
                         </a>
 
                         <!-- E-shopy -->
-                        <a href="partners.html" class="card cta-card" style="text-decoration: none; text-align: center; padding: 24px 20px;">
-                            <i class="fas fa-shopping-cart" style="font-size: 2rem; margin-bottom: 12px; color: var(--accent); display: block;"></i>
-                            <h3 style="font-size: 1.1rem; font-weight: 600; margin-bottom: 4px;">Nakoupit Nástroje</h3>
-                            <p style="color: var(--text-dark-secondary); font-size: 0.8rem; margin-bottom: 12px;">Partnerské e-shopy</p>
+                        <a href="partners.html" class="card cta-card" style="text-decoration: none; text-align: center; padding: 16px 14px;">
+                            <i class="fas fa-shopping-cart" style="font-size: 1.5rem; margin-bottom: 8px; color: var(--accent); display: block;"></i>
+                            <h3 style="font-size: 0.95rem; font-weight: 600; margin-bottom: 3px;">Nakoupit Nástroje</h3>
+                            <p style="color: var(--text-dark-secondary); font-size: 0.72rem; margin-bottom: 8px;">Partnerské e-shopy</p>
                             <div class="btn btn-outline btn-sm">Obchody</div>
                         </a>
                     </div>
@@ -161,35 +161,35 @@
 
     <!-- API Key Modal -->
     <div class="modal-overlay" id="apiKeyModal">
-        <div class="modal-content" style="max-width: 420px;">
+        <div class="modal-content" style="max-width: 380px;">
             <div class="modal-header">
-                <h3><i class="fas fa-key"></i> OpenAI API Klíč</h3>
+                <h3 style="font-size: 0.9rem;"><i class="fas fa-key"></i> OpenAI API Klíč</h3>
                 <button class="modal-close" onclick="closeApiKeyModal()">&times;</button>
             </div>
-            <div class="modal-body">
-                <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 16px;">
-                    Vložte váš OpenAI API klíč pro aktivaci AI analýzy fotografií. Klíč bude bezpečně zašifrován a uložen pouze ve vašem prohlížeči.
+            <div class="modal-body" style="padding: 14px;">
+                <p style="font-size: 0.78rem; color: var(--text-secondary); margin-bottom: 12px; line-height: 1.4;">
+                    Vložte váš OpenAI API klíč pro aktivaci AI analýzy. Klíč bude zašifrován a uložen v prohlížeči.
                 </p>
-                <div class="form-group">
-                    <label>API Klíč</label>
+                <div class="form-group" style="margin-bottom: 10px;">
+                    <label style="font-size: 0.75rem;">API Klíč</label>
                     <div style="position: relative;">
-                        <input type="password" id="apiKeyInput" placeholder="sk-..." style="padding-right: 40px;">
-                        <button type="button" onclick="toggleApiKeyVisibility()" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: var(--text-tertiary);">
+                        <input type="password" id="apiKeyInput" placeholder="sk-..." style="padding-right: 36px; font-size: 0.8rem;">
+                        <button type="button" onclick="toggleApiKeyVisibility()" style="position: absolute; right: 8px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; color: var(--text-tertiary);">
                             <i class="fas fa-eye" id="apiKeyToggleIcon"></i>
                         </button>
                     </div>
                 </div>
-                <div id="apiKeyStatus" style="font-size: 0.8rem; margin-bottom: 12px;"></div>
-                <div style="display: flex; gap: 10px;">
-                    <button class="btn btn-primary" onclick="saveApiKey()" style="flex: 1;">
+                <div id="apiKeyStatus" style="font-size: 0.72rem; margin-bottom: 10px;"></div>
+                <div style="display: flex; gap: 8px;">
+                    <button class="btn btn-primary btn-sm" onclick="saveApiKey()" style="flex: 1;">
                         <i class="fas fa-save"></i> Uložit
                     </button>
                     <button class="btn btn-danger btn-sm" onclick="deleteApiKey()" id="deleteApiKeyBtn" style="display: none;">
                         <i class="fas fa-trash"></i>
                     </button>
                 </div>
-                <p style="font-size: 0.7rem; color: var(--text-tertiary); margin-top: 12px; text-align: center;">
-                    <i class="fas fa-shield-halved"></i> Klíč je šifrován pomocí AES-256 a nikdy neopouští váš prohlížeč
+                <p style="font-size: 0.65rem; color: var(--text-tertiary); margin-top: 10px; text-align: center;">
+                    <i class="fas fa-shield-halved"></i> AES-256 šifrování, klíč neopouští prohlížeč
                 </p>
             </div>
         </div>
