@@ -2473,12 +2473,14 @@ async function mergeGeneratedRepairs() {
 
         // Uložit sloučené
         localStorage.setItem('mergedRepairs', JSON.stringify(allMerged));
+        console.log('Merged repairs saved to localStorage:', allMerged.length, 'total');
 
         // Vyčistit generované (už jsou sloučené)
         localStorage.removeItem('generatedRepairs');
 
         // Invalidovat cache aby se znovu načetly s novými daty
         repairsCache = null;
+        repairsLoading = null;
 
         // Aktualizovat počty
         await updateInvestorRepairCount();
@@ -2512,9 +2514,11 @@ async function updateInvestorRepairCount() {
     const el2 = document.getElementById('investorRepairCount');
     try {
         const repairs = await loadRepairsFromJSON();
+        console.log('updateInvestorRepairCount: total repairs =', repairs.length);
         if (el1) el1.textContent = repairs.length;
         if (el2) el2.textContent = repairs.length;
     } catch (e) {
+        console.error('updateInvestorRepairCount error:', e);
         if (el1) el1.textContent = '100+';
         if (el2) el2.textContent = '100+';
     }
