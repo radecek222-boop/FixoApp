@@ -791,7 +791,13 @@ function loadNearbyProviders(category) {
 
 async function initRepairPage() {
     // Nejdříve načteme data z JSON
-    await loadRepairsFromJSON();
+    const repairs = await loadRepairsFromJSON();
+
+    // Aktualizovat počet na stránce
+    const countEl = document.getElementById('repairPageCount');
+    if (countEl) {
+        countEl.textContent = repairs.length;
+    }
 
     // Pak zobrazíme
     loadRepairs();
@@ -2609,6 +2615,14 @@ async function updateInvestorRepairCount() {
 document.addEventListener('DOMContentLoaded', function() {
     if (document.getElementById('currentRepairCount') || document.getElementById('investorRepairCount')) {
         updateInvestorRepairCount();
+    }
+
+    // Aktualizovat počet na about stránce
+    const aboutCount = document.getElementById('aboutPageCount');
+    if (aboutCount) {
+        loadRepairsFromJSON().then(repairs => {
+            aboutCount.textContent = repairs.length;
+        });
     }
 });
 
