@@ -2513,6 +2513,51 @@ function resetGenerator() {
     generatedRepairsData = [];
 }
 
+/**
+ * Opraví duplicitní ID v existujících sloučených návodech
+ */
+function fixExistingIds() {
+    try {
+        const mergedData = localStorage.getItem('mergedRepairs');
+        if (!mergedData) {
+            console.log('No merged repairs to fix');
+            return 0;
+        }
+
+        const repairs = JSON.parse(mergedData);
+        const seenIds = new Set();
+        let fixedCount = 0;
+
+        repairs.forEach(repair => {
+            // Pokud ID již existuje nebo nemá unikátní suffix, přidej nový
+            if (seenIds.has(repair.id) || !repair.id.includes('-m') || repair.id.length < 20) {
+                const uniqueSuffix = Date.now().toString(36) + Math.random().toString(36).substr(2, 5);
+                const baseId = repair.id.replace(/-m[a-z0-9]+$/, ''); // Odstranit starý suffix pokud existuje
+                repair.id = baseId + '-' + uniqueSuffix;
+                fixedCount++;
+            }
+            seenIds.add(repair.id);
+        });
+
+        if (fixedCount > 0) {
+            localStorage.setItem('mergedRepairs', JSON.stringify(repairs));
+            console.log(`Fixed ${fixedCount} duplicate IDs`);
+        }
+
+        return fixedCount;
+    } catch (e) {
+        console.error('Error fixing IDs:', e);
+        return 0;
+    }
+}
+
+// Automaticky opravit ID při načtení stránky
+if (localStorage.getItem('mergedRepairs')) {
+    fixExistingIds();
+}
+
+window.fixExistingIds = fixExistingIds;
+
 async function updateInvestorRepairCount() {
     const el1 = document.getElementById('currentRepairCount');
     const el2 = document.getElementById('investorRepairCount');
