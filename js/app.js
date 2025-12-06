@@ -2629,3 +2629,261 @@ document.addEventListener('DOMContentLoaded', function() {
 window.startGenerating = startGenerating;
 window.mergeGeneratedRepairs = mergeGeneratedRepairs;
 window.resetGenerator = resetGenerator;
+
+// ============================================
+// AI VYLEPŠOVAČ NÁVODŮ PRO AMATÉRY
+// ============================================
+
+let isImproving = false;
+let improvedGuidesData = [];
+
+const IMPROVE_SYSTEM_PROMPT = `Jsi expert na DIY opravy a píšeš návody pro NAPROSTÉ AMATÉRY - lidi, kteří nikdy nic neopravovali a mají strach to pokazit.
+
+Tvým úkolem je přepsat návod tak, aby:
+1. Byl VELMI srozumitelný - jako bys vysvětloval dítěti nebo babičce
+2. Každý krok vysvětloval PROČ se dělá a CO se stane když to neuděláš
+3. Obsahoval praktické tipy typu "poznej to podle..." nebo "mělo by to vypadat jako..."
+4. Používal jednoduché výrazy, NE odborné termíny (nebo je vysvětli)
+5. Povzbuzoval čtenáře - "Neboj, tohle zvládneš!", "Nejhorší máš za sebou!"
+6. Varoval před častými chybami začátečníků
+
+DŮLEŽITÉ: Vrať POUZE platný JSON, žádný další text!`;
+
+/**
+ * Spustí vylepšování návodů pro amatéry
+ */
+async function startImproving() {
+    if (isImproving) return;
+
+    const apiKey = await getApiKey();
+    if (!apiKey) {
+        showToast('Nejdříve nastavte OpenAI API klíč v menu.', 'error');
+        openApiKeyModal();
+        return;
+    }
+
+    isImproving = true;
+
+    // UI elementy
+    const btn = document.getElementById('improveBtn');
+    const progress = document.getElementById('improverProgress');
+    const result = document.getElementById('improverResult');
+
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Vylepšuji...';
+    progress.style.display = 'block';
+    result.style.display = 'none';
+
+    try {
+        // 1. Načíst návody
+        updateImproveProgress(0, 'Načítám návody...', '');
+
+        const response = await fetch('data/generated-repairs.json');
+        if (!response.ok) throw new Error('Nelze načíst návody');
+        let allGuides = await response.json();
+
+        // 2. Najít nevylepšené
+        const unimproved = allGuides.filter(g => !g.improved);
+        const total = unimproved.length;
+
+        if (total === 0) {
+            showToast('Všechny návody jsou již vylepšeny!', 'success');
+            progress.style.display = 'none';
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fas fa-wand-magic-sparkles"></i> Vylepšit pro amatéry';
+            isImproving = false;
+            return;
+        }
+
+        updateImproveProgress(5, `Nalezeno ${total} návodů k vylepšení...`, '');
+
+        let successCount = 0;
+        let errorCount = 0;
+
+        // 3. Vylepšovat postupně
+        for (let i = 0; i < total; i++) {
+            const guide = unimproved[i];
+            const pct = 5 + (i / total) * 90;
+            updateImproveProgress(pct, `Vylepšuji ${i + 1}/${total}: ${guide.name.substring(0, 30)}...`, `Hotovo: ${successCount}, Chyby: ${errorCount}`);
+
+            try {
+                const improved = await improveGuideWithAI(apiKey, guide);
+                if (improved) {
+                    // Najít a nahradit v původním poli
+                    const idx = allGuides.findIndex(g => g.id === guide.id);
+                    if (idx >= 0) {
+                        allGuides[idx] = improved;
+                    }
+                    successCount++;
+                }
+            } catch (err) {
+                console.error(`Chyba při vylepšování ${guide.id}:`, err);
+                errorCount++;
+            }
+
+            // Uložit každých 10 návodů
+            if ((i + 1) % 10 === 0) {
+                localStorage.setItem('improvedGuides', JSON.stringify(allGuides));
+                console.log(`Uloženo po ${i + 1} návodech`);
+            }
+
+            // Pauza mezi requesty
+            await new Promise(resolve => setTimeout(resolve, 600));
+        }
+
+        // 4. Finální uložení
+        updateImproveProgress(98, 'Ukládám vylepšené návody...', '');
+        localStorage.setItem('improvedGuides', JSON.stringify(allGuides));
+
+        // 5. Zobrazit výsledek
+        updateImproveProgress(100, 'Hotovo!', '');
+        setTimeout(() => {
+            progress.style.display = 'none';
+            result.style.display = 'block';
+            document.getElementById('improveResultText').textContent =
+                `Vylepšeno ${successCount} návodů! (${errorCount} chyb). Data jsou v localStorage - stáhněte je.`;
+        }, 500);
+
+    } catch (error) {
+        console.error('Improve error:', error);
+        showToast('Chyba: ' + error.message, 'error');
+        progress.style.display = 'none';
+    } finally {
+        isImproving = false;
+        btn.disabled = false;
+        btn.innerHTML = '<i class="fas fa-wand-magic-sparkles"></i> Vylepšit pro amatéry';
+    }
+}
+
+/**
+ * Vylepší jeden návod pomocí AI
+ */
+async function improveGuideWithAI(apiKey, guide) {
+    const userPrompt = `Přepiš tento návod pro naprosté amatéry:
+
+NÁZEV: ${guide.name}
+KATEGORIE: ${guide.category}
+POPIS: ${guide.description || 'Není'}
+NÁSTROJE: ${guide.tools?.join(', ') || 'neuvedeno'}
+MATERIÁLY: ${guide.materials?.join(', ') || 'neuvedeno'}
+KROKY:
+${guide.steps?.map(s => `${s.step || '-'}. ${s.action || s}`).join('\n') || 'žádné'}
+
+Vrať POUZE tento JSON (nic jiného):
+{
+  "description": "Srozumitelný popis co opravujeme a proč (2-3 věty, povzbudivě)",
+  "difficulty": "Snadné/Střední/Těžké",
+  "timeEstimate": "realistický čas pro začátečníka",
+  "tools": ["nástroj (vysvětlení k čemu)", "další nástroj"],
+  "materials": ["materiál co koupit", "kde sehnat"],
+  "safetyWarnings": ["bezpečnostní varování srozumitelně"],
+  "steps": [
+    {"step": 1, "action": "Co přesně udělat", "why": "Proč to děláme", "tip": "Tip pro začátečníky", "time": "5 min"}
+  ],
+  "commonMistakes": ["Častá chyba a jak se jí vyhnout"],
+  "whenToCallPro": "Kdy je lepší zavolat řemeslníka"
+}`;
+
+    const response = await fetch('https://api.openai.com/v1/chat/completions', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${apiKey}`
+        },
+        body: JSON.stringify({
+            model: 'gpt-4o-mini',
+            messages: [
+                { role: 'system', content: IMPROVE_SYSTEM_PROMPT },
+                { role: 'user', content: userPrompt }
+            ],
+            max_tokens: 2000,
+            temperature: 0.7
+        })
+    });
+
+    if (!response.ok) {
+        const errorText = await response.text();
+        throw new Error(`API ${response.status}: ${errorText.substring(0, 100)}`);
+    }
+
+    const data = await response.json();
+    let content = data.choices?.[0]?.message?.content?.trim();
+
+    if (!content) throw new Error('Prázdná odpověď');
+
+    // Očistit od markdown
+    content = content.replace(/```json\n?/g, '').replace(/```\n?/g, '').trim();
+
+    // Najít JSON
+    const jsonMatch = content.match(/\{[\s\S]*\}/);
+    if (!jsonMatch) throw new Error('Žádný JSON');
+
+    const improved = JSON.parse(jsonMatch[0]);
+
+    // Sloučit s původním
+    return {
+        ...guide,
+        description: improved.description || guide.description,
+        difficulty: improved.difficulty || guide.difficulty,
+        timeEstimate: improved.timeEstimate || guide.timeEstimate,
+        tools: improved.tools || guide.tools,
+        materials: improved.materials || guide.materials,
+        safetyWarnings: improved.safetyWarnings || guide.safetyWarnings,
+        steps: improved.steps?.map((s, i) => ({
+            step: i + 1,
+            action: s.action,
+            why: s.why || '',
+            tip: s.tip || '',
+            time: s.time || '5 min',
+            hint: s.tip || ''
+        })) || guide.steps,
+        commonMistakes: improved.commonMistakes || [],
+        whenToCallPro: improved.whenToCallPro || '',
+        improved: true,
+        improvedAt: new Date().toISOString()
+    };
+}
+
+function updateImproveProgress(percent, text, detail) {
+    const bar = document.getElementById('improveProgressBar');
+    const txt = document.getElementById('improveProgressText');
+    const pct = document.getElementById('improveProgressPercent');
+    const det = document.getElementById('improveProgressDetail');
+
+    if (bar) bar.style.width = percent + '%';
+    if (txt) txt.textContent = text;
+    if (pct) pct.textContent = Math.round(percent) + '%';
+    if (det) det.textContent = detail;
+}
+
+function resetImprover() {
+    document.getElementById('improverProgress').style.display = 'none';
+    document.getElementById('improverResult').style.display = 'none';
+    updateUnimprovedCount();
+}
+
+async function updateUnimprovedCount() {
+    const el = document.getElementById('unimprovedCount');
+    if (!el) return;
+
+    try {
+        const response = await fetch('data/generated-repairs.json');
+        if (response.ok) {
+            const guides = await response.json();
+            const unimproved = guides.filter(g => !g.improved).length;
+            el.textContent = unimproved;
+        }
+    } catch (e) {
+        el.textContent = '?';
+    }
+}
+
+// Inicializace počtu nevylepšených
+document.addEventListener('DOMContentLoaded', function() {
+    if (document.getElementById('unimprovedCount')) {
+        updateUnimprovedCount();
+    }
+});
+
+window.startImproving = startImproving;
+window.resetImprover = resetImprover;
