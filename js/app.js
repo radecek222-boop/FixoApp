@@ -2432,6 +2432,10 @@ Vrať POUZE tento JSON (nic jiného):
     // Validace základních polí
     if (!repair.id || !repair.name) throw new Error('Neplatný návod');
 
+    // Přidat unikátní suffix k ID aby se zabránilo duplicitám
+    const uniqueSuffix = Date.now().toString(36) + Math.random().toString(36).substr(2, 5);
+    repair.id = repair.id + '-' + uniqueSuffix;
+
     return repair;
 }
 
