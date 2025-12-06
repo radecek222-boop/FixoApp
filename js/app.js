@@ -2324,9 +2324,9 @@ async function startGenerating() {
         updateProgress(5, 'Připravuji kontext pro AI...', `${existingRepairs.length} existujících návodů`);
 
         // 3. Generovat jednotlivě (spolehlivější)
-        const totalGuides = 500;
+        const totalGuides = 5000;
         let failures = 0;
-        const maxFailures = 25;  // Více tolerance pro 500 návodů
+        const maxFailures = 100;  // Více tolerance pro 5000 návodů
 
         for (let i = 0; i < totalGuides && failures < maxFailures; i++) {
             const progress_pct = 5 + (i / totalGuides) * 90;
@@ -2377,7 +2377,7 @@ async function startGenerating() {
     } finally {
         isGenerating = false;
         btn.disabled = false;
-        btn.innerHTML = '<i class="fas fa-wand-magic-sparkles"></i> Vygenerovat 500 nových';
+        btn.innerHTML = '<i class="fas fa-wand-magic-sparkles"></i> Vygenerovat 5000 nových';
     }
 }
 
@@ -2432,6 +2432,10 @@ Vrať POUZE tento JSON (nic jiného):
     // Validace základních polí
     if (!repair.id || !repair.name) throw new Error('Neplatný návod');
 
+    // Přidat unikátní suffix k ID aby se zabránilo duplicitám
+    const uniqueSuffix = Date.now().toString(36) + Math.random().toString(36).substr(2, 5);
+    repair.id = repair.id + '-' + uniqueSuffix;
+
     return repair;
 }
 
@@ -2473,12 +2477,14 @@ async function mergeGeneratedRepairs() {
 
         // Uložit sloučené
         localStorage.setItem('mergedRepairs', JSON.stringify(allMerged));
+        console.log('Merged repairs saved to localStorage:', allMerged.length, 'total');
 
         // Vyčistit generované (už jsou sloučené)
         localStorage.removeItem('generatedRepairs');
 
         // Invalidovat cache aby se znovu načetly s novými daty
         repairsCache = null;
+        repairsLoading = null;
 
         // Aktualizovat počty
         await updateInvestorRepairCount();
@@ -2507,14 +2513,61 @@ function resetGenerator() {
     generatedRepairsData = [];
 }
 
+/**
+ * Opraví duplicitní ID v existujících sloučených návodech
+ */
+function fixExistingIds() {
+    try {
+        const mergedData = localStorage.getItem('mergedRepairs');
+        if (!mergedData) {
+            console.log('No merged repairs to fix');
+            return 0;
+        }
+
+        const repairs = JSON.parse(mergedData);
+        const seenIds = new Set();
+        let fixedCount = 0;
+
+        repairs.forEach(repair => {
+            // Pokud ID již existuje nebo nemá unikátní suffix, přidej nový
+            if (seenIds.has(repair.id) || !repair.id.includes('-m') || repair.id.length < 20) {
+                const uniqueSuffix = Date.now().toString(36) + Math.random().toString(36).substr(2, 5);
+                const baseId = repair.id.replace(/-m[a-z0-9]+$/, ''); // Odstranit starý suffix pokud existuje
+                repair.id = baseId + '-' + uniqueSuffix;
+                fixedCount++;
+            }
+            seenIds.add(repair.id);
+        });
+
+        if (fixedCount > 0) {
+            localStorage.setItem('mergedRepairs', JSON.stringify(repairs));
+            console.log(`Fixed ${fixedCount} duplicate IDs`);
+        }
+
+        return fixedCount;
+    } catch (e) {
+        console.error('Error fixing IDs:', e);
+        return 0;
+    }
+}
+
+// Automaticky opravit ID při načtení stránky
+if (localStorage.getItem('mergedRepairs')) {
+    fixExistingIds();
+}
+
+window.fixExistingIds = fixExistingIds;
+
 async function updateInvestorRepairCount() {
     const el1 = document.getElementById('currentRepairCount');
     const el2 = document.getElementById('investorRepairCount');
     try {
         const repairs = await loadRepairsFromJSON();
+        console.log('updateInvestorRepairCount: total repairs =', repairs.length);
         if (el1) el1.textContent = repairs.length;
         if (el2) el2.textContent = repairs.length;
     } catch (e) {
+        console.error('updateInvestorRepairCount error:', e);
         if (el1) el1.textContent = '100+';
         if (el2) el2.textContent = '100+';
     }
