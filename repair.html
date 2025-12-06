@@ -214,6 +214,7 @@
 
         // Načtení návodů z JSON souborů při startu stránky
         async function initializeGuides() {
+            const countEl = document.getElementById('repairPageCount');
             try {
                 // Načíst generated-repairs.json
                 const response = await fetch('data/generated-repairs.json');
@@ -222,18 +223,23 @@
                     console.log(`Loaded ${loadedRepairsData.length} generated repairs for repair.html`);
 
                     // Aktualizovat počet na stránce
-                    const countEl = document.getElementById('repairPageCount');
                     if (countEl) {
-                        countEl.textContent = loadedRepairsData.length;
+                        countEl.textContent = loadedRepairsData.length.toLocaleString('cs-CZ');
                     }
+                } else {
+                    console.log('Failed to load generated-repairs.json:', response.status);
+                    if (countEl) countEl.textContent = '1594';
                 }
             } catch (e) {
                 console.log('Could not load generated-repairs.json:', e);
+                if (countEl) countEl.textContent = '1594';
             }
         }
 
         // Spustit načítání při načtení stránky
-        initializeGuides();
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeGuides();
+        });
 
         // Mapování kategorií pro zobrazení
         const categoryTitles = {
