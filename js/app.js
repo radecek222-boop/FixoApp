@@ -822,9 +822,9 @@ function loadRepairs(filter = {}) {
     // Použijeme cache z JSON nebo fallback
     let repairs = repairsCache || getMockRepairs();
 
-    // Filtrace podle kategorie
+    // Filtrace podle kategorie (použít categoryKey pro konzistenci)
     if (filter.category && filter.category !== 'all') {
-        repairs = repairs.filter(r => r.category === filter.category);
+        repairs = repairs.filter(r => r.categoryKey === filter.category || r.category === filter.category);
     }
 
     // Filtrace podle obtížnosti
