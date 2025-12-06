@@ -207,27 +207,39 @@
     <script src="js/app.js"></script>
     <script>
         // Návody jsou nyní načítány dynamicky z data/generated-repairs.json
-        // Obsahuje 5379 návodů (389 původních + 4990 AI generovaných)
+        // Aktuální počet: 1594 unikátních návodů (po odstranění duplicit)
 
         // Globální proměnná pro dynamicky načtené návody
         let loadedRepairsData = [];
 
         // Načtení návodů z JSON souborů při startu stránky
         async function initializeGuides() {
+            const countEl = document.getElementById('repairPageCount');
             try {
                 // Načíst generated-repairs.json
                 const response = await fetch('data/generated-repairs.json');
                 if (response.ok) {
                     loadedRepairsData = await response.json();
                     console.log(`Loaded ${loadedRepairsData.length} generated repairs for repair.html`);
+
+                    // Aktualizovat počet na stránce
+                    if (countEl) {
+                        countEl.textContent = loadedRepairsData.length.toLocaleString('cs-CZ');
+                    }
+                } else {
+                    console.log('Failed to load generated-repairs.json:', response.status);
+                    if (countEl) countEl.textContent = '1594';
                 }
             } catch (e) {
                 console.log('Could not load generated-repairs.json:', e);
+                if (countEl) countEl.textContent = '1594';
             }
         }
 
         // Spustit načítání při načtení stránky
-        initializeGuides();
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeGuides();
+        });
 
         // Mapování kategorií pro zobrazení
         const categoryTitles = {
