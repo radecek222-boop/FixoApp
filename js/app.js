@@ -1314,7 +1314,7 @@ const DIFFICULTY_MAP = {
 };
 
 /**
- * Načte návody z JSON souboru + sloučené z localStorage
+ * Načte návody z JSON souboru + generované návody
  */
 async function loadRepairsFromJSON() {
     if (repairsCache) {
@@ -1325,56 +1325,89 @@ async function loadRepairsFromJSON() {
         return repairsLoading;
     }
 
-    repairsLoading = fetch('data/repairs.json')
-        .then(response => {
-            if (!response.ok) throw new Error('Failed to load repairs.json');
-            return response.json();
-        })
-        .then(data => {
-            let repairs = transformRepairsData(data);
+    repairsLoading = (async () => {
+        let repairs = [];
 
-            // Přidat sloučené návody z localStorage
-            try {
-                const mergedData = localStorage.getItem('mergedRepairs');
-                if (mergedData) {
-                    const mergedRepairs = JSON.parse(mergedData);
-                    if (Array.isArray(mergedRepairs) && mergedRepairs.length > 0) {
-                        // Transformovat na formát aplikace a přidat
-                        const existingIds = new Set(repairs.map(r => r.id));
-                        const uniqueMerged = mergedRepairs
-                            .filter(r => !existingIds.has(r.id))
-                            .map(r => ({
-                                id: r.id,
-                                title: r.name,
-                                description: r.description,
-                                category: r.category,
-                                categoryKey: r.categoryKey,
-                                difficulty: r.difficulty,
-                                timeEstimate: r.timeEstimate,
-                                riskScore: r.riskScore || 2,
-                                materialCost: r.materialCost,
-                                professionalCost: r.professionalCost,
-                                tools: r.tools || [],
-                                steps: r.steps || [],
-                                safetyWarnings: r.safetyWarnings || []
-                            }));
-                        repairs = [...repairs, ...uniqueMerged];
-                        console.log(`Loaded ${uniqueMerged.length} merged repairs from localStorage`);
-                    }
-                }
-            } catch (e) {
-                console.error('Error loading merged repairs:', e);
+        // 1. Načíst původní repairs.json
+        try {
+            const response = await fetch('data/repairs.json');
+            if (response.ok) {
+                const data = await response.json();
+                repairs = transformRepairsData(data);
+                console.log(`Loaded ${repairs.length} repairs from repairs.json`);
             }
+        } catch (e) {
+            console.error('Error loading repairs.json:', e);
+        }
 
-            repairsCache = repairs;
-            repairsLoading = null;
-            return repairsCache;
-        })
-        .catch(error => {
-            console.error('Error loading repairs:', error);
-            repairsLoading = null;
-            return [];
-        });
+        // 2. Načíst generované návody
+        try {
+            const response = await fetch('data/generated-repairs.json');
+            if (response.ok) {
+                const generatedRepairs = await response.json();
+                if (Array.isArray(generatedRepairs) && generatedRepairs.length > 0) {
+                    const existingIds = new Set(repairs.map(r => r.id));
+                    const uniqueGenerated = generatedRepairs
+                        .filter(r => !existingIds.has(r.id))
+                        .map(r => ({
+                            id: r.id,
+                            title: r.name,
+                            description: r.description,
+                            category: r.category,
+                            categoryKey: r.categoryKey,
+                            difficulty: r.difficulty,
+                            timeEstimate: r.timeEstimate,
+                            riskScore: r.riskScore || 2,
+                            materialCost: r.materialCost,
+                            professionalCost: r.professionalCost,
+                            tools: r.tools || [],
+                            steps: r.steps || [],
+                            safetyWarnings: r.safetyWarnings || []
+                        }));
+                    repairs = [...repairs, ...uniqueGenerated];
+                    console.log(`Loaded ${uniqueGenerated.length} generated repairs`);
+                }
+            }
+        } catch (e) {
+            console.log('No generated-repairs.json found (optional)');
+        }
+
+        // 3. Načíst z localStorage (pro zpětnou kompatibilitu)
+        try {
+            const mergedData = localStorage.getItem('mergedRepairs');
+            if (mergedData) {
+                const mergedRepairs = JSON.parse(mergedData);
+                if (Array.isArray(mergedRepairs) && mergedRepairs.length > 0) {
+                    const existingIds = new Set(repairs.map(r => r.id));
+                    const uniqueMerged = mergedRepairs
+                        .filter(r => !existingIds.has(r.id))
+                        .map(r => ({
+                            id: r.id,
+                            title: r.name,
+                            description: r.description,
+                            category: r.category,
+                            categoryKey: r.categoryKey,
+                            difficulty: r.difficulty,
+                            timeEstimate: r.timeEstimate,
+                            riskScore: r.riskScore || 2,
+                            materialCost: r.materialCost,
+                            professionalCost: r.professionalCost,
+                            tools: r.tools || [],
+                            steps: r.steps || [],
+                            safetyWarnings: r.safetyWarnings || []
+                        }));
+                    repairs = [...repairs, ...uniqueMerged];
+                    console.log(`Loaded ${uniqueMerged.length} merged repairs from localStorage`);
+                }
+            }
+        } catch (e) {
+            console.error('Error loading merged repairs:', e);
+        }
+
+        repairsCache = repairs;
+        repairsLoading = null;
+        return repairsCache;
+    })();
 
     return repairsLoading;
 }
