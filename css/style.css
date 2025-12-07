@@ -118,8 +118,13 @@ html {
 body {
     font-family: var(--font-main);
     font-weight: var(--font-weight-normal);
-    background: var(--bg-primary);
-    background-image: url('../BACK-GROUND.jpg');
+    /* Výrazný gradient pozadí - kosmický vzhled */
+    background:
+        radial-gradient(ellipse 80% 50% at 20% -10%, rgba(0, 113, 227, 0.35) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 40% at 85% 5%, rgba(48, 209, 88, 0.2) 0%, transparent 50%),
+        radial-gradient(ellipse 70% 50% at 70% 100%, rgba(255, 159, 10, 0.15) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 40% at 5% 90%, rgba(99, 102, 241, 0.2) 0%, transparent 50%),
+        linear-gradient(160deg, #0a0a12 0%, #0f172a 30%, #0c0c18 60%, #1a1a2e 100%);
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
