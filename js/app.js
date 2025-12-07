@@ -2699,12 +2699,14 @@ async function startImproving() {
 
         let successCount = 0;
         let errorCount = 0;
+        const BATCH_LIMIT = 500; // Zastavit po 500 návodech
 
-        // 3. Vylepšovat postupně
-        for (let i = 0; i < total; i++) {
+        // 3. Vylepšovat postupně (max 500 najednou)
+        const toProcess = Math.min(total, BATCH_LIMIT);
+        for (let i = 0; i < toProcess; i++) {
             const guide = unimproved[i];
-            const pct = 5 + (i / total) * 90;
-            updateImproveProgress(pct, `Vylepšuji ${i + 1}/${total}: ${guide.name.substring(0, 30)}...`, `Hotovo: ${successCount}, Chyby: ${errorCount}`);
+            const pct = 5 + (i / toProcess) * 90;
+            updateImproveProgress(pct, `Vylepšuji ${i + 1}/${toProcess}: ${guide.name.substring(0, 30)}...`, `Hotovo: ${successCount}, Chyby: ${errorCount}`);
 
             try {
                 const improved = await improveGuideWithAI(apiKey, guide);
@@ -2733,15 +2735,16 @@ async function startImproving() {
 
         // 4. Finální stažení
         updateImproveProgress(98, 'Stahuji vylepšené návody...', '');
-        downloadImprovedGuides(allGuides, 'improved-guides-final.json');
+        downloadImprovedGuides(allGuides, `improved-guides-batch-${successCount}.json`);
 
         // 5. Zobrazit výsledek
+        const remaining = total - toProcess;
         updateImproveProgress(100, 'Hotovo!', '');
         setTimeout(() => {
             progress.style.display = 'none';
             result.style.display = 'block';
             document.getElementById('improveResultText').textContent =
-                `Vylepšeno ${successCount} návodů! (${errorCount} chyb). Soubor stažen automaticky.`;
+                `Vylepšeno ${successCount} návodů! (${errorCount} chyb). ${remaining > 0 ? `Zbývá: ${remaining}. ` : ''}Soubor stažen.`;
         }, 500);
 
     } catch (error) {
