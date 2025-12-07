@@ -15,44 +15,44 @@
 
 :root {
     /* Modern Color Palette - Light cards on cosmic background */
-    --bg-primary: #0a0a0b;           /* Deep dark background */
-    --bg-secondary: #1a1a1d;         /* Slightly lighter dark */
-    --bg-tertiary: #2a2a2f;          /* Card background base */
-    --bg-glass: rgba(42, 42, 47, 0.7);  /* Glass effect for header (dark) */
-    --bg-glass-light: rgba(255, 255, 255, 0.05);  /* Subtle glass overlay */
-    --bg-card-light: rgba(255, 255, 255, 0.92);  /* Light cards with transparency */
+    --bg-primary: #0f0f1a;           /* Deep dark background - slightly lighter */
+    --bg-secondary: #1a1a2e;         /* Purple-tinted dark */
+    --bg-tertiary: #252540;          /* Card background base */
+    --bg-glass: rgba(30, 30, 50, 0.85);  /* Glass effect for header */
+    --bg-glass-light: rgba(255, 255, 255, 0.08);  /* Subtle glass overlay */
+    --bg-card-light: rgba(255, 255, 255, 0.95);  /* Light cards - more opaque */
 
     /* Text - Dual system for dark/light backgrounds */
     --text-primary: #ffffff;         /* Pure white for dark backgrounds */
-    --text-secondary: rgba(255, 255, 255, 0.85);  /* Readable on dark backgrounds */
-    --text-tertiary: rgba(255, 255, 255, 0.7);    /* Subtle but visible on dark backgrounds */
-    --text-muted: rgba(255, 255, 255, 0.55);      /* Still readable muted text */
+    --text-secondary: rgba(255, 255, 255, 0.9);  /* Higher contrast */
+    --text-tertiary: rgba(255, 255, 255, 0.75);  /* Better visibility */
+    --text-muted: rgba(255, 255, 255, 0.6);      /* More readable muted */
 
     /* Text for light backgrounds (cards) */
-    --text-dark-primary: #1a1a1d;    /* Dark text for light backgrounds */
-    --text-dark-secondary: rgba(26, 26, 29, 0.78);  /* Readable dark text */
-    --text-dark-tertiary: rgba(26, 26, 29, 0.65);   /* Subtle but visible dark text */
+    --text-dark-primary: #111118;    /* Darker text for better contrast */
+    --text-dark-secondary: rgba(17, 17, 24, 0.85);  /* More readable */
+    --text-dark-tertiary: rgba(17, 17, 24, 0.7);   /* Better visibility */
 
     /* Borders - Dual system */
-    --border-subtle: rgba(255, 255, 255, 0.2);
-    --border-medium: rgba(255, 255, 255, 0.28);
-    --border-strong: rgba(255, 255, 255, 0.4);
-    --border-dark: rgba(26, 26, 29, 0.15);  /* Borders for light cards */
+    --border-subtle: rgba(255, 255, 255, 0.25);
+    --border-medium: rgba(255, 255, 255, 0.35);
+    --border-strong: rgba(255, 255, 255, 0.5);
+    --border-dark: rgba(17, 17, 24, 0.12);  /* Borders for light cards */
 
     /* Accent - Single brand color (Apple blue) */
-    --accent: #0071e3;              /* Apple-like blue */
-    --accent-hover: #0077ed;
-    --accent-light: rgba(0, 113, 227, 0.1);
-    --accent-bright: #5cb3ff;       /* Brighter blue for text on dark backgrounds */
-    --accent-text: #004a9e;         /* Darker blue for text on light accent backgrounds */
+    --accent: #3b82f6;              /* Brighter blue for better visibility */
+    --accent-hover: #60a5fa;
+    --accent-light: rgba(59, 130, 246, 0.15);
+    --accent-bright: #93c5fd;       /* Even brighter for dark backgrounds */
+    --accent-text: #1d4ed8;         /* Darker blue for light backgrounds */
 
-    /* State colors - Subtle and refined */
-    --success: #30d158;
-    --success-light: rgba(48, 209, 88, 0.1);
-    --warning: #ff9f0a;
-    --warning-light: rgba(255, 159, 10, 0.1);
-    --danger: #ff3b30;
-    --danger-light: rgba(255, 59, 48, 0.1);
+    /* State colors - Brighter for visibility */
+    --success: #34d399;
+    --success-light: rgba(52, 211, 153, 0.15);
+    --warning: #fbbf24;
+    --warning-light: rgba(251, 191, 36, 0.15);
+    --danger: #f87171;
+    --danger-light: rgba(248, 113, 113, 0.15);
 
     /* Typography - Poppins font family */
     --font-main: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
