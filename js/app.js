@@ -2721,19 +2721,19 @@ async function startImproving() {
                 errorCount++;
             }
 
-            // Uložit každých 10 návodů
-            if ((i + 1) % 10 === 0) {
-                localStorage.setItem('improvedGuides', JSON.stringify(allGuides));
-                console.log(`Uloženo po ${i + 1} návodech`);
+            // Automatický download každých 100 návodů (localStorage má limit)
+            if ((i + 1) % 100 === 0) {
+                downloadImprovedGuides(allGuides, `improved-backup-${i + 1}.json`);
+                console.log(`Záloha stažena po ${i + 1} návodech`);
             }
 
             // Pauza mezi requesty
             await new Promise(resolve => setTimeout(resolve, 600));
         }
 
-        // 4. Finální uložení
-        updateImproveProgress(98, 'Ukládám vylepšené návody...', '');
-        localStorage.setItem('improvedGuides', JSON.stringify(allGuides));
+        // 4. Finální stažení
+        updateImproveProgress(98, 'Stahuji vylepšené návody...', '');
+        downloadImprovedGuides(allGuides, 'improved-guides-final.json');
 
         // 5. Zobrazit výsledek
         updateImproveProgress(100, 'Hotovo!', '');
@@ -2741,7 +2741,7 @@ async function startImproving() {
             progress.style.display = 'none';
             result.style.display = 'block';
             document.getElementById('improveResultText').textContent =
-                `Vylepšeno ${successCount} návodů! (${errorCount} chyb). Data jsou v localStorage - stáhněte je.`;
+                `Vylepšeno ${successCount} návodů! (${errorCount} chyb). Soubor stažen automaticky.`;
         }, 500);
 
     } catch (error) {
@@ -2860,6 +2860,16 @@ function resetImprover() {
     document.getElementById('improverProgress').style.display = 'none';
     document.getElementById('improverResult').style.display = 'none';
     updateUnimprovedCount();
+}
+
+function downloadImprovedGuides(data, filename) {
+    const json = JSON.stringify(data, null, 2);
+    const blob = new Blob([json], { type: 'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = filename;
+    a.click();
+    URL.revokeObjectURL(a.href);
 }
 
 async function updateUnimprovedCount() {
